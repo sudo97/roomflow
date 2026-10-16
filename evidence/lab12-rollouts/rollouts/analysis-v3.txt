@@ -1,0 +1,40 @@
+        phase: Successful
+        startedAt: "2026-10-16T18:01:15Z"
+        value: '"r1"'
+      - finishedAt: "2026-10-16T18:01:20Z"
+        phase: Successful
+        startedAt: "2026-10-16T18:01:20Z"
+        value: '"r1"'
+      - finishedAt: "2026-10-16T18:01:25Z"
+        phase: Successful
+        startedAt: "2026-10-16T18:01:25Z"
+        value: '"r1"'
+      name: rooms-through-preview
+      phase: Successful
+      successful: 3
+    phase: Successful
+    runSummary:
+      count: 1
+      successful: 1
+--
+    message: 'Metric "rooms-through-preview" assessed Error due to consecutiveErrors
+      (3) > consecutiveErrorLimit (2): "Error Message: received non 2xx response code:
+      502"'
+    metricResults:
+--
+        phase: Successful
+        startedAt: "2026-10-16T18:02:05Z"
+        value: '"r1"'
+      - finishedAt: "2026-10-16T18:02:10Z"
+        message: 'received non 2xx response code: 502'
+        phase: Error
+        startedAt: "2026-10-16T18:02:10Z"
+      - finishedAt: "2026-10-16T18:02:20Z"
+        message: 'received non 2xx response code: 502'
+        phase: Error
+        startedAt: "2026-10-16T18:02:20Z"
+      - finishedAt: "2026-10-16T18:02:30Z"
+        message: 'received non 2xx response code: 502'
+        phase: Error
+        startedAt: "2026-10-16T18:02:30Z"
+      message: 'received non 2xx response code: 502'

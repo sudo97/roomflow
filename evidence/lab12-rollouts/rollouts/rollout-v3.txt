@@ -1,0 +1,28 @@
+Name:            frontend
+Namespace:       rf-ui
+Status:          ✖ Degraded
+Message:         RolloutAborted: Rollout aborted update to revision 3: Metric "rooms-through-preview" assessed Error due to consecutiveErrors (3) > consecutiveErrorLimit (2): "Error Message: received non 2xx response code: 502"
+Strategy:        BlueGreen
+Images:          roomflow:fe-v2 (stable, active)
+                 roomflow:fe-v3 (preview)
+Replicas:
+  Desired:       2
+  Current:       4
+  Updated:       2
+  Ready:         2
+  Available:     2
+
+NAME                                  KIND         STATUS        AGE  INFO
+⟳ frontend                            Rollout      ✖ Degraded    92s  
+├──# revision:3                                                       
+│  ├──⧉ frontend-84f547cf8c           ReplicaSet   ✔ Healthy     54s  preview,delay:28s
+│  │  ├──□ frontend-84f547cf8c-dg6n6  Pod          ✔ Running     54s  ready:2/2
+│  │  └──□ frontend-84f547cf8c-j2dt9  Pod          ✔ Running     54s  ready:2/2
+│  └──α frontend-84f547cf8c-3-pre     AnalysisRun  ⚠ Error       26s  ✔ 1,⚠ 3
+├──# revision:2                                                       
+│  ├──⧉ frontend-548cb7fbd6           ReplicaSet   ✔ Healthy     80s  stable,active
+│  │  ├──□ frontend-548cb7fbd6-sznzx  Pod          ✔ Running     80s  ready:2/2
+│  │  └──□ frontend-548cb7fbd6-xlgzf  Pod          ✔ Running     80s  ready:2/2
+│  └──α frontend-548cb7fbd6-2-pre     AnalysisRun  ✔ Successful  76s  ✔ 3
+└──# revision:1                                                       
+   └──⧉ frontend-6cf8f4d6d9           ReplicaSet   • ScaledDown  91s  

@@ -1,0 +1,24 @@
+Name:            frontend
+Namespace:       rf-ui
+Status:          ✔ Healthy
+Strategy:        BlueGreen
+Images:          roomflow:fe-v1
+                 roomflow:fe-v2 (stable, active)
+Replicas:
+  Desired:       2
+  Current:       4
+  Updated:       2
+  Ready:         2
+  Available:     2
+
+NAME                                  KIND         STATUS        AGE  INFO
+⟳ frontend                            Rollout      ✔ Healthy     34s  
+├──# revision:2                                                       
+│  ├──⧉ frontend-548cb7fbd6           ReplicaSet   ✔ Healthy     22s  stable,active
+│  │  ├──□ frontend-548cb7fbd6-sznzx  Pod          ✔ Running     22s  ready:2/2
+│  │  └──□ frontend-548cb7fbd6-xlgzf  Pod          ✔ Running     22s  ready:2/2
+│  └──α frontend-548cb7fbd6-2-pre     AnalysisRun  ✔ Successful  18s  ✔ 3
+└──# revision:1                                                       
+   └──⧉ frontend-6cf8f4d6d9           ReplicaSet   ✔ Healthy     33s  delay:23s
+      ├──□ frontend-6cf8f4d6d9-dp4fc  Pod          ✔ Running     33s  ready:2/2
+      └──□ frontend-6cf8f4d6d9-kmss4  Pod          ✔ Running     33s  ready:2/2
