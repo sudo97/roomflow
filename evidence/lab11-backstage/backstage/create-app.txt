@@ -12,17 +12,17 @@ Creating the app...
   checking      /tmp/portal ✔ 
 
  Preparing files:
-  copying       .dockerignore ✔ 
   copying       .eslintignore ✔ 
-  templating    .gitignore.hbs ✔ 
+  copying       .dockerignore ✔ 
   templating    .eslintrc.js.hbs ✔ 
+  templating    .gitignore.hbs ✔ 
   copying       .prettierignore ✔ 
   templating    .yarnrc.yml.hbs ✔ 
-  copying       README.md ✔ 
   copying       app-config.production.yaml ✔ 
+  copying       README.md ✔ 
   templating    app-config.yaml.hbs ✔ 
-  templating    catalog-info.yaml.hbs ✔ 
   templating    backstage.json.hbs ✔ 
+  templating    catalog-info.yaml.hbs ✔ 
   templating    package.json.hbs ✔ 
   copying       playwright.config.ts ✔ 
   copying       tsconfig.json ✔ 
@@ -37,21 +37,21 @@ Creating the app...
   copying       package.json ✔ 
   copying       README.md ✔ 
   templating    .eslintrc.js.hbs ✔ 
-  copying       Dockerfile ✔ 
   copying       README.md ✔ 
+  copying       Dockerfile ✔ 
   templating    package.json.hbs ✔ 
   copying       index.ts ✔ 
+  templating    .eslintrc.js.hbs ✔ 
   copying       .eslintignore ✔ 
   templating    package.json.hbs ✔ 
-  templating    .eslintrc.js.hbs ✔ 
   copying       app.test.ts ✔ 
-  copying       android-chrome-192x192.png ✔ 
   copying       apple-touch-icon.png ✔ 
+  copying       android-chrome-192x192.png ✔ 
   copying       favicon-16x16.png ✔ 
   copying       favicon.ico ✔ 
+  copying       favicon-32x32.png ✔ 
   copying       index.html ✔ 
   copying       manifest.json ✔ 
-  copying       favicon-32x32.png ✔ 
   copying       robots.txt ✔ 
   copying       safari-pinned-tab.svg ✔ 
   copying       App.test.tsx ✔ 
