@@ -46,9 +46,34 @@
       "revisions": 2
     },
     {
+      "file": "test/load/seed/main.go",
+      "complexity": 125,
+      "revisions": 3
+    },
+    {
+      "file": "ci/lab6/deploy.sh",
+      "complexity": 124,
+      "revisions": 3
+    },
+    {
       "file": "tools/rfctl/commands.go",
       "complexity": 351,
       "revisions": 1
+    },
+    {
+      "file": "ci/lab9/run.sh",
+      "complexity": 112,
+      "revisions": 3
+    },
+    {
+      "file": "ci/lab12/mesh.sh",
+      "complexity": 164,
+      "revisions": 2
+    },
+    {
+      "file": "ci/lab11/backstage.sh",
+      "complexity": 105,
+      "revisions": 3
     },
     {
       "file": "ci/lab10/strategies.sh",
@@ -91,19 +116,14 @@
       "revisions": 1
     },
     {
-      "file": "test/load/seed/main.go",
-      "complexity": 117,
-      "revisions": 2
-    },
-    {
       "file": "internal/arch/arch_test.go",
       "complexity": 75,
       "revisions": 3
     },
     {
-      "file": "ci/lab9/run.sh",
-      "complexity": 110,
-      "revisions": 2
+      "file": "ci/lab12/rollouts.sh",
+      "complexity": 73,
+      "revisions": 3
     },
     {
       "file": "internal/cache/redis_test.go",
@@ -128,26 +148,6 @@
     {
       "file": "deploy/helm/roomflow/templates/deployments.yaml",
       "complexity": 92,
-      "revisions": 2
-    },
-    {
-      "file": "internal/httpapi/handlers_test.go",
-      "complexity": 92,
-      "revisions": 2
-    },
-    {
-      "file": "ci/lab11/backstage.sh",
-      "complexity": 86,
-      "revisions": 2
-    },
-    {
-      "file": "internal/booking/model.go",
-      "complexity": 57,
-      "revisions": 3
-    },
-    {
-      "file": "ci/lab7/run.sh",
-      "complexity": 84,
       "revisions": 2
     }
   ],
@@ -202,7 +202,7 @@
           "revisions": 7
         },
         {
-          "file": "ci/lab11/backstage.sh",
+          "file": "ci/lab11/crossplane.sh",
           "percentage": 0.2857142857142857,
           "revisions": 7
         }
@@ -238,11 +238,6 @@
           "revisions": 6
         },
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 0.3333333333333333,
-          "revisions": 6
-        },
-        {
           "file": "ci/lab11/crossplane.sh",
           "percentage": 0.3333333333333333,
           "revisions": 6
@@ -253,12 +248,17 @@
           "revisions": 6
         },
         {
-          "file": "ci/lab12/monitoring.sh",
+          "file": "ci/lab7/run.sh",
           "percentage": 0.3333333333333333,
           "revisions": 6
         },
         {
-          "file": "ci/lab12/rollouts.sh",
+          "file": "deploy/helm/roomflow/templates/deployments.yaml",
+          "percentage": 0.3333333333333333,
+          "revisions": 6
+        },
+        {
+          "file": "deploy/k8s/bluegreen/deployments.yaml",
           "percentage": 0.3333333333333333,
           "revisions": 6
         }
@@ -321,6 +321,342 @@
       ]
     },
     {
+      "file": "ci/lab11/backstage.sh",
+      "soc": 242,
+      "coupledFiles": [
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab9/run.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "test/load/seed/main.go",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab12/mesh.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab8/deps.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/security/gosec-baseline.json",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/platform/main.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/platform/variables.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        }
+      ]
+    },
+    {
+      "file": "ci/lab12/monitoring.sh",
+      "soc": 242,
+      "coupledFiles": [
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab9/run.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "test/load/seed/main.go",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab12/mesh.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab8/deps.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/security/gosec-baseline.json",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/platform/main.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/platform/variables.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        }
+      ]
+    },
+    {
+      "file": "ci/lab12/rollouts.sh",
+      "soc": 242,
+      "coupledFiles": [
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab9/run.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "test/load/seed/main.go",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab12/mesh.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab8/deps.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/security/gosec-baseline.json",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/platform/main.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/platform/variables.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        }
+      ]
+    },
+    {
+      "file": "ci/lab9/gate.sh",
+      "soc": 242,
+      "coupledFiles": [
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab9/run.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "test/load/seed/main.go",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab12/mesh.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab8/deps.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/security/gosec-baseline.json",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/platform/main.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/platform/variables.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        }
+      ]
+    },
+    {
+      "file": "ci/lab9/run.sh",
+      "soc": 242,
+      "coupledFiles": [
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "test/load/seed/main.go",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab12/mesh.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab8/deps.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/security/gosec-baseline.json",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/platform/main.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/platform/variables.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        }
+      ]
+    },
+    {
+      "file": "test/load/seed/main.go",
+      "soc": 242,
+      "coupledFiles": [
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab9/run.sh",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab12/mesh.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab8/deps.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/security/gosec-baseline.json",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/platform/main.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/platform/variables.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        }
+      ]
+    },
+    {
       "file": "internal/obs/metrics.go",
       "soc": 236,
       "coupledFiles": [
@@ -340,11 +676,6 @@
           "revisions": 3
         },
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
-        },
-        {
           "file": "ci/lab11/crossplane.sh",
           "percentage": 0.6666666666666666,
           "revisions": 3
@@ -355,24 +686,85 @@
           "revisions": 3
         },
         {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
-        },
-        {
           "file": "ci/lab7/run.sh",
           "percentage": 0.6666666666666666,
           "revisions": 3
         },
         {
-          "file": "ci/lab9/gate.sh",
+          "file": "deploy/helm/roomflow/templates/deployments.yaml",
           "percentage": 0.6666666666666666,
           "revisions": 3
+        },
+        {
+          "file": "deploy/k8s/bluegreen/deployments.yaml",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "deploy/mesh/rollouts/analysis.yaml",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/app/main.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        }
+      ]
+    },
+    {
+      "file": "Dockerfile",
+      "soc": 228,
+      "coupledFiles": [
+        {
+          "file": "ci/lab12/mesh.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab8/deps.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/security/gosec-baseline.json",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/platform/main.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/platform/variables.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/modules/lb/main.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/modules/lb/nginx.conf.tftpl",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/modules/lb/tests/lb.tftest.hcl",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/modules/lb/variables.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 0.5,
+          "revisions": 4
         }
       ]
     },
@@ -391,11 +783,6 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab11/crossplane.sh",
           "percentage": 1,
           "revisions": 2
@@ -406,27 +793,32 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab7/run.sh",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab9/gate.sh",
+          "file": "deploy/helm/roomflow/templates/deployments.yaml",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab9/run.sh",
+          "file": "deploy/k8s/bluegreen/deployments.yaml",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "deploy/mesh/rollouts/analysis.yaml",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/envs/app/main.tf",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "policies/golden-path/dockerfile.rego",
           "percentage": 1,
           "revisions": 2
         }
@@ -447,11 +839,6 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab11/crossplane.sh",
           "percentage": 1,
           "revisions": 2
@@ -462,27 +849,32 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab7/run.sh",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab9/gate.sh",
+          "file": "deploy/helm/roomflow/templates/deployments.yaml",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab9/run.sh",
+          "file": "deploy/k8s/bluegreen/deployments.yaml",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "deploy/mesh/rollouts/analysis.yaml",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/envs/app/main.tf",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "policies/golden-path/dockerfile.rego",
           "percentage": 1,
           "revisions": 2
         }
@@ -503,11 +895,6 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab11/crossplane.sh",
           "percentage": 1,
           "revisions": 2
@@ -518,83 +905,32 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab7/run.sh",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab9/gate.sh",
+          "file": "deploy/helm/roomflow/templates/deployments.yaml",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab9/run.sh",
-          "percentage": 1,
-          "revisions": 2
-        }
-      ]
-    },
-    {
-      "file": "ci/lab11/backstage.sh",
-      "soc": 224,
-      "coupledFiles": [
-        {
-          "file": "ci/lab10/loop.sh",
+          "file": "deploy/k8s/bluegreen/deployments.yaml",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab10/strategies.sh",
+          "file": "deploy/mesh/rollouts/analysis.yaml",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab11/argocd.sh",
+          "file": "infra/terraform/envs/app/main.tf",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab11/crossplane.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/lib.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab7/run.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab9/gate.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab9/run.sh",
+          "file": "policies/golden-path/dockerfile.rego",
           "percentage": 1,
           "revisions": 2
         }
@@ -620,22 +956,7 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab12/lib.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
           "percentage": 1,
           "revisions": 2
         },
@@ -645,12 +966,27 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab9/gate.sh",
+          "file": "deploy/helm/roomflow/templates/deployments.yaml",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab9/run.sh",
+          "file": "deploy/k8s/bluegreen/deployments.yaml",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "deploy/mesh/rollouts/analysis.yaml",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/envs/app/main.tf",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "policies/golden-path/dockerfile.rego",
           "percentage": 1,
           "revisions": 2
         }
@@ -676,22 +1012,7 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab11/crossplane.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
           "percentage": 1,
           "revisions": 2
         },
@@ -701,124 +1022,27 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab9/gate.sh",
+          "file": "deploy/helm/roomflow/templates/deployments.yaml",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab9/run.sh",
-          "percentage": 1,
-          "revisions": 2
-        }
-      ]
-    },
-    {
-      "file": "ci/lab12/monitoring.sh",
-      "soc": 224,
-      "coupledFiles": [
-        {
-          "file": "ci/lab10/loop.sh",
+          "file": "deploy/k8s/bluegreen/deployments.yaml",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab10/strategies.sh",
+          "file": "deploy/mesh/rollouts/analysis.yaml",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab11/argocd.sh",
+          "file": "infra/terraform/envs/app/main.tf",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab11/crossplane.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/lib.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab7/run.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab9/gate.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab9/run.sh",
-          "percentage": 1,
-          "revisions": 2
-        }
-      ]
-    },
-    {
-      "file": "ci/lab12/rollouts.sh",
-      "soc": 224,
-      "coupledFiles": [
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab11/argocd.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab11/crossplane.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/lib.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab7/run.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab9/gate.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab9/run.sh",
+          "file": "policies/golden-path/dockerfile.rego",
           "percentage": 1,
           "revisions": 2
         }
@@ -844,11 +1068,6 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab11/crossplane.sh",
           "percentage": 1,
           "revisions": 2
@@ -859,134 +1078,27 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab12/monitoring.sh",
+          "file": "deploy/helm/roomflow/templates/deployments.yaml",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab12/rollouts.sh",
+          "file": "deploy/k8s/bluegreen/deployments.yaml",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab9/gate.sh",
+          "file": "deploy/mesh/rollouts/analysis.yaml",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab9/run.sh",
-          "percentage": 1,
-          "revisions": 2
-        }
-      ]
-    },
-    {
-      "file": "ci/lab9/gate.sh",
-      "soc": 224,
-      "coupledFiles": [
-        {
-          "file": "ci/lab10/loop.sh",
+          "file": "infra/terraform/envs/app/main.tf",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab11/argocd.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab11/crossplane.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/lib.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab7/run.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab9/run.sh",
-          "percentage": 1,
-          "revisions": 2
-        }
-      ]
-    },
-    {
-      "file": "ci/lab9/run.sh",
-      "soc": 224,
-      "coupledFiles": [
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab11/argocd.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab11/crossplane.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/lib.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab7/run.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab9/gate.sh",
+          "file": "policies/golden-path/dockerfile.rego",
           "percentage": 1,
           "revisions": 2
         }
@@ -1012,11 +1124,6 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab11/crossplane.sh",
           "percentage": 1,
           "revisions": 2
@@ -1027,22 +1134,27 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab7/run.sh",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab9/gate.sh",
+          "file": "deploy/k8s/bluegreen/deployments.yaml",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "deploy/mesh/rollouts/analysis.yaml",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/envs/app/main.tf",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "policies/golden-path/dockerfile.rego",
           "percentage": 1,
           "revisions": 2
         }
@@ -1068,11 +1180,6 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab11/crossplane.sh",
           "percentage": 1,
           "revisions": 2
@@ -1083,22 +1190,27 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab7/run.sh",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab9/gate.sh",
+          "file": "deploy/helm/roomflow/templates/deployments.yaml",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "deploy/mesh/rollouts/analysis.yaml",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/envs/app/main.tf",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "policies/golden-path/dockerfile.rego",
           "percentage": 1,
           "revisions": 2
         }
@@ -1124,11 +1236,6 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab11/crossplane.sh",
           "percentage": 1,
           "revisions": 2
@@ -1139,22 +1246,27 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab7/run.sh",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab9/gate.sh",
+          "file": "deploy/helm/roomflow/templates/deployments.yaml",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "deploy/k8s/bluegreen/deployments.yaml",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/envs/app/main.tf",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "policies/golden-path/dockerfile.rego",
           "percentage": 1,
           "revisions": 2
         }
@@ -1180,11 +1292,6 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab11/crossplane.sh",
           "percentage": 1,
           "revisions": 2
@@ -1195,22 +1302,27 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab7/run.sh",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab9/gate.sh",
+          "file": "deploy/helm/roomflow/templates/deployments.yaml",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "deploy/k8s/bluegreen/deployments.yaml",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "deploy/mesh/rollouts/analysis.yaml",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "policies/golden-path/dockerfile.rego",
           "percentage": 1,
           "revisions": 2
         }
@@ -1236,11 +1348,6 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab11/crossplane.sh",
           "percentage": 1,
           "revisions": 2
@@ -1251,78 +1358,27 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab7/run.sh",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab9/gate.sh",
-          "percentage": 1,
-          "revisions": 2
-        }
-      ]
-    },
-    {
-      "file": "test/load/seed/main.go",
-      "soc": 224,
-      "coupledFiles": [
-        {
-          "file": "ci/lab10/loop.sh",
+          "file": "deploy/helm/roomflow/templates/deployments.yaml",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab10/strategies.sh",
+          "file": "deploy/k8s/bluegreen/deployments.yaml",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab11/argocd.sh",
+          "file": "deploy/mesh/rollouts/analysis.yaml",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab11/crossplane.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/lib.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab7/run.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab9/gate.sh",
+          "file": "infra/terraform/envs/app/main.tf",
           "percentage": 1,
           "revisions": 2
         }
@@ -1348,11 +1404,6 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab11/crossplane.sh",
           "percentage": 1,
           "revisions": 2
@@ -1363,472 +1414,421 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab7/run.sh",
           "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab9/gate.sh",
+          "file": "deploy/helm/roomflow/templates/deployments.yaml",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "deploy/k8s/bluegreen/deployments.yaml",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "deploy/mesh/rollouts/analysis.yaml",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/envs/app/main.tf",
           "percentage": 1,
           "revisions": 2
         }
       ]
     },
     {
-      "file": ".gitignore",
-      "soc": 219,
+      "file": "ci/lab6/deploy.sh",
+      "soc": 223,
       "coupledFiles": [
         {
-          "file": ".charlie.config.json",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab11/backstage-shots.mjs",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab11/golden-path.sh",
-          "percentage": 0.5,
-          "revisions": 2
-        }
-      ]
-    },
-    {
-      "file": "internal/obs/middleware.go",
-      "soc": 214,
-      "coupledFiles": [
-        {
-          "file": "internal/obs/metrics.go",
+          "file": "ci/lab12/mesh.sh",
           "percentage": 0.6666666666666666,
           "revisions": 3
         },
         {
-          "file": ".charlie.config.json",
-          "percentage": 0.5,
-          "revisions": 2
+          "file": "ci/lab8/deps.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 0.5,
-          "revisions": 2
+          "file": "ci/security/gosec-baseline.json",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": "catalog-info.yaml",
-          "percentage": 0.5,
-          "revisions": 2
+          "file": "infra/terraform/envs/platform/main.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 0.5,
-          "revisions": 2
+          "file": "infra/terraform/envs/platform/variables.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 0.5,
-          "revisions": 2
+          "file": "infra/terraform/modules/lb/main.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 0.5,
-          "revisions": 2
+          "file": "infra/terraform/modules/lb/nginx.conf.tftpl",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 0.5,
-          "revisions": 2
+          "file": "infra/terraform/modules/lb/tests/lb.tftest.hcl",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 0.5,
-          "revisions": 2
+          "file": "infra/terraform/modules/lb/variables.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": "ci/lab11/backstage-shots.mjs",
-          "percentage": 0.5,
-          "revisions": 2
+          "file": "deploy/observability/prometheus/recording.rules.yml",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         }
       ]
     },
     {
-      "file": "internal/arch/arch_test.go",
-      "soc": 211,
+      "file": "ci/lab12/mesh.sh",
+      "soc": 220,
       "coupledFiles": [
+        {
+          "file": "ci/lab8/deps.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/security/gosec-baseline.json",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/envs/platform/main.tf",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/envs/platform/variables.tf",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/modules/lb/main.tf",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/modules/lb/nginx.conf.tftpl",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/modules/lb/tests/lb.tftest.hcl",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/modules/lb/variables.tf",
+          "percentage": 1,
+          "revisions": 2
+        },
         {
           "file": "Dockerfile",
           "percentage": 0.6666666666666666,
           "revisions": 3
         },
         {
-          "file": "cmd/roomflow/main_test.go",
-          "percentage": 0.5,
-          "revisions": 6
-        },
-        {
-          "file": ".charlie.config.json",
-          "percentage": 0.3333333333333333,
-          "revisions": 3
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 0.3333333333333333,
-          "revisions": 3
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 0.3333333333333333,
-          "revisions": 3
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 0.3333333333333333,
-          "revisions": 3
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 0.3333333333333333,
-          "revisions": 3
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 0.3333333333333333,
-          "revisions": 3
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 0.3333333333333333,
-          "revisions": 3
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 0.3333333333333333,
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 0.6666666666666666,
           "revisions": 3
         }
       ]
     },
     {
-      "file": "Dockerfile",
-      "soc": 210,
+      "file": "ci/lab8/deps.sh",
+      "soc": 220,
       "coupledFiles": [
         {
-          "file": "internal/arch/arch_test.go",
+          "file": "ci/lab12/mesh.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/security/gosec-baseline.json",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/envs/platform/main.tf",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/envs/platform/variables.tf",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/modules/lb/main.tf",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/modules/lb/nginx.conf.tftpl",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/modules/lb/tests/lb.tftest.hcl",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "infra/terraform/modules/lb/variables.tf",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "Dockerfile",
           "percentage": 0.6666666666666666,
           "revisions": 3
         },
         {
-          "file": ".charlie.config.json",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab11/backstage-shots.mjs",
-          "percentage": 0.5,
-          "revisions": 2
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         }
       ]
     },
     {
-      "file": "ci/workflows/ci.yml",
-      "soc": 206,
+      "file": "ci/security/gosec-baseline.json",
+      "soc": 220,
       "coupledFiles": [
         {
-          "file": ".charlie.config.json",
-          "percentage": 0.5,
+          "file": "ci/lab12/mesh.sh",
+          "percentage": 1,
           "revisions": 2
         },
         {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 0.5,
+          "file": "ci/lab8/deps.sh",
+          "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "catalog-info.yaml",
-          "percentage": 0.5,
+          "file": "infra/terraform/envs/platform/main.tf",
+          "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 0.5,
+          "file": "infra/terraform/envs/platform/variables.tf",
+          "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 0.5,
+          "file": "infra/terraform/modules/lb/main.tf",
+          "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 0.5,
+          "file": "infra/terraform/modules/lb/nginx.conf.tftpl",
+          "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 0.5,
+          "file": "infra/terraform/modules/lb/tests/lb.tftest.hcl",
+          "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 0.5,
+          "file": "infra/terraform/modules/lb/variables.tf",
+          "percentage": 1,
           "revisions": 2
         },
         {
-          "file": "ci/lab11/backstage-shots.mjs",
-          "percentage": 0.5,
-          "revisions": 2
+          "file": "Dockerfile",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": "ci/lab11/golden-path.sh",
-          "percentage": 0.5,
-          "revisions": 2
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         }
       ]
     },
     {
-      "file": ".charlie.config.json",
-      "soc": 202,
+      "file": "infra/terraform/envs/platform/main.tf",
+      "soc": 220,
       "coupledFiles": [
         {
-          "file": ".pre-commit-config.yaml",
+          "file": "ci/lab12/mesh.sh",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "catalog-info.yaml",
+          "file": "ci/lab8/deps.sh",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab10/bluegreen.sh",
+          "file": "ci/security/gosec-baseline.json",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab10/canary.sh",
+          "file": "infra/terraform/envs/platform/variables.tf",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab10/flagger.sh",
+          "file": "infra/terraform/modules/lb/main.tf",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab10/helm.sh",
+          "file": "infra/terraform/modules/lb/nginx.conf.tftpl",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab10/lib.sh",
+          "file": "infra/terraform/modules/lb/tests/lb.tftest.hcl",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab11/backstage-shots.mjs",
+          "file": "infra/terraform/modules/lb/variables.tf",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab11/golden-path.sh",
-          "percentage": 1,
-          "revisions": 1
+          "file": "Dockerfile",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": "ci/lab12/charlie.sh",
-          "percentage": 1,
-          "revisions": 1
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         }
       ]
     },
     {
-      "file": ".pre-commit-config.yaml",
-      "soc": 202,
+      "file": "infra/terraform/envs/platform/variables.tf",
+      "soc": 220,
       "coupledFiles": [
         {
-          "file": ".charlie.config.json",
+          "file": "ci/lab12/mesh.sh",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "catalog-info.yaml",
+          "file": "ci/lab8/deps.sh",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab10/bluegreen.sh",
+          "file": "ci/security/gosec-baseline.json",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab10/canary.sh",
+          "file": "infra/terraform/envs/platform/main.tf",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab10/flagger.sh",
+          "file": "infra/terraform/modules/lb/main.tf",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab10/helm.sh",
+          "file": "infra/terraform/modules/lb/nginx.conf.tftpl",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab10/lib.sh",
+          "file": "infra/terraform/modules/lb/tests/lb.tftest.hcl",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab11/backstage-shots.mjs",
+          "file": "infra/terraform/modules/lb/variables.tf",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab11/golden-path.sh",
-          "percentage": 1,
-          "revisions": 1
+          "file": "Dockerfile",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": "ci/lab12/charlie.sh",
-          "percentage": 1,
-          "revisions": 1
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         }
       ]
     },
     {
-      "file": "catalog-info.yaml",
-      "soc": 202,
+      "file": "infra/terraform/modules/lb/main.tf",
+      "soc": 220,
       "coupledFiles": [
         {
-          "file": ".charlie.config.json",
+          "file": "ci/lab12/mesh.sh",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": ".pre-commit-config.yaml",
+          "file": "ci/lab8/deps.sh",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab10/bluegreen.sh",
+          "file": "ci/security/gosec-baseline.json",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab10/canary.sh",
+          "file": "infra/terraform/envs/platform/main.tf",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab10/flagger.sh",
+          "file": "infra/terraform/envs/platform/variables.tf",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab10/helm.sh",
+          "file": "infra/terraform/modules/lb/nginx.conf.tftpl",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab10/lib.sh",
+          "file": "infra/terraform/modules/lb/tests/lb.tftest.hcl",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab11/backstage-shots.mjs",
+          "file": "infra/terraform/modules/lb/variables.tf",
           "percentage": 1,
-          "revisions": 1
+          "revisions": 2
         },
         {
-          "file": "ci/lab11/golden-path.sh",
-          "percentage": 1,
-          "revisions": 1
+          "file": "Dockerfile",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": "ci/lab12/charlie.sh",
-          "percentage": 1,
-          "revisions": 1
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         }
       ]
     }
