@@ -1,0 +1,28 @@
+
+     ✓ served or limited
+     ✗ served
+      ↳  32% — ✓ 2849 / ✗ 5952
+
+     checks.........................: 66.18%  11650 out of 17602
+     ✓ { tenant:regular }...........: 100.00% 1600 out of 1600
+     data_received..................: 3.9 MB  97 kB/s
+     data_sent......................: 1.4 MB  34 kB/s
+     http_req_blocked...............: avg=5.14µs   min=1.82µs   med=2.98µs   max=5.18ms   p(90)=4.21µs   p(95)=4.89µs  
+     http_req_connecting............: avg=1.39µs   min=0s       med=0s       max=5.14ms   p(90)=0s       p(95)=0s      
+     http_req_duration..............: avg=276.53µs min=177.03µs med=267.11µs max=2.67ms   p(90)=319.52µs p(95)=343.28µs
+       { expected_response:true }...: avg=276.53µs min=177.03µs med=267.11µs max=2.67ms   p(90)=319.52µs p(95)=343.28µs
+     http_req_failed................: 0.00%   0 out of 8801
+     http_req_receiving.............: avg=39.56µs  min=12.65µs  med=36.21µs  max=614.58µs p(90)=55.26µs  p(95)=65.2µs  
+     http_req_sending...............: avg=16.29µs  min=5.11µs   med=14.78µs  max=204.59µs p(90)=21.7µs   p(95)=24.71µs 
+     http_req_tls_handshaking.......: avg=0s       min=0s       med=0s       max=0s       p(90)=0s       p(95)=0s      
+     http_req_waiting...............: avg=220.67µs min=133.48µs med=211.46µs max=2.47ms   p(90)=261.15µs p(95)=283.75µs
+     http_reqs......................: 8801    220.017931/s
+     iteration_duration.............: avg=376.61µs min=257.87µs med=363.44µs max=5.64ms   p(90)=435.24µs p(95)=463.66µs
+     iterations.....................: 8801    220.017931/s
+     rate_limited...................: 5952    148.79522/s
+     ✓ { tenant:noisy }.............: 5952    148.79522/s
+     ✓ { tenant:regular }...........: 0       0/s
+     vus............................: 0       min=0              max=1 
+     vus_max........................: 60      min=60             max=60
+
+k6 exit code: 0

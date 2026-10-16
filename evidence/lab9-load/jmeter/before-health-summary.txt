@@ -1,0 +1,1 @@
+samples=723342 errors=0 (0.00%) throughput=8049.6/s avg=8.5ms p50=3ms p90=19ms p95=49ms p99=61ms max=104ms

@@ -1,0 +1,3 @@
+roomflow_http_requests_total{route="GET /api/rooms/{id}/availability",code="200"} 2849
+roomflow_http_requests_total{route="GET /api/rooms/{id}/availability",code="429"} 5952
+roomflow_rate_limited_total 5952

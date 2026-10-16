@@ -1,0 +1,20 @@
+START Running Jmeter on Fri Oct 16 20:42:35 CEST 2026
+JVM_ARGS=-Xmn2976m -Xms11904m -Xmx11904m
+jmeter args=-n -t /plan/roomflow.jmx -Jhost=rf-load -Jport=8080 -Jendpoint=health -Jramp=60 -Jduration=90 -l /out/results.jtl -e -o /out/report
+jmeter ALL ARGS=-Dlog4j2.formatMsgNoLookups=true -n -t /plan/roomflow.jmx -Jhost=rf-load -Jport=8080 -Jendpoint=health -Jramp=60 -Jduration=90 -l /out/results.jtl -e -o /out/report
+Oct 16, 2026 8:42:36 PM java.util.prefs.FileSystemPreferences$1 run
+INFO: Created user preferences directory.
+Creating summariser <summary>
+Created the tree successfully using /plan/roomflow.jmx
+Starting standalone test @ October 16, 2026 8:42:36 PM CEST (1792176156899)
+Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
+summary + 168058 in 00:00:23 = 7304.0/s Avg:     3 Min:     0 Max:    74 Err:     0 (0.00%) Active: 45 Started: 45 Finished: 0
+summary + 246276 in 00:00:30 = 8209.2/s Avg:     8 Min:     0 Max:    87 Err:     0 (0.00%) Active: 90 Started: 90 Finished: 0
+summary = 414334 in 00:00:53 = 7816.3/s Avg:     6 Min:     0 Max:    87 Err:     0 (0.00%)
+summary + 249583 in 00:00:30 = 8319.4/s Avg:    11 Min:     0 Max:   104 Err:     0 (0.00%) Active: 100 Started: 100 Finished: 0
+summary = 663917 in 00:01:23 = 7998.1/s Avg:     8 Min:     0 Max:   104 Err:     0 (0.00%)
+summary +  59425 in 00:00:07 = 8298.4/s Avg:    11 Min:     0 Max:    99 Err:     0 (0.00%) Active: 0 Started: 100 Finished: 100
+summary = 723342 in 00:01:30 = 8021.9/s Avg:     8 Min:     0 Max:   104 Err:     0 (0.00%)
+Tidying up ...    @ October 16, 2026 8:44:07 PM CEST (1792176247162)
+... end of run
+END Running Jmeter on Fri Oct 16 20:44:18 CEST 2026

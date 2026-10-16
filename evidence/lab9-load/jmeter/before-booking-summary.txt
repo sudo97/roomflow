@@ -1,0 +1,1 @@
+samples=4186934 errors=4186934 (100.00%) throughput=46567.0/s avg=0.0ms p50=0ms p90=0ms p95=0ms p99=0ms max=4ms

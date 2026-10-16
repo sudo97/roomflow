@@ -1,0 +1,21 @@
+
+     ✓ ok
+
+     checks.........................: 100.00% 431053 out of 431053
+     data_received..................: 1.4 GB  10 MB/s
+     data_sent......................: 67 MB   497 kB/s
+     http_req_blocked...............: avg=6.84µs  med=2.73µs  p(95)=3.94µs   p(99)=32.1µs   max=37.68ms
+     http_req_connecting............: avg=848ns   med=0s      p(95)=0s       p(99)=0s       max=25.86ms
+   ✓ http_req_duration..............: avg=85.42ms med=27.66ms p(95)=377.94ms p(99)=689.32ms max=1.56s  
+       { expected_response:true }...: avg=85.42ms med=27.66ms p(95)=377.94ms p(99)=689.32ms max=1.56s  
+   ✓ http_req_failed................: 0.00%   0 out of 431053
+     http_req_receiving.............: avg=74.76µs med=22.82µs p(95)=150.44µs p(99)=1.06ms   max=51.31ms
+     http_req_sending...............: avg=26.23µs med=8.57µs  p(95)=37.56µs  p(99)=230.8µs  max=49.79ms
+     http_req_tls_handshaking.......: avg=0s      med=0s      p(95)=0s       p(99)=0s       max=0s     
+     http_req_waiting...............: avg=85.32ms med=27.52ms p(95)=377.87ms p(99)=689.13ms max=1.56s  
+     http_reqs......................: 431053  3192.968654/s
+     iteration_duration.............: avg=85.62ms med=27.87ms p(95)=378.21ms p(99)=689.44ms max=1.56s  
+     iterations.....................: 431053  3192.968654/s
+     vus............................: 2       min=2                max=500
+     vus_max........................: 500     min=500              max=500
+

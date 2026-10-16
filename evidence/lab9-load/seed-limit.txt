@@ -1,0 +1,1 @@
+seeded 2 tenants x 1 rooms, 0 bookings (0 failed) in 2ms

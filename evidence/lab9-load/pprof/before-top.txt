@@ -1,0 +1,24 @@
+File: roomflow
+Build ID: 725e9dce32f1db0130a6ea1ec99e053f7c0302e6
+Type: cpu
+Time: 2026-10-16 18:47:52 UTC
+Duration: 20.89s, Total samples = 20540ms (98.32%)
+Showing nodes accounting for 16060ms, 78.19% of 20540ms total
+Dropped 293 nodes (cum <= 102.70ms)
+Showing top 15 nodes out of 77
+      flat  flat%   sum%        cum   cum%
+    4890ms 23.81% 23.81%    14410ms 70.16%  github.com/sudo97/roomflow/internal/store.(*Memory).ListBookings
+    2830ms 13.78% 37.59%     2830ms 13.78%  runtime.duffcopy
+    2540ms 12.37% 49.95%     4700ms 22.88%  internal/runtime/maps.(*Iter).Next
+    2030ms  9.88% 59.83%     2030ms  9.88%  memeqbody
+     940ms  4.58% 64.41%     1250ms  6.09%  runtime.findObject
+     370ms  1.80% 66.21%      370ms  1.80%  internal/runtime/syscall.Syscall6
+     320ms  1.56% 67.77%     3920ms 19.08%  github.com/sudo97/roomflow/internal/booking.taken
+     320ms  1.56% 69.33%      320ms  1.56%  internal/runtime/maps.ctrlGroup.matchFull (inline)
+     300ms  1.46% 70.79%      550ms  2.68%  github.com/sudo97/roomflow/internal/booking.Booking.Overlaps
+     290ms  1.41% 72.20%      290ms  1.41%  time.dateToAbsDays
+     280ms  1.36% 73.56%      870ms  4.24%  time.Date
+     270ms  1.31% 74.88%     4960ms 24.15%  runtime.mapIterNext
+     250ms  1.22% 76.10%      250ms  1.22%  time.absSeconds.clock (inline)
+     220ms  1.07% 77.17%      220ms  1.07%  time.(*Location).get
+     210ms  1.02% 78.19%      210ms  1.02%  internal/runtime/maps.(*groupReference).key (inline)
