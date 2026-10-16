@@ -1,19 +1,19 @@
 NAME                  SYNC     HEALTH    REVISION
-roomflow              Synced   Healthy   c26632fb0be02be9d810a705e6019194e4988b90
-roomflow-production   Synced   Healthy   c26632fb0be02be9d810a705e6019194e4988b90
-roomflow-staging      Synced   Healthy   c26632fb0be02be9d810a705e6019194e4988b90
+roomflow              Synced   Healthy   93719d46e3ed0a56b2d12ddb3805e9494389ce2b
+roomflow-production   Synced   Healthy   93719d46e3ed0a56b2d12ddb3805e9494389ce2b
+roomflow-staging      Synced   Healthy   93719d46e3ed0a56b2d12ddb3805e9494389ce2b
 == rf-staging
 NAME                                    READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/roomflow-staging-blue   1/1     1            1           8s
+deployment.apps/roomflow-staging-blue   1/1     1            1           7s
 == rf-production
 NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/roomflow-production-blue   2/2     2            2           8s
+deployment.apps/roomflow-production-blue   2/2     2            2           7s
 
 NAME                                                           REFERENCE                             TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
-horizontalpodautoscaler.autoscaling/roomflow-production-blue   Deployment/roomflow-production-blue   cpu: <unknown>/70%   2         6         1          8s
+horizontalpodautoscaler.autoscaling/roomflow-production-blue   Deployment/roomflow-production-blue   cpu: <unknown>/70%   2         6         1          7s
 
 NAME                                             MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
-poddisruptionbudget.policy/roomflow-production   1               N/A               1                     8s
+poddisruptionbudget.policy/roomflow-production   1               N/A               1                     7s
 
 NAME                                                  POD-SELECTOR                                                                     AGE
 networkpolicy.networking.k8s.io/roomflow-production   app.kubernetes.io/instance=roomflow-production,app.kubernetes.io/name=roomflow   8s

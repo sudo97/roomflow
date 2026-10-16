@@ -3,9 +3,9 @@ deployment.apps/roomflow-blue    2/2     2            2           5s
 deployment.apps/roomflow-green   2/2     2            2           5s
 
 NAME                             TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
-service/roomflow                 ClusterIP   10.96.72.103   <none>        80/TCP    5s
-service/roomflow-blue-preview    ClusterIP   10.96.249.50   <none>        80/TCP    5s
-service/roomflow-green-preview   ClusterIP   10.96.8.132    <none>        80/TCP    5s
+service/roomflow                 ClusterIP   10.96.225.39   <none>        80/TCP    5s
+service/roomflow-blue-preview    ClusterIP   10.96.32.13    <none>        80/TCP    5s
+service/roomflow-green-preview   ClusterIP   10.96.29.146   <none>        80/TCP    5s
 
 NAME                         DATA   AGE
 configmap/kube-root-ca.crt   1      7s
