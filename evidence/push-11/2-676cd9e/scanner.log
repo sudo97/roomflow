@@ -1,0 +1,40 @@
+15:12:47.007 INFO  Sensor TextAndSecretsSensor [text]
+15:12:47.016 INFO  Available processors: 4
+15:12:47.017 INFO  Using 4 threads for analysis.
+15:12:47.344 INFO  Start fetching files for the text and secrets analysis
+15:12:47.350 INFO  Using Git CLI to retrieve dirty files
+15:12:47.353 WARN  Retrieving only language associated files, make sure to run the analysis inside a git repository to make use of inclusions specified via "sonar.text.inclusions"
+15:12:47.355 INFO  Starting the text and secrets analysis
+15:12:47.359 INFO  28 source files to be analyzed for the text and secrets analysis
+15:12:47.426 INFO  28/28 source files have been analyzed for the text and secrets analysis
+15:12:47.427 INFO  Sensor TextAndSecretsSensor [text] (done) | time=421ms
+15:12:47.431 INFO  ------------- Run sensors on project
+15:12:47.667 INFO  Sensor GoProjectSensor [go]
+15:12:47.668 INFO  Sensor GoProjectSensor [go] (done) | time=1ms
+15:12:47.670 INFO  Sensor JavaScript/TypeScript/CSS analysis [javascript]
+15:12:47.676 INFO  No input files found for analysis
+15:12:47.676 INFO  Hit the cache for 0 out of 0
+15:12:47.678 INFO  Miss the cache for 0 out of 0
+15:12:47.679 INFO  Sensor JavaScript/TypeScript/CSS analysis [javascript] (done) | time=8ms
+15:12:47.680 INFO  Sensor IaC Project Sensor [iac]
+15:12:47.680 INFO  Sensor IaC Project Sensor [iac] (done) | time=1ms
+15:12:47.680 INFO  Sensor Zero Coverage Sensor
+15:12:47.681 INFO  Sensor Zero Coverage Sensor (done) | time=0ms
+15:12:47.682 INFO  ------------- Gather SCA dependencies on project
+15:12:47.705 INFO  Dependency analysis skipped
+15:12:47.713 INFO  SCM Publisher SCM provider for this project is: git
+15:12:47.714 INFO  SCM Publisher 21 source files to be analyzed
+15:12:48.128 INFO  SCM Publisher 21/21 source files have been analyzed (done) | time=412ms
+15:12:48.135 INFO  CPD Executor Calculating CPD for 9 files
+15:12:48.143 INFO  CPD Executor CPD calculation finished (done) | time=9ms
+15:12:48.149 INFO  SCM revision ID '676cd9e22ebb0bc5aaa68e3ed7ab5edcc5bf75b0'
+15:12:48.232 INFO  Analysis report generated in 82ms, dir size=258.4 kB
+15:12:48.286 INFO  Analysis report compressed in 54ms, zip size=95.6 kB
+15:12:48.317 INFO  Analysis report uploaded in 32ms
+15:12:48.318 INFO  ------------- Check Quality Gate status
+15:12:48.319 INFO  Waiting for the analysis report to be processed (max 300s)
+15:12:53.346 INFO  QUALITY GATE STATUS: PASSED - View details on http://localhost:9000/dashboard?id=roomflow
+15:12:53.362 INFO  Analysis total time: 11.438 s
+15:12:53.364 INFO  SonarScanner Engine completed successfully
+15:12:53.395 INFO  EXECUTION SUCCESS
+15:12:53.396 INFO  Total time: 14.500s

@@ -1,0 +1,30 @@
+== Зміна пароля адміністратора
+== Створення проєкту і токена сканера
+  token: ok
+== Якісний профіль «RoomFlow Go» (успадковує профіль Go за замовчуванням)
+  Sonar way core	2d134a83-d645-4b90-a484-563a99cdf3e1	default=true
+  Sonar way extended	d7671af0-3b65-4b72-8018-02f7e744fbba	default=false
+  Sonar way comprehensive	8a111b1c-276d-4e21-9df9-8eb63fe670f3	default=false
+  key: 2e549b8f-c973-4d1b-b8b9-09e379f647dd
+  parent: Sonar way core
+  rule go:S3776: Cognitive Complexity of functions should not be too high params=threshold
+  rule go:S107: Functions should not have too many parameters params=Max
+  rule go:S138: Functions and methods should not have too many lines params=max
+  rule go:S1192: String literals should not be duplicated params=threshold
+  ! GET /api/rules/show?key=go:S2068 -> HTTP 404: {"errors":[{"msg":"Rule not found: go:S2068"}]}
+  go:S3776 -> CRITICAL threshold=8
+  go:S107 -> MAJOR Max=5
+  go:S138 -> MAJOR max=50
+  go:S1192 -> MINOR threshold=3
+  ! POST /api/qualityprofiles/activate_rule -> HTTP 404: {"errors":[{"msg":"Rule with key \u0027go:S2068\u0027 not found"}]}
+  active rules: 10
+  assigned to roomflow
+== Ворота якості «RoomFlow Gate»
+  coverage LT 70
+  reliability_rating GT 2
+  security_rating GT 1
+  sqale_debt_ratio GT 5
+  duplicated_lines_density GT 3
+  security_hotspots_reviewed LT 100
+  assigned to roomflow
+done

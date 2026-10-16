@@ -1,0 +1,6 @@
+ok  	github.com/sudo97/roomflow/cmd/roomflow	0.025s	coverage: 52.2% of statements
+ok  	github.com/sudo97/roomflow/internal/arch	0.003s	coverage: [no statements]
+ok  	github.com/sudo97/roomflow/internal/booking	0.024s	coverage: 97.0% of statements
+ok  	github.com/sudo97/roomflow/internal/httpapi	0.004s	coverage: 96.2% of statements
+ok  	github.com/sudo97/roomflow/internal/store	0.003s	coverage: 96.1% of statements
+ok  	github.com/sudo97/roomflow/tools/sqlcheck	0.005s	coverage: 81.1% of statements
