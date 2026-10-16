@@ -1,0 +1,46 @@
+Name:         reviews-db
+Namespace:    team-reviews
+Labels:       <none>
+Annotations:  <none>
+API Version:  platform.roomflow.io/v1alpha1
+Kind:         PostgreSQLInstance
+Metadata:
+  Creation Timestamp:  2026-10-16T17:17:18Z
+  Finalizers:
+    finalizer.apiextensions.crossplane.io
+  Generation:        4
+  Resource Version:  1052
+  UID:               3b8d0e00-c0ea-47a7-8555-6923bec24297
+Spec:
+  Composite Delete Policy:  Background
+  Composition Ref:
+    Name:  postgres-kubernetes
+  Composition Revision Ref:
+    Name:  postgres-kubernetes-139f5bb
+  Composition Selector:
+    Match Labels:
+      Provider:               kubernetes
+  Composition Update Policy:  Automatic
+  Parameters:
+    Size:        small
+    Storage GB:  1
+    Version:     16
+  Resource Ref:
+    API Version:  platform.roomflow.io/v1alpha1
+    Kind:         XPostgreSQLInstance
+    Name:         reviews-db-fdwr5
+Status:
+  Conditions:
+    Last Transition Time:  2026-10-16T17:17:18Z
+    Reason:                ReconcileSuccess
+    Status:                True
+    Type:                  Synced
+    Last Transition Time:  2026-10-16T17:17:19Z
+    Reason:                Available
+    Status:                True
+    Type:                  Ready
+Events:
+  Type    Reason                 Age                From                                                             Message
+  ----    ------                 ----               ----                                                             -------
+  Normal  BindCompositeResource  22s                offered/compositeresourcedefinition.apiextensions.crossplane.io  Successfully bound composite resource
+  Normal  BindCompositeResource  21s (x7 over 22s)  offered/compositeresourcedefinition.apiextensions.crossplane.io  Composite resource is not yet ready

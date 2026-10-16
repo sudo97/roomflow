@@ -1,0 +1,11 @@
+NAME                                             INSTALLED   HEALTHY   PACKAGE                                                          AGE
+provider.pkg.crossplane.io/provider-kubernetes   True        True      xpkg.upbound.io/crossplane-contrib/provider-kubernetes:v0.14.0   6s
+
+NAME                                                      INSTALLED   HEALTHY   PACKAGE                                                                  AGE
+function.pkg.crossplane.io/function-patch-and-transform   True        True      xpkg.upbound.io/crossplane-contrib/function-patch-and-transform:v0.7.0   6s
+
+NAME                                                                                                ESTABLISHED   OFFERED   AGE
+compositeresourcedefinition.apiextensions.crossplane.io/xpostgresqlinstances.platform.roomflow.io   True          True      0s
+
+NAME                                                          XR-KIND               XR-APIVERSION                   AGE
+composition.apiextensions.crossplane.io/postgres-kubernetes   XPostgreSQLInstance   platform.roomflow.io/v1alpha1   0s

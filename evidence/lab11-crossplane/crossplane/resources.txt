@@ -1,0 +1,34 @@
+NAMESPACE        NAME           SYNCED   READY   CONNECTION-SECRET   AGE
+team-analytics   analytics-db   True     True                        8s
+team-reviews     reviews-db     True     True                        21s
+NAME                 SYNCED   READY   COMPOSITION           AGE
+analytics-db-wvvd7   True     True    postgres-kubernetes   9s
+reviews-db-fdwr5     True     True    postgres-kubernetes   22s
+NAME                       KIND                    PROVIDERCONFIG   SYNCED   READY   AGE
+analytics-db-wvvd7-4zdd8   PersistentVolumeClaim   kubernetes       True     True    9s
+analytics-db-wvvd7-82h4l   Service                 kubernetes       True     True    9s
+analytics-db-wvvd7-8tztx   Secret                  kubernetes       True     True    9s
+analytics-db-wvvd7-h7zh6   Deployment              kubernetes       True     True    9s
+reviews-db-fdwr5-2pprt     Deployment              kubernetes       True     True    22s
+reviews-db-fdwr5-g7vv7     Service                 kubernetes       True     True    22s
+reviews-db-fdwr5-kgxps     Secret                  kubernetes       True     True    22s
+reviews-db-fdwr5-ks4kr     PersistentVolumeClaim   kubernetes       True     True    22s
+NAME                     TYPE     DATA   AGE
+secret/reviews-db-conn   Opaque   5      22s
+
+NAME                                    STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/reviews-db-data   Bound    pvc-c01ee7fd-580a-46e8-ae39-03ac3b0ea5a6   1Gi        RWO            standard       <unset>                 22s
+
+NAME                                  READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/reviews-db-postgres   1/1     1            1           22s
+
+NAME                          TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE
+service/reviews-db-postgres   ClusterIP   10.96.66.81   <none>        5432/TCP   22s
+memory limit: 512Mi
+{
+  "database": "app",
+  "host": "review…",
+  "password": "2ce557…",
+  "port": "5432",
+  "username": "app"
+}

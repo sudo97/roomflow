@@ -1,0 +1,3 @@
+reviews-db (small) in team-reviews: ready in 31 s
+analytics-db (medium) in team-analytics: ready in 8 s
+deprovisioning: 0 s; leftovers: 1
