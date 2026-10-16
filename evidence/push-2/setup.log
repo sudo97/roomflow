@@ -1,0 +1,28 @@
+== Зміна пароля адміністратора
+== Створення проєкту і токена сканера
+  token: ok
+== Якісний профіль «RoomFlow Go» (успадковує Sonar way)
+  Sonar way core	1268321f-cc49-4a5f-afd8-14fdee112321	default=true
+  Sonar way extended	b80a87c2-e09a-4af5-8458-3f55dca8d780	default=false
+  Sonar way comprehensive	11509c6b-8085-4cd3-959f-9ee34215146d	default=false
+  key: 579557be-5493-4cc3-a99d-b94a0773c3e4
+  parent: Sonar way
+  rule go:S3776: Cognitive Complexity of functions should not be too high params=threshold
+  rule go:S107: Functions should not have too many parameters params=Max
+  rule go:S138: Functions and methods should not have too many lines params=max
+  rule go:S1192: String literals should not be duplicated params=threshold
+  go:S3776 -> CRITICAL threshold=8
+  go:S107 -> MAJOR max=5
+  go:S138 -> MAJOR max=50
+  go:S1192 -> MINOR threshold=3
+  active rules: 24
+  assigned to roomflow
+== Ворота якості «RoomFlow Gate»
+  coverage LT 70
+  reliability_rating GT 2
+  security_rating GT 1
+  sqale_debt_ratio GT 5
+  duplicated_lines_density GT 3
+  security_hotspots_reviewed LT 100
+  assigned to roomflow
+done

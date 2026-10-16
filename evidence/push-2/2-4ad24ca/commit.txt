@@ -1,0 +1,1 @@
+4ad24ca250395b190fca9df1ff53255ca7eea062 ci(sonar): verbose, fault-tolerant SonarQube setup

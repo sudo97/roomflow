@@ -1,0 +1,4 @@
+	github.com/sudo97/roomflow/cmd/roomflow		coverage: 0.0% of statements
+ok  	github.com/sudo97/roomflow/internal/booking	0.003s	coverage: 50.0% of statements
+	github.com/sudo97/roomflow/internal/httpapi		coverage: 0.0% of statements
+	github.com/sudo97/roomflow/internal/store		coverage: 0.0% of statements
