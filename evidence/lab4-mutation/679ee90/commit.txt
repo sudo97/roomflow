@@ -1,0 +1,1 @@
+679ee908f01a209be6b8353c8190cd264f9b37b9 perf(store): index bookings by tenant and room

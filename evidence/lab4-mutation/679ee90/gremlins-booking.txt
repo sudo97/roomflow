@@ -1,0 +1,75 @@
+Starting...
+Gathering coverage... go: no module dependencies to download
+done in 278.778895ms
+      KILLED INVERT_LOGICAL at availability.go:22:53
+       LIVED INVERT_LOGICAL at availability.go:22:18
+      KILLED CONDITIONALS_NEGATION at availability.go:22:11
+      KILLED INVERT_LOGICAL at availability.go:22:35
+      KILLED CONDITIONALS_NEGATION at availability.go:22:79
+      KILLED CONDITIONALS_NEGATION at availability.go:22:28
+      KILLED CONDITIONALS_BOUNDARY at availability.go:22:79
+      KILLED CONDITIONALS_NEGATION at availability.go:26:9
+      KILLED CONDITIONALS_NEGATION at availability.go:30:9
+      KILLED INVERT_LOGICAL at availability.go:44:17
+      KILLED CONDITIONALS_NEGATION at model.go:44:50
+      KILLED INVERT_LOGICAL at model.go:48:31
+      KILLED ARITHMETIC_BASE at model.go:54:76
+      KILLED ARITHMETIC_BASE at pricing.go:6:67
+      KILLED ARITHMETIC_BASE at pricing.go:6:61
+ NOT COVERED INVERT_LOGICAL at pricing.go:24:32
+ NOT COVERED CONDITIONALS_NEGATION at pricing.go:24:19
+ NOT COVERED CONDITIONALS_NEGATION at pricing.go:24:47
+ NOT COVERED INVERT_LOGICAL at pricing.go:26:36
+ NOT COVERED CONDITIONALS_NEGATION at pricing.go:26:19
+ NOT COVERED CONDITIONALS_BOUNDARY at pricing.go:26:49
+ NOT COVERED CONDITIONALS_NEGATION at pricing.go:26:49
+      KILLED INVERT_LOGICAL at pricing.go:19:40
+      KILLED CONDITIONALS_NEGATION at pricing.go:19:57
+      KILLED CONDITIONALS_BOUNDARY at pricing.go:41:81
+      KILLED CONDITIONALS_NEGATION at pricing.go:19:23
+      KILLED CONDITIONALS_NEGATION at pricing.go:41:81
+      KILLED CONDITIONALS_NEGATION at pricing.go:42:78
+      KILLED CONDITIONALS_BOUNDARY at pricing.go:42:78
+      KILLED INVERT_ASSIGNMENTS at pricing.go:60:9
+      KILLED REMOVE_SELF_ASSIGNMENTS at pricing.go:60:9
+      KILLED INVERT_LOGICAL at pricing.go:62:38
+      KILLED INVERT_LOGICAL at request.go:30:63
+      KILLED INVERT_LOGICAL at request.go:30:42
+      KILLED INVERT_LOGICAL at request.go:30:24
+      KILLED CONDITIONALS_NEGATION at request.go:30:18
+      KILLED CONDITIONALS_NEGATION at request.go:30:36
+      KILLED CONDITIONALS_NEGATION at request.go:30:57
+      KILLED CONDITIONALS_BOUNDARY at request.go:30:75
+      KILLED CONDITIONALS_NEGATION at request.go:30:75
+      KILLED CONDITIONALS_NEGATION at request.go:37:52
+      KILLED INVERT_LOGICAL at request.go:42:35
+      KILLED INVERT_LOGICAL at request.go:42:18
+      KILLED INVERT_BITWISE at service.go:26:9
+      KILLED CONDITIONALS_NEGATION at request.go:42:11
+      KILLED CONDITIONALS_NEGATION at request.go:42:28
+      KILLED CONDITIONALS_NEGATION at service.go:32:9
+      KILLED CONDITIONALS_NEGATION at service.go:36:9
+      KILLED CONDITIONALS_BOUNDARY at service.go:39:16
+      KILLED CONDITIONALS_NEGATION at service.go:39:16
+      KILLED CONDITIONALS_NEGATION at service.go:42:39
+      KILLED CONDITIONALS_NEGATION at service.go:58:39
+      KILLED CONDITIONALS_NEGATION at service.go:66:9
+      KILLED INVERT_LOGICAL at service.go:70:17
+      KILLED CONDITIONALS_NEGATION at service.go:80:9
+      KILLED INVERT_LOGICAL at service.go:92:71
+      KILLED INVERT_LOGICAL at service.go:92:36
+      KILLED INVERT_LOGICAL at service.go:92:52
+      KILLED INVERT_LOGICAL at service.go:92:22
+      KILLED CONDITIONALS_NEGATION at service.go:92:16
+      KILLED CONDITIONALS_NEGATION at service.go:92:30
+      KILLED CONDITIONALS_NEGATION at service.go:92:46
+      KILLED CONDITIONALS_BOUNDARY at service.go:92:66
+      KILLED CONDITIONALS_NEGATION at service.go:92:66
+      KILLED CONDITIONALS_BOUNDARY at service.go:92:86
+      KILLED CONDITIONALS_NEGATION at service.go:92:86
+
+Mutation testing completed in 11 seconds 916 milliseconds
+Killed: 58, Lived: 1, Not covered: 7
+Timed out: 0, Not viable: 0, Skipped: 0
+Test efficacy: 98.31%
+Mutator coverage: 89.39%

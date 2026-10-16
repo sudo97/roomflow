@@ -1,0 +1,17 @@
+Starting...
+Gathering coverage... go: no module dependencies to download
+done in 200.863932ms
+      KILLED INVERT_BITWISE at memory.go:22:9
+      KILLED ARITHMETIC_BASE at memory.go:25:67
+      KILLED ARITHMETIC_BASE at memory.go:25:73
+      KILLED INVERT_BITWISE at sql.go:43:30
+      KILLED INVERT_BITWISE at sql.go:43:23
+      KILLED CONDITIONALS_NEGATION at memory.go:44:17
+      KILLED CONDITIONALS_NEGATION at sql.go:35:9
+      KILLED CONDITIONALS_NEGATION at sql.go:43:41
+
+Mutation testing completed in 922 milliseconds 978 microseconds
+Killed: 8, Lived: 0, Not covered: 0
+Timed out: 0, Not viable: 0, Skipped: 0
+Test efficacy: 100.00%
+Mutator coverage: 100.00%
