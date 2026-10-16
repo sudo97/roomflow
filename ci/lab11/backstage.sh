@@ -18,19 +18,23 @@ printf 'roomflow-portal\n' | npx -y @backstage/create-app@latest --path $BS --sk
 cd $BS
 export YARN_ENABLE_IMMUTABLE_INSTALLS=false   # у CI (CI=true) Yarn за замовчуванням забороняє змінювати lockfile
 if ! yarn install > "$E/yarn-install.txt" 2>&1; then
-  # шаблон create-app посилається на .yarn/patches/*, які не потрапляють у проєкт при --skip-install:
-  # прибираємо patch:-резолюції і lockfile та встановлюємо залежності заново
-  tail -5 "$E/yarn-install.txt"
-  node -e '
-    const fs = require("fs");
-    const files = ["package.json", ...fs.readdirSync("packages").map(d => `packages/${d}/package.json`).filter(f => fs.existsSync(f))];
-    for (const f of files) { const p = JSON.parse(fs.readFileSync(f));
-    for (const sec of ["resolutions", "dependencies", "devDependencies"])
-      for (const [k, v] of Object.entries(p[sec] || {}))
-        if (String(v).startsWith("patch:")) { const m = /npm(?:%3A|:)([^#]+)#/.exec(v); if (m) p[sec][k] = decodeURIComponent(m[1]); else delete p[sec][k]; }
-    fs.writeFileSync(f, JSON.stringify(p, null, 2)); }'
-  rm -f yarn.lock
-  yarn install > "$E/yarn-install-retry.txt" 2>&1 || { tail -50 "$E/yarn-install-retry.txt"; exit 1; }
+  # пакет @backstage/create-app не містить каталогу .yarn/patches шаблону, а package.json/yarn.lock
+  # посилаються на патчі звідти (patch:got@npm%3A11.8.2#~/.yarn/patches/...). Відновлюємо їх із репозиторію Backstage.
+  grep -rn "patch:" --include=package.json --include=.yarnrc.yml . 2>/dev/null | grep -v node_modules > "$E/patch-refs.txt" || true
+  grep -rln "yarn/patches" . --exclude-dir=node_modules --exclude-dir=cache 2>/dev/null >> "$E/patch-refs.txt" || true
+  cat "$E/patch-refs.txt"
+  mkdir -p .yarn/patches
+  for p in $(grep -rhoE '\.yarn/patches/[^"#]+\.patch' --include=package.json --include=yarn.lock . 2>/dev/null | sort -u); do
+    curl -fsSL "https://raw.githubusercontent.com/backstage/backstage/master/packages/create-app/templates/default-app/$p" -o "$p" \
+      && echo "restored $p" || echo "not found upstream: $p"
+  done | tee -a "$E/patch-refs.txt"
+  if ! yarn install > "$E/yarn-install-retry.txt" 2>&1; then
+    # запасний варіант: прибрати patch:-посилання (патч стосується лише сумісності got) і перебудувати lockfile
+    grep -rlE 'patch:[^" ]*yarn/patches' . --exclude-dir=node_modules --exclude-dir=cache 2>/dev/null \
+      | xargs -r sed -i -E 's#"?patch:[^"@ ]+@npm%3A([^"# ]+)\#[^" ]*"?#"\1"#g'
+    rm -f yarn.lock
+    yarn install > "$E/yarn-install-retry2.txt" 2>&1 || { tail -50 "$E/yarn-install-retry2.txt"; exit 1; }
+  fi
 fi
 grep -m1 '"version"' node_modules/@backstage/cli/package.json | tee "$E/versions.txt"
 yarn add --cwd packages/backend pg >/dev/null 2>&1 || (cd packages/backend && yarn add pg >/dev/null)

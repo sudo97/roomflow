@@ -21,6 +21,10 @@ resource "docker_container" "replica" {
   memory  = var.memory_mb
   env     = [for k, v in local.env : "${k}=${v}"]
 
+  # Docker за замовчуванням встановлює swap = 2 × memory; без явного значення провайдер
+  # бачить різницю (256 -> null) після кожного apply, і перевірка дрейфу ніколи не сходиться
+  memory_swap = var.memory_mb * 2
+
   dynamic "networks_advanced" {
     for_each = var.networks
     content {

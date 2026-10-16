@@ -45,6 +45,8 @@ resource "docker_container" "db" {
   memory  = var.memory_mb
   env     = ["POSTGRES_PASSWORD=${random_password.db.result}", "POSTGRES_DB=${var.database}"]
 
+  memory_swap = var.memory_mb * 2 # див. modules/app: явне значення прибирає хибний дрейф
+
   mounts {
     type   = "volume"
     source = docker_volume.data.name
@@ -79,6 +81,8 @@ resource "docker_container" "backup" {
   memory  = 64
   env     = ["PGPASSWORD=${random_password.db.result}", "RETENTION=${var.retention_count}", "INTERVAL=${var.backup_interval_seconds}", "DB=${var.database}"]
   command = ["sh", "-c", "sleep 5; while true; do pg_dump -h db -U postgres \"$DB\" > /backups/$DB-$(date +%Y%m%d%H%M%S).sql && ls -1t /backups/*.sql | tail -n +$((RETENTION + 1)) | xargs -r rm; sleep \"$INTERVAL\"; done"]
+
+  memory_swap = 128 # див. modules/app: явне значення прибирає хибний дрейф
 
   mounts {
     type   = "volume"

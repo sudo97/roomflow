@@ -50,6 +50,8 @@ resource "docker_container" "this" {
   memory  = 256
   command = each.value.command
 
+  memory_swap = 512 # див. modules/app: явне значення прибирає хибний дрейф
+
   dynamic "ports" {
     for_each = each.value.port > 0 ? [each.value.port] : []
     content {

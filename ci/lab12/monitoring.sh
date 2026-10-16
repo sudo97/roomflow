@@ -25,7 +25,9 @@ fortio_pod $NS
 kubectl -n $NS exec fortio -- fortio curl -quiet -H 'X-Tenant-ID: demo-hotel' -payload '{"id":"r1","name":"Suite","capacity":2,"price":200000}' http://backend:8080/api/rooms >/dev/null 2>&1 || true
 # навантаження триває 6 хв: усі запити до Prometheus і знімки екрана робляться ПІД навантаженням,
 # інакше rate() за 1 хв після його завершення порожній (так було в першому прогоні: SLI = null)
-kubectl -n $NS exec fortio -- fortio load -quiet -c 4 -qps 30 -t 360s -H 'X-Tenant-ID: demo-hotel' 'http://frontend:8081/api/rooms/r1/availability?from=2027-01-01&to=2027-02-01' > "$E/load.txt" 2>&1 &
+# /api/rooms, а не календар r1: стан backend зберігається в пам'яті кожної репліки, тож номер, створений
+# на одній репліці, на іншій дає 404, і fortio переривав навантаження на першій же помилці
+kubectl -n $NS exec fortio -- fortio load -quiet -c 4 -qps 30 -t 360s -H 'X-Tenant-ID: demo-hotel' http://frontend:8081/api/rooms > "$E/load.txt" 2>&1 &
 L=$!
 kubectl -n monitoring port-forward svc/kps-kube-prometheus-stack-prometheus 9090:9090 >/dev/null 2>&1 &
 PF1=$!

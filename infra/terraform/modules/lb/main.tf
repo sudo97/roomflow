@@ -24,6 +24,8 @@ resource "docker_container" "lb" {
   memory  = 64
   command = ["nginx", "-g", "daemon off;", "-c", "/etc/nginx/rf/nginx.conf"]
 
+  memory_swap = 128 # див. modules/app: явне значення прибирає хибний дрейф
+
   ports {
     internal = 80
     external = var.port
