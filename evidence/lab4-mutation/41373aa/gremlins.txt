@@ -1,0 +1,5 @@
+Starting...
+Gathering coverage... go: no module dependencies to download
+done in 374.560983ms
+
+No results to report.
