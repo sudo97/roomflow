@@ -1,0 +1,19 @@
+NAME                  SYNC     HEALTH    REVISION
+roomflow              Synced   Healthy   4c3de2e2b6b14ffd1ca4c7bf2c111e4344d8c40a
+roomflow-production   Synced   Healthy   4c3de2e2b6b14ffd1ca4c7bf2c111e4344d8c40a
+roomflow-staging      Synced   Healthy   4c3de2e2b6b14ffd1ca4c7bf2c111e4344d8c40a
+== rf-staging
+NAME                                    READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/roomflow-staging-blue   1/1     1            1           7s
+== rf-production
+NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/roomflow-production-blue   2/2     2            2           7s
+
+NAME                                                           REFERENCE                             TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/roomflow-production-blue   Deployment/roomflow-production-blue   cpu: <unknown>/70%   2         6         1          7s
+
+NAME                                             MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+poddisruptionbudget.policy/roomflow-production   1               N/A               1                     8s
+
+NAME                                                  POD-SELECTOR                                                                     AGE
+networkpolicy.networking.k8s.io/roomflow-production   app.kubernetes.io/instance=roomflow-production,app.kubernetes.io/name=roomflow   8s
