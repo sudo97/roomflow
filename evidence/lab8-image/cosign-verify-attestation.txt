@@ -1,5 +1,5 @@
 
-Verification for ghcr.io/sudo97/roomflow@sha256:ac579b10e79c67212fd34617b8af51959a9ec4dbc453ed7ada4e97fb89fe7988 --
+Verification for ghcr.io/sudo97/roomflow@sha256:062358241b229dcd7bd426cd693df6862616388df60180009e8feebc102143da --
 The following checks were performed on each of these signatures:
   - The cosign claims were validated
   - Existence of the claims in the transparency log was verified offline
@@ -7,7 +7,7 @@ The following checks were performed on each of these signatures:
 Certificate subject: https://github.com/sudo97/roomflow/.github/workflows/lab8-devsecops.yml@refs/heads/main
 Certificate issuer URL: https://token.actions.githubusercontent.com
 GitHub Workflow Trigger: workflow_dispatch
-GitHub Workflow SHA: efbd385c6b99d29f4c0cad44ea55fc8a325d7095
+GitHub Workflow SHA: 901d04b954dad16c5076b873bbb830b8a0bcb450
 GitHub Workflow Name: lab8-devsecops
 GitHub Workflow Repository: sudo97/roomflow
 GitHub Workflow Ref: refs/heads/main
