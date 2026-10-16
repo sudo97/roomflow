@@ -1,0 +1,30 @@
+# Лабораторна робота 3, індивідуальне завдання 1: той самий набір перевірок,
+# але послідовно в одному job — для порівняння часу з паралельним конвеєром ci.yml.
+name: ci-sequential
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  sequential:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+      - name: Lint
+        run: test -z "$(gofmt -l .)" && go vet ./...
+      - name: Test on Go 1.23, 1.24, 1.25 one after another
+        run: |
+          for v in 1.23.0 1.24.0 1.25.0; do
+            go install golang.org/dl/go$v@latest && "$(go env GOPATH)/bin/go$v" download
+            "$(go env GOPATH)/bin/go$v" test -race ./...
+          done
+      - name: Build all targets
+        run: |
+          for t in linux/amd64 linux/arm64 darwin/arm64 windows/amd64; do
+            GOOS=${t%/*} GOARCH=${t#*/} CGO_ENABLED=0 go build -o /dev/null ./cmd/roomflow
+          done
