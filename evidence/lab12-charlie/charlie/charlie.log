@@ -1,5 +1,14 @@
+reading /home/runner/work/roomflow/roomflow/.gitleaks.toml
+reading /home/runner/work/roomflow/roomflow/.gitleaksignore
+reading /home/runner/work/roomflow/roomflow/ci/lab11/argocd.sh
 reading /home/runner/work/roomflow/roomflow/ci/lab11/backstage.sh
+reading /home/runner/work/roomflow/roomflow/ci/lab12/lib.sh
 reading /home/runner/work/roomflow/roomflow/ci/lab12/mesh.sh
+reading /home/runner/work/roomflow/roomflow/ci/lab8/secrets.sh
+reading /home/runner/work/roomflow/roomflow/ci/lib/shoot.mjs
+reading /home/runner/work/roomflow/roomflow/cmd/frontend/main.go
+reading /home/runner/work/roomflow/roomflow/cmd/frontend/main_test.go
+reading /home/runner/work/roomflow/roomflow/deploy/mesh/core/apps.yaml
 reading /home/runner/work/roomflow/roomflow/ci/lab12/monitoring.sh
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/app/main.tf
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/database/main.tf
@@ -19,13 +28,10 @@ reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/lb/nginx.con
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/lb/tests/lb.tftest.hcl
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/lb/variables.tf
 reading /home/runner/work/roomflow/roomflow/test/load/seed/main.go
-reading /home/runner/work/roomflow/roomflow/.gitleaks.toml
 reading /home/runner/work/roomflow/roomflow/deploy/observability/prometheus/recording.rules.yml
 reading /home/runner/work/roomflow/roomflow/ci/lab10/loop.sh
 reading /home/runner/work/roomflow/roomflow/ci/lab10/strategies.sh
-reading /home/runner/work/roomflow/roomflow/ci/lab11/argocd.sh
 reading /home/runner/work/roomflow/roomflow/ci/lab11/crossplane.sh
-reading /home/runner/work/roomflow/roomflow/ci/lab12/lib.sh
 reading /home/runner/work/roomflow/roomflow/ci/lab7/run.sh
 reading /home/runner/work/roomflow/roomflow/cmd/roomflow/main.go
 reading /home/runner/work/roomflow/roomflow/cmd/roomflow/main_test.go
@@ -71,11 +77,9 @@ reading /home/runner/work/roomflow/roomflow/ci/lab8/image.sh
 reading /home/runner/work/roomflow/roomflow/ci/lab8/sast-compare.sh
 reading /home/runner/work/roomflow/roomflow/ci/lab8/sast-report.py
 reading /home/runner/work/roomflow/roomflow/ci/lab8/sast.sh
-reading /home/runner/work/roomflow/roomflow/ci/lab8/secrets.sh
 reading /home/runner/work/roomflow/roomflow/ci/lab8/vault.sh
 reading /home/runner/work/roomflow/roomflow/ci/lab9/report.py
 reading /home/runner/work/roomflow/roomflow/ci/lib/common.sh
-reading /home/runner/work/roomflow/roomflow/ci/lib/shoot.mjs
 reading /home/runner/work/roomflow/roomflow/ci/workflows/ci.yml
 reading /home/runner/work/roomflow/roomflow/ci/workflows/lab10-deployments.yml
 reading /home/runner/work/roomflow/roomflow/ci/workflows/lab11-platform.yml
@@ -85,8 +89,6 @@ reading /home/runner/work/roomflow/roomflow/ci/workflows/lab7-observability.yml
 reading /home/runner/work/roomflow/roomflow/ci/workflows/lab8-devsecops.yml
 reading /home/runner/work/roomflow/roomflow/ci/workflows/lab9-performance.yml
 reading /home/runner/work/roomflow/roomflow/ci/workflows/run.yml
-reading /home/runner/work/roomflow/roomflow/cmd/frontend/main.go
-reading /home/runner/work/roomflow/roomflow/cmd/frontend/main_test.go
 reading /home/runner/work/roomflow/roomflow/cmd/roomflow/runtime.go
 reading /home/runner/work/roomflow/roomflow/deploy/gitops/application.yaml
 reading /home/runner/work/roomflow/roomflow/deploy/gitops/applicationset.yaml
@@ -102,7 +104,6 @@ reading /home/runner/work/roomflow/roomflow/deploy/k8s/canary/canary.yaml
 reading /home/runner/work/roomflow/roomflow/deploy/k8s/flagger/app.yaml
 reading /home/runner/work/roomflow/roomflow/deploy/k8s/probe/probe.yaml
 reading /home/runner/work/roomflow/roomflow/deploy/mesh/chaos/faults.yaml
-reading /home/runner/work/roomflow/roomflow/deploy/mesh/core/apps.yaml
 reading /home/runner/work/roomflow/roomflow/deploy/mesh/core/namespace.yaml
 reading /home/runner/work/roomflow/roomflow/deploy/mesh/core/redis.yaml
 reading /home/runner/work/roomflow/roomflow/deploy/mesh/core/resilience.yaml
