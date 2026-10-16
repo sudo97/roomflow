@@ -121,9 +121,27 @@ func TestCancelFreesTheRoom(t *testing.T) {
 	}
 }
 
+// Табличний тест розширено за результатами мутаційного тестування (ЛР4): кожна умова
+// валідації та межові значення 0 і 1 перевіряються окремо.
 func TestAddRoomValidation(t *testing.T) {
-	svc := booking.NewService(store.NewMemory())
-	if _, err := svc.AddRoom(booking.Room{ID: "r1", TenantID: tenant, Name: "x", Capacity: 0, BasePrice: 1}); !errors.Is(err, booking.ErrInvalidInput) {
-		t.Fatalf("err = %v", err)
+	valid := booking.Room{ID: "r1", TenantID: tenant, Name: "x", Capacity: 1, BasePrice: 1}
+	cases := map[string]func(*booking.Room){
+		"no tenant":     func(r *booking.Room) { r.TenantID = "" },
+		"no id":         func(r *booking.Room) { r.ID = "" },
+		"no name":       func(r *booking.Room) { r.Name = "" },
+		"zero capacity": func(r *booking.Room) { r.Capacity = 0 },
+		"zero price":    func(r *booking.Room) { r.BasePrice = 0 },
+	}
+	for name, mutate := range cases {
+		t.Run(name, func(t *testing.T) {
+			r := valid
+			mutate(&r)
+			if _, err := booking.NewService(store.NewMemory()).AddRoom(r); !errors.Is(err, booking.ErrInvalidInput) {
+				t.Fatalf("err = %v, want ErrInvalidInput", err)
+			}
+		})
+	}
+	if _, err := booking.NewService(store.NewMemory()).AddRoom(valid); err != nil {
+		t.Fatalf("minimal valid room rejected: %v", err)
 	}
 }
