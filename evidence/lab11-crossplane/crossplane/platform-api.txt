@@ -5,7 +5,7 @@ NAME                                                      INSTALLED   HEALTHY   
 function.pkg.crossplane.io/function-patch-and-transform   True        True      xpkg.upbound.io/crossplane-contrib/function-patch-and-transform:v0.7.0   8s
 
 NAME                                                                                                ESTABLISHED   OFFERED   AGE
-compositeresourcedefinition.apiextensions.crossplane.io/xpostgresqlinstances.platform.roomflow.io   True          True      1s
+compositeresourcedefinition.apiextensions.crossplane.io/xpostgresqlinstances.platform.roomflow.io   True          True      0s
 
 NAME                                                          XR-KIND               XR-APIVERSION                   AGE
 composition.apiextensions.crossplane.io/postgres-kubernetes   XPostgreSQLInstance   platform.roomflow.io/v1alpha1   0s

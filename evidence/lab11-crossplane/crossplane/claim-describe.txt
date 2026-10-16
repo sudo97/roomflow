@@ -5,12 +5,12 @@ Annotations:  <none>
 API Version:  platform.roomflow.io/v1alpha1
 Kind:         PostgreSQLInstance
 Metadata:
-  Creation Timestamp:  2026-10-16T18:13:44Z
+  Creation Timestamp:  2026-10-16T18:38:09Z
   Finalizers:
     finalizer.apiextensions.crossplane.io
   Generation:        4
-  Resource Version:  1050
-  UID:               ecb1d7f1-9815-45b2-9798-a2c097d7df46
+  Resource Version:  1044
+  UID:               0bec9ed3-204a-482c-a4dc-ea9bb76cb22c
 Spec:
   Composite Delete Policy:  Background
   Composition Ref:
@@ -28,19 +28,19 @@ Spec:
   Resource Ref:
     API Version:  platform.roomflow.io/v1alpha1
     Kind:         XPostgreSQLInstance
-    Name:         reviews-db-hv6cb
+    Name:         reviews-db-ks5ct
 Status:
   Conditions:
-    Last Transition Time:  2026-10-16T18:13:44Z
+    Last Transition Time:  2026-10-16T18:38:09Z
     Reason:                ReconcileSuccess
     Status:                True
     Type:                  Synced
-    Last Transition Time:  2026-10-16T18:13:45Z
+    Last Transition Time:  2026-10-16T18:38:10Z
     Reason:                Available
     Status:                True
     Type:                  Ready
 Events:
   Type    Reason                 Age                From                                                             Message
   ----    ------                 ----               ----                                                             -------
-  Normal  BindCompositeResource  20s                offered/compositeresourcedefinition.apiextensions.crossplane.io  Successfully bound composite resource
-  Normal  BindCompositeResource  19s (x7 over 20s)  offered/compositeresourcedefinition.apiextensions.crossplane.io  Composite resource is not yet ready
+  Normal  BindCompositeResource  25s                offered/compositeresourcedefinition.apiextensions.crossplane.io  Successfully bound composite resource
+  Normal  BindCompositeResource  24s (x7 over 25s)  offered/compositeresourcedefinition.apiextensions.crossplane.io  Composite resource is not yet ready
