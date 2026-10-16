@@ -1,0 +1,22 @@
+# Лабораторна робота 7: моніторинг, логування і DORA-метрики.
+name: lab7-observability
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["deploy/observability/**", "tools/dora-exporter/**", "internal/obs/**", "ci/lab7/**"]
+permissions:
+  contents: write
+  actions: read
+concurrency: { group: lab7, cancel-in-progress: false }
+jobs:
+  observability:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - run: bash ci/lab7/run.sh
+      - if: always()
+        run: bash ci/publish-evidence.sh lab7-observability

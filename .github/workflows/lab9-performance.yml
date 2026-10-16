@@ -1,0 +1,42 @@
+# Лабораторна робота 9: навантажувальне тестування і оптимізація продуктивності.
+# Порівнюються дві версії коду (до/після оптимізації), плюс кеш Redis, обмеження швидкості і стрес-тест.
+name: lab9-performance
+on:
+  workflow_dispatch:
+    inputs:
+      before: { description: "Версія до оптимізації", default: "origin/lab9-before" }
+      after: { description: "Версія після оптимізації", default: "origin/lab9-after" }
+permissions:
+  contents: write
+concurrency: { group: lab9, cancel-in-progress: false }
+jobs:
+  load:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-go@v5
+        with: { go-version: "1.24" }
+      - run: bash ci/lab9/run.sh "${{ inputs.before }}" "${{ inputs.after }}"
+      - if: always()
+        run: bash ci/publish-evidence.sh lab9-load
+  gate:
+    # Ворота продуктивності на обох версіях: версія без індексу має бути заблокована
+    strategy:
+      fail-fast: false
+      matrix:
+        version: [before, after]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-go@v5
+        with: { go-version: "1.24" }
+      - id: gate
+        continue-on-error: true
+        run: bash ci/lab9/gate.sh "${{ matrix.version == 'before' && inputs.before || inputs.after }}"
+      - run: |
+          echo "gate outcome (${{ matrix.version }}) = ${{ steps.gate.outcome }}" | tee -a /tmp/evidence/gate-outcome.txt
+      - if: always()
+        run: bash ci/publish-evidence.sh lab9-gate-${{ matrix.version }}

@@ -1,0 +1,34 @@
+# Лабораторна робота 12: cloud-native архітектура — Istio, Argo Rollouts, Prometheus Operator,
+# поведінковий аналіз коду (Charlie).
+name: lab12-cloud-native
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["deploy/mesh/**", "ci/lab12/**", "internal/trace/**", "cmd/frontend/**"]
+permissions:
+  contents: write
+concurrency: { group: lab12, cancel-in-progress: false }
+jobs:
+  scenario:
+    strategy:
+      fail-fast: false
+      matrix:
+        name: [mesh, rollouts, monitoring]
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash ci/lab12/${{ matrix.name }}.sh
+      - if: always()
+        run: bash ci/publish-evidence.sh lab12-${{ matrix.name }}
+  charlie:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: "22" }
+      - run: bash ci/lab12/charlie.sh
+      - if: always()
+        run: bash ci/publish-evidence.sh lab12-charlie
