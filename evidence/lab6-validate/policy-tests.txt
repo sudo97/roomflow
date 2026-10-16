@@ -9,14 +9,13 @@ bf2bd93c3bc8: Pulling fs layer
 bf2bd93c3bc8: Waiting
 ec99f8b99825: Verifying Checksum
 ec99f8b99825: Download complete
-6c16ace40987: Verifying Checksum
-6c16ace40987: Download complete
 8ee52d7aaa8a: Verifying Checksum
 8ee52d7aaa8a: Download complete
 ec99f8b99825: Pull complete
-bf2bd93c3bc8: Download complete
-4c1e61fcb3f4: Verifying Checksum
+6c16ace40987: Verifying Checksum
+6c16ace40987: Download complete
 4c1e61fcb3f4: Download complete
+bf2bd93c3bc8: Download complete
 8ee52d7aaa8a: Pull complete
 6c16ace40987: Pull complete
 4c1e61fcb3f4: Pull complete
