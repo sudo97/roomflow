@@ -1,0 +1,1 @@
+29414d0c622d0de2c320626c26f2a2a00868a954 ci: add fix-05 patch (frontend proxy Host for mesh routing, detect-secrets/gitleaks checks, backstage no-op patch, argocd UI login)

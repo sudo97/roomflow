@@ -1,0 +1,42 @@
+CRITICAL	CODE_SMELL	go:S3776	internal/flags/flags_test.go	11	Refactor this method to reduce its Cognitive Complexity from 13 to the 8 allowed.
+MAJOR	CODE_SMELL	kubernetes:S6897	deploy/helm/roomflow/templates/deployments.yaml	35	Specify a storage request for this container.
+MAJOR	CODE_SMELL	kubernetes:S6897	deploy/k8s/bluegreen/deployments.yaml	30	Specify a storage request for this container.
+MAJOR	CODE_SMELL	kubernetes:S6897	deploy/k8s/bluegreen/deployments.yaml	72	Specify a storage request for this container.
+MAJOR	CODE_SMELL	kubernetes:S6897	deploy/k8s/canary/canary.yaml	33	Specify a storage request for this container.
+MAJOR	CODE_SMELL	kubernetes:S6897	deploy/k8s/canary/canary.yaml	57	Specify a storage request for this container.
+MAJOR	CODE_SMELL	kubernetes:S6897	deploy/k8s/flagger/app.yaml	24	Specify a storage request for this container.
+MINOR	VULNERABILITY	kubernetes:S5332	deploy/k8s/flagger/app.yaml	77	Make sure that using clear-text protocols is safe here.
+MAJOR	CODE_SMELL	kubernetes:S6897	deploy/k8s/probe/probe.yaml	11	Specify a storage request for this container.
+MAJOR	VULNERABILITY	kubernetes:S6865	deploy/mesh/core/apps.yaml	11	Bind this Service Account to RBAC or disable "automountServiceAccountToken".
+MAJOR	CODE_SMELL	kubernetes:S6897	deploy/mesh/core/apps.yaml	14	Specify a storage request for this container.
+MINOR	VULNERABILITY	kubernetes:S5332	deploy/mesh/core/apps.yaml	20	Make sure that using clear-text protocols is safe here.
+MAJOR	VULNERABILITY	kubernetes:S6865	deploy/mesh/core/apps.yaml	44	Bind this Service Account to RBAC or disable "automountServiceAccountToken".
+MAJOR	CODE_SMELL	kubernetes:S6897	deploy/mesh/core/apps.yaml	47	Specify a storage request for this container.
+MINOR	VULNERABILITY	kubernetes:S5332	deploy/mesh/core/apps.yaml	54	Make sure that using clear-text protocols is safe here.
+MAJOR	VULNERABILITY	kubernetes:S6865	deploy/mesh/core/redis.yaml	19	Bind this Service Account to RBAC or disable "automountServiceAccountToken".
+MAJOR	VULNERABILITY	kubernetes:S6870	deploy/mesh/core/redis.yaml	22	Specify a storage limit for this container.
+MAJOR	CODE_SMELL	kubernetes:S6897	deploy/mesh/core/redis.yaml	22	Specify a storage request for this container.
+MAJOR	VULNERABILITY	kubernetes:S6865	deploy/mesh/istio/jaeger.yaml	12	Bind this resource's automounted service account to RBAC or disable automounting.
+MAJOR	CODE_SMELL	kubernetes:S6897	deploy/mesh/istio/jaeger.yaml	13	Specify a storage request for this container.
+MAJOR	CODE_SMELL	kubernetes:S6873	deploy/mesh/istio/jaeger.yaml	13	Specify a memory request for this container.
+MAJOR	CODE_SMELL	kubernetes:S6892	deploy/mesh/istio/jaeger.yaml	13	Specify a CPU request for this container.
+CRITICAL	CODE_SMELL	go:S3776	internal/chaos/chaos_test.go	9	Refactor this method to reduce its Cognitive Complexity from 9 to the 8 allowed.
+CRITICAL	CODE_SMELL	go:S3776	internal/ratelimit/ratelimit_test.go	10	Refactor this method to reduce its Cognitive Complexity from 10 to the 8 allowed.
+MINOR	VULNERABILITY	python:S5332	platform/templates/service/skeleton/python/app.py	25	Using HTTP protocol is insecure. Use HTTPS instead.
+MAJOR	VULNERABILITY	javascript:S2245	test/load/k6/load.js	42	Make sure that using this pseudorandom number generator is safe here.
+MAJOR	VULNERABILITY	javascript:S2245	test/load/k6/load.js	49	Make sure that using this pseudorandom number generator is safe here.
+MAJOR	VULNERABILITY	javascript:S2245	test/load/k6/load.js	50	Make sure that using this pseudorandom number generator is safe here.
+MAJOR	VULNERABILITY	javascript:S2245	test/load/k6/mixed.js	32	Make sure that using this pseudorandom number generator is safe here.
+MAJOR	VULNERABILITY	javascript:S2245	test/load/k6/mixed.js	34	Make sure that using this pseudorandom number generator is safe here.
+MAJOR	VULNERABILITY	javascript:S2245	test/load/k6/mixed.js	35	Make sure that using this pseudorandom number generator is safe here.
+MAJOR	VULNERABILITY	javascript:S2245	test/load/k6/mixed.js	42	Make sure that using this pseudorandom number generator is safe here.
+MAJOR	VULNERABILITY	javascript:S2245	test/load/k6/mixed.js	43	Make sure that using this pseudorandom number generator is safe here.
+MAJOR	VULNERABILITY	javascript:S2245	test/load/k6/stress.js	34	Make sure that using this pseudorandom number generator is safe here.
+MAJOR	VULNERABILITY	javascript:S2245	test/load/k6/stress.js	34	Make sure that using this pseudorandom number generator is safe here.
+CRITICAL	CODE_SMELL	go:S3776	tools/dora-exporter/dora_test.go	45	Refactor this method to reduce its Cognitive Complexity from 9 to the 8 allowed.
+CRITICAL	CODE_SMELL	go:S3776	tools/platform-exporter/main_test.go	13	Refactor this method to reduce its Cognitive Complexity from 11 to the 8 allowed.
+CRITICAL	CODE_SMELL	go:S3776	tools/rfctl/rfctl_test.go	35	Refactor this method to reduce its Cognitive Complexity from 9 to the 8 allowed.
+CRITICAL	CODE_SMELL	go:S3776	tools/rfctl/rfctl_test.go	64	Refactor this method to reduce its Cognitive Complexity from 18 to the 8 allowed.
+CRITICAL	CODE_SMELL	go:S3776	internal/obs/obs_test.go	35	Refactor this method to reduce its Cognitive Complexity from 9 to the 8 allowed.
+CRITICAL	CODE_SMELL	go:S3776	internal/booking/bench_test.go	14	Refactor this method to reduce its Cognitive Complexity from 11 to the 8 allowed.
+MAJOR	CODE_SMELL	go:S107	internal/httpapi/handlers_test.go	15	This function has 6 parameters, which is greater than the 5 authorized.
