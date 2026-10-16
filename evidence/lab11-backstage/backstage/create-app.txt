@@ -29,30 +29,30 @@ Creating the app...
   copying       yarn.lock ✔ 
   copying       README.md ✔ 
   copying       yarn-4.13.0.cjs ✔ 
-  copying       org.yaml ✔ 
   copying       entities.yaml ✔ 
+  copying       org.yaml ✔ 
   copying       template.yaml ✔ 
   copying       catalog-info.yaml ✔ 
   copying       index.js ✔ 
   copying       package.json ✔ 
   copying       README.md ✔ 
   templating    .eslintrc.js.hbs ✔ 
+  copying       Dockerfile ✔ 
   copying       README.md ✔ 
   templating    package.json.hbs ✔ 
-  copying       Dockerfile ✔ 
   copying       index.ts ✔ 
   copying       .eslintignore ✔ 
   templating    .eslintrc.js.hbs ✔ 
   templating    package.json.hbs ✔ 
   copying       app.test.ts ✔ 
-  copying       android-chrome-192x192.png ✔ 
   copying       apple-touch-icon.png ✔ 
+  copying       android-chrome-192x192.png ✔ 
   copying       favicon-16x16.png ✔ 
   copying       favicon-32x32.png ✔ 
   copying       favicon.ico ✔ 
   copying       index.html ✔ 
-  copying       manifest.json ✔ 
   copying       robots.txt ✔ 
+  copying       manifest.json ✔ 
   copying       safari-pinned-tab.svg ✔ 
   copying       App.test.tsx ✔ 
   copying       App.tsx ✔ 
@@ -62,8 +62,8 @@ Creating the app...
   copying       index.ts ✔ 
   copying       LogoFull.tsx ✔ 
   copying       LogoIcon.tsx ✔ 
-  copying       SidebarLogo.tsx ✔ 
   copying       Sidebar.tsx ✔ 
+  copying       SidebarLogo.tsx ✔ 
   copying       index.ts ✔ 
   fetching      yarn.lock seed ✔ 
 

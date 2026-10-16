@@ -1,9 +1,10 @@
+API roomflow-api openapi group:platform-team
 Component roomflow-api service group:platform-team
 Component roomflow-frontend website group:platform-team
 Domain hospitality  group:platform-team
 Group platform-team team 
+Location generated-47aab85fbce458f8ac21689cb9c04350b37621ac file 
 Location generated-b19ce7c83a5a40a6f9337b39609098eea93b0529 file 
-Location generated-efd8b0ca245db3d609166c189b4a9d34827fd9cb file 
 Resource roomflow-cache cache group:platform-team
 Resource roomflow-db database group:platform-team
 System roomflow  group:platform-team

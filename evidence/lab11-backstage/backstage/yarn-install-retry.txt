@@ -3,7 +3,7 @@
 ::group::Resolution step
 [94m➤[39m YN0085: │ [38;5;70m+[39m [38;5;166m@backstage/[39m[38;5;173mbackend-defaults[39m[38;5;111m@[39m[38;5;111mnpm:0.18.0[39m, [38;5;166m@backstage/[39m[38;5;173mcli-defaults[39m[38;5;111m@[39m[38;5;111mnpm:0.1.6[39m, [38;5;166m@backstage/[39m[38;5;173mcli[39m[38;5;111m@[39m[38;5;111mnpm:0.36.6[39m, [38;5;166m@backstage/[39m[38;5;173mconfig[39m[38;5;111m@[39m[38;5;111mnpm:1.3.9[39m, and [38;5;220m2937[39m more.
 ::endgroup::
-[94m➤[39m [90mYN0000[39m: └ Completed in 4s 102ms
+[94m➤[39m [90mYN0000[39m: └ Completed in 6s 280ms
 [94m➤[39m [90mYN0000[39m: ┌ Post-resolution validation
 ::group::Post-resolution validation
 [93m➤[39m YN0060: │ [38;5;166m@testing-library/[39m[38;5;173mdom[39m is listed by your project with version [38;5;111m9.3.4[39m ([38;5;111mp0661ee[39m), which doesn't satisfy what [38;5;166m@backstage/[39m[38;5;173mfrontend-test-utils[39m and other dependencies request ([38;5;37m^10.0.0[39m).
@@ -21,7 +21,7 @@
 ::group::Fetch step
 [94m➤[39m YN0013: │ [38;5;220m2849[39m packages were added to the project ([38;5;160m+ 1.1 GiB[39m).
 ::endgroup::
-[94m➤[39m [90mYN0000[39m: └ Completed in 19s 288ms
+[94m➤[39m [90mYN0000[39m: └ Completed in 14s 278ms
 [94m➤[39m [90mYN0000[39m: ┌ Link step
 ::group::Link step
 [94m➤[39m YN0007: │ [38;5;166m@swc/[39m[38;5;173mcore[39m[38;5;111m@[39m[38;5;111mnpm:1.16.18 [634db][39m must be built because it never has been before or the last one failed
@@ -148,5 +148,5 @@
 [94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info ok 
 [94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [32mSTDOUT[39m Succeeded in building optional crypto binding
 ::endgroup::
-[94m➤[39m [90mYN0000[39m: └ Completed in 29s 776ms
-[93m➤[39m YN0000: · Done with warnings in 53s 416ms
+[94m➤[39m [90mYN0000[39m: └ Completed in 46s 203ms
+[93m➤[39m YN0000: · Done with warnings in 1m 8s

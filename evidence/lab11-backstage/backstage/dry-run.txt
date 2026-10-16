@@ -17,7 +17,7 @@ mkdocs.yml
 [32minfo[39m: Writing file go.mod to template output path with mode 33188.
 [32minfo[39m: Writing file main.go to template output path with mode 33188.
 [32minfo[39m: Writing file main_test.go to template output path with mode 33188.
-[32minfo[39m: Template result written to /tmp/dry-run-e2a08100-cbb8-461a-8bec-ab14d6788b92
+[32minfo[39m: Template result written to /tmp/dry-run-e55d9c8b-108f-4e17-af26-87d2fb0a8b24
 Finished step Код сервісу (${{ parameters.language }})
 Beginning step Публікація репозиторію
 [32minfo[39m: Running publish:github in dry-run mode with inputs (secrets redacted): {
