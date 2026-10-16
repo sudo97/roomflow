@@ -1,0 +1,13 @@
+Key                Value
+---                -----
+Seal Type          shamir
+Initialized        true
+Sealed             true
+Total Shares       1
+Threshold          1
+Unseal Progress    0/1
+Unseal Nonce       n/a
+Version            1.17.6
+Build Date         2024-09-24T19:48:40Z
+Storage Type       file
+HA Enabled         false

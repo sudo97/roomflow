@@ -1,0 +1,15 @@
+{"time":"2026-10-16T17:35:13.107729759Z","path":"auth/approle/role/roomflow/secret-id","op":"update","policies":["root"],"error":null}
+{"time":"2026-10-16T17:35:13.121317576Z","path":"auth/approle/login","op":"update","policies":["default","roomflow"],"error":null}
+{"time":"2026-10-16T17:35:13.25996234Z","path":"secret/data/roomflow","op":"read","policies":["default","roomflow"],"error":null}
+{"time":"2026-10-16T17:35:13.361671803Z","path":"auth/approle/role/roomflow/secret-id","op":"update","policies":["root"],"error":null}
+{"time":"2026-10-16T17:35:13.371822076Z","path":"auth/approle/login","op":"update","policies":["default","roomflow"],"error":null}
+{"time":"2026-10-16T17:35:13.377834326Z","path":"secret/data/roomflow","op":"read","policies":["default","roomflow"],"error":null}
+{"time":"2026-10-16T17:35:13.383406355Z","path":"secret/data/roomflow","op":"update","policies":["default","roomflow"],"error":"1 error occurred:\n\t* permission denied\n\n"}
+{"time":"2026-10-16T17:35:13.388861287Z","path":"sys/policy","op":"read","policies":["default","roomflow"],"error":"1 error occurred:\n\t* permission denied\n\n"}
+{"time":"2026-10-16T17:35:13.47076912Z","path":"sys/internal/ui/mounts/secret/roomflow","op":"read","policies":["root"],"error":null}
+{"time":"2026-10-16T17:35:13.472083018Z","path":"secret/data/roomflow","op":"patch","policies":["root"],"error":null}
+{"time":"2026-10-16T17:35:13.658214555Z","path":"auth/approle/role/roomflow/secret-id","op":"update","policies":["root"],"error":null}
+{"time":"2026-10-16T17:35:13.668009906Z","path":"auth/approle/login","op":"update","policies":["default","roomflow"],"error":null}
+{"time":"2026-10-16T17:35:13.795485225Z","path":"secret/data/roomflow","op":"read","policies":["default","roomflow"],"error":null}
+{"time":"2026-10-16T17:35:13.891945845Z","path":"sys/internal/ui/mounts/secret/roomflow","op":"read","policies":["root"],"error":null}
+{"time":"2026-10-16T17:35:13.892605215Z","path":"secret/metadata/roomflow","op":"read","policies":["root"],"error":null}
