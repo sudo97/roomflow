@@ -1,15 +1,14 @@
 WORKFLOW                     STATUS     RESULT     COMMIT   UPDATED
-lab9-performance             in_progress            59173c5  2026-10-16T17:33:33Z
-lab12-cloud-native           in_progress            59173c5  2026-10-16T17:33:09Z
-lab11-platform               in_progress            59173c5  2026-10-16T17:33:01Z
-lab10-deployments            in_progress            59173c5  2026-10-16T17:32:56Z
-lab6-iac                     in_progress            59173c5  2026-10-16T17:33:14Z
-quality                      completed  success    59173c5  2026-10-16T17:33:42Z
-ci                           completed  success    59173c5  2026-10-16T17:33:32Z
-run-script                   completed  failure    48f74ea  2026-10-16T17:30:04Z
-lab8-devsecops               completed  success    48f74ea  2026-10-16T17:30:48Z
-tests                        completed  success    48f74ea  2026-10-16T17:30:52Z
-ci-sequential                completed  success    48f74ea  2026-10-16T17:31:08Z
-sonar                        completed  success    48f74ea  2026-10-16T17:33:18Z
+lab9-performance             pending               efbd385  2026-10-16T17:58:53Z
+lab12-cloud-native           in_progress            efbd385  2026-10-16T17:59:07Z
+lab11-platform               in_progress            efbd385  2026-10-16T17:58:53Z
+lab8-devsecops               in_progress            efbd385  2026-10-16T17:58:47Z
+lab6-iac                     in_progress            efbd385  2026-10-16T17:59:26Z
+run-script                   completed  failure    b1b5e80  2026-10-16T17:56:57Z
+sonar                        in_progress            b1b5e80  2026-10-16T17:56:20Z
+quality                      completed  success    b1b5e80  2026-10-16T17:57:47Z
+tests                        completed  success    b1b5e80  2026-10-16T17:58:05Z
+ci-sequential                completed  success    b1b5e80  2026-10-16T17:58:09Z
+ci                           completed  failure    b1b5e80  2026-10-16T17:59:29Z
+lab10-deployments            completed  success    59173c5  2026-10-16T17:39:24Z
 lab7-observability           completed  success    4c3de2e  2026-10-16T17:29:02Z
-mutation                     completed  success    679ee90  2026-10-16T17:15:22Z
