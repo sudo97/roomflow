@@ -1,0 +1,66 @@
+Results:
+
+
+[/home/runner/work/roomflow/roomflow/internal/chaos/chaos.go:17] - G404 (CWE-338): Use of weak random number generator (math/rand or math/rand/v2 instead of crypto/rand) (Confidence: MEDIUM, Severity: HIGH)
+    16: 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+  > 17: 		if strings.HasPrefix(r.URL.Path, "/api/") && rand.Float64() < rate { //nolint:gosec // not security sensitive
+    18: 			http.Error(w, "injected fault", http.StatusInternalServerError)
+
+Autofix: 
+
+[/home/runner/work/roomflow/roomflow/cmd/roomflow/runtime.go:6] - G108 (CWE-200): Profiling endpoint is automatically exposed on /debug/pprof (Confidence: HIGH, Severity: HIGH)
+    5: 	"net/http"
+  > 6: 	_ "net/http/pprof" //nolint:gosec // served only on PPROF_ADDR, a separate internal port (G108)
+    7: 	"os"
+
+Autofix: 
+
+[/home/runner/work/roomflow/roomflow/tools/sqlcheck/testdata/src/bad/bad.go:9] - G201 (CWE-89): SQL string formatting (Confidence: HIGH, Severity: MEDIUM)
+    8: func sprintf(db *sql.DB, tenant string) {
+  > 9: 	q := fmt.Sprintf("SELECT * FROM bookings WHERE tenant_id = '%s'", tenant)
+    10: 	db.Query(q)
+
+Autofix: 
+
+[/home/runner/work/roomflow/roomflow/tools/sqlcheck/testdata/src/bad/bad.go:14] - G202 (CWE-89): SQL string concatenation (Confidence: HIGH, Severity: MEDIUM)
+    13: func concat(db *sql.DB, tenant string) {
+  > 14: 	db.Exec("DELETE FROM bookings WHERE tenant_id = '" + tenant + "'")
+    15: }
+
+Autofix: 
+
+[/home/runner/work/roomflow/roomflow/tools/platform-exporter/main.go:75] - G304 (CWE-22): Potential file inclusion via variable (Confidence: HIGH, Severity: MEDIUM)
+    74: func (p *platform) replay(path string) error {
+  > 75: 	raw, err := os.ReadFile(path) //nolint:gosec // history file configured by the operator
+    76: 	if err != nil {
+
+Autofix: 
+
+[/home/runner/work/roomflow/roomflow/tools/sqlcheck/testdata/src/good/good.go:8] - G104 (CWE-703): Errors unhandled. (Confidence: HIGH, Severity: LOW)
+    7: func params(db *sql.DB, tenant string) {
+  > 8: 	db.Query(q, tenant)
+    9: 	db.QueryRow("SELECT 1")
+
+Autofix: 
+
+[/home/runner/work/roomflow/roomflow/tools/sqlcheck/testdata/src/bad/bad.go:14] - G104 (CWE-703): Errors unhandled. (Confidence: HIGH, Severity: LOW)
+    13: func concat(db *sql.DB, tenant string) {
+  > 14: 	db.Exec("DELETE FROM bookings WHERE tenant_id = '" + tenant + "'")
+    15: }
+
+Autofix: 
+
+[/home/runner/work/roomflow/roomflow/tools/sqlcheck/testdata/src/bad/bad.go:10] - G104 (CWE-703): Errors unhandled. (Confidence: HIGH, Severity: LOW)
+    9: 	q := fmt.Sprintf("SELECT * FROM bookings WHERE tenant_id = '%s'", tenant)
+  > 10: 	db.Query(q)
+    11: }
+
+Autofix: 
+
+Summary:
+  Gosec  : dev
+  Files  : 35
+  Lines  : 3186
+  Nosec  : 0
+  Issues : 8
+

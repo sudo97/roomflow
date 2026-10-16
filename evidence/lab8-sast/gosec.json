@@ -1,0 +1,60 @@
+{
+	"Golang errors": {},
+	"Issues": [
+		{
+			"severity": "HIGH",
+			"confidence": "MEDIUM",
+			"cwe": {
+				"id": "338",
+				"url": "https://cwe.mitre.org/data/definitions/338.html"
+			},
+			"rule_id": "G404",
+			"details": "Use of weak random number generator (math/rand or math/rand/v2 instead of crypto/rand)",
+			"file": "/home/runner/work/roomflow/roomflow/internal/chaos/chaos.go",
+			"code": "16: \treturn http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {\n17: \t\tif strings.HasPrefix(r.URL.Path, \"/api/\") \u0026\u0026 rand.Float64() \u003c rate { //nolint:gosec // not security sensitive\n18: \t\t\thttp.Error(w, \"injected fault\", http.StatusInternalServerError)\n",
+			"line": "17",
+			"column": "48",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "HIGH",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "200",
+				"url": "https://cwe.mitre.org/data/definitions/200.html"
+			},
+			"rule_id": "G108",
+			"details": "Profiling endpoint is automatically exposed on /debug/pprof",
+			"file": "/home/runner/work/roomflow/roomflow/cmd/roomflow/runtime.go",
+			"code": "5: \t\"net/http\"\n6: \t_ \"net/http/pprof\" //nolint:gosec // served only on PPROF_ADDR, a separate internal port (G108)\n7: \t\"os\"\n",
+			"line": "6",
+			"column": "2",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "MEDIUM",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "22",
+				"url": "https://cwe.mitre.org/data/definitions/22.html"
+			},
+			"rule_id": "G304",
+			"details": "Potential file inclusion via variable",
+			"file": "/home/runner/work/roomflow/roomflow/tools/platform-exporter/main.go",
+			"code": "74: func (p *platform) replay(path string) error {\n75: \traw, err := os.ReadFile(path) //nolint:gosec // history file configured by the operator\n76: \tif err != nil {\n",
+			"line": "75",
+			"column": "14",
+			"nosec": false,
+			"suppressions": null
+		}
+	],
+	"Stats": {
+		"files": 32,
+		"lines": 3056,
+		"nosec": 0,
+		"found": 3
+	},
+	"GosecVersion": "dev"
+}
