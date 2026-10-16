@@ -6,12 +6,17 @@ const out = process.argv[2];
 const base = 'http://localhost:3000';
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1600, height: 1000 } });
-await page.goto(base, { waitUntil: 'networkidle', timeout: 120000 });
-for (const label of ['Enter', 'Sign In', 'Continue']) {
-  const b = page.getByRole('button', { name: label });
-  if (await b.count()) { await b.first().click(); break; }
+// Вхід як guest: кнопка Enter з'являється після завантаження SPA, тому її чекаємо явно;
+// перевіряємо і після кожного переходу (повне перезавантаження сторінки може знову показати вхід).
+async function signIn() {
+  for (const label of ['Enter', 'Sign In', 'Continue']) {
+    const b = page.getByRole('button', { name: label });
+    try { await b.first().waitFor({ state: 'visible', timeout: 8000 }); await b.first().click(); await page.waitForTimeout(3000); return true; } catch { /* немає такої кнопки */ }
+  }
+  return false;
 }
-await page.waitForTimeout(4000);
+await page.goto(base, { waitUntil: 'networkidle', timeout: 120000 });
+console.log('signed in:', await signIn());
 const shots = {
   'catalog': '/catalog?filters[kind]=component',
   'component-api': '/catalog/default/component/roomflow-api',
@@ -24,6 +29,7 @@ const shots = {
 for (const [name, path] of Object.entries(shots)) {
   try {
     await page.goto(base + path, { waitUntil: 'networkidle', timeout: 60000 });
+    if (await page.getByRole('button', { name: 'Enter' }).count()) await signIn();
     await page.waitForTimeout(3000);
     await page.screenshot({ path: `${out}/${name}.png` });
     console.log('saved', name);

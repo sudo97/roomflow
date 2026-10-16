@@ -34,8 +34,15 @@ grep -m1 '"version"' node_modules/@backstage/cli/package.json | tee "$E/versions
 yarn add --cwd packages/backend pg >/dev/null 2>&1 || (cd packages/backend && yarn add pg >/dev/null)
 endlog
 
+# Для location типу file відносне посилання $text: ./docs/api/openapi.yaml не перетворюється на URL
+# (PlaceholderProcessor: Invalid URL), і сутність API не завантажувалась. Каталог реєструється з копії,
+# де специфікація читається за абсолютною URL-адресою з репозиторію.
+mkdir -p /tmp/catalog
+sed 's#\$text: ./docs/api/openapi.yaml#$text: https://raw.githubusercontent.com/sudo97/roomflow/main/docs/api/openapi.yaml#' "$REPO/catalog-info.yaml" > /tmp/catalog/catalog-info.yaml
 cat > app-config.local.yaml <<YAML
 backend:
+  reading:
+    allow: [{ host: raw.githubusercontent.com }]
   database:
     client: pg
     connection: { host: localhost, port: 5432, user: backstage, password: backstage }
@@ -47,7 +54,7 @@ catalog:
   rules:
     - allow: [Component, System, API, Resource, Location, Group, User, Domain, Template]
   locations:
-    - { type: file, target: $REPO/catalog-info.yaml }
+    - { type: file, target: /tmp/catalog/catalog-info.yaml }
     - { type: file, target: $REPO/platform/templates/service/template.yaml, rules: [{ allow: [Template] }] }
 YAML
 
