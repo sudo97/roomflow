@@ -1,0 +1,1158 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.database.docker_container.backup will be created
+  + resource "docker_container" "backup" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = [
+          + "sh",
+          + "-c",
+          + "sleep 5; while true; do pg_dump -h db -U postgres \"$DB\" > /backups/$DB-$(date +%Y%m%d%H%M%S).sql && ls -1t /backups/*.sql | tail -n +$((RETENTION + 1)) | xargs -r rm; sleep \"$INTERVAL\"; done",
+        ]
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = (sensitive value)
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = (known after apply)
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + memory                                      = 64
+      + memory_reservation                          = 0
+      + must_run                                    = true
+      + name                                        = "rf-ci-db-backup"
+      + network_data                                = (known after apply)
+      + network_mode                                = "bridge"
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "unless-stopped"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck (known after apply)
+
+      + labels {
+          + label = "component"
+          + value = "database-backup"
+        }
+      + labels {
+          + label = "cost_center"
+          + value = "roomflow-edu"
+        }
+      + labels {
+          + label = "environment"
+          + value = "ci"
+        }
+      + labels {
+          + label = "managed_by"
+          + value = "terraform"
+        }
+      + labels {
+          + label = "owner"
+          + value = "platform-team"
+        }
+      + labels {
+          + label = "project"
+          + value = "roomflow"
+        }
+
+      + mounts {
+          + source = "rf-ci-db-backups"
+          + target = "/backups"
+          + type   = "volume"
+        }
+
+      + networks_advanced {
+          + aliases      = []
+          + name         = "rf-ci-private"
+            # (3 unchanged attributes hidden)
+        }
+    }
+
+  # module.database.docker_container.db will be created
+  + resource "docker_container" "db" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = (known after apply)
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = (sensitive value)
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = (known after apply)
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + memory                                      = 256
+      + memory_reservation                          = 0
+      + must_run                                    = true
+      + name                                        = "rf-ci-db"
+      + network_data                                = (known after apply)
+      + network_mode                                = "bridge"
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "unless-stopped"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck {
+          + interval       = "5s"
+          + retries        = 5
+          + start_interval = "0s"
+          + start_period   = "0s"
+          + test           = [
+              + "CMD",
+              + "pg_isready",
+              + "-U",
+              + "postgres",
+            ]
+          + timeout        = "3s"
+        }
+
+      + labels {
+          + label = "component"
+          + value = "database"
+        }
+      + labels {
+          + label = "cost_center"
+          + value = "roomflow-edu"
+        }
+      + labels {
+          + label = "environment"
+          + value = "ci"
+        }
+      + labels {
+          + label = "managed_by"
+          + value = "terraform"
+        }
+      + labels {
+          + label = "owner"
+          + value = "platform-team"
+        }
+      + labels {
+          + label = "project"
+          + value = "roomflow"
+        }
+
+      + mounts {
+          + source = "rf-ci-db-data"
+          + target = "/var/lib/postgresql/data"
+          + type   = "volume"
+        }
+
+      + networks_advanced {
+          + aliases      = [
+              + "db",
+            ]
+          + name         = "rf-ci-private"
+            # (3 unchanged attributes hidden)
+        }
+    }
+
+  # module.database.docker_image.postgres will be created
+  + resource "docker_image" "postgres" {
+      + id           = (known after apply)
+      + image_id     = (known after apply)
+      + keep_locally = true
+      + name         = "postgres:16-alpine"
+      + repo_digest  = (known after apply)
+    }
+
+  # module.database.docker_volume.backups will be created
+  + resource "docker_volume" "backups" {
+      + driver     = (known after apply)
+      + id         = (known after apply)
+      + mountpoint = (known after apply)
+      + name       = "rf-ci-db-backups"
+
+      + labels {
+          + label = "component"
+          + value = "database"
+        }
+      + labels {
+          + label = "cost_center"
+          + value = "roomflow-edu"
+        }
+      + labels {
+          + label = "environment"
+          + value = "ci"
+        }
+      + labels {
+          + label = "managed_by"
+          + value = "terraform"
+        }
+      + labels {
+          + label = "owner"
+          + value = "platform-team"
+        }
+      + labels {
+          + label = "project"
+          + value = "roomflow"
+        }
+    }
+
+  # module.database.docker_volume.data will be created
+  + resource "docker_volume" "data" {
+      + driver     = (known after apply)
+      + id         = (known after apply)
+      + mountpoint = (known after apply)
+      + name       = "rf-ci-db-data"
+
+      + labels {
+          + label = "component"
+          + value = "database"
+        }
+      + labels {
+          + label = "cost_center"
+          + value = "roomflow-edu"
+        }
+      + labels {
+          + label = "environment"
+          + value = "ci"
+        }
+      + labels {
+          + label = "managed_by"
+          + value = "terraform"
+        }
+      + labels {
+          + label = "owner"
+          + value = "platform-team"
+        }
+      + labels {
+          + label = "project"
+          + value = "roomflow"
+        }
+    }
+
+  # module.database.random_password.db will be created
+  + resource "random_password" "db" {
+      + bcrypt_hash = (sensitive value)
+      + id          = (known after apply)
+      + length      = 24
+      + lower       = true
+      + min_lower   = 0
+      + min_numeric = 0
+      + min_special = 0
+      + min_upper   = 0
+      + number      = true
+      + numeric     = true
+      + result      = (sensitive value)
+      + special     = false
+      + upper       = true
+    }
+
+  # module.lb.docker_container.lb will be created
+  + resource "docker_container" "lb" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = [
+          + "nginx",
+          + "-g",
+          + "daemon off;",
+          + "-c",
+          + "/etc/nginx/rf/nginx.conf",
+        ]
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = (known after apply)
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = (known after apply)
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + memory                                      = 64
+      + memory_reservation                          = 0
+      + must_run                                    = true
+      + name                                        = "rf-ci-lb"
+      + network_data                                = (known after apply)
+      + network_mode                                = "bridge"
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "unless-stopped"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck (known after apply)
+
+      + labels {
+          + label = "component"
+          + value = "lb"
+        }
+      + labels {
+          + label = "cost_center"
+          + value = "roomflow-edu"
+        }
+      + labels {
+          + label = "environment"
+          + value = "ci"
+        }
+      + labels {
+          + label = "managed_by"
+          + value = "terraform"
+        }
+      + labels {
+          + label = "owner"
+          + value = "platform-team"
+        }
+      + labels {
+          + label = "project"
+          + value = "roomflow"
+        }
+
+      + mounts {
+          + read_only = true
+          + source    = "/home/runner/work/roomflow/roomflow/infra/terraform/envs/platform/.generated/lb"
+          + target    = "/etc/nginx/rf"
+          + type      = "bind"
+        }
+
+      + networks_advanced {
+          + aliases      = []
+          + name         = "rf-ci-app"
+            # (3 unchanged attributes hidden)
+        }
+      + networks_advanced {
+          + aliases      = []
+          + name         = "rf-ci-public"
+            # (3 unchanged attributes hidden)
+        }
+
+      + ports {
+          + external = 8088
+          + internal = 80
+          + ip       = "0.0.0.0"
+          + protocol = "tcp"
+        }
+    }
+
+  # module.lb.docker_image.nginx will be created
+  + resource "docker_image" "nginx" {
+      + id           = (known after apply)
+      + image_id     = (known after apply)
+      + keep_locally = true
+      + name         = "nginx:1.27-alpine"
+      + repo_digest  = (known after apply)
+    }
+
+  # module.lb.local_file.config will be created
+  + resource "local_file" "config" {
+      + content              = <<-EOT
+            # Згенеровано Terraform (модуль lb). Активне середовище: blue
+            events {}
+            
+            http {
+              # Вбудований DNS Docker: ім'я app-blue повертає адреси всіх реплік групи.
+              resolver 127.0.0.11 valid=5s ipv6=off;
+              access_log /dev/stdout;
+            
+              server {
+                listen 80;
+            
+                location = /lb/active {
+                  default_type text/plain;
+                  return 200 "blue\n";
+                }
+            
+                location / {
+                  set $backend "http://app-blue:8080";
+                  proxy_pass $backend;
+                  proxy_set_header Host $host;
+                  proxy_next_upstream error timeout http_502 http_503;
+                  proxy_connect_timeout 2s;
+                }
+              }
+            }
+        EOT
+      + content_base64sha256 = (known after apply)
+      + content_base64sha512 = (known after apply)
+      + content_md5          = (known after apply)
+      + content_sha1         = (known after apply)
+      + content_sha256       = (known after apply)
+      + content_sha512       = (known after apply)
+      + directory_permission = "0777"
+      + file_permission      = "0644"
+      + filename             = "./.generated/lb/nginx.conf"
+      + id                   = (known after apply)
+    }
+
+  # module.lb.terraform_data.reload will be created
+  + resource "terraform_data" "reload" {
+      + id               = (known after apply)
+      + triggers_replace = [
+          + <<-EOT
+                # Згенеровано Terraform (модуль lb). Активне середовище: blue
+                events {}
+                
+                http {
+                  # Вбудований DNS Docker: ім'я app-blue повертає адреси всіх реплік групи.
+                  resolver 127.0.0.11 valid=5s ipv6=off;
+                  access_log /dev/stdout;
+                
+                  server {
+                    listen 80;
+                
+                    location = /lb/active {
+                      default_type text/plain;
+                      return 200 "blue\n";
+                    }
+                
+                    location / {
+                      set $backend "http://app-blue:8080";
+                      proxy_pass $backend;
+                      proxy_set_header Host $host;
+                      proxy_next_upstream error timeout http_502 http_503;
+                      proxy_connect_timeout 2s;
+                    }
+                  }
+                }
+            EOT,
+        ]
+    }
+
+  # module.monitoring.docker_container.this["alert-sink"] will be created
+  + resource "docker_container" "this" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = [
+          + "python",
+          + "-u",
+          + "-c",
+          + <<-EOT
+                import http.server as h
+                class S(h.BaseHTTPRequestHandler):
+                 def do_POST(self):
+                  n=int(self.headers['Content-Length']); print('ALERT', self.rfile.read(n).decode(), flush=True); self.send_response(200); self.end_headers()
+                h.HTTPServer(('',8080),S).serve_forever()
+            EOT,
+        ]
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = (known after apply)
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = (known after apply)
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + memory                                      = 256
+      + memory_reservation                          = 0
+      + must_run                                    = true
+      + name                                        = "rf-ci-alert-sink"
+      + network_data                                = (known after apply)
+      + network_mode                                = "bridge"
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "unless-stopped"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck (known after apply)
+
+      + labels {
+          + label = "component"
+          + value = "monitoring"
+        }
+      + labels {
+          + label = "cost_center"
+          + value = "roomflow-edu"
+        }
+      + labels {
+          + label = "environment"
+          + value = "ci"
+        }
+      + labels {
+          + label = "managed_by"
+          + value = "terraform"
+        }
+      + labels {
+          + label = "owner"
+          + value = "platform-team"
+        }
+      + labels {
+          + label = "project"
+          + value = "roomflow"
+        }
+      + labels {
+          + label = "service"
+          + value = "alert-sink"
+        }
+
+      + mounts {
+          + read_only = true
+          + source    = "/home/runner/work/roomflow/roomflow/infra/terraform/envs/platform/.generated/monitoring"
+          + target    = "/etc/rf"
+          + type      = "bind"
+        }
+
+      + networks_advanced {
+          + aliases      = [
+              + "alert-sink",
+            ]
+          + name         = "rf-ci-app"
+            # (3 unchanged attributes hidden)
+        }
+      + networks_advanced {
+          + aliases      = [
+              + "alert-sink",
+            ]
+          + name         = "rf-ci-public"
+            # (3 unchanged attributes hidden)
+        }
+    }
+
+  # module.monitoring.docker_container.this["alertmanager"] will be created
+  + resource "docker_container" "this" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = [
+          + "--config.file=/etc/rf/alertmanager.yml",
+        ]
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = (known after apply)
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = (known after apply)
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + memory                                      = 256
+      + memory_reservation                          = 0
+      + must_run                                    = true
+      + name                                        = "rf-ci-alertmanager"
+      + network_data                                = (known after apply)
+      + network_mode                                = "bridge"
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "unless-stopped"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck (known after apply)
+
+      + labels {
+          + label = "component"
+          + value = "monitoring"
+        }
+      + labels {
+          + label = "cost_center"
+          + value = "roomflow-edu"
+        }
+      + labels {
+          + label = "environment"
+          + value = "ci"
+        }
+      + labels {
+          + label = "managed_by"
+          + value = "terraform"
+        }
+      + labels {
+          + label = "owner"
+          + value = "platform-team"
+        }
+      + labels {
+          + label = "project"
+          + value = "roomflow"
+        }
+      + labels {
+          + label = "service"
+          + value = "alertmanager"
+        }
+
+      + mounts {
+          + read_only = true
+          + source    = "/home/runner/work/roomflow/roomflow/infra/terraform/envs/platform/.generated/monitoring"
+          + target    = "/etc/rf"
+          + type      = "bind"
+        }
+
+      + networks_advanced {
+          + aliases      = [
+              + "alertmanager",
+            ]
+          + name         = "rf-ci-app"
+            # (3 unchanged attributes hidden)
+        }
+      + networks_advanced {
+          + aliases      = [
+              + "alertmanager",
+            ]
+          + name         = "rf-ci-public"
+            # (3 unchanged attributes hidden)
+        }
+
+      + ports {
+          + external = 9093
+          + internal = 9093
+          + ip       = "0.0.0.0"
+          + protocol = "tcp"
+        }
+    }
+
+  # module.monitoring.docker_container.this["prometheus"] will be created
+  + resource "docker_container" "this" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = [
+          + "--config.file=/etc/rf/prometheus.yml",
+          + "--storage.tsdb.retention.time=2h",
+          + "--web.enable-lifecycle",
+        ]
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = (known after apply)
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = (known after apply)
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + memory                                      = 256
+      + memory_reservation                          = 0
+      + must_run                                    = true
+      + name                                        = "rf-ci-prometheus"
+      + network_data                                = (known after apply)
+      + network_mode                                = "bridge"
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "unless-stopped"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck (known after apply)
+
+      + labels {
+          + label = "component"
+          + value = "monitoring"
+        }
+      + labels {
+          + label = "cost_center"
+          + value = "roomflow-edu"
+        }
+      + labels {
+          + label = "environment"
+          + value = "ci"
+        }
+      + labels {
+          + label = "managed_by"
+          + value = "terraform"
+        }
+      + labels {
+          + label = "owner"
+          + value = "platform-team"
+        }
+      + labels {
+          + label = "project"
+          + value = "roomflow"
+        }
+      + labels {
+          + label = "service"
+          + value = "prometheus"
+        }
+
+      + mounts {
+          + read_only = true
+          + source    = "/home/runner/work/roomflow/roomflow/infra/terraform/envs/platform/.generated/monitoring"
+          + target    = "/etc/rf"
+          + type      = "bind"
+        }
+
+      + networks_advanced {
+          + aliases      = [
+              + "prometheus",
+            ]
+          + name         = "rf-ci-app"
+            # (3 unchanged attributes hidden)
+        }
+      + networks_advanced {
+          + aliases      = [
+              + "prometheus",
+            ]
+          + name         = "rf-ci-public"
+            # (3 unchanged attributes hidden)
+        }
+
+      + ports {
+          + external = 9090
+          + internal = 9090
+          + ip       = "0.0.0.0"
+          + protocol = "tcp"
+        }
+    }
+
+  # module.monitoring.docker_image.this["alert-sink"] will be created
+  + resource "docker_image" "this" {
+      + id           = (known after apply)
+      + image_id     = (known after apply)
+      + keep_locally = true
+      + name         = "python:3.12-alpine"
+      + repo_digest  = (known after apply)
+    }
+
+  # module.monitoring.docker_image.this["alertmanager"] will be created
+  + resource "docker_image" "this" {
+      + id           = (known after apply)
+      + image_id     = (known after apply)
+      + keep_locally = true
+      + name         = "prom/alertmanager:v0.27.0"
+      + repo_digest  = (known after apply)
+    }
+
+  # module.monitoring.docker_image.this["prometheus"] will be created
+  + resource "docker_image" "this" {
+      + id           = (known after apply)
+      + image_id     = (known after apply)
+      + keep_locally = true
+      + name         = "prom/prometheus:v2.54.1"
+      + repo_digest  = (known after apply)
+    }
+
+  # module.monitoring.local_file.config["alertmanager.yml"] will be created
+  + resource "local_file" "config" {
+      + content              = <<-EOT
+            route:
+              receiver: incident-webhook
+              group_by: [alertname]
+              group_wait: 5s
+              group_interval: 10s
+              repeat_interval: 1h
+            receivers:
+              - name: incident-webhook
+                webhook_configs:
+                  - url: http://alert-sink:8080/
+                    send_resolved: true
+        EOT
+      + content_base64sha256 = (known after apply)
+      + content_base64sha512 = (known after apply)
+      + content_md5          = (known after apply)
+      + content_sha1         = (known after apply)
+      + content_sha256       = (known after apply)
+      + content_sha512       = (known after apply)
+      + directory_permission = "0777"
+      + file_permission      = "0644"
+      + filename             = "./.generated/monitoring/alertmanager.yml"
+      + id                   = (known after apply)
+    }
+
+  # module.monitoring.local_file.config["alerts.yml"] will be created
+  + resource "local_file" "config" {
+      + content              = <<-EOT
+            # Згенеровано Terraform (модуль monitoring). Пороги задаються змінними модуля.
+            groups:
+              - name: roomflow-infrastructure
+                rules:
+                  - alert: InstanceDown
+                    expr: up{job="roomflow"} == 0
+                    for: 10s
+                    labels: { severity: critical }
+                    annotations:
+                      summary: "Репліка {{ $labels.instance }} ({{ $labels.color }}) недоступна"
+                  - alert: ReplicaGroupDegraded
+                    expr: count by (color) (up{job="roomflow"} == 1) < 2
+                    for: 15s
+                    labels: { severity: warning }
+                    annotations:
+                      summary: "У групі {{ $labels.color }} менше двох здорових реплік"
+                  - alert: HighErrorRate
+                    expr: sum(rate(roomflow_http_requests_total{code=~"5.."}[1m])) / sum(rate(roomflow_http_requests_total[1m])) > 0.05
+                    for: 30s
+                    labels: { severity: critical }
+                    annotations:
+                      summary: "Частка помилок 5xx перевищує 0.05"
+                  - alert: HighLatencyP95
+                    expr: histogram_quantile(0.95, sum by (le) (rate(roomflow_http_request_duration_seconds_bucket[1m]))) > 0.5
+                    for: 30s
+                    labels: { severity: warning }
+                    annotations:
+                      summary: "p95 затримки перевищує 0.5 с"
+        EOT
+      + content_base64sha256 = (known after apply)
+      + content_base64sha512 = (known after apply)
+      + content_md5          = (known after apply)
+      + content_sha1         = (known after apply)
+      + content_sha256       = (known after apply)
+      + content_sha512       = (known after apply)
+      + directory_permission = "0777"
+      + file_permission      = "0644"
+      + filename             = "./.generated/monitoring/alerts.yml"
+      + id                   = (known after apply)
+    }
+
+  # module.monitoring.local_file.config["prometheus.yml"] will be created
+  + resource "local_file" "config" {
+      + content              = <<-EOT
+            # Згенеровано Terraform (модуль monitoring).
+            global:
+              scrape_interval: 5s
+              scrape_timeout: 4s
+              evaluation_interval: 5s
+            
+            rule_files: [/etc/rf/alerts.yml]
+            
+            alerting:
+              alertmanagers:
+                - static_configs:
+                    - targets: ["alertmanager:9093"]
+            
+            scrape_configs:
+              - job_name: roomflow
+                dns_sd_configs:
+                  - names: ["app-blue","app-green"]
+                    type: A
+                    port: 8080
+                    refresh_interval: 5s
+                relabel_configs:
+                  - source_labels: [__meta_dns_name]
+                    regex: app-(.*)
+                    target_label: color
+              - job_name: prometheus
+                static_configs:
+                  - targets: ["localhost:9090"]
+        EOT
+      + content_base64sha256 = (known after apply)
+      + content_base64sha512 = (known after apply)
+      + content_md5          = (known after apply)
+      + content_sha1         = (known after apply)
+      + content_sha256       = (known after apply)
+      + content_sha512       = (known after apply)
+      + directory_permission = "0777"
+      + file_permission      = "0644"
+      + filename             = "./.generated/monitoring/prometheus.yml"
+      + id                   = (known after apply)
+    }
+
+  # module.monitoring.terraform_data.reload will be created
+  + resource "terraform_data" "reload" {
+      + id               = (known after apply)
+      + triggers_replace = [
+          + <<-EOT
+                route:
+                  receiver: incident-webhook
+                  group_by: [alertname]
+                  group_wait: 5s
+                  group_interval: 10s
+                  repeat_interval: 1h
+                receivers:
+                  - name: incident-webhook
+                    webhook_configs:
+                      - url: http://alert-sink:8080/
+                        send_resolved: true
+            EOT,
+          + <<-EOT
+                # Згенеровано Terraform (модуль monitoring). Пороги задаються змінними модуля.
+                groups:
+                  - name: roomflow-infrastructure
+                    rules:
+                      - alert: InstanceDown
+                        expr: up{job="roomflow"} == 0
+                        for: 10s
+                        labels: { severity: critical }
+                        annotations:
+                          summary: "Репліка {{ $labels.instance }} ({{ $labels.color }}) недоступна"
+                      - alert: ReplicaGroupDegraded
+                        expr: count by (color) (up{job="roomflow"} == 1) < 2
+                        for: 15s
+                        labels: { severity: warning }
+                        annotations:
+                          summary: "У групі {{ $labels.color }} менше двох здорових реплік"
+                      - alert: HighErrorRate
+                        expr: sum(rate(roomflow_http_requests_total{code=~"5.."}[1m])) / sum(rate(roomflow_http_requests_total[1m])) > 0.05
+                        for: 30s
+                        labels: { severity: critical }
+                        annotations:
+                          summary: "Частка помилок 5xx перевищує 0.05"
+                      - alert: HighLatencyP95
+                        expr: histogram_quantile(0.95, sum by (le) (rate(roomflow_http_request_duration_seconds_bucket[1m]))) > 0.5
+                        for: 30s
+                        labels: { severity: warning }
+                        annotations:
+                          summary: "p95 затримки перевищує 0.5 с"
+            EOT,
+          + <<-EOT
+                # Згенеровано Terraform (модуль monitoring).
+                global:
+                  scrape_interval: 5s
+                  scrape_timeout: 4s
+                  evaluation_interval: 5s
+                
+                rule_files: [/etc/rf/alerts.yml]
+                
+                alerting:
+                  alertmanagers:
+                    - static_configs:
+                        - targets: ["alertmanager:9093"]
+                
+                scrape_configs:
+                  - job_name: roomflow
+                    dns_sd_configs:
+                      - names: ["app-blue","app-green"]
+                        type: A
+                        port: 8080
+                        refresh_interval: 5s
+                    relabel_configs:
+                      - source_labels: [__meta_dns_name]
+                        regex: app-(.*)
+                        target_label: color
+                  - job_name: prometheus
+                    static_configs:
+                      - targets: ["localhost:9090"]
+            EOT,
+        ]
+    }
+
+  # module.network.docker_network.this["app"] will be created
+  + resource "docker_network" "this" {
+      + driver      = "bridge"
+      + id          = (known after apply)
+      + internal    = false
+      + ipam_driver = "default"
+      + name        = "rf-ci-app"
+      + options     = (known after apply)
+      + scope       = (known after apply)
+
+      + ipam_config {
+          + subnet   = "10.60.2.0/24"
+            # (2 unchanged attributes hidden)
+        }
+
+      + labels {
+          + label = "cost_center"
+          + value = "roomflow-edu"
+        }
+      + labels {
+          + label = "environment"
+          + value = "ci"
+        }
+      + labels {
+          + label = "managed_by"
+          + value = "terraform"
+        }
+      + labels {
+          + label = "owner"
+          + value = "platform-team"
+        }
+      + labels {
+          + label = "project"
+          + value = "roomflow"
+        }
+      + labels {
+          + label = "tier"
+          + value = "app"
+        }
+    }
+
+  # module.network.docker_network.this["egress"] will be created
+  + resource "docker_network" "this" {
+      + driver      = "bridge"
+      + id          = (known after apply)
+      + internal    = false
+      + ipam_driver = "default"
+      + name        = "rf-ci-egress"
+      + options     = (known after apply)
+      + scope       = (known after apply)
+
+      + ipam_config {
+          + subnet   = "10.60.4.0/24"
+            # (2 unchanged attributes hidden)
+        }
+
+      + labels {
+          + label = "cost_center"
+          + value = "roomflow-edu"
+        }
+      + labels {
+          + label = "environment"
+          + value = "ci"
+        }
+      + labels {
+          + label = "managed_by"
+          + value = "terraform"
+        }
+      + labels {
+          + label = "owner"
+          + value = "platform-team"
+        }
+      + labels {
+          + label = "project"
+          + value = "roomflow"
+        }
+      + labels {
+          + label = "tier"
+          + value = "egress"
+        }
+    }
+
+  # module.network.docker_network.this["private"] will be created
+  + resource "docker_network" "this" {
+      + driver      = "bridge"
+      + id          = (known after apply)
+      + internal    = true
+      + ipam_driver = "default"
+      + name        = "rf-ci-private"
+      + options     = (known after apply)
+      + scope       = (known after apply)
+
+      + ipam_config {
+          + subnet   = "10.60.3.0/24"
+            # (2 unchanged attributes hidden)
+        }
+
+      + labels {
+          + label = "cost_center"
+          + value = "roomflow-edu"
+        }
+      + labels {
+          + label = "environment"
+          + value = "ci"
+        }
+      + labels {
+          + label = "managed_by"
+          + value = "terraform"
+        }
+      + labels {
+          + label = "owner"
+          + value = "platform-team"
+        }
+      + labels {
+          + label = "project"
+          + value = "roomflow"
+        }
+      + labels {
+          + label = "tier"
+          + value = "private"
+        }
+    }
+
+  # module.network.docker_network.this["public"] will be created
+  + resource "docker_network" "this" {
+      + driver      = "bridge"
+      + id          = (known after apply)
+      + internal    = false
+      + ipam_driver = "default"
+      + name        = "rf-ci-public"
+      + options     = (known after apply)
+      + scope       = (known after apply)
+
+      + ipam_config {
+          + subnet   = "10.60.1.0/24"
+            # (2 unchanged attributes hidden)
+        }
+
+      + labels {
+          + label = "cost_center"
+          + value = "roomflow-edu"
+        }
+      + labels {
+          + label = "environment"
+          + value = "ci"
+        }
+      + labels {
+          + label = "managed_by"
+          + value = "terraform"
+        }
+      + labels {
+          + label = "owner"
+          + value = "platform-team"
+        }
+      + labels {
+          + label = "project"
+          + value = "roomflow"
+        }
+      + labels {
+          + label = "tier"
+          + value = "public"
+        }
+    }
+
+Plan: 24 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + active_color      = "blue"
+  + db_backups_volume = "rf-ci-db-backups"
+  + networks          = {
+      + app     = "rf-ci-app"
+      + egress  = "rf-ci-egress"
+      + private = "rf-ci-private"
+      + public  = "rf-ci-public"
+    }
+  + prometheus_url    = "http://localhost:9090"
+  + url               = "http://localhost:8088"
