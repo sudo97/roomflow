@@ -9,8 +9,8 @@ Vulnerability #1: GO-2026-6617
     Example traces found:
       #1: internal/obs/metrics.go:68:69: obs.Labels calls strings.Replacer.Replace, which eventually calls http.CanonicalHeaderKey
       #2: internal/obs/metrics.go:68:69: obs.Labels calls strings.Replacer.Replace, which eventually calls http.CanonicalHeaderKey
-      #3: test/load/seed/main.go:22:24: seed.post calls http.Client.Do
-      #4: test/load/seed/main.go:22:24: seed.post calls http.Client.Do
+      #3: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
+      #4: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
       #5: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #6: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #7: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post
@@ -19,8 +19,8 @@ Vulnerability #1: GO-2026-6617
       #10: cmd/roomflow/runtime.go:6:2: roomflow.init calls pprof.init, which eventually calls http.HandleFunc
       #11: internal/trace/trace.go:96:8: trace.Inject calls http.Header.Set
       #12: internal/trace/trace.go:96:8: trace.Inject calls http.Header.Set
-      #13: test/load/seed/main.go:17:29: seed.post calls http.NewRequest
-      #14: test/load/seed/main.go:17:29: seed.post calls http.NewRequest
+      #13: test/load/seed/main.go:18:29: seed.post calls http.NewRequest
+      #14: test/load/seed/main.go:18:29: seed.post calls http.NewRequest
       #15: tools/platform-exporter/main.go:100:12: platform.main calls http.ServeMux.Handle
       #16: tools/platform-exporter/main.go:100:12: platform.main calls http.ServeMux.Handle
       #17: tools/platform-exporter/main.go:101:16: platform.main calls http.ServeMux.HandleFunc
@@ -31,32 +31,32 @@ Vulnerability #1: GO-2026-6617
       #22: cmd/roomflow/main.go:140:21: roomflow.serve calls http.Server.Shutdown
       #23: internal/trace/export.go:69:36: trace.Flush calls http.body.Close
       #24: internal/trace/export.go:69:36: trace.Flush calls http.body.Close
-      #25: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.body.Read
-      #26: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.body.Read
+      #25: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.body.Read
+      #26: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.body.Read
       #27: internal/trace/export.go:69:36: trace.Flush calls http.bodyEOFSignal.Close
       #28: internal/trace/export.go:69:36: trace.Flush calls http.bodyEOFSignal.Close
-      #29: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.bodyEOFSignal.Read
-      #30: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.bodyEOFSignal.Read
-      #31: tools/sqlcheck/main.go:85:31: sqlcheck.checkPath calls parser.ParseFile, which eventually calls http.bodyLocked.Read
-      #32: tools/sqlcheck/main.go:85:31: sqlcheck.checkPath calls parser.ParseFile, which eventually calls http.bodyLocked.Read
-      #33: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.bufioFlushWriter.Write
-      #34: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.bufioFlushWriter.Write
+      #29: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bodyEOFSignal.Read
+      #30: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bodyEOFSignal.Read
+      #31: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bodyLocked.Read
+      #32: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bodyLocked.Read
+      #33: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bufioFlushWriter.Write
+      #34: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bufioFlushWriter.Write
       #35: internal/trace/export.go:69:36: trace.Flush calls http.cancelTimerBody.Close
       #36: internal/trace/export.go:69:36: trace.Flush calls http.cancelTimerBody.Close
-      #37: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.cancelTimerBody.Read
-      #38: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.cancelTimerBody.Read
+      #37: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.cancelTimerBody.Read
+      #38: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.cancelTimerBody.Read
       #39: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
       #40: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
       #41: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
       #42: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
-      #43: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.connReader.Read
-      #44: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.connReader.Read
-      #45: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.expectContinueReader.Read
-      #46: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.expectContinueReader.Read
+      #43: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.connReader.Read
+      #44: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.connReader.Read
+      #45: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.expectContinueReader.Read
+      #46: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.expectContinueReader.Read
       #47: internal/trace/export.go:69:36: trace.Flush calls http.gzipReader.Close
       #48: internal/trace/export.go:69:36: trace.Flush calls http.gzipReader.Close
-      #49: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.gzipReader.Read
-      #50: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.gzipReader.Read
+      #49: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.gzipReader.Read
+      #50: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.gzipReader.Read
       #51: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2ConnectionError.Error
       #52: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2ConnectionError.Error
       #53: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which eventually calls http.http2ErrCode.String
@@ -85,56 +85,56 @@ Vulnerability #1: GO-2026-6617
       #76: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2duplicatePseudoHeaderError.Error
       #77: internal/trace/export.go:69:36: trace.Flush calls http.http2gzipReader.Close
       #78: internal/trace/export.go:69:36: trace.Flush calls http.http2gzipReader.Close
-      #79: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.http2gzipReader.Read
-      #80: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.http2gzipReader.Read
+      #79: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2gzipReader.Read
+      #80: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2gzipReader.Read
       #81: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2headerFieldNameError.Error
       #82: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2headerFieldNameError.Error
       #83: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2headerFieldValueError.Error
       #84: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2headerFieldValueError.Error
       #85: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2pseudoHeaderError.Error
       #86: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2pseudoHeaderError.Error
-      #87: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.http2requestBody.Read
-      #88: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.http2requestBody.Read
+      #87: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2requestBody.Read
+      #88: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2requestBody.Read
       #89: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which calls http.http2responseWriter.Write
       #90: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which calls http.http2responseWriter.Write
       #91: internal/trace/trace.go:105:95: trace.statusRecorder.WriteHeader calls http.http2responseWriter.WriteHeader
       #92: internal/trace/trace.go:105:95: trace.statusRecorder.WriteHeader calls http.http2responseWriter.WriteHeader
-      #93: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.http2responseWriter.WriteString
-      #94: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.http2responseWriter.WriteString
+      #93: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2responseWriter.WriteString
+      #94: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2responseWriter.WriteString
       #95: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.http2stickyErrWriter.Write
       #96: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.http2stickyErrWriter.Write
       #97: internal/trace/export.go:69:36: trace.Flush calls http.http2transportResponseBody.Close
       #98: internal/trace/export.go:69:36: trace.Flush calls http.http2transportResponseBody.Close
-      #99: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.http2transportResponseBody.Read
-      #100: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.http2transportResponseBody.Read
+      #99: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2transportResponseBody.Read
+      #100: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2transportResponseBody.Read
       #101: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which eventually calls http.http2writeData.String
       #102: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which eventually calls http.http2writeData.String
-      #103: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.loggingConn.Read
-      #104: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.loggingConn.Read
+      #103: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.loggingConn.Read
+      #104: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.loggingConn.Read
       #105: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which calls http.loggingConn.Write
       #106: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which calls http.loggingConn.Write
-      #107: tools/sqlcheck/main.go:85:31: sqlcheck.checkPath calls parser.ParseFile, which eventually calls http.maxBytesReader.Read
-      #108: tools/sqlcheck/main.go:85:31: sqlcheck.checkPath calls parser.ParseFile, which eventually calls http.maxBytesReader.Read
+      #107: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.maxBytesReader.Read
+      #108: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.maxBytesReader.Read
       #109: internal/obs/metrics.go:68:69: obs.Labels calls strings.Replacer.Replace, which eventually calls http.onceCloseListener.Close
       #110: internal/obs/metrics.go:68:69: obs.Labels calls strings.Replacer.Replace, which eventually calls http.onceCloseListener.Close
-      #111: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.persistConn.Read
-      #112: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.persistConn.Read
-      #113: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.persistConnWriter.ReadFrom
-      #114: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.persistConnWriter.ReadFrom
+      #111: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.persistConn.Read
+      #112: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.persistConn.Read
+      #113: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
+      #114: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
       #115: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
       #116: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
-      #117: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.readTrackingBody.Read
-      #118: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.readTrackingBody.Read
-      #119: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.readWriteCloserBody.Read
-      #120: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.readWriteCloserBody.Read
-      #121: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.response.ReadFrom
-      #122: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.response.ReadFrom
+      #117: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.readTrackingBody.Read
+      #118: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.readTrackingBody.Read
+      #119: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.readWriteCloserBody.Read
+      #120: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.readWriteCloserBody.Read
+      #121: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.response.ReadFrom
+      #122: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.response.ReadFrom
       #123: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which calls http.response.Write
       #124: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which calls http.response.Write
       #125: internal/trace/trace.go:105:95: trace.statusRecorder.WriteHeader calls http.response.WriteHeader
       #126: internal/trace/trace.go:105:95: trace.statusRecorder.WriteHeader calls http.response.WriteHeader
-      #127: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.response.WriteString
-      #128: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.response.WriteString
+      #127: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.response.WriteString
+      #128: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.response.WriteString
       #129: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.transportReadFromServerError.Error
       #130: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.transportReadFromServerError.Error
 
@@ -147,44 +147,44 @@ Vulnerability #2: GO-2026-6613
     Fixed in: net/http@go1.26.9
     Example traces found:
       #1: internal/obs/metrics.go:68:69: obs.Labels calls strings.Replacer.Replace, which eventually calls http.CanonicalHeaderKey
-      #2: test/load/seed/main.go:22:24: seed.post calls http.Client.Do
+      #2: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
       #3: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #4: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post
       #5: cmd/roomflow/runtime.go:6:2: roomflow.init calls pprof.init, which eventually calls http.HandleFunc
       #6: internal/trace/trace.go:105:95: trace.statusRecorder.WriteHeader calls http.http2responseWriter.WriteHeader, which eventually calls http.Header.Del
       #7: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.Header.Get
       #8: internal/trace/trace.go:96:8: trace.Inject calls http.Header.Set
-      #9: test/load/seed/main.go:17:29: seed.post calls http.NewRequest
+      #9: test/load/seed/main.go:18:29: seed.post calls http.NewRequest
       #10: tools/platform-exporter/main.go:100:12: platform.main calls http.ServeMux.Handle
       #11: tools/platform-exporter/main.go:101:16: platform.main calls http.ServeMux.HandleFunc
       #12: tools/platform-exporter/main.go:103:30: platform.main calls http.Server.ListenAndServe
       #13: cmd/roomflow/main.go:140:21: roomflow.serve calls http.Server.Shutdown
       #14: internal/trace/export.go:69:36: trace.Flush calls http.body.Close
-      #15: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.body.Read
+      #15: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.body.Read
       #16: internal/trace/export.go:69:36: trace.Flush calls http.bodyEOFSignal.Close
-      #17: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.bodyEOFSignal.Read
-      #18: tools/sqlcheck/main.go:85:31: sqlcheck.checkPath calls parser.ParseFile, which eventually calls http.bodyLocked.Read
-      #19: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.bufioFlushWriter.Write
+      #17: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bodyEOFSignal.Read
+      #18: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bodyLocked.Read
+      #19: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bufioFlushWriter.Write
       #20: internal/trace/export.go:69:36: trace.Flush calls http.cancelTimerBody.Close
-      #21: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.cancelTimerBody.Read
+      #21: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.cancelTimerBody.Read
       #22: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
       #23: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
-      #24: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.connReader.Read
+      #24: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.connReader.Read
       #25: internal/trace/export.go:69:36: trace.Flush calls http.http2transportResponseBody.Close, which eventually calls http.expectContinueReader.Close
-      #26: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.expectContinueReader.Read
+      #26: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.expectContinueReader.Read
       #27: internal/trace/export.go:69:36: trace.Flush calls http.gzipReader.Close
-      #28: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.gzipReader.Read
-      #29: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.loggingConn.Read
+      #28: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.gzipReader.Read
+      #29: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.loggingConn.Read
       #30: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which calls http.loggingConn.Write
-      #31: tools/sqlcheck/main.go:85:31: sqlcheck.checkPath calls parser.ParseFile, which eventually calls http.maxBytesReader.Read
+      #31: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.maxBytesReader.Read
       #32: internal/obs/metrics.go:68:69: obs.Labels calls strings.Replacer.Replace, which eventually calls http.onceCloseListener.Close
-      #33: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.persistConn.Read
-      #34: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.persistConnWriter.ReadFrom
+      #33: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.persistConn.Read
+      #34: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
       #35: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
       #36: internal/trace/export.go:69:36: trace.Flush calls http.http2transportResponseBody.Close, which eventually calls http.readTrackingBody.Close
-      #37: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.readTrackingBody.Read
-      #38: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.readWriteCloserBody.Read
-      #39: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.response.ReadFrom
+      #37: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.readTrackingBody.Read
+      #38: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.readWriteCloserBody.Read
+      #39: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.response.ReadFrom
       #40: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which calls http.response.Write
       #41: internal/trace/trace.go:105:95: trace.statusRecorder.WriteHeader calls http.response.WriteHeader
       #42: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which eventually calls http.response.WriteString
@@ -199,8 +199,8 @@ Vulnerability #3: GO-2026-6612
     Example traces found:
       #1: internal/obs/metrics.go:68:69: obs.Labels calls strings.Replacer.Replace, which eventually calls http.CanonicalHeaderKey
       #2: internal/obs/metrics.go:68:69: obs.Labels calls strings.Replacer.Replace, which eventually calls http.CanonicalHeaderKey
-      #3: test/load/seed/main.go:22:24: seed.post calls http.Client.Do
-      #4: test/load/seed/main.go:22:24: seed.post calls http.Client.Do
+      #3: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
+      #4: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
       #5: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #6: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #7: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post
@@ -209,8 +209,8 @@ Vulnerability #3: GO-2026-6612
       #10: cmd/roomflow/runtime.go:6:2: roomflow.init calls pprof.init, which eventually calls http.HandleFunc
       #11: internal/trace/trace.go:96:8: trace.Inject calls http.Header.Set
       #12: internal/trace/trace.go:96:8: trace.Inject calls http.Header.Set
-      #13: test/load/seed/main.go:17:29: seed.post calls http.NewRequest
-      #14: test/load/seed/main.go:17:29: seed.post calls http.NewRequest
+      #13: test/load/seed/main.go:18:29: seed.post calls http.NewRequest
+      #14: test/load/seed/main.go:18:29: seed.post calls http.NewRequest
       #15: tools/platform-exporter/main.go:100:12: platform.main calls http.ServeMux.Handle
       #16: tools/platform-exporter/main.go:100:12: platform.main calls http.ServeMux.Handle
       #17: tools/platform-exporter/main.go:101:16: platform.main calls http.ServeMux.HandleFunc
@@ -221,32 +221,32 @@ Vulnerability #3: GO-2026-6612
       #22: cmd/roomflow/main.go:140:21: roomflow.serve calls http.Server.Shutdown
       #23: internal/trace/export.go:69:36: trace.Flush calls http.body.Close
       #24: internal/trace/export.go:69:36: trace.Flush calls http.body.Close
-      #25: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.body.Read
-      #26: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.body.Read
+      #25: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.body.Read
+      #26: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.body.Read
       #27: internal/trace/export.go:69:36: trace.Flush calls http.bodyEOFSignal.Close
       #28: internal/trace/export.go:69:36: trace.Flush calls http.bodyEOFSignal.Close
-      #29: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.bodyEOFSignal.Read
-      #30: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.bodyEOFSignal.Read
-      #31: tools/sqlcheck/main.go:85:31: sqlcheck.checkPath calls parser.ParseFile, which eventually calls http.bodyLocked.Read
-      #32: tools/sqlcheck/main.go:85:31: sqlcheck.checkPath calls parser.ParseFile, which eventually calls http.bodyLocked.Read
-      #33: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.bufioFlushWriter.Write
-      #34: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.bufioFlushWriter.Write
+      #29: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bodyEOFSignal.Read
+      #30: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bodyEOFSignal.Read
+      #31: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bodyLocked.Read
+      #32: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bodyLocked.Read
+      #33: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bufioFlushWriter.Write
+      #34: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bufioFlushWriter.Write
       #35: internal/trace/export.go:69:36: trace.Flush calls http.cancelTimerBody.Close
       #36: internal/trace/export.go:69:36: trace.Flush calls http.cancelTimerBody.Close
-      #37: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.cancelTimerBody.Read
-      #38: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.cancelTimerBody.Read
+      #37: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.cancelTimerBody.Read
+      #38: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.cancelTimerBody.Read
       #39: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
       #40: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
       #41: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
       #42: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
-      #43: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.connReader.Read
-      #44: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.connReader.Read
-      #45: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.expectContinueReader.Read
-      #46: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.expectContinueReader.Read
+      #43: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.connReader.Read
+      #44: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.connReader.Read
+      #45: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.expectContinueReader.Read
+      #46: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.expectContinueReader.Read
       #47: internal/trace/export.go:69:36: trace.Flush calls http.gzipReader.Close
       #48: internal/trace/export.go:69:36: trace.Flush calls http.gzipReader.Close
-      #49: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.gzipReader.Read
-      #50: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.gzipReader.Read
+      #49: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.gzipReader.Read
+      #50: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.gzipReader.Read
       #51: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2ConnectionError.Error
       #52: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2ConnectionError.Error
       #53: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which eventually calls http.http2ErrCode.String
@@ -275,56 +275,56 @@ Vulnerability #3: GO-2026-6612
       #76: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2duplicatePseudoHeaderError.Error
       #77: internal/trace/export.go:69:36: trace.Flush calls http.http2gzipReader.Close
       #78: internal/trace/export.go:69:36: trace.Flush calls http.http2gzipReader.Close
-      #79: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.http2gzipReader.Read
-      #80: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.http2gzipReader.Read
+      #79: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2gzipReader.Read
+      #80: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2gzipReader.Read
       #81: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2headerFieldNameError.Error
       #82: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2headerFieldNameError.Error
       #83: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2headerFieldValueError.Error
       #84: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2headerFieldValueError.Error
       #85: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2pseudoHeaderError.Error
       #86: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2pseudoHeaderError.Error
-      #87: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.http2requestBody.Read
-      #88: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.http2requestBody.Read
+      #87: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2requestBody.Read
+      #88: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2requestBody.Read
       #89: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which calls http.http2responseWriter.Write
       #90: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which calls http.http2responseWriter.Write
       #91: internal/trace/trace.go:105:95: trace.statusRecorder.WriteHeader calls http.http2responseWriter.WriteHeader
       #92: internal/trace/trace.go:105:95: trace.statusRecorder.WriteHeader calls http.http2responseWriter.WriteHeader
-      #93: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.http2responseWriter.WriteString
-      #94: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.http2responseWriter.WriteString
+      #93: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2responseWriter.WriteString
+      #94: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2responseWriter.WriteString
       #95: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.http2stickyErrWriter.Write
       #96: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.http2stickyErrWriter.Write
       #97: internal/trace/export.go:69:36: trace.Flush calls http.http2transportResponseBody.Close
       #98: internal/trace/export.go:69:36: trace.Flush calls http.http2transportResponseBody.Close
-      #99: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.http2transportResponseBody.Read
-      #100: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.http2transportResponseBody.Read
+      #99: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2transportResponseBody.Read
+      #100: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2transportResponseBody.Read
       #101: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which eventually calls http.http2writeData.String
       #102: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which eventually calls http.http2writeData.String
-      #103: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.loggingConn.Read
-      #104: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.loggingConn.Read
+      #103: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.loggingConn.Read
+      #104: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.loggingConn.Read
       #105: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which calls http.loggingConn.Write
       #106: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which calls http.loggingConn.Write
-      #107: tools/sqlcheck/main.go:85:31: sqlcheck.checkPath calls parser.ParseFile, which eventually calls http.maxBytesReader.Read
-      #108: tools/sqlcheck/main.go:85:31: sqlcheck.checkPath calls parser.ParseFile, which eventually calls http.maxBytesReader.Read
+      #107: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.maxBytesReader.Read
+      #108: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.maxBytesReader.Read
       #109: internal/obs/metrics.go:68:69: obs.Labels calls strings.Replacer.Replace, which eventually calls http.onceCloseListener.Close
       #110: internal/obs/metrics.go:68:69: obs.Labels calls strings.Replacer.Replace, which eventually calls http.onceCloseListener.Close
-      #111: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.persistConn.Read
-      #112: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.persistConn.Read
-      #113: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.persistConnWriter.ReadFrom
-      #114: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.persistConnWriter.ReadFrom
+      #111: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.persistConn.Read
+      #112: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.persistConn.Read
+      #113: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
+      #114: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
       #115: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
       #116: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
-      #117: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.readTrackingBody.Read
-      #118: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.readTrackingBody.Read
-      #119: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.readWriteCloserBody.Read
-      #120: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.readWriteCloserBody.Read
-      #121: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.response.ReadFrom
-      #122: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.response.ReadFrom
+      #117: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.readTrackingBody.Read
+      #118: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.readTrackingBody.Read
+      #119: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.readWriteCloserBody.Read
+      #120: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.readWriteCloserBody.Read
+      #121: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.response.ReadFrom
+      #122: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.response.ReadFrom
       #123: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which calls http.response.Write
       #124: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which calls http.response.Write
       #125: internal/trace/trace.go:105:95: trace.statusRecorder.WriteHeader calls http.response.WriteHeader
       #126: internal/trace/trace.go:105:95: trace.statusRecorder.WriteHeader calls http.response.WriteHeader
-      #127: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.response.WriteString
-      #128: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.response.WriteString
+      #127: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.response.WriteString
+      #128: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.response.WriteString
       #129: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.transportReadFromServerError.Error
       #130: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.transportReadFromServerError.Error
 
@@ -337,8 +337,8 @@ Vulnerability #4: GO-2026-6611
     Example traces found:
       #1: internal/obs/metrics.go:68:69: obs.Labels calls strings.Replacer.Replace, which eventually calls http.CanonicalHeaderKey
       #2: internal/obs/metrics.go:68:69: obs.Labels calls strings.Replacer.Replace, which eventually calls http.CanonicalHeaderKey
-      #3: test/load/seed/main.go:22:24: seed.post calls http.Client.Do
-      #4: test/load/seed/main.go:22:24: seed.post calls http.Client.Do
+      #3: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
+      #4: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
       #5: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #6: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #7: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post
@@ -347,8 +347,8 @@ Vulnerability #4: GO-2026-6611
       #10: cmd/roomflow/runtime.go:6:2: roomflow.init calls pprof.init, which eventually calls http.HandleFunc
       #11: internal/trace/trace.go:96:8: trace.Inject calls http.Header.Set
       #12: internal/trace/trace.go:96:8: trace.Inject calls http.Header.Set
-      #13: test/load/seed/main.go:17:29: seed.post calls http.NewRequest
-      #14: test/load/seed/main.go:17:29: seed.post calls http.NewRequest
+      #13: test/load/seed/main.go:18:29: seed.post calls http.NewRequest
+      #14: test/load/seed/main.go:18:29: seed.post calls http.NewRequest
       #15: tools/platform-exporter/main.go:100:12: platform.main calls http.ServeMux.Handle
       #16: tools/platform-exporter/main.go:100:12: platform.main calls http.ServeMux.Handle
       #17: tools/platform-exporter/main.go:101:16: platform.main calls http.ServeMux.HandleFunc
@@ -359,32 +359,32 @@ Vulnerability #4: GO-2026-6611
       #22: cmd/roomflow/main.go:140:21: roomflow.serve calls http.Server.Shutdown
       #23: internal/trace/export.go:69:36: trace.Flush calls http.body.Close
       #24: internal/trace/export.go:69:36: trace.Flush calls http.body.Close
-      #25: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.body.Read
-      #26: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.body.Read
+      #25: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.body.Read
+      #26: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.body.Read
       #27: internal/trace/export.go:69:36: trace.Flush calls http.bodyEOFSignal.Close
       #28: internal/trace/export.go:69:36: trace.Flush calls http.bodyEOFSignal.Close
-      #29: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.bodyEOFSignal.Read
-      #30: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.bodyEOFSignal.Read
-      #31: tools/sqlcheck/main.go:85:31: sqlcheck.checkPath calls parser.ParseFile, which eventually calls http.bodyLocked.Read
-      #32: tools/sqlcheck/main.go:85:31: sqlcheck.checkPath calls parser.ParseFile, which eventually calls http.bodyLocked.Read
-      #33: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.bufioFlushWriter.Write
-      #34: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.bufioFlushWriter.Write
+      #29: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bodyEOFSignal.Read
+      #30: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bodyEOFSignal.Read
+      #31: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bodyLocked.Read
+      #32: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bodyLocked.Read
+      #33: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bufioFlushWriter.Write
+      #34: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bufioFlushWriter.Write
       #35: internal/trace/export.go:69:36: trace.Flush calls http.cancelTimerBody.Close
       #36: internal/trace/export.go:69:36: trace.Flush calls http.cancelTimerBody.Close
-      #37: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.cancelTimerBody.Read
-      #38: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.cancelTimerBody.Read
+      #37: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.cancelTimerBody.Read
+      #38: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.cancelTimerBody.Read
       #39: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
       #40: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
       #41: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
       #42: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
-      #43: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.connReader.Read
-      #44: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.connReader.Read
-      #45: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.expectContinueReader.Read
-      #46: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.expectContinueReader.Read
+      #43: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.connReader.Read
+      #44: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.connReader.Read
+      #45: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.expectContinueReader.Read
+      #46: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.expectContinueReader.Read
       #47: internal/trace/export.go:69:36: trace.Flush calls http.gzipReader.Close
       #48: internal/trace/export.go:69:36: trace.Flush calls http.gzipReader.Close
-      #49: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.gzipReader.Read
-      #50: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.gzipReader.Read
+      #49: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.gzipReader.Read
+      #50: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.gzipReader.Read
       #51: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2ConnectionError.Error
       #52: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2ConnectionError.Error
       #53: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which eventually calls http.http2ErrCode.String
@@ -413,56 +413,56 @@ Vulnerability #4: GO-2026-6611
       #76: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2duplicatePseudoHeaderError.Error
       #77: internal/trace/export.go:69:36: trace.Flush calls http.http2gzipReader.Close
       #78: internal/trace/export.go:69:36: trace.Flush calls http.http2gzipReader.Close
-      #79: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.http2gzipReader.Read
-      #80: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.http2gzipReader.Read
+      #79: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2gzipReader.Read
+      #80: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2gzipReader.Read
       #81: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2headerFieldNameError.Error
       #82: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2headerFieldNameError.Error
       #83: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2headerFieldValueError.Error
       #84: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2headerFieldValueError.Error
       #85: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2pseudoHeaderError.Error
       #86: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2pseudoHeaderError.Error
-      #87: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.http2requestBody.Read
-      #88: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.http2requestBody.Read
+      #87: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2requestBody.Read
+      #88: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2requestBody.Read
       #89: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which calls http.http2responseWriter.Write
       #90: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which calls http.http2responseWriter.Write
       #91: internal/trace/trace.go:105:95: trace.statusRecorder.WriteHeader calls http.http2responseWriter.WriteHeader
       #92: internal/trace/trace.go:105:95: trace.statusRecorder.WriteHeader calls http.http2responseWriter.WriteHeader
-      #93: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.http2responseWriter.WriteString
-      #94: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.http2responseWriter.WriteString
+      #93: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2responseWriter.WriteString
+      #94: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2responseWriter.WriteString
       #95: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.http2stickyErrWriter.Write
       #96: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.http2stickyErrWriter.Write
       #97: internal/trace/export.go:69:36: trace.Flush calls http.http2transportResponseBody.Close
       #98: internal/trace/export.go:69:36: trace.Flush calls http.http2transportResponseBody.Close
-      #99: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.http2transportResponseBody.Read
-      #100: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.http2transportResponseBody.Read
+      #99: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2transportResponseBody.Read
+      #100: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2transportResponseBody.Read
       #101: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which eventually calls http.http2writeData.String
       #102: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which eventually calls http.http2writeData.String
-      #103: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.loggingConn.Read
-      #104: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.loggingConn.Read
+      #103: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.loggingConn.Read
+      #104: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.loggingConn.Read
       #105: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which calls http.loggingConn.Write
       #106: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which calls http.loggingConn.Write
-      #107: tools/sqlcheck/main.go:85:31: sqlcheck.checkPath calls parser.ParseFile, which eventually calls http.maxBytesReader.Read
-      #108: tools/sqlcheck/main.go:85:31: sqlcheck.checkPath calls parser.ParseFile, which eventually calls http.maxBytesReader.Read
+      #107: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.maxBytesReader.Read
+      #108: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.maxBytesReader.Read
       #109: internal/obs/metrics.go:68:69: obs.Labels calls strings.Replacer.Replace, which eventually calls http.onceCloseListener.Close
       #110: internal/obs/metrics.go:68:69: obs.Labels calls strings.Replacer.Replace, which eventually calls http.onceCloseListener.Close
-      #111: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.persistConn.Read
-      #112: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.persistConn.Read
-      #113: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.persistConnWriter.ReadFrom
-      #114: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.persistConnWriter.ReadFrom
+      #111: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.persistConn.Read
+      #112: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.persistConn.Read
+      #113: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
+      #114: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
       #115: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
       #116: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
-      #117: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.readTrackingBody.Read
-      #118: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.readTrackingBody.Read
-      #119: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.readWriteCloserBody.Read
-      #120: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.readWriteCloserBody.Read
-      #121: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.response.ReadFrom
-      #122: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.response.ReadFrom
+      #117: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.readTrackingBody.Read
+      #118: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.readTrackingBody.Read
+      #119: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.readWriteCloserBody.Read
+      #120: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.readWriteCloserBody.Read
+      #121: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.response.ReadFrom
+      #122: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.response.ReadFrom
       #123: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which calls http.response.Write
       #124: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which calls http.response.Write
       #125: internal/trace/trace.go:105:95: trace.statusRecorder.WriteHeader calls http.response.WriteHeader
       #126: internal/trace/trace.go:105:95: trace.statusRecorder.WriteHeader calls http.response.WriteHeader
-      #127: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.response.WriteString
-      #128: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.response.WriteString
+      #127: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.response.WriteString
+      #128: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.response.WriteString
       #129: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.transportReadFromServerError.Error
       #130: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.transportReadFromServerError.Error
 
@@ -473,8 +473,8 @@ Vulnerability #5: GO-2026-6610
     Found in: net/http@go1.24
     Fixed in: net/http@go1.26.9
     Example traces found:
-      #1: test/load/seed/main.go:22:24: seed.post calls http.Client.Do
-      #2: test/load/seed/main.go:22:24: seed.post calls http.Client.Do
+      #1: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
+      #2: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
       #3: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #4: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #5: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post
@@ -487,8 +487,8 @@ Vulnerability #6: GO-2026-6608
     mime/multipart
   More info: https://pkg.go.dev/vuln/GO-2026-6608
   Standard library
-    Found in: net/textproto@go1.24
-    Fixed in: net/textproto@go1.26.9
+    Found in: mime/multipart@go1.24
+    Fixed in: mime/multipart@go1.26.9
     Example traces found:
       #1: tools/platform-exporter/main.go:103:30: platform.main calls http.Server.ListenAndServe, which eventually calls multipart.Reader.ReadForm
       #2: tools/platform-exporter/main.go:103:30: platform.main calls http.Server.ListenAndServe, which eventually calls textproto.Reader.ReadMIMEHeader
@@ -501,7 +501,7 @@ Vulnerability #7: GO-2026-6607
     Fixed in: crypto/tls@go1.26.9
     Example traces found:
       #1: tools/platform-exporter/main.go:103:30: platform.main calls http.Server.ListenAndServe, which eventually calls tls.Conn.HandshakeContext
-      #2: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls tls.Conn.Read
+      #2: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls tls.Conn.Read
       #3: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which calls tls.Conn.Write
       #4: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post, which eventually calls tls.Dialer.DialContext
 
@@ -513,7 +513,7 @@ Vulnerability #8: GO-2026-6605
     Found in: net/http@go1.24
     Fixed in: net/http@go1.26.9
     Example traces found:
-      #1: test/load/seed/main.go:22:24: seed.post calls http.Client.Do
+      #1: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
       #2: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #3: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post
       #4: cmd/frontend/main.go:52:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP, which calls http.Transport.RoundTrip
@@ -528,8 +528,8 @@ Vulnerability #9: GO-2026-6603
     Example traces found:
       #1: internal/obs/metrics.go:68:69: obs.Labels calls strings.Replacer.Replace, which eventually calls http.CanonicalHeaderKey
       #2: internal/obs/metrics.go:68:69: obs.Labels calls strings.Replacer.Replace, which eventually calls http.CanonicalHeaderKey
-      #3: test/load/seed/main.go:22:24: seed.post calls http.Client.Do
-      #4: test/load/seed/main.go:22:24: seed.post calls http.Client.Do
+      #3: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
+      #4: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
       #5: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #6: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #7: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post
@@ -538,8 +538,8 @@ Vulnerability #9: GO-2026-6603
       #10: cmd/roomflow/runtime.go:6:2: roomflow.init calls pprof.init, which eventually calls http.HandleFunc
       #11: internal/trace/trace.go:96:8: trace.Inject calls http.Header.Set
       #12: internal/trace/trace.go:96:8: trace.Inject calls http.Header.Set
-      #13: test/load/seed/main.go:17:29: seed.post calls http.NewRequest
-      #14: test/load/seed/main.go:17:29: seed.post calls http.NewRequest
+      #13: test/load/seed/main.go:18:29: seed.post calls http.NewRequest
+      #14: test/load/seed/main.go:18:29: seed.post calls http.NewRequest
       #15: tools/platform-exporter/main.go:100:12: platform.main calls http.ServeMux.Handle
       #16: tools/platform-exporter/main.go:100:12: platform.main calls http.ServeMux.Handle
       #17: tools/platform-exporter/main.go:101:16: platform.main calls http.ServeMux.HandleFunc
@@ -550,32 +550,32 @@ Vulnerability #9: GO-2026-6603
       #22: cmd/roomflow/main.go:140:21: roomflow.serve calls http.Server.Shutdown
       #23: internal/trace/export.go:69:36: trace.Flush calls http.body.Close
       #24: internal/trace/export.go:69:36: trace.Flush calls http.body.Close
-      #25: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.body.Read
-      #26: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.body.Read
+      #25: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.body.Read
+      #26: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.body.Read
       #27: internal/trace/export.go:69:36: trace.Flush calls http.bodyEOFSignal.Close
       #28: internal/trace/export.go:69:36: trace.Flush calls http.bodyEOFSignal.Close
-      #29: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.bodyEOFSignal.Read
-      #30: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.bodyEOFSignal.Read
-      #31: tools/sqlcheck/main.go:85:31: sqlcheck.checkPath calls parser.ParseFile, which eventually calls http.bodyLocked.Read
-      #32: tools/sqlcheck/main.go:85:31: sqlcheck.checkPath calls parser.ParseFile, which eventually calls http.bodyLocked.Read
-      #33: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.bufioFlushWriter.Write
-      #34: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.bufioFlushWriter.Write
+      #29: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bodyEOFSignal.Read
+      #30: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bodyEOFSignal.Read
+      #31: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bodyLocked.Read
+      #32: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bodyLocked.Read
+      #33: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bufioFlushWriter.Write
+      #34: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.bufioFlushWriter.Write
       #35: internal/trace/export.go:69:36: trace.Flush calls http.cancelTimerBody.Close
       #36: internal/trace/export.go:69:36: trace.Flush calls http.cancelTimerBody.Close
-      #37: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.cancelTimerBody.Read
-      #38: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.cancelTimerBody.Read
+      #37: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.cancelTimerBody.Read
+      #38: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.cancelTimerBody.Read
       #39: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
       #40: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
       #41: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
       #42: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
-      #43: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.connReader.Read
-      #44: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.connReader.Read
-      #45: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.expectContinueReader.Read
-      #46: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.expectContinueReader.Read
+      #43: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.connReader.Read
+      #44: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.connReader.Read
+      #45: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.expectContinueReader.Read
+      #46: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.expectContinueReader.Read
       #47: internal/trace/export.go:69:36: trace.Flush calls http.gzipReader.Close
       #48: internal/trace/export.go:69:36: trace.Flush calls http.gzipReader.Close
-      #49: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.gzipReader.Read
-      #50: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.gzipReader.Read
+      #49: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.gzipReader.Read
+      #50: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.gzipReader.Read
       #51: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2ConnectionError.Error
       #52: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2ConnectionError.Error
       #53: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which eventually calls http.http2ErrCode.String
@@ -604,56 +604,56 @@ Vulnerability #9: GO-2026-6603
       #76: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2duplicatePseudoHeaderError.Error
       #77: internal/trace/export.go:69:36: trace.Flush calls http.http2gzipReader.Close
       #78: internal/trace/export.go:69:36: trace.Flush calls http.http2gzipReader.Close
-      #79: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.http2gzipReader.Read
-      #80: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.http2gzipReader.Read
+      #79: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2gzipReader.Read
+      #80: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2gzipReader.Read
       #81: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2headerFieldNameError.Error
       #82: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2headerFieldNameError.Error
       #83: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2headerFieldValueError.Error
       #84: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2headerFieldValueError.Error
       #85: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2pseudoHeaderError.Error
       #86: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.http2pseudoHeaderError.Error
-      #87: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.http2requestBody.Read
-      #88: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.http2requestBody.Read
+      #87: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2requestBody.Read
+      #88: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2requestBody.Read
       #89: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which calls http.http2responseWriter.Write
       #90: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which calls http.http2responseWriter.Write
       #91: internal/trace/trace.go:105:95: trace.statusRecorder.WriteHeader calls http.http2responseWriter.WriteHeader
       #92: internal/trace/trace.go:105:95: trace.statusRecorder.WriteHeader calls http.http2responseWriter.WriteHeader
-      #93: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.http2responseWriter.WriteString
-      #94: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.http2responseWriter.WriteString
+      #93: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2responseWriter.WriteString
+      #94: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2responseWriter.WriteString
       #95: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.http2stickyErrWriter.Write
       #96: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.http2stickyErrWriter.Write
       #97: internal/trace/export.go:69:36: trace.Flush calls http.http2transportResponseBody.Close
       #98: internal/trace/export.go:69:36: trace.Flush calls http.http2transportResponseBody.Close
-      #99: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.http2transportResponseBody.Read
-      #100: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.http2transportResponseBody.Read
+      #99: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2transportResponseBody.Read
+      #100: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.http2transportResponseBody.Read
       #101: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which eventually calls http.http2writeData.String
       #102: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which eventually calls http.http2writeData.String
-      #103: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.loggingConn.Read
-      #104: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.loggingConn.Read
+      #103: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.loggingConn.Read
+      #104: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.loggingConn.Read
       #105: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which calls http.loggingConn.Write
       #106: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which calls http.loggingConn.Write
-      #107: tools/sqlcheck/main.go:85:31: sqlcheck.checkPath calls parser.ParseFile, which eventually calls http.maxBytesReader.Read
-      #108: tools/sqlcheck/main.go:85:31: sqlcheck.checkPath calls parser.ParseFile, which eventually calls http.maxBytesReader.Read
+      #107: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.maxBytesReader.Read
+      #108: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.maxBytesReader.Read
       #109: internal/obs/metrics.go:68:69: obs.Labels calls strings.Replacer.Replace, which eventually calls http.onceCloseListener.Close
       #110: internal/obs/metrics.go:68:69: obs.Labels calls strings.Replacer.Replace, which eventually calls http.onceCloseListener.Close
-      #111: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.persistConn.Read
-      #112: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.persistConn.Read
-      #113: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.persistConnWriter.ReadFrom
-      #114: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.persistConnWriter.ReadFrom
+      #111: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.persistConn.Read
+      #112: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.persistConn.Read
+      #113: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
+      #114: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
       #115: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
       #116: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
-      #117: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.readTrackingBody.Read
-      #118: cmd/roomflow/secrets.go:39:45: roomflow.adminTokenFromEnvOrVault calls json.Decoder.Decode, which eventually calls http.readTrackingBody.Read
-      #119: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.readWriteCloserBody.Read
-      #120: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls http.readWriteCloserBody.Read
-      #121: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.response.ReadFrom
-      #122: internal/booking/request.go:37:32: booking.Request.validate calls mail.ParseAddress, which eventually calls http.response.ReadFrom
+      #117: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.readTrackingBody.Read
+      #118: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.readTrackingBody.Read
+      #119: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.readWriteCloserBody.Read
+      #120: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.readWriteCloserBody.Read
+      #121: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.response.ReadFrom
+      #122: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.response.ReadFrom
       #123: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which calls http.response.Write
       #124: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which calls http.response.Write
       #125: internal/trace/trace.go:105:95: trace.statusRecorder.WriteHeader calls http.response.WriteHeader
       #126: internal/trace/trace.go:105:95: trace.statusRecorder.WriteHeader calls http.response.WriteHeader
-      #127: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.response.WriteString
-      #128: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which eventually calls http.response.WriteString
+      #127: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.response.WriteString
+      #128: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls http.response.WriteString
       #129: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.transportReadFromServerError.Error
       #130: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which calls http.transportReadFromServerError.Error
 
@@ -702,7 +702,7 @@ Vulnerability #14: GO-2026-6090
     Fixed in: crypto/tls@go1.25.13
     Example traces found:
       #1: tools/platform-exporter/main.go:103:30: platform.main calls http.Server.ListenAndServe, which eventually calls tls.Conn.HandshakeContext
-      #2: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls tls.Conn.Read
+      #2: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls tls.Conn.Read
       #3: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which calls tls.Conn.Write
       #4: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post, which eventually calls tls.Dialer.DialContext
 
@@ -732,7 +732,7 @@ Vulnerability #17: GO-2026-5856
     Fixed in: crypto/tls@go1.25.12
     Example traces found:
       #1: tools/platform-exporter/main.go:103:30: platform.main calls http.Server.ListenAndServe, which eventually calls tls.Conn.HandshakeContext
-      #2: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls tls.Conn.Read
+      #2: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls tls.Conn.Read
       #3: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which calls tls.Conn.Write
       #4: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post, which eventually calls tls.Dialer.DialContext
 
@@ -765,7 +765,7 @@ Vulnerability #20: GO-2026-5026
     Found in: net/http@go1.24
     Fixed in: net/http@go1.25.13
     Example traces found:
-      #1: test/load/seed/main.go:22:24: seed.post calls http.Client.Do
+      #1: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
       #2: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #3: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post
       #4: cmd/frontend/main.go:52:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP, which calls http.Transport.RoundTrip
@@ -853,7 +853,7 @@ Vulnerability #29: GO-2026-4918
     Found in: net/http@go1.24
     Fixed in: net/http@go1.25.10
     Example traces found:
-      #1: test/load/seed/main.go:22:24: seed.post calls http.Client.Do
+      #1: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
       #2: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #3: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post
       #4: cmd/frontend/main.go:52:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP, which calls http.Transport.RoundTrip
@@ -867,7 +867,7 @@ Vulnerability #30: GO-2026-4870
     Fixed in: crypto/tls@go1.25.9
     Example traces found:
       #1: tools/platform-exporter/main.go:103:30: platform.main calls http.Server.ListenAndServe, which eventually calls tls.Conn.HandshakeContext
-      #2: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls tls.Conn.Read
+      #2: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls tls.Conn.Read
       #3: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which calls tls.Conn.Write
       #4: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post, which eventually calls tls.Dialer.DialContext
 
@@ -931,7 +931,7 @@ Vulnerability #36: GO-2026-4340
     Fixed in: crypto/tls@go1.24.12
     Example traces found:
       #1: tools/platform-exporter/main.go:103:30: platform.main calls http.Server.ListenAndServe, which eventually calls tls.Conn.HandshakeContext
-      #2: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls tls.Conn.Read
+      #2: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls tls.Conn.Read
       #3: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which calls tls.Conn.Write
       #4: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post, which eventually calls tls.Dialer.DialContext
 
@@ -943,7 +943,7 @@ Vulnerability #37: GO-2026-4337
     Fixed in: crypto/tls@go1.24.13
     Example traces found:
       #1: tools/platform-exporter/main.go:103:30: platform.main calls http.Server.ListenAndServe, which eventually calls tls.Conn.HandshakeContext
-      #2: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls tls.Conn.Read
+      #2: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls tls.Conn.Read
       #3: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which calls tls.Conn.Write
       #4: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post, which eventually calls tls.Dialer.DialContext
 
@@ -984,7 +984,7 @@ Vulnerability #41: GO-2025-4012
     Found in: net/http@go1.24
     Fixed in: net/http@go1.24.8
     Example traces found:
-      #1: test/load/seed/main.go:22:24: seed.post calls http.Client.Do
+      #1: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
       #2: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #3: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post
 
@@ -1026,7 +1026,7 @@ Vulnerability #45: GO-2025-4008
     Fixed in: crypto/tls@go1.24.8
     Example traces found:
       #1: tools/platform-exporter/main.go:103:30: platform.main calls http.Server.ListenAndServe, which eventually calls tls.Conn.HandshakeContext
-      #2: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls tls.Conn.Read
+      #2: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls tls.Conn.Read
       #3: internal/obs/metrics.go:126:21: obs.Registry.Render calls fmt.Fprintf, which calls tls.Conn.Write
       #4: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post, which eventually calls tls.Dialer.DialContext
 
@@ -1066,7 +1066,7 @@ Vulnerability #49: GO-2025-3751
     Found in: net/http@go1.24
     Fixed in: net/http@go1.24.4
     Example traces found:
-      #1: test/load/seed/main.go:22:24: seed.post calls http.Client.Do
+      #1: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
       #2: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #3: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post
 
@@ -1107,7 +1107,7 @@ Vulnerability #52: GO-2025-3563
     Found in: net/http/internal@go1.24
     Fixed in: net/http/internal@go1.24.2
     Example traces found:
-      #1: internal/trace/trace.go:44:18: trace.randomHex calls rand.Read, which eventually calls internal.chunkedReader.Read
+      #1: test/load/seed/main.go:29:16: seed.post calls io.Copy, which eventually calls internal.chunkedReader.Read
 
 Vulnerability #53: GO-2025-3503
     HTTP Proxy bypass using IPv6 Zone IDs in golang.org/x/net
