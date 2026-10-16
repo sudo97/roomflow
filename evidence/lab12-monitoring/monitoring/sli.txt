@@ -1,0 +1,5 @@
+roomflow:http_requests:rate1m = 1.3608694444444445
+roomflow:http_errors:ratio_rate1m = null
+roomflow:http_latency_seconds:p95_1m = 0.00095
+slo:availability:ratio_rate5m = null
+slo:error_budget_burn_rate:1m = null
