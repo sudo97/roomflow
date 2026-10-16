@@ -1,3 +1,21 @@
-Fortio 1.69.5 running at 30 queries per second, 4->4 procs, for 6m0s: http://frontend:8081/api/rooms/r1/availability?from=2027-01-01&to=2027-02-01
-Aborting because of error 404 for http://frontend:8081/api/rooms/r1/availability?from=2027-01-01&to=2027-02-01 (201 bytes)
-command terminated with exit code 1
+Fortio 1.69.5 running at 30 queries per second, 4->4 procs, for 6m0s: http://frontend:8081/api/rooms
+Aggregated Function Time : count 10800 avg 0.0021628848 +/- 0.05655 min 0.000241726 max 3.004440254 sum 23.3591554
+# target 50% 0.00102449
+# target 75% 0.00154104
+# target 90% 0.00185097
+# target 99% 0.00291469
+# target 99.9% 0.0082
+Error cases : count 1658 avg 0.0046558091 +/- 0.102 min 0.000337361 max 3.004263001 sum 7.71933151
+# Socket and IP used for each connection:
+[0] 424 socket used, resolved to 10.96.58.25:8081, connection timing : count 424 avg 0.00021351148 +/- 0.000145 min 5.0968e-05 max 0.001158103 sum 0.090528869
+[1] 400 socket used, resolved to 10.96.58.25:8081, connection timing : count 400 avg 0.00021382138 +/- 0.0001713 min 5.6095e-05 max 0.0023192 sum 0.085528551
+[2] 423 socket used, resolved to 10.96.58.25:8081, connection timing : count 423 avg 0.00021854114 +/- 0.0001549 min 5.3601e-05 max 0.001786971 sum 0.092442904
+[3] 416 socket used, resolved to 10.96.58.25:8081, connection timing : count 416 avg 0.00021737789 +/- 0.0001654 min 4.6761e-05 max 0.00133343 sum 0.090429204
+Sockets used: 1663 (for perfect keepalive, would be 4)
+Uniform: false, Jitter: false, Catchup allowed: true
+IP addresses distribution:
+10.96.58.25:8081: 1663
+Code 200 : 9142 (84.6 %)
+Code 500 : 1656 (15.3 %)
+Code 502 : 2 (0.0 %)
+All done 10800 calls (plus 4 warmup) 2.163 ms avg, 30.0 qps

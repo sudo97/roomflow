@@ -1,1 +1,1 @@
-HighErrorRate: стан none через 200 с після деградації
+HighErrorRate: стан firing через 61 с після деградації

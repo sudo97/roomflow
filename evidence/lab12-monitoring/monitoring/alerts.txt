@@ -1,0 +1,2 @@
+ErrorBudgetFastBurn firing
+HighErrorRate firing

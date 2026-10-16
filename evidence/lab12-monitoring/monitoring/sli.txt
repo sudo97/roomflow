@@ -1,5 +1,5 @@
-roomflow:http_requests:rate1m = 1.7999999999999998
-roomflow:http_errors:ratio_rate1m = 0
-roomflow:http_latency_seconds:p95_1m = 0.00095
-slo:availability:ratio_rate5m = 1
-slo:error_budget_burn_rate:1m = 0
+roomflow:http_requests:rate1m = 62.57777777777777
+roomflow:http_errors:ratio_rate1m = 0.1924715909090909
+roomflow:http_latency_seconds:p95_1m = 0.0009926530612244897
+slo:availability:ratio_rate5m = 0.821867415911999
+slo:error_budget_burn_rate:1m = 39.11465892597968
