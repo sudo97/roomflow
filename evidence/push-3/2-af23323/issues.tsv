@@ -1,0 +1,1 @@
+MAJOR	CODE_SMELL	go:S107	internal/httpapi/handlers_test.go	13	This function has 6 parameters, which is greater than the 5 authorized.

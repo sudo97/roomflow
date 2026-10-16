@@ -1,0 +1,1 @@
+af2332368f011d4904e0bf45482575461f96f013 ci(sonar): inherit default Go profile, fix S107 param
