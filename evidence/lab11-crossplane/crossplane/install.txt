@@ -1,5 +1,5 @@
 NAME: crossplane
-LAST DEPLOYED: Fri Oct 16 17:33:49 2026
+LAST DEPLOYED: Fri Oct 16 17:59:32 2026
 NAMESPACE: crossplane-system
 STATUS: deployed
 REVISION: 1

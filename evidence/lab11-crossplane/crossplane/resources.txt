@@ -1,34 +1,34 @@
 NAMESPACE        NAME           SYNCED   READY   CONNECTION-SECRET   AGE
-team-analytics   analytics-db   True     True                        8s
-team-reviews     reviews-db     True     True                        19s
+team-analytics   analytics-db   True     True                        9s
+team-reviews     reviews-db     True     True                        21s
 NAME                 SYNCED   READY   COMPOSITION           AGE
-analytics-db-bzfwt   True     True    postgres-kubernetes   8s
-reviews-db-4vcr6     True     True    postgres-kubernetes   19s
+analytics-db-5sjk6   True     True    postgres-kubernetes   9s
+reviews-db-dtbxb     True     True    postgres-kubernetes   21s
 NAME                       KIND                    PROVIDERCONFIG   SYNCED   READY   AGE
-analytics-db-bzfwt-4qvhf   Service                 kubernetes       True     True    8s
-analytics-db-bzfwt-84782   PersistentVolumeClaim   kubernetes       True     True    8s
-analytics-db-bzfwt-b4mpn   Secret                  kubernetes       True     True    8s
-analytics-db-bzfwt-mhtnl   Deployment              kubernetes       True     True    8s
-reviews-db-4vcr6-9jd85     Service                 kubernetes       True     True    18s
-reviews-db-4vcr6-bwx4t     PersistentVolumeClaim   kubernetes       True     True    18s
-reviews-db-4vcr6-lg75d     Deployment              kubernetes       True     True    18s
-reviews-db-4vcr6-nfnf5     Secret                  kubernetes       True     True    18s
+analytics-db-5sjk6-28wkl   PersistentVolumeClaim   kubernetes       True     True    9s
+analytics-db-5sjk6-cv5ns   Deployment              kubernetes       True     True    9s
+analytics-db-5sjk6-hst5c   Secret                  kubernetes       True     True    9s
+analytics-db-5sjk6-m49kg   Service                 kubernetes       True     True    9s
+reviews-db-dtbxb-69j8h     PersistentVolumeClaim   kubernetes       True     True    20s
+reviews-db-dtbxb-lh25p     Deployment              kubernetes       True     True    20s
+reviews-db-dtbxb-rr592     Service                 kubernetes       True     True    20s
+reviews-db-dtbxb-zgcg7     Secret                  kubernetes       True     True    20s
 NAME                     TYPE     DATA   AGE
-secret/reviews-db-conn   Opaque   5      18s
+secret/reviews-db-conn   Opaque   5      20s
 
 NAME                                    STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
-persistentvolumeclaim/reviews-db-data   Bound    pvc-3acf1027-6edd-482d-95ae-8bd848f810e7   1Gi        RWO            standard       <unset>                 18s
+persistentvolumeclaim/reviews-db-data   Bound    pvc-87b36c15-ec19-43e6-8d53-052efd59650a   1Gi        RWO            standard       <unset>                 20s
 
 NAME                                  READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/reviews-db-postgres   1/1     1            1           18s
+deployment.apps/reviews-db-postgres   1/1     1            1           20s
 
 NAME                          TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
-service/reviews-db-postgres   ClusterIP   10.96.98.156   <none>        5432/TCP   18s
+service/reviews-db-postgres   ClusterIP   10.96.59.241   <none>        5432/TCP   20s
 memory limit: 512Mi
 {
   "database": "app",
   "host": "review…",
-  "password": "449dfb…",
+  "password": "f370c5…",
   "port": "5432",
   "username": "app"
 }
