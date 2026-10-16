@@ -1,0 +1,9 @@
+! Corepack is about to download https://repo.yarnpkg.com/4.13.0/packages/yarnpkg-cli/bin/yarn.js
+[94m➤[39m YN0000: · Yarn 4.13.0
+[94m➤[39m [90mYN0000[39m: ┌ Resolution step
+::group::Resolution step
+[91m➤[39m YN0001: │ Error: [38;5;173mgot[39m[38;5;37m@[39m[38;5;37mpatch:got@npm%3A11.8.2#~/.yarn/patches/got-npm-11.8.2-c1eb105458.patch[39m: ENOENT: no such file or directory, open '/tmp/portal/.yarn/patches/got-npm-11.8.2-c1eb105458.patch'
+::endgroup::
+[91m➤[39m YN0001: Error: [38;5;173mgot[39m[38;5;37m@[39m[38;5;37mpatch:got@npm%3A11.8.2#~/.yarn/patches/got-npm-11.8.2-c1eb105458.patch[39m: ENOENT: no such file or directory, open '/tmp/portal/.yarn/patches/got-npm-11.8.2-c1eb105458.patch'
+[94m➤[39m [90mYN0000[39m: └ Completed in 20s 775ms
+[91m➤[39m YN0000: · Failed with errors in 20s 790ms

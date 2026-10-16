@@ -1,14 +1,78 @@
 
 Prerequisites check...
 
-  Node version is: 20.20.2
+  Node version is: 22.11.0
   Yarn version is: 1.22.22
   Python version is: 3.12.3
+? Enter a name for the app [required] (backstage) [50D[50C[2K[G? Enter a name for the app [required] r[39D[39C[2K[G? Enter a name for the app [required] ro[40D[40C[2K[G? Enter a name for the app [required] roo[41D[41C[2K[G? Enter a name for the app [required] room[42D[42C[2K[G? Enter a name for the app [required] roomf[43D[43C[2K[G? Enter a name for the app [required] roomfl[44D[44C[2K[G? Enter a name for the app [required] roomflo[45D[45C[2K[G? Enter a name for the app [required] roomflow[46D[46C[2K[G? Enter a name for the app [required] roomflow-[47D[47C[2K[G? Enter a name for the app [required] roomflow-p[48D[48C[2K[G? Enter a name for the app [required] roomflow-po[49D[49C[2K[G? Enter a name for the app [required] roomflow-por[50D[50C[2K[G? Enter a name for the app [required] roomflow-port[51D[51C[2K[G? Enter a name for the app [required] roomflow-porta[52D[52C[2K[G? Enter a name for the app [required] roomflow-portal[53D[53C[2K[G? Enter a name for the app [required] roomflow-portal[53D[53C
 
-Node version 20 is not a supported LTS version. Please use a supported version (22.x or 24.x).
+Creating the app...
 
-It seems that something went wrong when validating the prerequisites 🤔
-For help with setting up prerequisites, see https://backstage.io/docs/getting-started/#prerequisites
+ Checking that supplied path exists:
+  checking      /tmp/portal ✔ 
 
-🔥  Failed to validate needed prerequisites!
+ Preparing files:
+  copying       .dockerignore ✔ 
+  copying       .eslintignore ✔ 
+  templating    .eslintrc.js.hbs ✔ 
+  templating    .gitignore.hbs ✔ 
+  copying       .prettierignore ✔ 
+  templating    .yarnrc.yml.hbs ✔ 
+  copying       README.md ✔ 
+  copying       app-config.production.yaml ✔ 
+  templating    backstage.json.hbs ✔ 
+  templating    app-config.yaml.hbs ✔ 
+  templating    catalog-info.yaml.hbs ✔ 
+  templating    package.json.hbs ✔ 
+  copying       playwright.config.ts ✔ 
+  copying       tsconfig.json ✔ 
+  copying       yarn.lock ✔ 
+  copying       README.md ✔ 
+  copying       yarn-4.13.0.cjs ✔ 
+  copying       entities.yaml ✔ 
+  copying       org.yaml ✔ 
+  copying       template.yaml ✔ 
+  copying       catalog-info.yaml ✔ 
+  copying       index.js ✔ 
+  copying       package.json ✔ 
+  copying       README.md ✔ 
+  templating    .eslintrc.js.hbs ✔ 
+  copying       Dockerfile ✔ 
+  copying       README.md ✔ 
+  templating    package.json.hbs ✔ 
+  copying       index.ts ✔ 
+  templating    .eslintrc.js.hbs ✔ 
+  copying       .eslintignore ✔ 
+  templating    package.json.hbs ✔ 
+  copying       app.test.ts ✔ 
+  copying       apple-touch-icon.png ✔ 
+  copying       android-chrome-192x192.png ✔ 
+  copying       favicon-16x16.png ✔ 
+  copying       favicon-32x32.png ✔ 
+  copying       favicon.ico ✔ 
+  copying       index.html ✔ 
+  copying       manifest.json ✔ 
+  copying       robots.txt ✔ 
+  copying       safari-pinned-tab.svg ✔ 
+  copying       App.tsx ✔ 
+  copying       App.test.tsx ✔ 
+  copying       index.tsx ✔ 
+  copying       setupTests.ts ✔ 
+  copying       homeModule.tsx ✔ 
+  copying       index.ts ✔ 
+  copying       LogoFull.tsx ✔ 
+  copying       LogoIcon.tsx ✔ 
+  copying       Sidebar.tsx ✔ 
+  copying       SidebarLogo.tsx ✔ 
+  copying       index.ts ✔ 
+  fetching      yarn.lock seed ✔ 
+
+🥇  Successfully created roomflow-portal
+
+
+ All set! Now you might want to:
+  Install the dependencies: cd /tmp/portal && yarn install
+  Run the app: cd /tmp/portal && yarn start
+  Set up the software catalog: https://backstage.io/docs/features/software-catalog/configuration
+  Add authentication: https://backstage.io/docs/auth/
 
