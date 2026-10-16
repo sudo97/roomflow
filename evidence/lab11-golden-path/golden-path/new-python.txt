@@ -1,0 +1,10 @@
+service price-forecast created in /tmp/gp/price-forecast
+  .github/workflows/ci.yml
+  README.md
+  catalog-info.yaml
+  docs/index.md
+  k8s/deployment.yaml
+  mkdocs.yml
+  Dockerfile
+  app.py
+  test_app.py

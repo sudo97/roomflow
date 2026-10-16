@@ -1,0 +1,1 @@
+rfctl new: 3 ms; docker build обох сервісів: 23 s

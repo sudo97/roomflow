@@ -1,0 +1,4 @@
+platform:services_created:total = 28
+platform:self_service_adoption:ratio = 0.6736111111111112
+platform:provisioning_duration_seconds:p90 = 180
+platform_developer_satisfaction_score = 3.7083333333333335

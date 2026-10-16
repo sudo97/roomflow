@@ -1,0 +1,2 @@
+# TYPE service_requests_total counter
+service_requests_total 2

@@ -1,0 +1,9 @@
+apiVersion: platform.roomflow.io/v1alpha1
+kind: PostgreSQLInstance
+metadata:
+  name: reviews-db
+  namespace: team-reviews
+spec:
+  parameters: { size: small, storageGB: 1 }
+  compositionSelector: { matchLabels: { provider: kubernetes } }
+

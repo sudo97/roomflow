@@ -1,0 +1,93 @@
+[
+  {
+    "workflow": "lab9-performance",
+    "status": "queued",
+    "conclusion": "",
+    "commit": "4c3de2e",
+    "updated": "2026-10-16T17:16:24Z"
+  },
+  {
+    "workflow": "lab12-cloud-native",
+    "status": "in_progress",
+    "conclusion": "",
+    "commit": "4c3de2e",
+    "updated": "2026-10-16T17:16:17Z"
+  },
+  {
+    "workflow": "lab11-platform",
+    "status": "in_progress",
+    "conclusion": "",
+    "commit": "4c3de2e",
+    "updated": "2026-10-16T17:15:57Z"
+  },
+  {
+    "workflow": "lab10-deployments",
+    "status": "in_progress",
+    "conclusion": "",
+    "commit": "4c3de2e",
+    "updated": "2026-10-16T17:15:41Z"
+  },
+  {
+    "workflow": "lab7-observability",
+    "status": "in_progress",
+    "conclusion": "",
+    "commit": "4c3de2e",
+    "updated": "2026-10-16T17:15:32Z"
+  },
+  {
+    "workflow": "lab6-iac",
+    "status": "completed",
+    "conclusion": "failure",
+    "commit": "4c3de2e",
+    "updated": "2026-10-16T17:15:35Z"
+  },
+  {
+    "workflow": "sonar",
+    "status": "pending",
+    "conclusion": "",
+    "commit": "4c3de2e",
+    "updated": "2026-10-16T17:14:17Z"
+  },
+  {
+    "workflow": "ci",
+    "status": "in_progress",
+    "conclusion": "",
+    "commit": "4c3de2e",
+    "updated": "2026-10-16T17:15:19Z"
+  },
+  {
+    "workflow": "tests",
+    "status": "in_progress",
+    "conclusion": "",
+    "commit": "4c3de2e",
+    "updated": "2026-10-16T17:15:47Z"
+  },
+  {
+    "workflow": "quality",
+    "status": "completed",
+    "conclusion": "failure",
+    "commit": "4c3de2e",
+    "updated": "2026-10-16T17:15:58Z"
+  },
+  {
+    "workflow": "ci-sequential",
+    "status": "completed",
+    "conclusion": "success",
+    "commit": "4c3de2e",
+    "updated": "2026-10-16T17:16:26Z"
+  },
+  {
+    "workflow": "lab8-devsecops",
+    "status": "in_progress",
+    "conclusion": "",
+    "commit": "4c3de2e",
+    "updated": "2026-10-16T17:16:27Z"
+  },
+  {
+    "workflow": "mutation",
+    "status": "completed",
+    "conclusion": "success",
+    "commit": "679ee90",
+    "updated": "2026-10-16T17:15:22Z"
+  }
+]

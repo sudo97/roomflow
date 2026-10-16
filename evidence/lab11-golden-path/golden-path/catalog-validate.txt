@@ -1,0 +1,2 @@
+catalog-info.yaml: 8 entities, OK
+/tmp/gp/guest-reviews/catalog-info.yaml: 1 entities, OK
