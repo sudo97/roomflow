@@ -1,0 +1,5 @@
+CRITICAL	CODE_SMELL	go:S3776	internal/flags/flags_test.go	11	Refactor this method to reduce its Cognitive Complexity from 11 to the 8 allowed.
+MAJOR	BUG	go:S1764	internal/flags/flags_test.go	30	Correct one of the identical sub-expressions on both sides of this operator.
+CRITICAL	CODE_SMELL	go:S3776	internal/obs/obs_test.go	35	Refactor this method to reduce its Cognitive Complexity from 9 to the 8 allowed.
+CRITICAL	CODE_SMELL	go:S3776	internal/booking/bench_test.go	14	Refactor this method to reduce its Cognitive Complexity from 11 to the 8 allowed.
+MAJOR	CODE_SMELL	go:S107	internal/httpapi/handlers_test.go	15	This function has 6 parameters, which is greater than the 5 authorized.

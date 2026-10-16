@@ -1,0 +1,40 @@
+15:39:50.099 INFO  There are no files to be analyzed for the Kubernetes language
+15:39:50.100 INFO  Sensor IaC Kubernetes Sensor [iac] (done) | time=63ms
+15:39:50.100 INFO  Sensor TextAndSecretsSensor [text]
+15:39:50.113 INFO  Available processors: 4
+15:39:50.115 INFO  Using 4 threads for analysis.
+15:39:50.446 INFO  Start fetching files for the text and secrets analysis
+15:39:50.454 INFO  Using Git CLI to retrieve dirty files
+15:39:50.458 WARN  Retrieving only language associated files, make sure to run the analysis inside a git repository to make use of inclusions specified via "sonar.text.inclusions"
+15:39:50.459 INFO  Starting the text and secrets analysis
+15:39:50.460 INFO  35 source files to be analyzed for the text and secrets analysis
+15:39:50.532 INFO  35/35 source files have been analyzed for the text and secrets analysis
+15:39:50.534 INFO  Sensor TextAndSecretsSensor [text] (done) | time=434ms
+15:39:50.538 INFO  ------------- Run sensors on project
+15:39:50.791 INFO  Sensor GoProjectSensor [go]
+15:39:50.792 INFO  Sensor GoProjectSensor [go] (done) | time=1ms
+15:39:50.793 INFO  Sensor JavaScript/TypeScript/CSS analysis [javascript]
+15:39:50.801 INFO  No input files found for analysis
+15:39:50.802 INFO  Hit the cache for 0 out of 0
+15:39:50.805 INFO  Miss the cache for 0 out of 0
+15:39:50.805 INFO  Sensor JavaScript/TypeScript/CSS analysis [javascript] (done) | time=10ms
+15:39:50.806 INFO  Sensor IaC Project Sensor [iac]
+15:39:50.806 INFO  Sensor IaC Project Sensor [iac] (done) | time=1ms
+15:39:50.807 INFO  Sensor Zero Coverage Sensor
+15:39:50.809 INFO  Sensor Zero Coverage Sensor (done) | time=4ms
+15:39:50.810 INFO  ------------- Gather SCA dependencies on project
+15:39:50.834 INFO  Dependency analysis skipped
+15:39:50.842 INFO  SCM Publisher SCM provider for this project is: git
+15:39:50.844 INFO  SCM Publisher 28 source files to be analyzed
+15:39:51.316 INFO  SCM Publisher 28/28 source files have been analyzed (done) | time=471ms
+15:39:51.325 INFO  CPD Executor Calculating CPD for 14 files
+15:39:51.337 INFO  CPD Executor CPD calculation finished (done) | time=10ms
+15:39:51.344 INFO  SCM revision ID 'ba321c11abe303412a102090c266ca78aea4d3ce'
+15:39:51.446 INFO  Analysis report generated in 101ms, dir size=321.8 kB
+15:39:51.509 INFO  Analysis report compressed in 63ms, zip size=141.3 kB
+15:39:51.581 INFO  Analysis report uploaded in 72ms
+15:39:51.582 INFO  ------------- Check Quality Gate status
+15:39:51.583 INFO  Waiting for the analysis report to be processed (max 300s)
+15:39:56.640 ERROR QUALITY GATE STATUS: FAILED - View details on http://localhost:9000/dashboard?id=roomflow
+15:39:56.668 INFO  EXECUTION FAILURE
+15:39:56.669 INFO  Total time: 15.493s
