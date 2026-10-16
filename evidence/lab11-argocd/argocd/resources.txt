@@ -1,12 +1,12 @@
 NAME                             READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/roomflow-blue    2/2     2            2           4s
-deployment.apps/roomflow-green   2/2     2            2           4s
+deployment.apps/roomflow-blue    2/2     2            2           3s
+deployment.apps/roomflow-green   2/2     2            2           3s
 
-NAME                             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
-service/roomflow                 ClusterIP   10.96.189.186   <none>        80/TCP    4s
-service/roomflow-blue-preview    ClusterIP   10.96.220.31    <none>        80/TCP    4s
-service/roomflow-green-preview   ClusterIP   10.96.26.247    <none>        80/TCP    4s
+NAME                             TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+service/roomflow                 ClusterIP   10.96.132.78   <none>        80/TCP    3s
+service/roomflow-blue-preview    ClusterIP   10.96.178.9    <none>        80/TCP    3s
+service/roomflow-green-preview   ClusterIP   10.96.120.57   <none>        80/TCP    3s
 
 NAME                         DATA   AGE
 configmap/kube-root-ca.crt   1      6s
-configmap/roomflow-flags     1      4s
+configmap/roomflow-flags     1      3s
