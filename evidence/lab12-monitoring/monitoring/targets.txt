@@ -1,4 +1,4 @@
-frontend frontend-7c8578d8c7-plszz up
-frontend frontend-7c8578d8c7-87xlq up
-backend backend-6fd6bf45d8-8rfcg up
-backend backend-6fd6bf45d8-28g8l up
+frontend frontend-7459d4b764-n96l5 up
+backend backend-6fd6bf45d8-cmpkb up
+backend backend-6fd6bf45d8-rbqqj up
+frontend frontend-7459d4b764-v8shg up
