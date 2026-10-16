@@ -12,11 +12,14 @@ type Memory struct {
 	mu       sync.RWMutex
 	rooms    map[string]booking.Room
 	bookings map[string]booking.Booking
+	// byRoom is a secondary index (tenant/room -> booking keys), the in-memory analogue of
+	// a database index on bookings(tenant_id, room_id): availability checks no longer scan all bookings.
+	byRoom map[string][]string
 }
 
 // NewMemory creates an empty in-memory repository.
 func NewMemory() *Memory {
-	return &Memory{rooms: map[string]booking.Room{}, bookings: map[string]booking.Booking{}}
+	return &Memory{rooms: map[string]booking.Room{}, bookings: map[string]booking.Booking{}, byRoom: map[string][]string{}}
 }
 
 func key(t booking.TenantID, id string) string { return string(t) + "/" + id }
@@ -57,11 +60,10 @@ func (m *Memory) SaveRoom(r booking.Room) error {
 func (m *Memory) ListBookings(t booking.TenantID, roomID string) ([]booking.Booking, error) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
-	var out []booking.Booking
-	for _, b := range m.bookings {
-		if b.TenantID == t && b.RoomID == roomID {
-			out = append(out, b)
-		}
+	ids := m.byRoom[key(t, roomID)]
+	out := make([]booking.Booking, 0, len(ids))
+	for _, id := range ids {
+		out = append(out, m.bookings[id])
 	}
 	return out, nil
 }
@@ -70,7 +72,12 @@ func (m *Memory) ListBookings(t booking.TenantID, roomID string) ([]booking.Book
 func (m *Memory) SaveBooking(b booking.Booking) error {
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	m.bookings[key(b.TenantID, b.ID)] = b
+	k := key(b.TenantID, b.ID)
+	if _, exists := m.bookings[k]; !exists {
+		room := key(b.TenantID, b.RoomID)
+		m.byRoom[room] = append(m.byRoom[room], k)
+	}
+	m.bookings[k] = b
 	return nil
 }
 
