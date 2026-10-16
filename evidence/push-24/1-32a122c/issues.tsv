@@ -1,0 +1,7 @@
+MAJOR	CODE_SMELL	go:S107	internal/booking/service.go	33	This function has 8 parameters, which is greater than the 5 authorized.
+CRITICAL	CODE_SMELL	go:S3776	internal/booking/service.go	33	Refactor this method to reduce its Cognitive Complexity from 41 to the 8 allowed.
+MAJOR	CODE_SMELL	go:S138	internal/booking/service.go	33	This function has 89 lines of code, which is greater than the 50 authorized. Split it into smaller functions.
+MINOR	CODE_SMELL	go:S1192	internal/httpapi/handlers.go	32	Define a constant instead of duplicating this literal "X-Tenant-ID" 4 times.
+MINOR	CODE_SMELL	go:S1192	internal/httpapi/handlers.go	34	Define a constant instead of duplicating this literal "Content-Type" 11 times.
+MINOR	CODE_SMELL	go:S1192	internal/httpapi/handlers.go	34	Define a constant instead of duplicating this literal "application/json" 11 times.
+MINOR	CODE_SMELL	go:S1192	internal/httpapi/handlers.go	36	Define a constant instead of duplicating this literal "missing tenant" 4 times.

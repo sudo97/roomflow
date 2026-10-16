@@ -1,0 +1,1 @@
+f21689f4d32ceedd30dc8f59bc9fc8abd66dabb4 ci: add fix-07 patch (Backstage guest sign-in and API entity, ArgoCD UI login for screenshots)
