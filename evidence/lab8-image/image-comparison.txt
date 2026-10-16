@@ -1,2 +1,2 @@
 naive     os=debian 13.3 size=1004.5MB user=root CRITICAL=23 HIGH=1404 MEDIUM=5499 LOW=1652
-hardened  os=debian 12.15 size=18.0MB user=nonroot:nonroot CRITICAL=0 HIGH=44 MEDIUM=34 LOW=4
+hardened  os=debian 12.15 size=18.7MB user=nonroot:nonroot CRITICAL=0 HIGH=0 MEDIUM=0 LOW=0

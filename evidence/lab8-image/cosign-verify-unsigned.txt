@@ -1,0 +1,3 @@
+Error: no signatures found
+main.go:69: error during command execution: no signatures found
+exit code: 10

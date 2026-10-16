@@ -1,0 +1,8 @@
+NAME                        VERSION           TYPE                      
+base-files                  12.4+deb12u15     deb                        
+ca-certificates             20250419~deb12u1  deb                        
+github.com/sudo97/roomflow  (devel)           go-module  (+1 duplicate)  
+media-types                 10.0.0            deb                        
+netbase                     6.4               deb                        
+stdlib                      go1.26.9          go-module  (+1 duplicate)  
+tzdata                      2026b-0+deb12u1   deb                        
