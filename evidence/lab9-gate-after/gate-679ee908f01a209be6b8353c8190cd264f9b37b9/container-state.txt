@@ -1,3 +1,3 @@
 status=running exit=0 oom=false restarts=0
-CONTAINER ID   NAME      CPU %     MEM USAGE / LIMIT   MEM %     NET I/O          BLOCK I/O     PIDS
-15bf661c27e0   rf-gate   0.13%     63.22MiB / 512MiB   12.35%    34.2MB / 284MB   81.9kB / 0B   9
+CONTAINER ID   NAME      CPU %     MEM USAGE / LIMIT   MEM %     NET I/O        BLOCK I/O    PIDS
+ffa5bcc922d6   rf-gate   0.02%     66.95MiB / 512MiB   13.08%    46MB / 419MB   4.1kB / 0B   10

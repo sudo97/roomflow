@@ -9,11 +9,11 @@ Unable to find image 'grafana/k6:0.54.0' locally
 707af19e45d8: Download complete
 43c4264eed91: Verifying Checksum
 43c4264eed91: Download complete
-4f4fb700ef54: Verifying Checksum
-4f4fb700ef54: Download complete
 2961e627175d: Verifying Checksum
 2961e627175d: Download complete
 43c4264eed91: Pull complete
+4f4fb700ef54: Verifying Checksum
+4f4fb700ef54: Download complete
 707af19e45d8: Pull complete
 2961e627175d: Pull complete
 4f4fb700ef54: Pull complete
@@ -22,21 +22,21 @@ Status: Downloaded newer image for grafana/k6:0.54.0
 
      ✓ status is expected
 
-   ✓ checks.........................: 100.00% 81592 out of 81592
-     data_received..................: 263 MB  6.6 MB/s
-     data_sent......................: 13 MB   317 kB/s
-     http_req_blocked...............: avg=6.61µs  min=1.22µs   med=2.82µs  p(90)=3.81µs  p(95)=4.43µs  p(99)=30.91µs  max=15.37ms 
-     http_req_connecting............: avg=114ns   min=0s       med=0s      p(90)=0s      p(95)=0s      p(99)=0s       max=724.76µs
-   ✓ http_req_duration..............: avg=19.29ms min=314.63µs med=6.14ms  p(90)=69.02ms p(95)=77.65ms p(99)=94.77ms  max=260.08ms
-       { expected_response:true }...: avg=19.29ms min=314.63µs med=6.14ms  p(90)=69.02ms p(95)=77.65ms p(99)=94.77ms  max=260.08ms
-   ✓ http_req_failed................: 0.00%   0 out of 81592
-     http_req_receiving.............: avg=88.76µs min=10.48µs  med=26.72µs p(90)=70.44µs p(95)=176.2µs p(99)=1.26ms   max=31.04ms 
-     http_req_sending...............: avg=29.43µs min=3.61µs   med=8.73µs  p(90)=17.6µs  p(95)=41.92µs p(99)=248.57µs max=18.51ms 
-     http_req_tls_handshaking.......: avg=0s      min=0s       med=0s      p(90)=0s      p(95)=0s      p(99)=0s       max=0s      
-     http_req_waiting...............: avg=19.17ms min=271.61µs med=6.04ms  p(90)=68.91ms p(95)=77.49ms p(99)=94.29ms  max=260.06ms
-     http_reqs......................: 81592   2037.719594/s
-     iteration_duration.............: avg=19.49ms min=374.88µs med=6.36ms  p(90)=69.26ms p(95)=77.88ms p(99)=95.02ms  max=260.16ms
-     iterations.....................: 81592   2037.719594/s
-     vus............................: 50      min=11             max=50
-     vus_max........................: 50      min=50             max=50
+   ✓ checks.........................: 100.00% 122748 out of 122748
+     data_received..................: 396 MB  9.9 MB/s
+     data_sent......................: 19 MB   477 kB/s
+     http_req_blocked...............: avg=4.03µs  min=631ns    med=1.8µs   p(90)=2.43µs  p(95)=2.79µs   p(99)=14.73µs  max=7.8ms   
+     http_req_connecting............: avg=79ns    min=0s       med=0s      p(90)=0s      p(95)=0s       p(99)=0s       max=2.25ms  
+   ✓ http_req_duration..............: avg=12.83ms min=219.96µs med=3.74ms  p(90)=60.98ms p(95)=68.26ms  p(99)=80.61ms  max=198.31ms
+       { expected_response:true }...: avg=12.83ms min=219.96µs med=3.74ms  p(90)=60.98ms p(95)=68.26ms  p(99)=80.61ms  max=198.31ms
+   ✓ http_req_failed................: 0.00%   0 out of 122748
+     http_req_receiving.............: avg=56.93µs min=6.77µs   med=17.85µs p(90)=43.06µs p(95)=110.49µs p(99)=918.36µs max=14.3ms  
+     http_req_sending...............: avg=18.27µs min=2.1µs    med=5.66µs  p(90)=11.46µs p(95)=22.97µs  p(99)=144.6µs  max=14.56ms 
+     http_req_tls_handshaking.......: avg=0s      min=0s       med=0s      p(90)=0s      p(95)=0s       p(99)=0s       max=0s      
+     http_req_waiting...............: avg=12.75ms min=201.53µs med=3.67ms  p(90)=60.92ms p(95)=68.18ms  p(99)=80.49ms  max=198.28ms
+     http_reqs......................: 122748  3066.036563/s
+     iteration_duration.............: avg=12.95ms min=272.49µs med=3.87ms  p(90)=61.11ms p(95)=68.39ms  p(99)=80.8ms   max=198.4ms 
+     iterations.....................: 122748  3066.036563/s
+     vus............................: 50      min=11               max=50
+     vus_max........................: 50      min=50               max=50
 

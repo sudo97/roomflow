@@ -1,1 +1,1 @@
-{"time":"2026-10-16T18:03:01.398942868Z","level":"INFO","msg":"starting","addr":":8080","build":"{version=\"roomflow:gate\",commit=\"679ee90\",color=\"\"}"}
+{"time":"2026-10-16T18:39:57.292600698Z","level":"INFO","msg":"starting","addr":":8080","build":"{version=\"roomflow:gate\",commit=\"679ee90\",color=\"\"}"}
