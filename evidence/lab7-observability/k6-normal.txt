@@ -1,0 +1,39 @@
+Unable to find image 'grafana/k6:0.54.0' locally
+0.54.0: Pulling from grafana/k6
+43c4264eed91: Already exists
+707af19e45d8: Pulling fs layer
+2961e627175d: Pulling fs layer
+4f4fb700ef54: Pulling fs layer
+4f4fb700ef54: Verifying Checksum
+4f4fb700ef54: Download complete
+707af19e45d8: Download complete
+707af19e45d8: Pull complete
+2961e627175d: Verifying Checksum
+2961e627175d: Download complete
+2961e627175d: Pull complete
+4f4fb700ef54: Pull complete
+Digest: sha256:1f40432b1cbe7234e977f96c362c9bc550a2d2b583d014dd8669fe40d3e9e755
+Status: Downloaded newer image for grafana/k6:0.54.0
+
+     ✓ booking 201/409
+     ✓ availability 200
+
+     checks.........................: 100.00% 2735 out of 2735
+     data_received..................: 3.4 MB  28 kB/s
+     data_sent......................: 806 kB  6.7 kB/s
+     http_req_blocked...............: avg=5.49µs   min=1.8µs    med=3.71µs   max=983.07µs p(90)=5.29µs   p(95)=5.89µs  
+     http_req_connecting............: avg=871ns    min=0s       med=0s       max=792.11µs p(90)=0s       p(95)=0s      
+     http_req_duration..............: avg=499.72µs min=260.9µs  med=485.75µs max=1.7ms    p(90)=618.34µs p(95)=667.04µs
+       { expected_response:true }...: avg=506.22µs min=260.9µs  med=493.97µs max=1.7ms    p(90)=623.65µs p(95)=679.56µs
+     http_req_failed................: 13.46%  487 out of 3616
+     http_req_receiving.............: avg=51.03µs  min=21.94µs  med=46.69µs  max=321.87µs p(90)=74.67µs  p(95)=83.54µs 
+     http_req_sending...............: avg=23.06µs  min=6.54µs   med=21.03µs  max=144.54µs p(90)=32.9µs   p(95)=40.49µs 
+     http_req_tls_handshaking.......: avg=0s       min=0s       med=0s       max=0s       p(90)=0s       p(95)=0s      
+     http_req_waiting...............: avg=425.62µs min=193.21µs med=413.61µs max=1.55ms   p(90)=532.82µs p(95)=575.1µs 
+     http_reqs......................: 3616    30.131119/s
+     iteration_duration.............: avg=647.48µs min=383.4µs  med=626.65µs max=2.12ms   p(90)=815.97µs p(95)=883.04µs
+     iterations.....................: 3601    30.006128/s
+     vus............................: 0       min=0            max=0 
+     vus_max........................: 20      min=20           max=20
+
+time="2026-10-16T17:18:30Z" level=error msg="failed to handle the end-of-test summary" error="Could not save some summary information:\n\t- could not open '/out/k6-normal.json': open /out/k6-normal.json: permission denied"

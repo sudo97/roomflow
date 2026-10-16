@@ -1,0 +1,23 @@
+time="2026-10-16T17:28:02Z" level=error msg="failed to handle the end-of-test summary" error="Could not save some summary information:\n\t- could not open '/out/k6-recovery.json': open /out/k6-recovery.json: permission denied"
+
+     ✓ availability 200
+     ✓ booking 201/409
+
+     checks.........................: 100.00% 1342 out of 1342
+     data_received..................: 1.6 MB  27 kB/s
+     data_sent......................: 406 kB  6.8 kB/s
+     http_req_blocked...............: avg=8.11µs   min=1.92µs   med=4.72µs   max=1.38ms   p(90)=6.55µs   p(95)=9.25µs  
+     http_req_connecting............: avg=1.53µs   min=0s       med=0s       max=334.2µs  p(90)=0s       p(95)=0s      
+     http_req_duration..............: avg=534.3µs  min=270.39µs med=527.65µs max=1.93ms   p(90)=646.1µs  p(95)=681.59µs
+       { expected_response:true }...: avg=535.8µs  min=270.39µs med=528.58µs max=1.74ms   p(90)=650.64µs p(95)=688.74µs
+     http_req_failed................: 10.13%  184 out of 1816
+     http_req_receiving.............: avg=56.49µs  min=23.87µs  med=52.8µs   max=220.28µs p(90)=80.5µs   p(95)=88.39µs 
+     http_req_sending...............: avg=27.01µs  min=6.93µs   med=24.95µs  max=1.28ms   p(90)=36.22µs  p(95)=42.23µs 
+     http_req_tls_handshaking.......: avg=0s       min=0s       med=0s       max=0s       p(90)=0s       p(95)=0s      
+     http_req_waiting...............: avg=450.79µs min=217.54µs med=444.61µs max=1.62ms   p(90)=549.44µs p(95)=583.47µs
+     http_reqs......................: 1816    30.262409/s
+     iteration_duration.............: avg=717.01µs min=385.68µs med=708.63µs max=2.07ms   p(90)=883.96µs p(95)=933.05µs
+     iterations.....................: 1801    30.012445/s
+     vus............................: 0       min=0            max=0 
+     vus_max........................: 20      min=20           max=20
+

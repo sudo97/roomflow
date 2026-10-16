@@ -1,0 +1,32 @@
+time="2026-10-16T17:20:01Z" level=warning msg="Request Failed" error="Get \"http://localhost:8080/api/rooms/r5/availability?from=2027-01-01&to=2027-01-31\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-10-16T17:20:01Z" level=warning msg="Request Failed" error="Get \"http://localhost:8080/api/rooms/r2/availability?from=2027-01-01&to=2027-01-31\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-10-16T17:20:01Z" level=warning msg="Request Failed" error="Post \"http://localhost:8080/api/bookings\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-10-16T17:20:01Z" level=warning msg="Request Failed" error="Get \"http://localhost:8080/api/rooms/r2/availability?from=2027-01-01&to=2027-01-31\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-10-16T17:20:01Z" level=warning msg="Request Failed" error="Get \"http://localhost:8080/api/rooms/r1/availability?from=2027-01-01&to=2027-01-31\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-10-16T17:20:01Z" level=warning msg="Request Failed" error="Get \"http://localhost:8080/api/rooms/r1/availability?from=2027-01-01&to=2027-01-31\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-10-16T17:20:01Z" level=warning msg="Request Failed" error="Get \"http://localhost:8080/api/rooms/r2/availability?from=2027-01-01&to=2027-01-31\": http: server closed idle connection"
+time="2026-10-16T17:21:01Z" level=error msg="failed to handle the end-of-test summary" error="Could not save some summary information:\n\t- could not open '/out/k6-faulty.json': open /out/k6-faulty.json: permission denied"
+
+     ✗ availability 200
+      ↳  31% — ✓ 585 / ✗ 1269
+     ✗ booking 201/409
+      ↳  31% — ✓ 474 / ✗ 1017
+
+     checks.........................: 31.65% 1059 out of 3345
+     data_received..................: 1.9 MB 13 kB/s
+     data_sent......................: 993 kB 6.6 kB/s
+     http_req_blocked...............: avg=5.68µs   min=0s       med=3.46µs   max=890.88µs p(90)=5.48µs   p(95)=6.67µs  
+     http_req_connecting............: avg=1.08µs   min=0s       med=0s       max=438.9µs  p(90)=0s       p(95)=0s      
+     http_req_duration..............: avg=446.34µs min=0s       med=420.19µs max=3.5ms    p(90)=560.2µs  p(95)=622.26µs
+       { expected_response:true }...: avg=453.55µs min=244.19µs med=417.77µs max=3.38ms   p(90)=569.25µs p(95)=646.13µs
+     http_req_failed................: 61.15% 2761 out of 4515
+     http_req_receiving.............: avg=49.02µs  min=0s       med=42.85µs  max=447.74µs p(90)=73.59µs  p(95)=87.33µs 
+     http_req_sending...............: avg=22.13µs  min=0s       med=19.84µs  max=407.97µs p(90)=32.32µs  p(95)=39.12µs 
+     http_req_tls_handshaking.......: avg=0s       min=0s       med=0s       max=0s       p(90)=0s       p(95)=0s      
+     http_req_waiting...............: avg=375.18µs min=0s       med=350.48µs max=3.41ms   p(90)=471.26µs p(95)=530.13µs
+     http_reqs......................: 4515   30.098389/s
+     iteration_duration.............: avg=593.07µs min=344.77µs med=552.57µs max=3.73ms   p(90)=770.66µs p(95)=846.23µs
+     iterations.....................: 4500   29.998394/s
+     vus............................: 0      min=0            max=0 
+     vus_max........................: 20     min=20           max=20
+

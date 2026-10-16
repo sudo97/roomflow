@@ -1,0 +1,3 @@
+HighErrorRate active after 36 s
+rollback at 90 s
+incident resolved (time to restore recorded by exporter) after 511 s

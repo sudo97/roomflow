@@ -1,0 +1,19 @@
+roomflow-alerts alerting RoomFlowDown ok inactive
+roomflow-alerts alerting HighErrorRate ok inactive
+roomflow-alerts alerting HighLatencyP95 ok inactive
+roomflow-alerts alerting ErrorBudgetFastBurn ok inactive
+roomflow-alerts alerting BookingConflictsSpike ok inactive
+dora recording dora:deployments:increase6h ok 
+dora recording dora:lead_time_seconds:p50_6h ok 
+dora recording dora:lead_time_seconds:avg_6h ok 
+dora recording dora:change_failure_ratio:6h ok 
+dora recording dora:restore_seconds:avg_6h ok 
+roomflow-red recording route:roomflow_http_requests:rate1m ok 
+roomflow-red recording roomflow:http_requests:rate1m ok 
+roomflow-red recording roomflow:http_errors:ratio_rate1m ok 
+roomflow-red recording roomflow:http_latency_seconds:p95_1m ok 
+roomflow-red recording route:roomflow_http_latency_seconds:p95_1m ok 
+roomflow-red recording roomflow:bookings:rate5m ok 
+roomflow-slo recording slo:availability:ratio_rate5m ok 
+roomflow-slo recording slo:error_budget_burn_rate:5m ok 
+roomflow-slo recording slo:error_budget_burn_rate:1m ok 

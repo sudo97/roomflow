@@ -1,0 +1,9 @@
+NAME                     IMAGE                       COMMAND                  SERVICE         CREATED          STATUS                   PORTS
+rf-obs-alert-sink-1      python:3.12-alpine          "python -u -c 'impor…"   alert-sink      12 minutes ago   Up 12 minutes            
+rf-obs-alertmanager-1    prom/alertmanager:v0.27.0   "/bin/alertmanager -…"   alertmanager    12 minutes ago   Up 12 minutes            0.0.0.0:9093->9093/tcp, [::]:9093->9093/tcp
+rf-obs-dora-exporter-1   golang:1.24-alpine          "go run ./tools/dora…"   dora-exporter   12 minutes ago   Up 12 minutes            0.0.0.0:9102->9102/tcp, [::]:9102->9102/tcp
+rf-obs-grafana-1         grafana/grafana:11.2.2      "/run.sh"                grafana         12 minutes ago   Up 12 minutes            0.0.0.0:3000->3000/tcp, [::]:3000->3000/tcp
+rf-obs-loki-1            grafana/loki:3.2.1          "/usr/bin/loki -conf…"   loki            12 minutes ago   Up 12 minutes            0.0.0.0:3100->3100/tcp, [::]:3100->3100/tcp
+rf-obs-prometheus-1      prom/prometheus:v2.54.1     "/bin/prometheus --c…"   prometheus      12 minutes ago   Up 12 minutes            0.0.0.0:9090->9090/tcp, [::]:9090->9090/tcp
+rf-obs-promtail-1        grafana/promtail:3.2.1      "/usr/bin/promtail -…"   promtail        12 minutes ago   Up 12 minutes            
+rf-obs-roomflow-1        roomflow:obs                "/roomflow"              roomflow        8 minutes ago    Up 8 minutes (healthy)   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp

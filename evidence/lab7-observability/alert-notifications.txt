@@ -1,0 +1,6 @@
+{"status":"firing","alerts":[{"alertname":"BookingConflictsSpike","status":"firing","startsAt":"2026-10-16T17:18:47.435Z","endsAt":"0001-01-01T00:00:00Z"}]}
+{"status":"firing","alerts":[{"alertname":"HighErrorRate","status":"firing","startsAt":"2026-10-16T17:19:07.435Z","endsAt":"0001-01-01T00:00:00Z"}]}
+{"status":"firing","alerts":[{"alertname":"ErrorBudgetFastBurn","status":"firing","startsAt":"2026-10-16T17:19:27.435Z","endsAt":"0001-01-01T00:00:00Z"}]}
+{"status":"resolved","alerts":[{"alertname":"BookingConflictsSpike","status":"resolved","startsAt":"2026-10-16T17:18:47.435Z","endsAt":"2026-10-16T17:19:42.435Z"}]}
+{"status":"resolved","alerts":[{"alertname":"HighErrorRate","status":"resolved","startsAt":"2026-10-16T17:19:07.435Z","endsAt":"2026-10-16T17:20:57.435Z"}]}
+{"status":"resolved","alerts":[{"alertname":"ErrorBudgetFastBurn","status":"resolved","startsAt":"2026-10-16T17:19:27.435Z","endsAt":"2026-10-16T17:20:57.435Z"}]}

@@ -1,0 +1,5 @@
+{"time":"2026-10-16T17:20:01.359555315Z","level":"ERROR","msg":"http_request","request_id":"3f2406cbb835b306","tenant":"hotel-gamma","route":"POST /api/bookings","status":500,"duration_ms":0.042}
+{"time":"2026-10-16T17:20:01.09317226Z","level":"ERROR","msg":"http_request","request_id":"2afa580261972ca8","tenant":"hotel-alpha","route":"POST /api/bookings","status":500,"duration_ms":0.02}
+{"time":"2026-10-16T17:20:01.193073221Z","level":"ERROR","msg":"http_request","request_id":"2317ed98c8c1c3bd","tenant":"hotel-beta","route":"POST /api/bookings","status":500,"duration_ms":0.017}
+{"time":"2026-10-16T17:20:00.99311757Z","level":"ERROR","msg":"http_request","request_id":"f9886da094325e4a","tenant":"hotel-gamma","route":"GET /api/rooms","status":500,"duration_ms":0.011}
+{"time":"2026-10-16T17:20:01.293470446Z","level":"ERROR","msg":"http_request","request_id":"220b71cf06fc92ee","tenant":"hotel-beta","route":"POST /api/bookings","status":500,"duration_ms":0.01}
