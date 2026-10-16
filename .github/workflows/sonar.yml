@@ -1,0 +1,100 @@
+# Лабораторна робота 2: статичний аналіз SonarQube у CI.
+# SonarQube + PostgreSQL піднімаються як service-контейнери (аналог ci/sonar/docker-compose.yml),
+# конфігуруються через Web API (ci/sonar/setup.sh), аналізують одну або дві версії коду
+# (до/після рефакторингу), а результати (JSON + скріншоти) комітяться в гілку evidence.
+name: sonar
+
+on:
+  workflow_dispatch:
+    inputs:
+      refs:
+        description: "Версії коду для аналізу через пробіл (по черзі, в один сервер)"
+        default: "main"
+      label:
+        description: "Каталог для результатів у гілці evidence"
+        default: "lab2"
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency: evidence
+
+jobs:
+  sonar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    services:
+      sonarqube-db:
+        image: postgres:16
+        env:
+          POSTGRES_USER: sonar
+          POSTGRES_PASSWORD: sonar
+          POSTGRES_DB: sonar
+      sonarqube:
+        image: sonarqube:community
+        env:
+          SONAR_JDBC_URL: jdbc:postgresql://sonarqube-db:5432/sonar
+          SONAR_JDBC_USERNAME: sonar
+          SONAR_JDBC_PASSWORD: sonar
+          SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
+        ports:
+          - 9000:9000
+    env:
+      SONAR_HOST_URL: http://localhost:9000
+      REFS: ${{ inputs.refs || github.sha }}
+      LABEL: ${{ inputs.label || format('push-{0}', github.run_number) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Prepare tools
+        run: |
+          cp -r ci/sonar /tmp/sonar-ci
+          cd /tmp/sonar-ci && npm init -y >/dev/null && npm i playwright@1.48.2 >/dev/null && npx playwright install --with-deps chromium >/dev/null
+          echo "SONAR_ADMIN_PASSWORD=Lab2-$(openssl rand -hex 12)" >> "$GITHUB_ENV"
+      - name: Wait for SonarQube
+        run: |
+          for i in $(seq 1 90); do
+            s=$(curl -s $SONAR_HOST_URL/api/system/status | jq -r .status || true)
+            echo "status=$s"; [ "$s" = "UP" ] && exit 0; sleep 5
+          done; exit 1
+      - name: Configure SonarQube (profile, gate, token)
+        run: /tmp/sonar-ci/setup.sh | tee /tmp/setup.log
+      - name: Analyze
+        run: |
+          set -x
+          mkdir -p /tmp/evidence
+          cp /tmp/setup.log /tmp/evidence/
+          i=0
+          for ref in $REFS; do
+            i=$((i+1)); git checkout -q "$ref"
+            name="$i-$(git rev-parse --short HEAD)"
+            out=/tmp/evidence/$name; mkdir -p "$out"
+            git log -1 --format='%H %s' > "$out/commit.txt"
+            go vet ./... 2>&1 | tee "$out/go-vet.txt" || true
+            go test -coverprofile=coverage.out ./... 2>&1 | tee "$out/go-test.txt" || true
+            go tool cover -func=coverage.out | tee "$out/coverage-func.txt" || true
+            docker run --rm --network host -e SONAR_HOST_URL -e SONAR_TOKEN="$(cat /tmp/sonar_token)" \
+              -v "$PWD:/usr/src" sonarsource/sonar-scanner-cli \
+              -Dsonar.projectVersion="$name" -Dsonar.qualitygate.wait=true 2>&1 | tail -n 40 | tee "$out/scanner.log" || true
+            sleep 5
+            /tmp/sonar-ci/export.sh "$out" || true
+            node /tmp/sonar-ci/screens.mjs "$out" || true
+            git checkout -q -f "$GITHUB_SHA"
+          done
+      - name: Publish evidence
+        if: always()
+        run: |
+          git config user.name "github-actions"; git config user.email "actions@github.com"
+          git fetch origin evidence && git checkout -f evidence || git checkout -f --orphan evidence
+          git rm -rq --cached . 2>/dev/null || true; git clean -fdq -e evidence
+          mkdir -p "evidence/$LABEL"; rm -rf "evidence/$LABEL"/*; cp -r /tmp/evidence/* "evidence/$LABEL/"
+          git add evidence && git commit -qm "evidence: $LABEL (run ${{ github.run_id }})" && git push -q origin evidence

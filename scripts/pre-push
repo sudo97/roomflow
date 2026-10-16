@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Git hook: запускає аналіз перед push. Встановлення: ln -s ../../scripts/pre-push .git/hooks/pre-push
+exec "$(git rev-parse --show-toplevel)/scripts/analyze.sh"
