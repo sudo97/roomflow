@@ -8,8 +8,10 @@
 source "$(dirname "$0")/../lib/common.sh"
 BEFORE=${1:?ref before}; AFTER=${2:?ref after}
 E=$EVIDENCE; mkdir -p "$E/k6" "$E/jmeter" "$E/pprof" "$E/stats"; chmod 777 "$E/k6"
-K6="docker run --rm --network host -v $PWD/test/load/k6:/k6:ro -v $E/k6:/out grafana/k6:0.54.0"
 NET=rf-load
+# генератори навантаження працюють у тій самій docker-мережі, що й застосунок, і звертаються
+# до контейнера напряму (без docker-proxy опублікованого порту, який під 300+ з/с скидав з'єднання)
+K6="docker run --rm --network $NET -e BASE_URL=http://rf-load:8080 -v $PWD/test/load/k6:/k6:ro -v $E/k6:/out grafana/k6:0.54.0"
 docker network create $NET >/dev/null 2>&1 || true
 
 diag() { # стан контейнера застосунку після сценарію
@@ -46,8 +48,8 @@ stress() { # label
 }
 jmeter() { # label endpoint
   rm -rf "/tmp/jm-$2"; mkdir -p "/tmp/jm-$2"
-  docker run --rm --network host -v "$PWD/test/load/jmeter:/plan:ro" -v "/tmp/jm-$2:/out" justb4/jmeter:5.5 \
-    -n -t /plan/roomflow.jmx -Jhost=localhost -Jport=8080 -Jendpoint="$2" -Jramp=60 -Jduration=90 \
+  docker run --rm --network $NET -v "$PWD/test/load/jmeter:/plan:ro" -v "/tmp/jm-$2:/out" justb4/jmeter:5.5 \
+    -n -t /plan/roomflow.jmx -Jhost=rf-load -Jport=8080 -Jendpoint="$2" -Jramp=60 -Jduration=90 \
     -l /out/results.jtl -e -o /out/report > "$E/jmeter/$1-$2.log" 2>&1 || true
   cp "/tmp/jm-$2/results.jtl" "$E/jmeter/$1-$2.jtl" 2>/dev/null || true
   (cd "/tmp/jm-$2" && tar czf "$E/jmeter/$1-$2-report.tgz" report 2>/dev/null) || true

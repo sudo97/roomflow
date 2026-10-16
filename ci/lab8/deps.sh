@@ -2,14 +2,18 @@
 # ЛР8, завдання 1: сканування залежностей (govulncheck — аналог Snyk/Safety для Go) і файлової системи (Trivy).
 source "$(dirname "$0")/../lib/common.sh"
 E=$EVIDENCE
-go install golang.org/x/vuln/cmd/govulncheck@v1.1.3
+# поточний інструментарій — остання стабільна версія Go (з виправленнями стандартної бібліотеки);
+# govulncheck теж збирається нею, щоб коректно аналізувати новішу stdlib
+GOTOOLCHAIN=$(curl -fsS 'https://go.dev/VERSION?m=text' | head -1); export GOTOOLCHAIN
+go install golang.org/x/vuln/cmd/govulncheck@latest
 GV=$(go env GOPATH)/bin/govulncheck
 
 log "govulncheck: застаріла версія інструментарію (go1.24.0) — демонстрація виявлення вразливостей"
 set +e
 GOTOOLCHAIN=go1.24.0 $GV ./... > "$E/govulncheck-go1.24.0.txt" 2>&1; echo "exit code: $?" >> "$E/govulncheck-go1.24.0.txt"
 GOTOOLCHAIN=go1.24.0 $GV -format json ./... > "$E/govulncheck-go1.24.0.json" 2>/dev/null
-$GV ./... > "$E/govulncheck-current.txt" 2>&1; CUR=$?; echo "exit code: $CUR" >> "$E/govulncheck-current.txt"
+echo "toolchain: $GOTOOLCHAIN" > "$E/govulncheck-current.txt"
+$GV ./... >> "$E/govulncheck-current.txt" 2>&1; CUR=$?; echo "exit code: $CUR" >> "$E/govulncheck-current.txt"
 $GV -format sarif ./... > govulncheck.sarif 2>/dev/null
 set -e
 python3 - "$E/govulncheck-go1.24.0.json" > "$E/govulncheck-summary.txt" <<'PY'

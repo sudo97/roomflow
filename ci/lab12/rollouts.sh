@@ -19,7 +19,7 @@ kubectl apply -f deploy/mesh/rollouts-application.yaml
 for _ in $(seq 1 100); do kubectl -n rf-ui get rollout frontend >/dev/null 2>&1 && break; sleep 3; done
 kubectl -n rf-ui rollout status deploy/backend --timeout=300s
 for _ in $(seq 1 100); do [ "$(kubectl -n rf-ui get rollout frontend -o jsonpath='{.status.phase}' 2>/dev/null)" = Healthy ] && break; sleep 3; done
-R get rollout frontend --no-color | head -15
+R get rollout frontend --no-color | head -15 || true
 kubectl -n rf-ui run probe --image=curlimages/curl:8.10.1 --restart=Never --command -- sleep 3600 >/dev/null
 kubectl -n rf-ui wait --for=condition=Ready pod/probe --timeout=180s >/dev/null
 kubectl -n rf-ui exec probe -c probe -- curl -s -H 'X-Tenant-ID: demo-hotel' -X POST http://backend:8080/api/rooms -d '{"id":"r1","name":"Suite","capacity":2,"price":200000}' >/dev/null
@@ -68,6 +68,6 @@ done
   echo "  ArgoCD: $(kubectl -n argocd get application rf-ui -o jsonpath='{.status.sync.status}/{.status.health.status}')"
 } | tee -a "$E/flow.txt"
 R get rollout frontend --no-color > "$E/rollout-v3.txt" 2>&1 || true
-kubectl -n rf-ui get analysisrun -o yaml | grep -A3 -E 'message:|phase:' | head -40 > "$E/analysis-v3.txt"
+kubectl -n rf-ui get analysisrun -o yaml | grep -A3 -E 'message:|phase:' | head -40 > "$E/analysis-v3.txt" || true
 endlog
 section "Argo Rollouts blue-green" "$E/flow.txt"

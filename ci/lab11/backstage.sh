@@ -16,7 +16,22 @@ node --version
 corepack enable
 printf 'roomflow-portal\n' | npx -y @backstage/create-app@latest --path $BS --skip-install > "$E/create-app.txt" 2>&1 || { cat "$E/create-app.txt"; exit 1; }
 cd $BS
-yarn install > "$E/yarn-install.txt" 2>&1 || { tail -50 "$E/yarn-install.txt"; exit 1; }
+export YARN_ENABLE_IMMUTABLE_INSTALLS=false   # у CI (CI=true) Yarn за замовчуванням забороняє змінювати lockfile
+if ! yarn install > "$E/yarn-install.txt" 2>&1; then
+  # шаблон create-app посилається на .yarn/patches/*, які не потрапляють у проєкт при --skip-install:
+  # прибираємо patch:-резолюції і lockfile та встановлюємо залежності заново
+  tail -5 "$E/yarn-install.txt"
+  node -e '
+    const fs = require("fs");
+    const files = ["package.json", ...fs.readdirSync("packages").map(d => `packages/${d}/package.json`).filter(f => fs.existsSync(f))];
+    for (const f of files) { const p = JSON.parse(fs.readFileSync(f));
+    for (const sec of ["resolutions", "dependencies", "devDependencies"])
+      for (const [k, v] of Object.entries(p[sec] || {}))
+        if (String(v).startsWith("patch:")) { const m = /npm(?:%3A|:)([^#]+)#/.exec(v); if (m) p[sec][k] = decodeURIComponent(m[1]); else delete p[sec][k]; }
+    fs.writeFileSync(f, JSON.stringify(p, null, 2)); }'
+  rm -f yarn.lock
+  yarn install > "$E/yarn-install-retry.txt" 2>&1 || { tail -50 "$E/yarn-install-retry.txt"; exit 1; }
+fi
 grep -m1 '"version"' node_modules/@backstage/cli/package.json | tee "$E/versions.txt"
 yarn add --cwd packages/backend pg >/dev/null 2>&1 || (cd packages/backend && yarn add pg >/dev/null)
 endlog

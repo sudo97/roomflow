@@ -33,3 +33,9 @@ variable "backup_retention" {
   type        = number
   default     = 3
 }
+
+variable "app_replicas" {
+  description = "Кількість реплік у групах blue/green (має збігатися з envs/app replicas)."
+  type        = number
+  default     = 2
+}

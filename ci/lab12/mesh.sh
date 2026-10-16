@@ -15,7 +15,8 @@ kubectl -n istio-system rollout status deploy/jaeger --timeout=300s
 fortio_pod $NS
 kubectl -n $NS get pods -o wide > "$E/pods.txt"
 F="http://frontend:8081"
-call() { kubectl -n $NS exec fortio -c fortio -- fortio curl -quiet -H "X-Tenant-ID: demo-hotel" "$@" 2>&1; }
+call() { kubectl -n $NS exec fortio -c fortio -- fortio curl -quiet -H "X-Tenant-ID: demo-hotel" "$@" 2>&1 || true; }  # fortio curl повертає 1 на будь-який статус, крім 200 (напр. 201)
+set +e  # далі — експерименти: доказова база збирається навіть при частковій невдачі окремого кроку
 
 log "завдання 1: Redis у mesh, кеш backend, персистентність"
 call -payload '{"id":"r1","name":"Suite","capacity":2,"price":200000}' $F/api/rooms >/dev/null

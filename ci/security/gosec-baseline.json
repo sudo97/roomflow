@@ -1,11 +1,40 @@
 {
   "description": "Прийняті знахідки gosec (baseline). Нова знахідка поза цим списком блокує коміт і злиття PR.",
   "accepted": [
-    {"rule_id": "G107", "file": "cmd/roomflow/main.go", "justification": "probe() звертається лише до localhost:<ADDR>/healthz у HEALTHCHECK контейнера"},
-    {"rule_id": "G108", "file": "cmd/roomflow/runtime.go", "justification": "pprof доступний лише на окремому внутрішньому порту PPROF_ADDR, вимкнений за замовчуванням"},
-    {"rule_id": "G304", "file": "internal/flags/flags.go", "justification": "шлях до файлу прапорців задає оператор (FLAGS_FILE, ConfigMap)"},
-    {"rule_id": "G404", "file": "internal/chaos/chaos.go", "justification": "math/rand для ін'єкції збоїв, не для криптографії"},
-    {"rule_id": "G107", "file": "test/load/seed/main.go", "justification": "утиліта наповнення тестових даних"},
-    {"rule_id": "G107", "file": "cmd/roomflow/secrets.go", "justification": "VAULT_ADDR — довірена конфігурація оператора"}
+    {
+      "rule_id": "G107",
+      "file": "cmd/roomflow/main.go",
+      "justification": "probe() звертається лише до localhost:<ADDR>/healthz у HEALTHCHECK контейнера"
+    },
+    {
+      "rule_id": "G108",
+      "file": "cmd/roomflow/runtime.go",
+      "justification": "pprof доступний лише на окремому внутрішньому порту PPROF_ADDR, вимкнений за замовчуванням"
+    },
+    {
+      "rule_id": "G304",
+      "file": "internal/flags/flags.go",
+      "justification": "шлях до файлу прапорців задає оператор (FLAGS_FILE, ConfigMap)"
+    },
+    {
+      "rule_id": "G404",
+      "file": "internal/chaos/chaos.go",
+      "justification": "math/rand для ін'єкції збоїв, не для криптографії"
+    },
+    {
+      "rule_id": "G107",
+      "file": "test/load/seed/main.go",
+      "justification": "утиліта наповнення тестових даних"
+    },
+    {
+      "rule_id": "G107",
+      "file": "cmd/roomflow/secrets.go",
+      "justification": "VAULT_ADDR — довірена конфігурація оператора"
+    },
+    {
+      "rule_id": "G304",
+      "file": "tools/platform-exporter/main.go",
+      "justification": "replay() читає файл історії подій, шлях задає оператор платформи (прапорець -history); утиліта лабораторного стенду"
+    }
   ]
 }

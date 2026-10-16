@@ -9,7 +9,7 @@ locals {
 resource "local_file" "config" {
   filename        = "${var.config_dir}/nginx.conf"
   file_permission = "0644"
-  content         = templatefile("${path.module}/nginx.conf.tftpl", { color = var.active_color })
+  content         = templatefile("${path.module}/nginx.conf.tftpl", { color = var.active_color, prefix = var.prefix, replicas = var.replicas })
 }
 
 resource "docker_image" "nginx" {

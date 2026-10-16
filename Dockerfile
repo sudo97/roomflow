@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1
 # Багатоетапна збірка: окремий етап для тестів, мінімальний non-root образ для production.
-ARG GO_VERSION=1.24
+# 1.24 знято з підтримки; у go1.24.13 Trivy знаходить HIGH CVE стандартної бібліотеки (ЛР8) — оновлено до 1.26
+ARG GO_VERSION=1.26
 
 FROM golang:${GO_VERSION}-alpine AS base
 WORKDIR /src

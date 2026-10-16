@@ -38,3 +38,13 @@ variable "labels" {
   description = "Обов'язкові мітки (теги)."
   type        = map(string)
 }
+
+variable "replicas" {
+  description = "Кількість реплік у кожній групі (для прив'язки орендарів до реплік)."
+  type        = number
+  default     = 2
+  validation {
+    condition     = var.replicas >= 1
+    error_message = "replicas має бути не менше 1."
+  }
+}

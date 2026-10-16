@@ -61,8 +61,8 @@ endlog
 
 log "green (v2): розгортання в неактивне середовище і приймальні тести"
 deploy_color green localhost:5000/roomflow:v2
-docker run --rm --network rf-ci-app curlimages/curl:8.10.1 -s http://app-green:8080/version | tee "$E/green-acceptance.txt"
-docker run --rm --network rf-ci-app -v "$PWD/scripts:/s:ro" alpine:3.20 sh -c "apk add -q bash curl >/dev/null && bash /s/smoke.sh http://app-green:8080" | tee -a "$E/green-acceptance.txt"
+docker run --rm --network rf-ci-app curlimages/curl:8.10.1 -s http://rf-ci-green-0:8080/version | tee "$E/green-acceptance.txt"
+docker run --rm --network rf-ci-app -v "$PWD/scripts:/s:ro" alpine:3.20 sh -c "apk add -q bash curl >/dev/null && bash /s/smoke.sh http://rf-ci-green-0:8080" | tee -a "$E/green-acceptance.txt"
 endlog
 
 log "перемикання трафіку blue -> green під навантаженням"

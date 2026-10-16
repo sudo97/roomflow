@@ -9,11 +9,12 @@ P95_MS=${P95_MS:-100}
 E=$EVIDENCE/gate-${REF:-head}; mkdir -p "$E"; chmod 777 "$E"   # k6 у контейнері працює не від root
 build_image roomflow:gate "$REF"
 docker rm -f rf-gate >/dev/null 2>&1 || true
-docker run -d --name rf-gate --cpus 1 --memory 512m -p 8080:8080 roomflow:gate >/dev/null
+docker network create rf-gate-net >/dev/null 2>&1 || true
+docker run -d --name rf-gate --network rf-gate-net --cpus 1 --memory 512m -p 8080:8080 roomflow:gate >/dev/null
 wait_http http://localhost:8080/healthz 30
 go run ./test/load/seed -url http://localhost:8080 -tenants 20 -rooms 10 -bookings 30000 | tee "$E/seed.txt"
 set +e
-docker run --rm --network host -v "$PWD/test/load/k6:/k6:ro" -v "$E:/out" grafana/k6:0.54.0 run --quiet \
+docker run --rm --network rf-gate-net -e BASE_URL=http://rf-gate:8080 -v "$PWD/test/load/k6:/k6:ro" -v "$E:/out" grafana/k6:0.54.0 run --quiet \
   -e ENDPOINT=availability -e MAX_VUS=50 -e RAMP=20s -e HOLD=20s -e P95_MS="$P95_MS" \
   --summary-export /out/gate.json /k6/load.js > "$E/gate.txt" 2>&1
 code=$?

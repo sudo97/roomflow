@@ -40,6 +40,7 @@ module "lb" {
   prefix       = local.prefix
   active_color = var.active_color
   port         = var.lb_port
+  replicas     = var.app_replicas
   networks     = [module.network.names.public, module.network.names.app]
   config_dir   = "${path.root}/.generated/lb"
   labels       = local.labels

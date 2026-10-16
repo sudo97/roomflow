@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"sync"
@@ -23,6 +24,9 @@ func post(client *http.Client, url, tenant, body string) error {
 	if err != nil {
 		return err
 	}
+	// тіло треба дочитати, інакше з'єднання не повертається в пул і кожен запит відкриває нове
+	// (30 тис. з'єднань за 18 с вичерпували ефемерні порти docker-proxy в CI: connection reset by peer)
+	_, _ = io.Copy(io.Discard, resp.Body)
 	_ = resp.Body.Close()
 	if resp.StatusCode != http.StatusCreated {
 		return fmt.Errorf("%s: status %d", url, resp.StatusCode)
@@ -95,7 +99,10 @@ func main() {
 	flag.IntVar(&c.workers, "workers", 16, "concurrent requests")
 	flag.Parse()
 
-	client := &http.Client{Timeout: 30 * time.Second}
+	client := &http.Client{
+		Timeout:   30 * time.Second,
+		Transport: &http.Transport{MaxIdleConns: c.workers, MaxIdleConnsPerHost: c.workers, IdleConnTimeout: 30 * time.Second},
+	}
 	start := time.Now()
 	if err := seedRooms(client, c); err != nil {
 		log.Fatal(err)
