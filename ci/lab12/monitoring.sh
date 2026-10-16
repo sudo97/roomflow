@@ -21,8 +21,7 @@ kubectl -n monitoring create configmap roomflow-dashboard --from-file=roomflow.j
   | kubectl label --local -f - grafana_dashboard=1 -o yaml | kubectl apply -f -
 
 log "навантаження (у т.ч. помилки) і перевірки"
-kubectl -n $NS run fortio --image=fortio/fortio:latest_release --restart=Never --command -- sleep 3600 >/dev/null
-kubectl -n $NS wait --for=condition=Ready pod/fortio --timeout=180s >/dev/null
+fortio_pod $NS
 kubectl -n $NS exec fortio -- fortio curl -quiet -H 'X-Tenant-ID: demo-hotel' -payload '{"id":"r1","name":"Suite","capacity":2,"price":200000}' http://backend:8080/api/rooms >/dev/null 2>&1 || true
 kubectl -n $NS exec fortio -- fortio load -quiet -c 4 -qps 30 -t 150s -H 'X-Tenant-ID: demo-hotel' 'http://frontend:8081/api/rooms/r1/availability?from=2027-01-01&to=2027-02-01' > "$E/load.txt" 2>&1 &
 L=$!

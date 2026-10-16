@@ -123,7 +123,7 @@ func (r *Registry) Render(w io.Writer) {
 	defer r.mu.Unlock()
 	for _, name := range r.order {
 		f := r.families[name]
-		fmt.Fprintf(w, "# HELP %s %s\n# TYPE %s %s\n", f.name, f.help, f.name, f.kind)
+		_, _ = fmt.Fprintf(w, "# HELP %s %s\n# TYPE %s %s\n", f.name, f.help, f.name, f.kind)
 		keys := make([]string, 0, len(f.series))
 		for k := range f.series {
 			keys = append(keys, k)
@@ -137,14 +137,14 @@ func (r *Registry) Render(w io.Writer) {
 
 func writeSeries(w io.Writer, f *family, s *series) {
 	if f.kind != "histogram" {
-		fmt.Fprintf(w, "%s%s %s\n", f.name, s.labels, num(s.value))
+		_, _ = fmt.Fprintf(w, "%s%s %s\n", f.name, s.labels, num(s.value))
 		return
 	}
 	for i, b := range f.buckets {
-		fmt.Fprintf(w, "%s_bucket%s %d\n", f.name, withLabel(s.labels, "le", num(b)), s.counts[i])
+		_, _ = fmt.Fprintf(w, "%s_bucket%s %d\n", f.name, withLabel(s.labels, "le", num(b)), s.counts[i])
 	}
-	fmt.Fprintf(w, "%s_bucket%s %d\n", f.name, withLabel(s.labels, "le", "+Inf"), s.count)
-	fmt.Fprintf(w, "%s_sum%s %s\n%s_count%s %d\n", f.name, s.labels, num(s.sum), f.name, s.labels, s.count)
+	_, _ = fmt.Fprintf(w, "%s_bucket%s %d\n", f.name, withLabel(s.labels, "le", "+Inf"), s.count)
+	_, _ = fmt.Fprintf(w, "%s_sum%s %s\n%s_count%s %d\n", f.name, s.labels, num(s.sum), f.name, s.labels, s.count)
 }
 
 func withLabel(labels, k, v string) string {

@@ -2,7 +2,7 @@
 # ЛР7: розгортання стеку спостережуваності, генерація трафіку, інцидент із невдалим релізом,
 # автоматичне вимірювання DORA (lead time, CFR, MTTR) і знімки дашбордів.
 source "$(dirname "$0")/../lib/common.sh"
-E=$EVIDENCE
+E=$EVIDENCE; chmod 777 "$E"
 OBS=deploy/observability
 dc() { docker compose -f $OBS/docker-compose.yml "$@"; }
 prom() { curl -s --data-urlencode "query=$1" http://localhost:9090/api/v1/query | jq -c '.data.result | map({metric: .metric, value: .value[1]})'; }

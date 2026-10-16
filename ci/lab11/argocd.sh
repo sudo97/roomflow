@@ -9,7 +9,7 @@ docker build -q --target production --build-arg VERSION=v2 -t roomflow:v2 . >/de
 kind load docker-image roomflow:v1 roomflow:v2 --name rf-argo >/dev/null
 helm repo add argo https://argoproj.github.io/argo-helm >/dev/null && helm repo update >/dev/null
 helm install argocd argo/argo-cd --version 7.6.8 -n argocd --create-namespace --set dex.enabled=false --set notifications.enabled=false \
-  --set configs.params."server\.insecure"=true --wait --timeout 6m > "$E/install.txt"
+  --set 'configs.params.server\.insecure=true' --wait --timeout 6m > "$E/install.txt"
 
 app_state() { kubectl -n argocd get application "$1" -o jsonpath='{.status.sync.status}/{.status.health.status}'; }
 wait_app() { # app timeout
@@ -55,7 +55,11 @@ log "screenshots"
 kubectl -n argocd port-forward svc/argocd-server 8088:80 >/dev/null 2>&1 &
 PF=$!; sleep 5
 PASS=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d)
-TOKEN=$(curl -s localhost:8088/api/v1/session -d "{\"username\":\"admin\",\"password\":\"$PASS\"}" | jq -r .token)
+TOKEN=""
+for _ in $(seq 1 10); do
+  TOKEN=$(curl -skL localhost:8088/api/v1/session -d "{\"username\":\"admin\",\"password\":\"$PASS\"}" | jq -r '.token // empty' 2>/dev/null || true)
+  [ -n "$TOKEN" ] && break; sleep 3
+done
 SHOT_COOKIE="argocd.token=$TOKEN" shoot "$E/argocd-applications.png" "http://localhost:8088/applications" 5000 || true
 SHOT_COOKIE="argocd.token=$TOKEN" shoot "$E/argocd-roomflow.png" "http://localhost:8088/applications/argocd/roomflow?view=tree" 6000 1600 900 || true
 kill $PF

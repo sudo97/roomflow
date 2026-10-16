@@ -24,7 +24,8 @@ mesh_images() { # cluster
 
 # fortio NS ARGS...: навантажувальний клієнт Istio (fortio) усередині mesh
 fortio_pod() {
-  kubectl -n "$1" run fortio --image=fortio/fortio:latest_release --restart=Never --command -- sleep 3600 >/dev/null 2>&1 || true
+  # образ fortio не містить shell/sleep: под працює у режимі fortio server, навантаження — через exec fortio load
+  kubectl -n "$1" run fortio --image=fortio/fortio:latest_release --restart=Never >/dev/null 2>&1 || true
   kubectl -n "$1" wait --for=condition=Ready pod/fortio --timeout=180s >/dev/null
 }
 fortio() { local ns=$1; shift; kubectl -n "$ns" exec fortio -c fortio -- fortio load -quiet "$@" 2>&1; }

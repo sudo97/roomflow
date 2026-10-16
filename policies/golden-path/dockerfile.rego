@@ -5,10 +5,16 @@ import rego.v1
 
 stages := [i | some i, cmd in input; cmd.Cmd == "from"]
 
+# Імена етапів (FROM image AS name): посилання на попередній етап — не базовий образ.
+stage_names := {lower(cmd.Value[2]) | some cmd in input; cmd.Cmd == "from"; count(cmd.Value) == 3}
+
+external(image) if not lower(image) in stage_names
+
 deny contains msg if {
 	some cmd in input
 	cmd.Cmd == "from"
 	image := cmd.Value[0]
+	external(image)
 	not contains(image, ":")
 	msg := sprintf("FROM %s: версію базового образу треба зафіксувати", [image])
 }

@@ -15,8 +15,9 @@ terraform {
 
 provider "docker" {}
 
+# Колір визначає workspace; у workspace default (напр. terraform validate) — blue, а check нижче попереджає.
 locals {
-  color  = terraform.workspace
+  color  = contains(["blue", "green"], terraform.workspace) ? terraform.workspace : "blue"
   prefix = "rf-${var.environment}"
   labels = {
     project     = "roomflow"

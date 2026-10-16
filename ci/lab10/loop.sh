@@ -7,5 +7,6 @@ while [ "$N" -eq 0 ] || [ "$i" -lt "$N" ]; do
   code=${r##* }
   color=$(echo "$r" | sed -n 's/.*"color":"\([^"]*\)".*/\1/p')
   echo "$(date +%s) $code ${color:--}"
-  [ "$N" -eq 0 ] && sleep 0.05
+  if [ "$N" -eq 0 ]; then sleep 0.05; fi
 done
+exit 0

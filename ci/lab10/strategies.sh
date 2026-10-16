@@ -31,6 +31,7 @@ spec:
           env: [{ name: COLOR, value: "$4" }, { name: FAULT_RATE, value: "$5" }]
           readinessProbe: { httpGet: { path: /healthz, port: 8080 }, periodSeconds: 2 }
           resources: { requests: { cpu: 20m, memory: 24Mi }, limits: { cpu: 300m, memory: 96Mi } }
+          lifecycle: $PRESTOP
 YAML
 }
 service() { # selector-json
@@ -111,6 +112,9 @@ run() { # strategy faulty(0|1)
     "$([ "$detect" = -1 ] && echo - || echo "$detect")" "$([ "$f" = 1 ] && echo $(( restored - t0 )) || echo -)" "$fails" "$total" | tee -a "$E/results.md"
 }
 
+# GRACEFUL=1: preStop-пауза (под встигає зникнути з Endpoints до SIGTERM) + graceful shutdown у застосунку.
+PRESTOP='{}'
+[ "${GRACEFUL:-1}" = 1 ] && PRESTOP='{ preStop: { sleep: { seconds: 5 } } }'
 echo "| Стратегія | Реліз | Тривалість розгортання, с | Виявлення збою, с | Відновлення (MTTR), с | Невдалих запитів | Усього запитів |" > "$E/results.md"
 echo "|---|---|---|---|---|---|---|" >> "$E/results.md"
 for s in rolling bluegreen canary; do

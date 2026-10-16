@@ -57,6 +57,16 @@ func bookingFor(i int, c config) (string, string) {
 	return fmt.Sprintf("hotel-%d", t), body
 }
 
+// worker creates the bookings received from jobs and counts failures.
+func worker(client *http.Client, c config, jobs <-chan int, failed *atomic.Int64) {
+	for i := range jobs {
+		tenant, body := bookingFor(i, c)
+		if post(client, c.base+"/api/bookings", tenant, body) != nil {
+			failed.Add(1)
+		}
+	}
+}
+
 func seedBookings(client *http.Client, c config) int64 {
 	var failed atomic.Int64
 	jobs := make(chan int)
@@ -65,12 +75,7 @@ func seedBookings(client *http.Client, c config) int64 {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			for i := range jobs {
-				tenant, body := bookingFor(i, c)
-				if post(client, c.base+"/api/bookings", tenant, body) != nil {
-					failed.Add(1)
-				}
-			}
+			worker(client, c, jobs, &failed)
 		}()
 	}
 	for i := 0; i < c.bookings; i++ {

@@ -7,12 +7,18 @@
 # Використання: run.sh REF_BEFORE REF_AFTER
 source "$(dirname "$0")/../lib/common.sh"
 BEFORE=${1:?ref before}; AFTER=${2:?ref after}
-E=$EVIDENCE; mkdir -p "$E/k6" "$E/jmeter" "$E/pprof" "$E/stats"
+E=$EVIDENCE; mkdir -p "$E/k6" "$E/jmeter" "$E/pprof" "$E/stats"; chmod 777 "$E/k6"
 K6="docker run --rm --network host -v $PWD/test/load/k6:/k6:ro -v $E/k6:/out grafana/k6:0.54.0"
 NET=rf-load
 docker network create $NET >/dev/null 2>&1 || true
 
+diag() { # стан контейнера застосунку після сценарію
+  docker inspect rf-load --format "$1: status={{.State.Status}} exit={{.State.ExitCode}} oom={{.State.OOMKilled}}" >> "$E/container-state.txt" 2>/dev/null || true
+  docker logs rf-load 2>&1 | grep -v '"msg":"http_request"' | tail -30 > "$E/container-log-$1.txt" 2>/dev/null || true
+}
 start_app() { # image [env...]
+  [ -n "${CURRENT:-}" ] && diag "$CURRENT"
+  CURRENT=$(echo "$1 $*" | tr -c 'a-zA-Z0-9\n' '-' | cut -c1-40)
   docker rm -f rf-load >/dev/null 2>&1 || true
   local img=$1; shift
   local envs=(); for e in "$@"; do envs+=(-e "$e"); done
@@ -58,7 +64,7 @@ profile() { # label (CPU-профіль під навантаженням на a
 log "images"
 build_image roomflow:before "$BEFORE"
 build_image roomflow:after "$AFTER"
-docker pull -q grafana/k6:0.54.0 justb4/jmeter:5.5 redis:7.4-alpine >/dev/null
+for i in grafana/k6:0.54.0 justb4/jmeter:5.5 redis:7.4-alpine; do docker pull -q "$i" >/dev/null; done
 endlog
 
 log "BEFORE: k6 + JMeter, стрес, профіль"
@@ -96,6 +102,7 @@ $K6 run --quiet --summary-export /out/limit.json /k6/ratelimit.js > "$E/k6/limit
 set -e
 curl -s http://localhost:8080/metrics | grep -E '^roomflow_(rate_limited_total|http_requests_total.*availability)' > "$E/limit-metrics.txt" || true
 endlog
+diag "$CURRENT"
 docker rm -f rf-load rf-redis >/dev/null
 
 python3 ci/lab9/report.py "$E" | tee "$E/results.md"

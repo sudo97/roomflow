@@ -27,7 +27,7 @@ func main() {
 
 func run(args []string, stdout, stderr io.Writer) int {
 	if len(args) == 0 {
-		fmt.Fprint(stderr, usage)
+		_, _ = fmt.Fprint(stderr, usage)
 		return 2
 	}
 	cmds := map[string]func([]string) (any, error){
@@ -35,13 +35,13 @@ func run(args []string, stdout, stderr io.Writer) int {
 	}
 	cmd, ok := cmds[args[0]]
 	if !ok {
-		fmt.Fprint(stderr, usage)
+		_, _ = fmt.Fprint(stderr, usage)
 		return 2
 	}
 	rest, format := outputFormat(args[1:])
 	res, err := cmd(rest)
 	if err != nil {
-		fmt.Fprintln(stderr, "error:", err)
+		_, _ = fmt.Fprintln(stderr, "error:", err)
 		return 1
 	}
 	if format == "json" {
@@ -51,9 +51,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 		return 0
 	}
 	if s, ok := res.(fmt.Stringer); ok {
-		fmt.Fprintln(stdout, s.String())
+		_, _ = fmt.Fprintln(stdout, s.String())
 	} else {
-		fmt.Fprintf(stdout, "%v\n", res)
+		_, _ = fmt.Fprintf(stdout, "%v\n", res)
 	}
 	return 0
 }

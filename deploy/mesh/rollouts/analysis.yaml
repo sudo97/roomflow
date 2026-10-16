@@ -1,7 +1,9 @@
 # Валідація нової версії перед перемиканням: через preview-сервіс нова версія має віддати каталог номерів.
 apiVersion: argoproj.io/v1alpha1
 kind: AnalysisTemplate
-metadata: { name: frontend-smoke }
+metadata:
+  name: frontend-smoke
+  annotations: { argocd.argoproj.io/sync-wave: "-1" }   # створюється раніше за Rollout
 spec:
   metrics:
     - name: rooms-through-preview

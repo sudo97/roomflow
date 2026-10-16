@@ -7,6 +7,12 @@ E=$EVIDENCE/backstage; mkdir -p "$E"
 REPO=$PWD
 BS=/tmp/portal
 log "create-app"
+# Backstage вимагає Node.js 22/24 LTS
+if [ "$(node -p 'process.versions.node.split(".")[0]')" -lt 22 ]; then
+  curl -sSL https://nodejs.org/dist/v22.11.0/node-v22.11.0-linux-x64.tar.xz | tar -xJ -C /tmp
+  export PATH=/tmp/node-v22.11.0-linux-x64/bin:$PATH
+fi
+node --version
 corepack enable
 printf 'roomflow-portal\n' | npx -y @backstage/create-app@latest --path $BS --skip-install > "$E/create-app.txt" 2>&1 || { cat "$E/create-app.txt"; exit 1; }
 cd $BS

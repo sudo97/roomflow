@@ -8,7 +8,9 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"syscall"
 	"testing"
+	"time"
 )
 
 func TestEnvOr(t *testing.T) {
@@ -130,5 +132,43 @@ func TestRuntimeOptions(t *testing.T) {
 	m := w.Body.String()
 	if !strings.Contains(m, "roomflow_rate_limited_total") {
 		t.Fatalf("rate limit metric missing: %s", m)
+	}
+}
+
+func TestGracefulShutdown(t *testing.T) {
+	started := make(chan struct{})
+	release := make(chan struct{})
+	h := http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		close(started)
+		<-release
+		_, _ = w.Write([]byte("done"))
+	})
+	srv := &http.Server{Addr: "127.0.0.1:18931", Handler: h}
+	errc := make(chan error, 1)
+	go func() { errc <- serve(srv, 5*time.Second) }()
+	time.Sleep(100 * time.Millisecond)
+	body := make(chan string, 1)
+	go func() {
+		resp, err := http.Get("http://127.0.0.1:18931/")
+		if err != nil {
+			body <- err.Error()
+			return
+		}
+		defer func() { _ = resp.Body.Close() }()
+		b, _ := io.ReadAll(resp.Body)
+		body <- string(b)
+	}()
+	<-started
+	_ = syscall.Kill(os.Getpid(), syscall.SIGTERM)
+	time.Sleep(100 * time.Millisecond)
+	close(release)
+	if got := <-body; got != "done" {
+		t.Fatalf("in-flight request must complete during shutdown, got %q", got)
+	}
+	if err := <-errc; err != nil {
+		t.Fatalf("serve: %v", err)
+	}
+	if err := serve(&http.Server{Addr: "bad-address"}, time.Second); err == nil {
+		t.Fatal("listen error must be returned")
 	}
 }

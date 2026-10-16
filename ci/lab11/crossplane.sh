@@ -37,6 +37,7 @@ kubectl -n team-reviews describe postgresqlinstance reviews-db > "$E/claim-descr
 # Видалення claim прибирає всі створені ресурси.
 s=$(date +%s)
 kubectl -n team-reviews delete postgresqlinstance reviews-db --wait=true --timeout=180s
-for _ in $(seq 1 60); do kubectl -n team-reviews get deploy reviews-db-postgres >/dev/null 2>&1 || break; sleep 2; done
-echo "deprovisioning: $(( $(date +%s) - s )) s; leftovers: $(kubectl -n team-reviews get deploy,svc,secret,pvc --no-headers 2>/dev/null | grep -c reviews-db || true)" | tee -a "$E/provisioning.txt"
+left() { kubectl -n team-reviews get deploy,svc,secret,pvc --no-headers 2>/dev/null | grep -c reviews-db || true; }
+for _ in $(seq 1 90); do [ "$(left)" = 0 ] && break; sleep 2; done
+echo "deprovisioning: $(( $(date +%s) - s )) s; leftovers: $(left)" | tee -a "$E/provisioning.txt"
 section "Crossplane" "$E/provisioning.txt"

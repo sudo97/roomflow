@@ -39,6 +39,8 @@ spec:
           livenessProbe:
             httpGet: { path: /healthz, port: http }
             periodSeconds: 10
+          lifecycle:
+            preStop: { sleep: { seconds: 5 } }
           resources:
             requests: { cpu: 50m, memory: 32Mi }
             limits: { cpu: 500m, memory: 128Mi }
@@ -79,6 +81,8 @@ spec:
           livenessProbe:
             httpGet: { path: /healthz, port: http }
             periodSeconds: 10
+          lifecycle:
+            preStop: { sleep: { seconds: 5 } }
           resources:
             requests: { cpu: 50m, memory: 32Mi }
             limits: { cpu: 500m, memory: 128Mi }

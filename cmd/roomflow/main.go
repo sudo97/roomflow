@@ -2,6 +2,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -9,6 +10,8 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
 	"time"
 
 	"github.com/sudo97/roomflow/internal/booking"
@@ -49,7 +52,9 @@ func main() {
 		servePprof(logger)
 		srv := &http.Server{Addr: addr, Handler: h, ReadHeaderTimeout: 5 * time.Second}
 		logger.Info("starting", "addr", addr, "build", obs.Labels(buildInfo()...))
-		log.Fatal(srv.ListenAndServe())
+		if err := serve(srv, 10*time.Second); err != nil {
+			log.Fatal(err)
+		}
 	}
 }
 
@@ -116,6 +121,23 @@ func routeName(inner, outer *http.ServeMux) func(*http.Request) string {
 		_, pattern := outer.Handler(r)
 		return pattern
 	}
+}
+
+// serve runs the server until SIGTERM/SIGINT, then stops accepting connections and lets in-flight
+// requests finish (graceful shutdown) so that rolling updates do not drop requests.
+func serve(srv *http.Server, grace time.Duration) error {
+	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGTERM, os.Interrupt)
+	defer stop()
+	errc := make(chan error, 1)
+	go func() { errc <- srv.ListenAndServe() }()
+	select {
+	case err := <-errc:
+		return err
+	case <-ctx.Done():
+	}
+	shutdown, cancel := context.WithTimeout(context.Background(), grace)
+	defer cancel()
+	return srv.Shutdown(shutdown)
 }
 
 // probe returns a process exit code: 0 if the endpoint answers 200, 1 otherwise.

@@ -27,8 +27,11 @@ func TestRules(t *testing.T) {
 	if on < 400 || on > 600 {
 		t.Fatalf("percentage rollout is skewed: %d/1000", on)
 	}
-	if s.Enabled("half", "t1") != s.Enabled("half", "t1") {
-		t.Fatal("rollout must be stable per tenant")
+	first := s.Enabled("half", "t1")
+	for i := 0; i < 10; i++ {
+		if s.Enabled("half", "t1") != first {
+			t.Fatal("rollout must be stable per tenant")
+		}
 	}
 	if all := s.All("hotel-a"); !all["global"] || !all["listed"] || all["nobody"] {
 		t.Fatalf("All = %v", all)
