@@ -123,6 +123,9 @@ spec:
           livenessProbe:
             httpGet: { path: /healthz, port: http }
             periodSeconds: 10
+          lifecycle:
+            # под спершу зникає з Endpoints, потім отримує SIGTERM і завершує активні запити
+            preStop: { sleep: { seconds: 5 } }
           resources:
             limits:
               cpu: 500m
@@ -191,6 +194,9 @@ spec:
           livenessProbe:
             httpGet: { path: /healthz, port: http }
             periodSeconds: 10
+          lifecycle:
+            # под спершу зникає з Endpoints, потім отримує SIGTERM і завершує активні запити
+            preStop: { sleep: { seconds: 5 } }
           resources:
             limits:
               cpu: 500m

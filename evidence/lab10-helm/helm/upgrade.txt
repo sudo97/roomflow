@@ -1,6 +1,6 @@
 Release "rf" has been upgraded. Happy Helming!
 NAME: rf
-LAST DEPLOYED: Fri Oct 16 17:17:10 2026
+LAST DEPLOYED: Fri Oct 16 17:34:24 2026
 NAMESPACE: rf-helm
 STATUS: deployed
 REVISION: 2
