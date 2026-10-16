@@ -1,0 +1,108 @@
+{
+	"Golang errors": {},
+	"Issues": [
+		{
+			"severity": "MEDIUM",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "89",
+				"url": "https://cwe.mitre.org/data/definitions/89.html"
+			},
+			"rule_id": "G201",
+			"details": "SQL string formatting",
+			"file": "/tmp/src-demo/tools/sqlcheck/testdata/src/bad/bad.go",
+			"code": "8: func sprintf(db *sql.DB, tenant string) {\n9: \tq := fmt.Sprintf(\"SELECT * FROM bookings WHERE tenant_id = '%s'\", tenant)\n10: \tdb.Query(q)\n",
+			"line": "9",
+			"column": "7",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "MEDIUM",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "89",
+				"url": "https://cwe.mitre.org/data/definitions/89.html"
+			},
+			"rule_id": "G201",
+			"details": "SQL string formatting",
+			"file": "/tmp/src-demo/internal/store/export.go",
+			"code": "9: func (s *SQLReports) BookingsOfGuest(tenant, email string) ([]string, error) {\n10: \tq := fmt.Sprintf(\"SELECT id FROM bookings WHERE tenant_id = '%s' AND guest_email = '%s'\", tenant, email)\n11: \trows, err := s.DB.Query(q)\n",
+			"line": "10",
+			"column": "7",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "MEDIUM",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "89",
+				"url": "https://cwe.mitre.org/data/definitions/89.html"
+			},
+			"rule_id": "G202",
+			"details": "SQL string concatenation",
+			"file": "/tmp/src-demo/tools/sqlcheck/testdata/src/bad/bad.go",
+			"code": "13: func concat(db *sql.DB, tenant string) {\n14: \tdb.Exec(\"DELETE FROM bookings WHERE tenant_id = '\" + tenant + \"'\")\n15: }\n",
+			"line": "14",
+			"column": "10",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-demo/tools/sqlcheck/testdata/src/good/good.go",
+			"code": "7: func params(db *sql.DB, tenant string) {\n8: \tdb.Query(q, tenant)\n9: \tdb.QueryRow(\"SELECT 1\")\n",
+			"line": "8",
+			"column": "2",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-demo/tools/sqlcheck/testdata/src/bad/bad.go",
+			"code": "13: func concat(db *sql.DB, tenant string) {\n14: \tdb.Exec(\"DELETE FROM bookings WHERE tenant_id = '\" + tenant + \"'\")\n15: }\n",
+			"line": "14",
+			"column": "2",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-demo/tools/sqlcheck/testdata/src/bad/bad.go",
+			"code": "9: \tq := fmt.Sprintf(\"SELECT * FROM bookings WHERE tenant_id = '%s'\", tenant)\n10: \tdb.Query(q)\n11: }\n",
+			"line": "10",
+			"column": "2",
+			"nosec": false,
+			"suppressions": null
+		}
+	],
+	"Stats": {
+		"files": 12,
+		"lines": 842,
+		"nosec": 0,
+		"found": 6
+	},
+	"GosecVersion": "dev"
+}

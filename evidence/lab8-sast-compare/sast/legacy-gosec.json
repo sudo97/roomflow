@@ -1,0 +1,332 @@
+{
+	"Golang errors": {},
+	"Issues": [
+		{
+			"severity": "MEDIUM",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "676",
+				"url": "https://cwe.mitre.org/data/definitions/676.html"
+			},
+			"rule_id": "G114",
+			"details": "Use of net/http serve function that has no support for setting timeouts",
+			"file": "/tmp/src-legacy/cmd/roomflow/main.go",
+			"code": "25: \tlog.Printf(\"roomflow listening on %s\", addr)\n26: \tlog.Fatal(http.ListenAndServe(addr, httpapi.New(svc).Routes()))\n27: }\n",
+			"line": "26",
+			"column": "12",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "MEDIUM",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "89",
+				"url": "https://cwe.mitre.org/data/definitions/89.html"
+			},
+			"rule_id": "G201",
+			"details": "SQL string formatting",
+			"file": "/tmp/src-legacy/internal/store/sql.go",
+			"code": "34: func (s *SQLReports) OccupancyByRoom(tenant string, from string, to string) (map[string]int64, error) {\n35: \tquery := fmt.Sprintf(\"SELECT room_id, SUM(julianday(check_out) - julianday(check_in)) FROM bookings WHERE tenant_id = '%s' AND check_in \u003e= '%s' AND check_in \u003c '%s' AND status != 'cancelled' GROUP BY room_id\", tenant, from, to)\n36: \trows, err := s.DB.Query(query)\n",
+			"line": "35",
+			"column": "11",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "MEDIUM",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "89",
+				"url": "https://cwe.mitre.org/data/definitions/89.html"
+			},
+			"rule_id": "G201",
+			"details": "SQL string formatting",
+			"file": "/tmp/src-legacy/internal/store/sql.go",
+			"code": "16: func (s *SQLReports) RevenueByRoom(tenant string, from string, to string) (map[string]int64, error) {\n17: \tquery := fmt.Sprintf(\"SELECT room_id, SUM(total) FROM bookings WHERE tenant_id = '%s' AND check_in \u003e= '%s' AND check_in \u003c '%s' AND status != 'cancelled' GROUP BY room_id\", tenant, from, to)\n18: \trows, err := s.DB.Query(query)\n",
+			"line": "17",
+			"column": "11",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-legacy/internal/store/sql.go",
+			"code": "44: \t\tvar sum int64\n45: \t\trows.Scan(\u0026room, \u0026sum)\n46: \t\tres[room] = sum\n",
+			"line": "45",
+			"column": "3",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-legacy/internal/store/sql.go",
+			"code": "26: \t\tvar sum int64\n27: \t\trows.Scan(\u0026room, \u0026sum)\n28: \t\tres[room] = sum\n",
+			"line": "27",
+			"column": "3",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-legacy/internal/httpapi/handlers.go",
+			"code": "126: \t\tw.WriteHeader(http.StatusNotFound)\n127: \t\tjson.NewEncoder(w).Encode(map[string]string{\"error\": err.Error()})\n128: \t\treturn\n",
+			"line": "127",
+			"column": "3",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-legacy/internal/httpapi/handlers.go",
+			"code": "119: \t\tw.WriteHeader(http.StatusUnauthorized)\n120: \t\tjson.NewEncoder(w).Encode(map[string]string{\"error\": \"missing tenant\"})\n121: \t\treturn\n",
+			"line": "120",
+			"column": "3",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-legacy/internal/httpapi/handlers.go",
+			"code": "111: \tw.WriteHeader(http.StatusCreated)\n112: \tjson.NewEncoder(w).Encode(b)\n113: }\n",
+			"line": "112",
+			"column": "2",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-legacy/internal/httpapi/handlers.go",
+			"code": "106: \t\tw.WriteHeader(status)\n107: \t\tjson.NewEncoder(w).Encode(map[string]string{\"error\": err.Error()})\n108: \t\treturn\n",
+			"line": "107",
+			"column": "3",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-legacy/internal/httpapi/handlers.go",
+			"code": "93: \t}\n94: \tjson.NewDecoder(r.Body).Decode(\u0026req)\n95: \tb, err := a.svc.CreateBooking(tenant, req.RoomID, req.Name, req.Email, req.Guests, req.CheckIn, req.CheckOut, req.Promo)\n",
+			"line": "94",
+			"column": "2",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-legacy/internal/httpapi/handlers.go",
+			"code": "81: \t\tw.WriteHeader(http.StatusUnauthorized)\n82: \t\tjson.NewEncoder(w).Encode(map[string]string{\"error\": \"missing tenant\"})\n83: \t\treturn\n",
+			"line": "82",
+			"column": "3",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-legacy/internal/httpapi/handlers.go",
+			"code": "73: \tw.WriteHeader(http.StatusCreated)\n74: \tjson.NewEncoder(w).Encode(room)\n75: }\n",
+			"line": "74",
+			"column": "2",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-legacy/internal/httpapi/handlers.go",
+			"code": "68: \t\tw.WriteHeader(http.StatusBadRequest)\n69: \t\tjson.NewEncoder(w).Encode(map[string]string{\"error\": err.Error()})\n70: \t\treturn\n",
+			"line": "69",
+			"column": "3",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-legacy/internal/httpapi/handlers.go",
+			"code": "63: \t}\n64: \tjson.NewDecoder(r.Body).Decode(\u0026req)\n65: \troom, err := a.svc.AddRoom(tenant, req.ID, req.Name, req.Capacity, req.Price)\n",
+			"line": "64",
+			"column": "2",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-legacy/internal/httpapi/handlers.go",
+			"code": "54: \t\tw.WriteHeader(http.StatusUnauthorized)\n55: \t\tjson.NewEncoder(w).Encode(map[string]string{\"error\": \"missing tenant\"})\n56: \t\treturn\n",
+			"line": "55",
+			"column": "3",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-legacy/internal/httpapi/handlers.go",
+			"code": "46: \tw.Header().Set(\"Content-Type\", \"application/json\")\n47: \tjson.NewEncoder(w).Encode(rooms)\n48: }\n",
+			"line": "47",
+			"column": "2",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-legacy/internal/httpapi/handlers.go",
+			"code": "42: \t\tw.WriteHeader(http.StatusInternalServerError)\n43: \t\tjson.NewEncoder(w).Encode(map[string]string{\"error\": err.Error()})\n44: \t\treturn\n",
+			"line": "43",
+			"column": "3",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-legacy/internal/httpapi/handlers.go",
+			"code": "35: \t\tw.WriteHeader(http.StatusUnauthorized)\n36: \t\tjson.NewEncoder(w).Encode(map[string]string{\"error\": \"missing tenant\"})\n37: \t\treturn\n",
+			"line": "36",
+			"column": "3",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-legacy/internal/httpapi/handlers.go",
+			"code": "22: \tmux := http.NewServeMux()\n23: \tmux.HandleFunc(\"GET /healthz\", func(w http.ResponseWriter, r *http.Request) { w.Write([]byte(\"ok\")) })\n24: \tmux.HandleFunc(\"GET /api/rooms\", a.listRooms)\n",
+			"line": "23",
+			"column": "80",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-legacy/cmd/roomflow/main.go",
+			"code": "21: \tif os.Getenv(\"ADMIN_PASSWORD\") == \"\" {\n22: \t\tos.Setenv(\"ADMIN_PASSWORD\", adminPassword)\n23: \t}\n",
+			"line": "22",
+			"column": "3",
+			"nosec": false,
+			"suppressions": null
+		}
+	],
+	"Stats": {
+		"files": 6,
+		"lines": 485,
+		"nosec": 0,
+		"found": 20
+	},
+	"GosecVersion": "dev"
+}

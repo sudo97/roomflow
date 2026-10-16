@@ -1,0 +1,140 @@
+{
+	"Golang errors": {},
+	"Issues": [
+		{
+			"severity": "HIGH",
+			"confidence": "MEDIUM",
+			"cwe": {
+				"id": "338",
+				"url": "https://cwe.mitre.org/data/definitions/338.html"
+			},
+			"rule_id": "G404",
+			"details": "Use of weak random number generator (math/rand or math/rand/v2 instead of crypto/rand)",
+			"file": "/tmp/src-current/internal/chaos/chaos.go",
+			"code": "16: \treturn http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {\n17: \t\tif strings.HasPrefix(r.URL.Path, \"/api/\") \u0026\u0026 rand.Float64() \u003c rate { //nolint:gosec // not security sensitive\n18: \t\t\thttp.Error(w, \"injected fault\", http.StatusInternalServerError)\n",
+			"line": "17",
+			"column": "48",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "HIGH",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "200",
+				"url": "https://cwe.mitre.org/data/definitions/200.html"
+			},
+			"rule_id": "G108",
+			"details": "Profiling endpoint is automatically exposed on /debug/pprof",
+			"file": "/tmp/src-current/cmd/roomflow/runtime.go",
+			"code": "5: \t\"net/http\"\n6: \t_ \"net/http/pprof\" //nolint:gosec // served only on PPROF_ADDR, a separate internal port (G108)\n7: \t\"os\"\n",
+			"line": "6",
+			"column": "2",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "MEDIUM",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "89",
+				"url": "https://cwe.mitre.org/data/definitions/89.html"
+			},
+			"rule_id": "G201",
+			"details": "SQL string formatting",
+			"file": "/tmp/src-current/tools/sqlcheck/testdata/src/bad/bad.go",
+			"code": "8: func sprintf(db *sql.DB, tenant string) {\n9: \tq := fmt.Sprintf(\"SELECT * FROM bookings WHERE tenant_id = '%s'\", tenant)\n10: \tdb.Query(q)\n",
+			"line": "9",
+			"column": "7",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "MEDIUM",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "89",
+				"url": "https://cwe.mitre.org/data/definitions/89.html"
+			},
+			"rule_id": "G202",
+			"details": "SQL string concatenation",
+			"file": "/tmp/src-current/tools/sqlcheck/testdata/src/bad/bad.go",
+			"code": "13: func concat(db *sql.DB, tenant string) {\n14: \tdb.Exec(\"DELETE FROM bookings WHERE tenant_id = '\" + tenant + \"'\")\n15: }\n",
+			"line": "14",
+			"column": "10",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "MEDIUM",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "22",
+				"url": "https://cwe.mitre.org/data/definitions/22.html"
+			},
+			"rule_id": "G304",
+			"details": "Potential file inclusion via variable",
+			"file": "/tmp/src-current/tools/platform-exporter/main.go",
+			"code": "74: func (p *platform) replay(path string) error {\n75: \traw, err := os.ReadFile(path) //nolint:gosec // history file configured by the operator\n76: \tif err != nil {\n",
+			"line": "75",
+			"column": "14",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-current/tools/sqlcheck/testdata/src/good/good.go",
+			"code": "7: func params(db *sql.DB, tenant string) {\n8: \tdb.Query(q, tenant)\n9: \tdb.QueryRow(\"SELECT 1\")\n",
+			"line": "8",
+			"column": "2",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-current/tools/sqlcheck/testdata/src/bad/bad.go",
+			"code": "13: func concat(db *sql.DB, tenant string) {\n14: \tdb.Exec(\"DELETE FROM bookings WHERE tenant_id = '\" + tenant + \"'\")\n15: }\n",
+			"line": "14",
+			"column": "2",
+			"nosec": false,
+			"suppressions": null
+		},
+		{
+			"severity": "LOW",
+			"confidence": "HIGH",
+			"cwe": {
+				"id": "703",
+				"url": "https://cwe.mitre.org/data/definitions/703.html"
+			},
+			"rule_id": "G104",
+			"details": "Errors unhandled.",
+			"file": "/tmp/src-current/tools/sqlcheck/testdata/src/bad/bad.go",
+			"code": "9: \tq := fmt.Sprintf(\"SELECT * FROM bookings WHERE tenant_id = '%s'\", tenant)\n10: \tdb.Query(q)\n11: }\n",
+			"line": "10",
+			"column": "2",
+			"nosec": false,
+			"suppressions": null
+		}
+	],
+	"Stats": {
+		"files": 35,
+		"lines": 3159,
+		"nosec": 0,
+		"found": 8
+	},
+	"GosecVersion": "dev"
+}
