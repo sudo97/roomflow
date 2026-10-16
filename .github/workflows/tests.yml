@@ -1,0 +1,92 @@
+# Лабораторна робота 4: піраміда тестів у CI.
+# unit (+race, поріг покриття) -> integration -> e2e проти Docker-контейнера; fuzz і benchmarks паралельно.
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+      - name: Unit tests (JUnit report)
+        run: |
+          go install gotest.tools/gotestsum@v1.12.0
+          gotestsum --junitfile unit.xml --format testname -- -race -covermode=atomic -coverprofile=coverage.out ./...
+      - name: Coverage gate (>= 80%)
+        run: |
+          total=$(go tool cover -func=coverage.out | awk '/^total:/ {sub("%","",$3); print $3}')
+          echo "### Unit: покриття $total% (поріг 80%)" >> "$GITHUB_STEP_SUMMARY"
+          awk -v t="$total" 'BEGIN { exit !(t >= 80) }' || { echo "::error::coverage $total% < 80%"; exit 1; }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: unit-results
+          path: |
+            unit.xml
+            coverage.out
+
+  integration:
+    needs: unit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+      - run: go test -tags integration -v ./test/integration/... | tee integration.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: integration-results
+          path: integration.txt
+
+  e2e:
+    needs: integration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+      - name: Build and start container
+        run: |
+          docker build --target production -t roomflow:e2e .
+          docker run -d --name roomflow -p 8080:8080 roomflow:e2e
+          for i in $(seq 1 20); do curl -sf localhost:8080/healthz && break; sleep 1; done
+      - run: BASE_URL=http://localhost:8080 go test -tags e2e -v ./test/e2e/... | tee e2e.txt
+      - if: failure()
+        run: docker logs roomflow
+
+  fuzz:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+      - run: go test -run='^$' -fuzz=FuzzValidate -fuzztime=60s ./internal/booking
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: fuzz-corpus
+          path: internal/booking/testdata/fuzz
+
+  bench:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+      - run: go test -run='^$' -bench=. -benchmem -count=5 ./internal/booking | tee bench.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bench
+          path: bench.txt

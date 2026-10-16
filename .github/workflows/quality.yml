@@ -1,0 +1,75 @@
+# Лабораторна робота 5: керування якістю коду.
+# golangci-lint (локальні правила) + власне правило sqlcheck + архітектурні тести;
+# на pull request результати публікуються коментарем і блокують злиття при порушеннях.
+name: quality
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  golangci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+      - name: golangci-lint (project rules)
+        uses: golangci/golangci-lint-action@v8
+        with:
+          version: v2.5.0
+          args: --output.text.path=stdout --output.json.path=golangci.json
+      - name: Rule-set comparison (standard vs project config)
+        if: always()
+        run: |
+          go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.5.0
+          gl=$(go env GOPATH)/bin/golangci-lint
+          for preset in standard project all; do
+            case $preset in
+              standard) cfg="--no-config --default=standard" ;;
+              project)  cfg="" ;;
+              all)      cfg="--no-config --default=all" ;;
+            esac
+            n=$($gl run $cfg --output.json.path=stdout ./... 2>/dev/null | jq '.Issues | length' || echo "?")
+            echo "| $preset | $n |" >> rules.md
+          done
+          { echo "### Порівняння наборів правил"; echo "| набір | знахідок |"; echo "|---|---|"; cat rules.md; } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: golangci-report
+          path: golangci.json
+
+  custom-rules:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+      - name: sqlcheck (власне правило)
+        run: go run ./tools/sqlcheck ./...
+      - name: Архітектурні тести
+        run: go test -v ./internal/arch/
+
+  pr-comment:
+    if: github.event_name == 'pull_request' && always()
+    needs: [golangci, custom-rules]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const r = '${{ needs.golangci.result }}', c = '${{ needs.custom-rules.result }}';
+            const icon = s => s === 'success' ? '✅' : '❌';
+            const body = `### Контроль якості коду\n| Перевірка | Статус |\n|---|---|\n` +
+              `| golangci-lint | ${icon(r)} ${r} |\n| sqlcheck + архітектурні тести | ${icon(c)} ${c} |\n\n` +
+              (r === 'success' && c === 'success' ? 'Усі перевірки пройдено, PR можна рецензувати.' : 'Є порушення: деталі в логах job-ів.');
+            await github.rest.issues.createComment({ ...context.repo, issue_number: context.issue.number, body });

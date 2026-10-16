@@ -1,0 +1,66 @@
+# Лабораторна робота 4, індивідуальне завдання 4: мутаційне тестування (Gremlins).
+# Аналізує одну або кілька версій коду і публікує звіти в гілку evidence.
+name: mutation
+
+on:
+  workflow_dispatch:
+    inputs:
+      refs:
+        description: "Версії коду для аналізу через пробіл"
+        default: "HEAD"
+      label:
+        description: "Каталог у гілці evidence"
+        default: "lab4-mutation"
+      threshold:
+        description: "Мінімальна test efficacy, %"
+        default: "0"
+  push:
+    branches: [main]
+    paths: ["internal/**", ".gremlins.yaml"]
+
+permissions:
+  contents: write
+
+concurrency: evidence
+
+jobs:
+  gremlins:
+    runs-on: ubuntu-latest
+    env:
+      REFS: ${{ inputs.refs || 'HEAD' }}
+      LABEL: ${{ inputs.label || 'lab4-mutation' }}
+      THRESHOLD: ${{ inputs.threshold || '0' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+      - run: go install github.com/go-gremlins/gremlins/cmd/gremlins@latest
+      - name: Unleash the gremlins
+        run: |
+          mkdir -p /tmp/evidence
+          for ref in $REFS; do
+            git checkout -q "$ref"; name=$(git rev-parse --short HEAD)
+            out=/tmp/evidence/$name; mkdir -p "$out"
+            git log -1 --format='%H %s' > "$out/commit.txt"
+            go test -coverprofile=/tmp/c.out ./internal/... >/dev/null && go tool cover -func=/tmp/c.out | tail -1 > "$out/coverage.txt"
+            gremlins unleash --tags '' --output "$out/gremlins.json" ./internal/... 2>&1 | tee "$out/gremlins.txt" || true
+            git checkout -q -f "$GITHUB_SHA"
+          done
+          last=$(ls -t /tmp/evidence | head -1)
+          { echo "### Gremlins ($last)"; echo '```'; tail -n 15 "/tmp/evidence/$last/gremlins.txt"; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+      - name: Efficacy gate
+        run: |
+          eff=$(jq -r '.test_efficacy' /tmp/evidence/$(git rev-parse --short HEAD)/gremlins.json)
+          echo "test efficacy: $eff% (threshold $THRESHOLD%)"
+          awk -v e="$eff" -v t="$THRESHOLD" 'BEGIN { exit !(e >= t) }'
+      - name: Publish evidence
+        if: always()
+        run: |
+          git config user.name "github-actions"; git config user.email "actions@github.com"
+          git fetch origin evidence && git checkout -f evidence || git checkout -f --orphan evidence
+          git rm -rq --cached . 2>/dev/null || true; git clean -fdq -e evidence
+          mkdir -p "evidence/$LABEL"; cp -r /tmp/evidence/* "evidence/$LABEL/"
+          git add evidence && git commit -qm "evidence: $LABEL (run ${{ github.run_id }})" && git push -q origin evidence
