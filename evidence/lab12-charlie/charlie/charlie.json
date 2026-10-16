@@ -26,6 +26,11 @@
       "revisions": 3
     },
     {
+      "file": "ci/lab12/mesh.sh",
+      "complexity": 176,
+      "revisions": 3
+    },
+    {
       "file": ".github/workflows/ci.yml",
       "complexity": 233,
       "revisions": 2
@@ -38,6 +43,11 @@
     {
       "file": "internal/booking/service.go",
       "complexity": 113,
+      "revisions": 4
+    },
+    {
+      "file": "ci/lab11/backstage.sh",
+      "complexity": 110,
       "revisions": 4
     },
     {
@@ -66,16 +76,6 @@
       "revisions": 3
     },
     {
-      "file": "ci/lab12/mesh.sh",
-      "complexity": 164,
-      "revisions": 2
-    },
-    {
-      "file": "ci/lab11/backstage.sh",
-      "complexity": 105,
-      "revisions": 3
-    },
-    {
       "file": "ci/lab10/strategies.sh",
       "complexity": 154,
       "revisions": 2
@@ -99,6 +99,11 @@
       "file": "internal/booking/properties_test.go",
       "complexity": 85,
       "revisions": 3
+    },
+    {
+      "file": "ci/lab12/monitoring.sh",
+      "complexity": 63,
+      "revisions": 4
     },
     {
       "file": "deploy/k8s/bluegreen/deployments.yaml",
@@ -126,29 +131,24 @@
       "revisions": 3
     },
     {
+      "file": "infra/terraform/modules/database/main.tf",
+      "complexity": 109,
+      "revisions": 2
+    },
+    {
+      "file": "infra/terraform/modules/monitoring/main.tf",
+      "complexity": 102,
+      "revisions": 2
+    },
+    {
       "file": "internal/cache/redis_test.go",
       "complexity": 202,
       "revisions": 1
     },
     {
-      "file": "tools/dora-exporter/dora.go",
-      "complexity": 197,
-      "revisions": 1
-    },
-    {
-      "file": "internal/store/memory.go",
-      "complexity": 97,
-      "revisions": 2
-    },
-    {
-      "file": "internal/flags/flags_test.go",
-      "complexity": 95,
-      "revisions": 2
-    },
-    {
-      "file": "deploy/helm/roomflow/templates/deployments.yaml",
-      "complexity": 92,
-      "revisions": 2
+      "file": "infra/terraform/modules/lb/main.tf",
+      "complexity": 66,
+      "revisions": 3
     }
   ],
   "coupling": [
@@ -322,113 +322,113 @@
     },
     {
       "file": "ci/lab11/backstage.sh",
-      "soc": 242,
+      "soc": 249,
       "coupledFiles": [
         {
           "file": "ci/lab12/monitoring.sh",
           "percentage": 1,
-          "revisions": 3
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
-          "percentage": 1,
-          "revisions": 3
-        },
-        {
-          "file": "ci/lab9/gate.sh",
-          "percentage": 1,
-          "revisions": 3
-        },
-        {
-          "file": "ci/lab9/run.sh",
-          "percentage": 1,
-          "revisions": 3
-        },
-        {
-          "file": "test/load/seed/main.go",
-          "percentage": 1,
-          "revisions": 3
+          "revisions": 4
         },
         {
           "file": "ci/lab12/mesh.sh",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
+          "percentage": 0.75,
+          "revisions": 4
         },
         {
-          "file": "ci/lab8/deps.sh",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
+          "file": "infra/terraform/modules/lb/main.tf",
+          "percentage": 0.75,
+          "revisions": 4
         },
         {
-          "file": "ci/security/gosec-baseline.json",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 0.75,
+          "revisions": 4
         },
         {
-          "file": "infra/terraform/envs/platform/main.tf",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
+          "file": "ci/lab9/gate.sh",
+          "percentage": 0.75,
+          "revisions": 4
         },
         {
-          "file": "infra/terraform/envs/platform/variables.tf",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
+          "file": "ci/lab9/run.sh",
+          "percentage": 0.75,
+          "revisions": 4
+        },
+        {
+          "file": "test/load/seed/main.go",
+          "percentage": 0.75,
+          "revisions": 4
+        },
+        {
+          "file": "infra/terraform/modules/app/main.tf",
+          "percentage": 0.5,
+          "revisions": 4
+        },
+        {
+          "file": "infra/terraform/modules/database/main.tf",
+          "percentage": 0.5,
+          "revisions": 4
+        },
+        {
+          "file": "infra/terraform/modules/monitoring/main.tf",
+          "percentage": 0.5,
+          "revisions": 4
         }
       ]
     },
     {
       "file": "ci/lab12/monitoring.sh",
-      "soc": 242,
+      "soc": 249,
       "coupledFiles": [
         {
           "file": "ci/lab11/backstage.sh",
           "percentage": 1,
-          "revisions": 3
-        },
-        {
-          "file": "ci/lab12/rollouts.sh",
-          "percentage": 1,
-          "revisions": 3
-        },
-        {
-          "file": "ci/lab9/gate.sh",
-          "percentage": 1,
-          "revisions": 3
-        },
-        {
-          "file": "ci/lab9/run.sh",
-          "percentage": 1,
-          "revisions": 3
-        },
-        {
-          "file": "test/load/seed/main.go",
-          "percentage": 1,
-          "revisions": 3
+          "revisions": 4
         },
         {
           "file": "ci/lab12/mesh.sh",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
+          "percentage": 0.75,
+          "revisions": 4
         },
         {
-          "file": "ci/lab8/deps.sh",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
+          "file": "infra/terraform/modules/lb/main.tf",
+          "percentage": 0.75,
+          "revisions": 4
         },
         {
-          "file": "ci/security/gosec-baseline.json",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 0.75,
+          "revisions": 4
         },
         {
-          "file": "infra/terraform/envs/platform/main.tf",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
+          "file": "ci/lab9/gate.sh",
+          "percentage": 0.75,
+          "revisions": 4
         },
         {
-          "file": "infra/terraform/envs/platform/variables.tf",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
+          "file": "ci/lab9/run.sh",
+          "percentage": 0.75,
+          "revisions": 4
+        },
+        {
+          "file": "test/load/seed/main.go",
+          "percentage": 0.75,
+          "revisions": 4
+        },
+        {
+          "file": "infra/terraform/modules/app/main.tf",
+          "percentage": 0.5,
+          "revisions": 4
+        },
+        {
+          "file": "infra/terraform/modules/database/main.tf",
+          "percentage": 0.5,
+          "revisions": 4
+        },
+        {
+          "file": "infra/terraform/modules/monitoring/main.tf",
+          "percentage": 0.5,
+          "revisions": 4
         }
       ]
     },
@@ -437,16 +437,6 @@
       "soc": 242,
       "coupledFiles": [
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 3
-        },
-        {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 3
-        },
-        {
           "file": "ci/lab9/gate.sh",
           "percentage": 1,
           "revisions": 3
@@ -462,9 +452,14 @@
           "revisions": 3
         },
         {
-          "file": "ci/lab12/mesh.sh",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 0.75,
+          "revisions": 4
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 0.75,
+          "revisions": 4
         },
         {
           "file": "ci/lab8/deps.sh",
@@ -483,6 +478,11 @@
         },
         {
           "file": "infra/terraform/envs/platform/variables.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/modules/lb/nginx.conf.tftpl",
           "percentage": 0.6666666666666666,
           "revisions": 3
         }
@@ -493,16 +493,6 @@
       "soc": 242,
       "coupledFiles": [
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 3
-        },
-        {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 3
-        },
-        {
           "file": "ci/lab12/rollouts.sh",
           "percentage": 1,
           "revisions": 3
@@ -518,9 +508,14 @@
           "revisions": 3
         },
         {
-          "file": "ci/lab12/mesh.sh",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 0.75,
+          "revisions": 4
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 0.75,
+          "revisions": 4
         },
         {
           "file": "ci/lab8/deps.sh",
@@ -539,6 +534,11 @@
         },
         {
           "file": "infra/terraform/envs/platform/variables.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/modules/lb/nginx.conf.tftpl",
           "percentage": 0.6666666666666666,
           "revisions": 3
         }
@@ -549,16 +549,6 @@
       "soc": 242,
       "coupledFiles": [
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 3
-        },
-        {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 3
-        },
-        {
           "file": "ci/lab12/rollouts.sh",
           "percentage": 1,
           "revisions": 3
@@ -574,9 +564,14 @@
           "revisions": 3
         },
         {
-          "file": "ci/lab12/mesh.sh",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 0.75,
+          "revisions": 4
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 0.75,
+          "revisions": 4
         },
         {
           "file": "ci/lab8/deps.sh",
@@ -597,6 +592,11 @@
           "file": "infra/terraform/envs/platform/variables.tf",
           "percentage": 0.6666666666666666,
           "revisions": 3
+        },
+        {
+          "file": "infra/terraform/modules/lb/nginx.conf.tftpl",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         }
       ]
     },
@@ -604,16 +604,6 @@
       "file": "test/load/seed/main.go",
       "soc": 242,
       "coupledFiles": [
-        {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 1,
-          "revisions": 3
-        },
-        {
-          "file": "ci/lab12/monitoring.sh",
-          "percentage": 1,
-          "revisions": 3
-        },
         {
           "file": "ci/lab12/rollouts.sh",
           "percentage": 1,
@@ -630,9 +620,14 @@
           "revisions": 3
         },
         {
-          "file": "ci/lab12/mesh.sh",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 0.75,
+          "revisions": 4
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 0.75,
+          "revisions": 4
         },
         {
           "file": "ci/lab8/deps.sh",
@@ -651,6 +646,11 @@
         },
         {
           "file": "infra/terraform/envs/platform/variables.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/modules/lb/nginx.conf.tftpl",
           "percentage": 0.6666666666666666,
           "revisions": 3
         }
@@ -717,7 +717,88 @@
       "soc": 228,
       "coupledFiles": [
         {
+          "file": "ci/lab8/deps.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/security/gosec-baseline.json",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/platform/main.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/platform/variables.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/modules/lb/nginx.conf.tftpl",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/modules/lb/tests/lb.tftest.hcl",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/modules/lb/variables.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
           "file": "ci/lab12/mesh.sh",
+          "percentage": 0.5,
+          "revisions": 4
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 0.5,
+          "revisions": 4
+        },
+        {
+          "file": "ci/lab6/deploy.sh",
+          "percentage": 0.5,
+          "revisions": 4
+        }
+      ]
+    },
+    {
+      "file": "ci/lab12/mesh.sh",
+      "soc": 227,
+      "coupledFiles": [
+        {
+          "file": "infra/terraform/modules/lb/main.tf",
+          "percentage": 1,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 0.75,
+          "revisions": 4
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 0.75,
+          "revisions": 4
+        },
+        {
+          "file": "infra/terraform/modules/app/main.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/modules/database/main.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/modules/monitoring/main.tf",
           "percentage": 0.6666666666666666,
           "revisions": 3
         },
@@ -740,31 +821,62 @@
           "file": "infra/terraform/envs/platform/variables.tf",
           "percentage": 0.6666666666666666,
           "revisions": 3
-        },
+        }
+      ]
+    },
+    {
+      "file": "infra/terraform/modules/lb/main.tf",
+      "soc": 227,
+      "coupledFiles": [
         {
-          "file": "infra/terraform/modules/lb/main.tf",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
-        },
-        {
-          "file": "infra/terraform/modules/lb/nginx.conf.tftpl",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
-        },
-        {
-          "file": "infra/terraform/modules/lb/tests/lb.tftest.hcl",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
-        },
-        {
-          "file": "infra/terraform/modules/lb/variables.tf",
-          "percentage": 0.6666666666666666,
+          "file": "ci/lab12/mesh.sh",
+          "percentage": 1,
           "revisions": 3
         },
         {
           "file": "ci/lab11/backstage.sh",
-          "percentage": 0.5,
+          "percentage": 0.75,
           "revisions": 4
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 0.75,
+          "revisions": 4
+        },
+        {
+          "file": "infra/terraform/modules/app/main.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/modules/database/main.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/modules/monitoring/main.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab8/deps.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/security/gosec-baseline.json",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/platform/main.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "infra/terraform/envs/platform/variables.tf",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         }
       ]
     },
@@ -1445,11 +1557,6 @@
       "soc": 223,
       "coupledFiles": [
         {
-          "file": "ci/lab12/mesh.sh",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
-        },
-        {
           "file": "ci/lab8/deps.sh",
           "percentage": 0.6666666666666666,
           "revisions": 3
@@ -1466,11 +1573,6 @@
         },
         {
           "file": "infra/terraform/envs/platform/variables.tf",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
-        },
-        {
-          "file": "infra/terraform/modules/lb/main.tf",
           "percentage": 0.6666666666666666,
           "revisions": 3
         },
@@ -1493,62 +1595,16 @@
           "file": "deploy/observability/prometheus/recording.rules.yml",
           "percentage": 0.6666666666666666,
           "revisions": 3
-        }
-      ]
-    },
-    {
-      "file": "ci/lab12/mesh.sh",
-      "soc": 220,
-      "coupledFiles": [
-        {
-          "file": "ci/lab8/deps.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/security/gosec-baseline.json",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "infra/terraform/envs/platform/main.tf",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "infra/terraform/envs/platform/variables.tf",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "infra/terraform/modules/lb/main.tf",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "infra/terraform/modules/lb/nginx.conf.tftpl",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "infra/terraform/modules/lb/tests/lb.tftest.hcl",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "infra/terraform/modules/lb/variables.tf",
-          "percentage": 1,
-          "revisions": 2
         },
         {
           "file": "Dockerfile",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
+          "percentage": 0.5,
+          "revisions": 4
         },
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
+          "file": "ci/lab12/mesh.sh",
+          "percentage": 0.5,
+          "revisions": 4
         }
       ]
     },
@@ -1557,11 +1613,6 @@
       "soc": 220,
       "coupledFiles": [
         {
-          "file": "ci/lab12/mesh.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/security/gosec-baseline.json",
           "percentage": 1,
           "revisions": 2
@@ -1573,11 +1624,6 @@
         },
         {
           "file": "infra/terraform/envs/platform/variables.tf",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "infra/terraform/modules/lb/main.tf",
           "percentage": 1,
           "revisions": 2
         },
@@ -1602,7 +1648,17 @@
           "revisions": 3
         },
         {
-          "file": "ci/lab11/backstage.sh",
+          "file": "ci/lab12/mesh.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab6/deploy.sh",
           "percentage": 0.6666666666666666,
           "revisions": 3
         }
@@ -1613,11 +1669,6 @@
       "soc": 220,
       "coupledFiles": [
         {
-          "file": "ci/lab12/mesh.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab8/deps.sh",
           "percentage": 1,
           "revisions": 2
@@ -1629,11 +1680,6 @@
         },
         {
           "file": "infra/terraform/envs/platform/variables.tf",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "infra/terraform/modules/lb/main.tf",
           "percentage": 1,
           "revisions": 2
         },
@@ -1658,7 +1704,17 @@
           "revisions": 3
         },
         {
-          "file": "ci/lab11/backstage.sh",
+          "file": "ci/lab12/mesh.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab6/deploy.sh",
           "percentage": 0.6666666666666666,
           "revisions": 3
         }
@@ -1669,11 +1725,6 @@
       "soc": 220,
       "coupledFiles": [
         {
-          "file": "ci/lab12/mesh.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab8/deps.sh",
           "percentage": 1,
           "revisions": 2
@@ -1685,11 +1736,6 @@
         },
         {
           "file": "infra/terraform/envs/platform/variables.tf",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "infra/terraform/modules/lb/main.tf",
           "percentage": 1,
           "revisions": 2
         },
@@ -1714,7 +1760,17 @@
           "revisions": 3
         },
         {
-          "file": "ci/lab11/backstage.sh",
+          "file": "ci/lab12/mesh.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab6/deploy.sh",
           "percentage": 0.6666666666666666,
           "revisions": 3
         }
@@ -1725,11 +1781,6 @@
       "soc": 220,
       "coupledFiles": [
         {
-          "file": "ci/lab12/mesh.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
           "file": "ci/lab8/deps.sh",
           "percentage": 1,
           "revisions": 2
@@ -1741,11 +1792,6 @@
         },
         {
           "file": "infra/terraform/envs/platform/main.tf",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "infra/terraform/modules/lb/main.tf",
           "percentage": 1,
           "revisions": 2
         },
@@ -1770,63 +1816,17 @@
           "revisions": 3
         },
         {
-          "file": "ci/lab11/backstage.sh",
-          "percentage": 0.6666666666666666,
-          "revisions": 3
-        }
-      ]
-    },
-    {
-      "file": "infra/terraform/modules/lb/main.tf",
-      "soc": 220,
-      "coupledFiles": [
-        {
           "file": "ci/lab12/mesh.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab8/deps.sh",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "ci/security/gosec-baseline.json",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "infra/terraform/envs/platform/main.tf",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "infra/terraform/envs/platform/variables.tf",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "infra/terraform/modules/lb/nginx.conf.tftpl",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "infra/terraform/modules/lb/tests/lb.tftest.hcl",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "infra/terraform/modules/lb/variables.tf",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": "Dockerfile",
           "percentage": 0.6666666666666666,
           "revisions": 3
         },
         {
-          "file": "ci/lab11/backstage.sh",
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab6/deploy.sh",
           "percentage": 0.6666666666666666,
           "revisions": 3
         }

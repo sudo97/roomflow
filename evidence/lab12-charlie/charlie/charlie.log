@@ -1,7 +1,11 @@
-reading /home/runner/work/roomflow/roomflow/Dockerfile
 reading /home/runner/work/roomflow/roomflow/ci/lab11/backstage.sh
 reading /home/runner/work/roomflow/roomflow/ci/lab12/mesh.sh
 reading /home/runner/work/roomflow/roomflow/ci/lab12/monitoring.sh
+reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/app/main.tf
+reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/database/main.tf
+reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/lb/main.tf
+reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/monitoring/main.tf
+reading /home/runner/work/roomflow/roomflow/Dockerfile
 reading /home/runner/work/roomflow/roomflow/ci/lab12/rollouts.sh
 reading /home/runner/work/roomflow/roomflow/ci/lab6/deploy.sh
 reading /home/runner/work/roomflow/roomflow/ci/lab8/deps.sh
@@ -11,7 +15,6 @@ reading /home/runner/work/roomflow/roomflow/ci/security/gosec-baseline.json
 reading /home/runner/work/roomflow/roomflow/docs/runbooks/roomflow-down.md
 reading /home/runner/work/roomflow/roomflow/infra/terraform/envs/platform/main.tf
 reading /home/runner/work/roomflow/roomflow/infra/terraform/envs/platform/variables.tf
-reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/lb/main.tf
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/lb/nginx.conf.tftpl
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/lb/tests/lb.tftest.hcl
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/lb/variables.tf
@@ -137,12 +140,10 @@ reading /home/runner/work/roomflow/roomflow/infra/terraform/envs/app/outputs.tf
 reading /home/runner/work/roomflow/roomflow/infra/terraform/envs/app/variables.tf
 reading /home/runner/work/roomflow/roomflow/infra/terraform/envs/locktest/main.tf
 reading /home/runner/work/roomflow/roomflow/infra/terraform/envs/platform/outputs.tf
-reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/app/main.tf
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/app/outputs.tf
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/app/tests/app.tftest.hcl
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/app/variables.tf
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/app/versions.tf
-reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/database/main.tf
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/database/outputs.tf
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/database/variables.tf
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/database/versions.tf
@@ -150,7 +151,6 @@ reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/lb/outputs.t
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/lb/versions.tf
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/monitoring/alertmanager.yml
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/monitoring/alerts.yml.tftpl
-reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/monitoring/main.tf
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/monitoring/outputs.tf
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/monitoring/prometheus.yml.tftpl
 reading /home/runner/work/roomflow/roomflow/infra/terraform/modules/monitoring/variables.tf
