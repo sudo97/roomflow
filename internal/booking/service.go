@@ -27,7 +27,7 @@ func NewService(repo Repository) *Service {
 }
 
 // CreateBooking validates the request, checks availability, calculates price and stores the booking.
-func (s *Service) CreateBooking(req BookingRequest) (Booking, error) {
+func (s *Service) CreateBooking(req Request) (Booking, error) {
 	st, err := req.validate()
 	if err != nil {
 		return Booking{}, err

@@ -8,8 +8,8 @@ import (
 
 const dateLayout = "2006-01-02"
 
-// BookingRequest is the input of the CreateBooking use case.
-type BookingRequest struct {
+// Request is the input of the CreateBooking use case.
+type Request struct {
 	Tenant     TenantID
 	RoomID     string
 	GuestName  string
@@ -22,12 +22,16 @@ type BookingRequest struct {
 
 // stay is a validated booking request.
 type stay struct {
-	BookingRequest
+	Request
 	in, out time.Time
 }
 
-func (r BookingRequest) validate() (stay, error) {
-	if r.Tenant == "" || r.RoomID == "" || r.GuestName == "" || r.Guests <= 0 {
+func (r Request) hasRequiredFields() bool {
+	return r.Tenant != "" && r.RoomID != "" && r.GuestName != "" && r.Guests > 0
+}
+
+func (r Request) validate() (stay, error) {
+	if !r.hasRequiredFields() {
 		return stay{}, fmt.Errorf("%w: tenant, room, guest name and guests are required", ErrInvalidInput)
 	}
 	if _, err := mail.ParseAddress(r.GuestEmail); err != nil {
@@ -38,5 +42,5 @@ func (r BookingRequest) validate() (stay, error) {
 	if errIn != nil || errOut != nil || !out.After(in) {
 		return stay{}, fmt.Errorf("%w: dates", ErrInvalidInput)
 	}
-	return stay{BookingRequest: r, in: in, out: out}, nil
+	return stay{Request: r, in: in, out: out}, nil
 }

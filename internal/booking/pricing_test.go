@@ -26,7 +26,7 @@ func TestQuote(t *testing.T) {
 	}
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			st, err := BookingRequest{Tenant: "t", RoomID: "r", GuestName: "g", GuestEmail: "g@x.io", Guests: c.guests, CheckIn: c.in, CheckOut: c.out, Promo: c.promo}.validate()
+			st, err := Request{Tenant: "t", RoomID: "r", GuestName: "g", GuestEmail: "g@x.io", Guests: c.guests, CheckIn: c.in, CheckOut: c.out, Promo: c.promo}.validate()
 			if err != nil {
 				t.Fatal(err)
 			}

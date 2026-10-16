@@ -19,8 +19,8 @@ func newService(t *testing.T) *booking.Service {
 	return svc
 }
 
-func req(in, out string) booking.BookingRequest {
-	return booking.BookingRequest{Tenant: tenant, RoomID: "r1", GuestName: "Ivan", GuestEmail: "ivan@example.com", Guests: 2, CheckIn: in, CheckOut: out}
+func req(in, out string) booking.Request {
+	return booking.Request{Tenant: tenant, RoomID: "r1", GuestName: "Ivan", GuestEmail: "ivan@example.com", Guests: 2, CheckIn: in, CheckOut: out}
 }
 
 func TestCreateBookingHappyPath(t *testing.T) {
@@ -34,15 +34,15 @@ func TestCreateBookingHappyPath(t *testing.T) {
 }
 
 func TestCreateBookingValidation(t *testing.T) {
-	cases := map[string]func(*booking.BookingRequest){
-		"no tenant":     func(r *booking.BookingRequest) { r.Tenant = "" },
-		"no guest name": func(r *booking.BookingRequest) { r.GuestName = "" },
-		"bad email":     func(r *booking.BookingRequest) { r.GuestEmail = "not-an-email" },
-		"zero guests":   func(r *booking.BookingRequest) { r.Guests = 0 },
-		"bad date":      func(r *booking.BookingRequest) { r.CheckIn = "02.03.2026" },
-		"out before in": func(r *booking.BookingRequest) { r.CheckOut = "2026-03-01" },
-		"same day":      func(r *booking.BookingRequest) { r.CheckOut = r.CheckIn },
-		"over capacity": func(r *booking.BookingRequest) { r.Guests = 3 },
+	cases := map[string]func(*booking.Request){
+		"no tenant":     func(r *booking.Request) { r.Tenant = "" },
+		"no guest name": func(r *booking.Request) { r.GuestName = "" },
+		"bad email":     func(r *booking.Request) { r.GuestEmail = "not-an-email" },
+		"zero guests":   func(r *booking.Request) { r.Guests = 0 },
+		"bad date":      func(r *booking.Request) { r.CheckIn = "02.03.2026" },
+		"out before in": func(r *booking.Request) { r.CheckOut = "2026-03-01" },
+		"same day":      func(r *booking.Request) { r.CheckOut = r.CheckIn },
+		"over capacity": func(r *booking.Request) { r.Guests = 3 },
 	}
 	for name, mutate := range cases {
 		t.Run(name, func(t *testing.T) {
