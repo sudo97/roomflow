@@ -1,13 +1,18 @@
 {
   "hotspots": [
     {
-      "file": "internal/httpapi/handlers.go",
-      "complexity": 183,
+      "file": "cmd/roomflow/main.go",
+      "complexity": 178,
+      "revisions": 7
+    },
+    {
+      "file": "cmd/roomflow/main_test.go",
+      "complexity": 203,
       "revisions": 6
     },
     {
-      "file": "cmd/roomflow/main.go",
-      "complexity": 154,
+      "file": "internal/httpapi/handlers.go",
+      "complexity": 183,
       "revisions": 6
     },
     {
@@ -16,9 +21,9 @@
       "revisions": 5
     },
     {
-      "file": "cmd/roomflow/main_test.go",
-      "complexity": 157,
-      "revisions": 5
+      "file": "internal/obs/metrics.go",
+      "complexity": 185,
+      "revisions": 3
     },
     {
       "file": ".github/workflows/ci.yml",
@@ -41,14 +46,14 @@
       "revisions": 2
     },
     {
-      "file": "internal/obs/metrics.go",
-      "complexity": 185,
-      "revisions": 2
-    },
-    {
       "file": "tools/rfctl/commands.go",
       "complexity": 351,
       "revisions": 1
+    },
+    {
+      "file": "ci/lab10/strategies.sh",
+      "complexity": 154,
+      "revisions": 2
     },
     {
       "file": ".github/workflows/sonar.yml",
@@ -71,6 +76,11 @@
       "revisions": 3
     },
     {
+      "file": "deploy/k8s/bluegreen/deployments.yaml",
+      "complexity": 124,
+      "revisions": 2
+    },
+    {
       "file": "ci/sonar/setup.sh",
       "complexity": 61,
       "revisions": 4
@@ -81,9 +91,19 @@
       "revisions": 1
     },
     {
+      "file": "test/load/seed/main.go",
+      "complexity": 117,
+      "revisions": 2
+    },
+    {
       "file": "internal/arch/arch_test.go",
       "complexity": 75,
       "revisions": 3
+    },
+    {
+      "file": "ci/lab9/run.sh",
+      "complexity": 110,
+      "revisions": 2
     },
     {
       "file": "internal/cache/redis_test.go",
@@ -101,8 +121,23 @@
       "revisions": 2
     },
     {
+      "file": "internal/flags/flags_test.go",
+      "complexity": 95,
+      "revisions": 2
+    },
+    {
+      "file": "deploy/helm/roomflow/templates/deployments.yaml",
+      "complexity": 92,
+      "revisions": 2
+    },
+    {
       "file": "internal/httpapi/handlers_test.go",
       "complexity": 92,
+      "revisions": 2
+    },
+    {
+      "file": "ci/lab11/backstage.sh",
+      "complexity": 86,
       "revisions": 2
     },
     {
@@ -111,98 +146,119 @@
       "revisions": 3
     },
     {
-      "file": "internal/cache/redis.go",
-      "complexity": 168,
-      "revisions": 1
-    },
-    {
-      "file": "ci/lab12/mesh.sh",
-      "complexity": 163,
-      "revisions": 1
-    },
-    {
-      "file": "internal/store/sql.go",
-      "complexity": 53,
-      "revisions": 3
-    },
-    {
-      "file": "ci/lab10/strategies.sh",
-      "complexity": 150,
-      "revisions": 1
-    },
-    {
-      "file": "tools/rfctl/render.go",
-      "complexity": 144,
-      "revisions": 1
-    },
-    {
-      "file": "tools/rfctl/rfctl_test.go",
-      "complexity": 144,
-      "revisions": 1
-    },
-    {
-      "file": "docs/api/openapi.yaml",
-      "complexity": 142,
-      "revisions": 1
-    },
-    {
-      "file": "internal/booking/pricing.go",
-      "complexity": 71,
+      "file": "ci/lab7/run.sh",
+      "complexity": 84,
       "revisions": 2
     }
   ],
   "coupling": [
     {
       "file": "cmd/roomflow/main.go",
-      "soc": 258,
+      "soc": 280,
       "coupledFiles": [
         {
-          "file": "internal/httpapi/handlers.go",
-          "percentage": 0.7142857142857143,
-          "revisions": 7
-        },
-        {
           "file": "cmd/roomflow/main_test.go",
-          "percentage": 0.5714285714285714,
-          "revisions": 7
+          "percentage": 0.625,
+          "revisions": 8
         },
         {
-          "file": "internal/booking/model.go",
-          "percentage": 0.5,
-          "revisions": 6
+          "file": "internal/httpapi/handlers.go",
+          "percentage": 0.625,
+          "revisions": 8
         },
         {
-          "file": "internal/store/sql.go",
-          "percentage": 0.5,
-          "revisions": 6
-        },
-        {
-          "file": "internal/booking/service.go",
+          "file": "internal/obs/metrics.go",
           "percentage": 0.42857142857142855,
           "revisions": 7
         },
         {
-          "file": ".gitignore",
+          "file": "internal/booking/model.go",
+          "percentage": 0.42857142857142855,
+          "revisions": 7
+        },
+        {
+          "file": "internal/store/sql.go",
+          "percentage": 0.42857142857142855,
+          "revisions": 7
+        },
+        {
+          "file": "internal/booking/service.go",
+          "percentage": 0.375,
+          "revisions": 8
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 0.2857142857142857,
+          "revisions": 7
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 0.2857142857142857,
+          "revisions": 7
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 0.2857142857142857,
+          "revisions": 7
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 0.2857142857142857,
+          "revisions": 7
+        }
+      ]
+    },
+    {
+      "file": "cmd/roomflow/main_test.go",
+      "soc": 252,
+      "coupledFiles": [
+        {
+          "file": "cmd/roomflow/main.go",
+          "percentage": 0.625,
+          "revisions": 8
+        },
+        {
+          "file": "internal/arch/arch_test.go",
+          "percentage": 0.5,
+          "revisions": 6
+        },
+        {
+          "file": "ci/lab10/loop.sh",
           "percentage": 0.3333333333333333,
           "revisions": 6
         },
         {
-          "file": "Dockerfile",
+          "file": "ci/lab10/strategies.sh",
           "percentage": 0.3333333333333333,
           "revisions": 6
         },
         {
-          "file": "internal/obs/metrics.go",
+          "file": "ci/lab11/argocd.sh",
           "percentage": 0.3333333333333333,
           "revisions": 6
         },
         {
-          "file": "internal/obs/middleware.go",
+          "file": "ci/lab11/backstage.sh",
           "percentage": 0.3333333333333333,
           "revisions": 6
         },
         {
-          "file": "internal/booking/pricing.go",
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 0.3333333333333333,
+          "revisions": 6
+        },
+        {
+          "file": "ci/lab12/lib.sh",
+          "percentage": 0.3333333333333333,
+          "revisions": 6
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 0.3333333333333333,
+          "revisions": 6
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
           "percentage": 0.3333333333333333,
           "revisions": 6
         }
@@ -214,8 +270,8 @@
       "coupledFiles": [
         {
           "file": "cmd/roomflow/main.go",
-          "percentage": 0.7142857142857143,
-          "revisions": 7
+          "percentage": 0.625,
+          "revisions": 8
         },
         {
           "file": "internal/booking/model.go",
@@ -233,19 +289,14 @@
           "revisions": 7
         },
         {
-          "file": "cmd/roomflow/main_test.go",
-          "percentage": 0.375,
-          "revisions": 8
-        },
-        {
           "file": ".gitignore",
           "percentage": 0.3333333333333333,
           "revisions": 6
         },
         {
-          "file": "internal/obs/metrics.go",
+          "file": "cmd/roomflow/main_test.go",
           "percentage": 0.3333333333333333,
-          "revisions": 6
+          "revisions": 9
         },
         {
           "file": "internal/obs/middleware.go",
@@ -261,62 +312,1075 @@
           "file": "internal/httpapi/handlers_test.go",
           "percentage": 0.3333333333333333,
           "revisions": 6
+        },
+        {
+          "file": ".github/workflows/sonar.yml",
+          "percentage": 0.3333333333333333,
+          "revisions": 6
         }
       ]
     },
     {
-      "file": "cmd/roomflow/main_test.go",
-      "soc": 230,
+      "file": "internal/obs/metrics.go",
+      "soc": 236,
       "coupledFiles": [
         {
-          "file": "internal/arch/arch_test.go",
-          "percentage": 0.6,
-          "revisions": 5
+          "file": "ci/lab10/loop.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": "cmd/roomflow/main.go",
-          "percentage": 0.5714285714285714,
-          "revisions": 7
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": "Dockerfile",
-          "percentage": 0.4,
-          "revisions": 5
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": "internal/booking/bench_test.go",
-          "percentage": 0.4,
-          "revisions": 5
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": "internal/httpapi/handlers.go",
-          "percentage": 0.375,
-          "revisions": 8
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": "internal/booking/properties_test.go",
-          "percentage": 0.3333333333333333,
-          "revisions": 6
+          "file": "ci/lab12/lib.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": "internal/store/sql.go",
-          "percentage": 0.3333333333333333,
-          "revisions": 6
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": ".charlie.config.json",
-          "percentage": 0.2,
-          "revisions": 5
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 0.2,
-          "revisions": 5
+          "file": "ci/lab7/run.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
-          "file": "catalog-info.yaml",
-          "percentage": 0.2,
-          "revisions": 5
+          "file": "ci/lab9/gate.sh",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        }
+      ]
+    },
+    {
+      "file": "ci/lab10/loop.sh",
+      "soc": 224,
+      "coupledFiles": [
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/lib.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab7/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "ci/lab10/strategies.sh",
+      "soc": 224,
+      "coupledFiles": [
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/lib.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab7/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "ci/lab11/argocd.sh",
+      "soc": 224,
+      "coupledFiles": [
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/lib.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab7/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "ci/lab11/backstage.sh",
+      "soc": 224,
+      "coupledFiles": [
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/lib.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab7/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "ci/lab11/crossplane.sh",
+      "soc": 224,
+      "coupledFiles": [
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/lib.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab7/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "ci/lab12/lib.sh",
+      "soc": 224,
+      "coupledFiles": [
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab7/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "ci/lab12/monitoring.sh",
+      "soc": 224,
+      "coupledFiles": [
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/lib.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab7/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "ci/lab12/rollouts.sh",
+      "soc": 224,
+      "coupledFiles": [
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/lib.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab7/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "ci/lab7/run.sh",
+      "soc": 224,
+      "coupledFiles": [
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/lib.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "ci/lab9/gate.sh",
+      "soc": 224,
+      "coupledFiles": [
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/lib.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab7/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "ci/lab9/run.sh",
+      "soc": 224,
+      "coupledFiles": [
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/lib.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab7/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "deploy/helm/roomflow/templates/deployments.yaml",
+      "soc": 224,
+      "coupledFiles": [
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/lib.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab7/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "deploy/k8s/bluegreen/deployments.yaml",
+      "soc": 224,
+      "coupledFiles": [
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/lib.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab7/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "deploy/mesh/rollouts/analysis.yaml",
+      "soc": 224,
+      "coupledFiles": [
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/lib.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab7/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "infra/terraform/envs/app/main.tf",
+      "soc": 224,
+      "coupledFiles": [
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/lib.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab7/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "policies/golden-path/dockerfile.rego",
+      "soc": 224,
+      "coupledFiles": [
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/lib.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab7/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "test/load/seed/main.go",
+      "soc": 224,
+      "coupledFiles": [
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/lib.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab7/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "tools/rfctl/main.go",
+      "soc": 224,
+      "coupledFiles": [
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/backstage.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab11/crossplane.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/lib.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/monitoring.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab12/rollouts.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab7/run.sh",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab9/gate.sh",
+          "percentage": 1,
+          "revisions": 2
         }
       ]
     },
@@ -365,68 +1429,12 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab10/loop.sh",
+          "file": "ci/lab11/backstage-shots.mjs",
           "percentage": 0.5,
           "revisions": 2
         },
         {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 0.5,
-          "revisions": 2
-        }
-      ]
-    },
-    {
-      "file": "internal/obs/metrics.go",
-      "soc": 214,
-      "coupledFiles": [
-        {
-          "file": "internal/obs/middleware.go",
-          "percentage": 1,
-          "revisions": 2
-        },
-        {
-          "file": ".charlie.config.json",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 0.5,
-          "revisions": 2
-        },
-        {
-          "file": "ci/lab10/loop.sh",
+          "file": "ci/lab11/golden-path.sh",
           "percentage": 0.5,
           "revisions": 2
         }
@@ -438,8 +1446,8 @@
       "coupledFiles": [
         {
           "file": "internal/obs/metrics.go",
-          "percentage": 1,
-          "revisions": 2
+          "percentage": 0.6666666666666666,
+          "revisions": 3
         },
         {
           "file": ".charlie.config.json",
@@ -482,7 +1490,7 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab10/loop.sh",
+          "file": "ci/lab11/backstage-shots.mjs",
           "percentage": 0.5,
           "revisions": 2
         }
@@ -499,8 +1507,8 @@
         },
         {
           "file": "cmd/roomflow/main_test.go",
-          "percentage": 0.6,
-          "revisions": 5
+          "percentage": 0.5,
+          "revisions": 6
         },
         {
           "file": ".charlie.config.json",
@@ -594,7 +1602,7 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab10/loop.sh",
+          "file": "ci/lab11/backstage-shots.mjs",
           "percentage": 0.5,
           "revisions": 2
         }
@@ -645,12 +1653,12 @@
           "revisions": 2
         },
         {
-          "file": "ci/lab10/loop.sh",
+          "file": "ci/lab11/backstage-shots.mjs",
           "percentage": 0.5,
           "revisions": 2
         },
         {
-          "file": "ci/lab10/strategies.sh",
+          "file": "ci/lab11/golden-path.sh",
           "percentage": 0.5,
           "revisions": 2
         }
@@ -696,17 +1704,17 @@
           "revisions": 1
         },
         {
-          "file": "ci/lab10/loop.sh",
+          "file": "ci/lab11/backstage-shots.mjs",
           "percentage": 1,
           "revisions": 1
         },
         {
-          "file": "ci/lab10/strategies.sh",
+          "file": "ci/lab11/golden-path.sh",
           "percentage": 1,
           "revisions": 1
         },
         {
-          "file": "ci/lab11/argocd.sh",
+          "file": "ci/lab12/charlie.sh",
           "percentage": 1,
           "revisions": 1
         }
@@ -752,17 +1760,17 @@
           "revisions": 1
         },
         {
-          "file": "ci/lab10/loop.sh",
+          "file": "ci/lab11/backstage-shots.mjs",
           "percentage": 1,
           "revisions": 1
         },
         {
-          "file": "ci/lab10/strategies.sh",
+          "file": "ci/lab11/golden-path.sh",
           "percentage": 1,
           "revisions": 1
         },
         {
-          "file": "ci/lab11/argocd.sh",
+          "file": "ci/lab12/charlie.sh",
           "percentage": 1,
           "revisions": 1
         }
@@ -808,1025 +1816,17 @@
           "revisions": 1
         },
         {
-          "file": "ci/lab10/loop.sh",
+          "file": "ci/lab11/backstage-shots.mjs",
           "percentage": 1,
           "revisions": 1
         },
         {
-          "file": "ci/lab10/strategies.sh",
+          "file": "ci/lab11/golden-path.sh",
           "percentage": 1,
           "revisions": 1
         },
         {
-          "file": "ci/lab11/argocd.sh",
-          "percentage": 1,
-          "revisions": 1
-        }
-      ]
-    },
-    {
-      "file": "ci/lab10/bluegreen.sh",
-      "soc": 202,
-      "coupledFiles": [
-        {
-          "file": ".charlie.config.json",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab11/argocd.sh",
-          "percentage": 1,
-          "revisions": 1
-        }
-      ]
-    },
-    {
-      "file": "ci/lab10/canary.sh",
-      "soc": 202,
-      "coupledFiles": [
-        {
-          "file": ".charlie.config.json",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab11/argocd.sh",
-          "percentage": 1,
-          "revisions": 1
-        }
-      ]
-    },
-    {
-      "file": "ci/lab10/flagger.sh",
-      "soc": 202,
-      "coupledFiles": [
-        {
-          "file": ".charlie.config.json",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab11/argocd.sh",
-          "percentage": 1,
-          "revisions": 1
-        }
-      ]
-    },
-    {
-      "file": "ci/lab10/helm.sh",
-      "soc": 202,
-      "coupledFiles": [
-        {
-          "file": ".charlie.config.json",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab11/argocd.sh",
-          "percentage": 1,
-          "revisions": 1
-        }
-      ]
-    },
-    {
-      "file": "ci/lab10/lib.sh",
-      "soc": 202,
-      "coupledFiles": [
-        {
-          "file": ".charlie.config.json",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab11/argocd.sh",
-          "percentage": 1,
-          "revisions": 1
-        }
-      ]
-    },
-    {
-      "file": "ci/lab10/loop.sh",
-      "soc": 202,
-      "coupledFiles": [
-        {
-          "file": ".charlie.config.json",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab11/argocd.sh",
-          "percentage": 1,
-          "revisions": 1
-        }
-      ]
-    },
-    {
-      "file": "ci/lab10/strategies.sh",
-      "soc": 202,
-      "coupledFiles": [
-        {
-          "file": ".charlie.config.json",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab11/argocd.sh",
-          "percentage": 1,
-          "revisions": 1
-        }
-      ]
-    },
-    {
-      "file": "ci/lab11/argocd.sh",
-      "soc": 202,
-      "coupledFiles": [
-        {
-          "file": ".charlie.config.json",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 1
-        }
-      ]
-    },
-    {
-      "file": "ci/lab11/backstage-shots.mjs",
-      "soc": 202,
-      "coupledFiles": [
-        {
-          "file": ".charlie.config.json",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 1
-        }
-      ]
-    },
-    {
-      "file": "ci/lab11/backstage.sh",
-      "soc": 202,
-      "coupledFiles": [
-        {
-          "file": ".charlie.config.json",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 1
-        }
-      ]
-    },
-    {
-      "file": "ci/lab11/crossplane.sh",
-      "soc": 202,
-      "coupledFiles": [
-        {
-          "file": ".charlie.config.json",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 1
-        }
-      ]
-    },
-    {
-      "file": "ci/lab11/golden-path.sh",
-      "soc": 202,
-      "coupledFiles": [
-        {
-          "file": ".charlie.config.json",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 1
-        }
-      ]
-    },
-    {
-      "file": "ci/lab12/charlie.sh",
-      "soc": 202,
-      "coupledFiles": [
-        {
-          "file": ".charlie.config.json",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 1
-        }
-      ]
-    },
-    {
-      "file": "ci/lab12/lib.sh",
-      "soc": 202,
-      "coupledFiles": [
-        {
-          "file": ".charlie.config.json",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 1
-        }
-      ]
-    },
-    {
-      "file": "ci/lab12/mesh.sh",
-      "soc": 202,
-      "coupledFiles": [
-        {
-          "file": ".charlie.config.json",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 1
-        }
-      ]
-    },
-    {
-      "file": "ci/lab12/monitoring.sh",
-      "soc": 202,
-      "coupledFiles": [
-        {
-          "file": ".charlie.config.json",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 1
-        }
-      ]
-    },
-    {
-      "file": "ci/lab12/prometheusrule.py",
-      "soc": 202,
-      "coupledFiles": [
-        {
-          "file": ".charlie.config.json",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
-          "percentage": 1,
-          "revisions": 1
-        }
-      ]
-    },
-    {
-      "file": "ci/lab12/rollouts.sh",
-      "soc": 202,
-      "coupledFiles": [
-        {
-          "file": ".charlie.config.json",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": ".pre-commit-config.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "catalog-info.yaml",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/bluegreen.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/canary.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/flagger.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/helm.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/lib.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/loop.sh",
-          "percentage": 1,
-          "revisions": 1
-        },
-        {
-          "file": "ci/lab10/strategies.sh",
+          "file": "ci/lab12/charlie.sh",
           "percentage": 1,
           "revisions": 1
         }
