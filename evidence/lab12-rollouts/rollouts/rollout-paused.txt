@@ -13,13 +13,13 @@ Replicas:
   Available:     2
 
 NAME                                  KIND         STATUS        AGE  INFO
-⟳ frontend                            Rollout      ॥ Paused      28s  
+⟳ frontend                            Rollout      ॥ Paused      39s  
 ├──# revision:2                                                       
-│  ├──⧉ frontend-548cb7fbd6           ReplicaSet   ✔ Healthy     16s  preview
-│  │  ├──□ frontend-548cb7fbd6-sznzx  Pod          ✔ Running     16s  ready:2/2
-│  │  └──□ frontend-548cb7fbd6-xlgzf  Pod          ✔ Running     16s  ready:2/2
-│  └──α frontend-548cb7fbd6-2-pre     AnalysisRun  ✔ Successful  12s  ✔ 3
+│  ├──⧉ frontend-548cb7fbd6           ReplicaSet   ✔ Healthy     26s  preview
+│  │  ├──□ frontend-548cb7fbd6-k25lf  Pod          ✔ Running     25s  ready:2/2
+│  │  └──□ frontend-548cb7fbd6-tms44  Pod          ✔ Running     25s  ready:2/2
+│  └──α frontend-548cb7fbd6-2-pre     AnalysisRun  ✔ Successful  22s  ✔ 3,⚠ 1
 └──# revision:1                                                       
-   └──⧉ frontend-6cf8f4d6d9           ReplicaSet   ✔ Healthy     27s  stable,active
-      ├──□ frontend-6cf8f4d6d9-dp4fc  Pod          ✔ Running     27s  ready:2/2
-      └──□ frontend-6cf8f4d6d9-kmss4  Pod          ✔ Running     27s  ready:2/2
+   └──⧉ frontend-6cf8f4d6d9           ReplicaSet   ✔ Healthy     39s  stable,active
+      ├──□ frontend-6cf8f4d6d9-6jvj9  Pod          ✔ Running     39s  ready:2/2
+      └──□ frontend-6cf8f4d6d9-bxgvf  Pod          ✔ Running     39s  ready:2/2

@@ -12,17 +12,17 @@ Replicas:
   Ready:         2
   Available:     2
 
-NAME                                  KIND         STATUS        AGE  INFO
-⟳ frontend                            Rollout      ✖ Degraded    92s  
-├──# revision:3                                                       
-│  ├──⧉ frontend-84f547cf8c           ReplicaSet   ✔ Healthy     54s  preview,delay:28s
-│  │  ├──□ frontend-84f547cf8c-dg6n6  Pod          ✔ Running     54s  ready:2/2
-│  │  └──□ frontend-84f547cf8c-j2dt9  Pod          ✔ Running     54s  ready:2/2
-│  └──α frontend-84f547cf8c-3-pre     AnalysisRun  ⚠ Error       26s  ✔ 1,⚠ 3
-├──# revision:2                                                       
-│  ├──⧉ frontend-548cb7fbd6           ReplicaSet   ✔ Healthy     80s  stable,active
-│  │  ├──□ frontend-548cb7fbd6-sznzx  Pod          ✔ Running     80s  ready:2/2
-│  │  └──□ frontend-548cb7fbd6-xlgzf  Pod          ✔ Running     80s  ready:2/2
-│  └──α frontend-548cb7fbd6-2-pre     AnalysisRun  ✔ Successful  76s  ✔ 3
-└──# revision:1                                                       
-   └──⧉ frontend-6cf8f4d6d9           ReplicaSet   • ScaledDown  91s  
+NAME                                  KIND         STATUS        AGE   INFO
+⟳ frontend                            Rollout      ✖ Degraded    106s  
+├──# revision:3                                                        
+│  ├──⧉ frontend-84f547cf8c           ReplicaSet   ✔ Healthy     57s   preview,delay:26s
+│  │  ├──□ frontend-84f547cf8c-6z2jr  Pod          ✔ Running     57s   ready:2/2
+│  │  └──□ frontend-84f547cf8c-zrv2q  Pod          ✔ Running     57s   ready:2/2
+│  └──α frontend-84f547cf8c-3-pre     AnalysisRun  ⚠ Error       28s   ✔ 1,⚠ 3
+├──# revision:2                                                        
+│  ├──⧉ frontend-548cb7fbd6           ReplicaSet   ✔ Healthy     93s   stable,active
+│  │  ├──□ frontend-548cb7fbd6-k25lf  Pod          ✔ Running     92s   ready:2/2
+│  │  └──□ frontend-548cb7fbd6-tms44  Pod          ✔ Running     92s   ready:2/2
+│  └──α frontend-548cb7fbd6-2-pre     AnalysisRun  ✔ Successful  89s   ✔ 3,⚠ 1
+└──# revision:1                                                        
+   └──⧉ frontend-6cf8f4d6d9           ReplicaSet   • ScaledDown  106s  

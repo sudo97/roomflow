@@ -5,7 +5,7 @@ v1 active: frontend ->      20 v1
   користувачі (frontend) ->      20 v1 
 promote -> v2 обслуговує трафік через 1 с (передперемикальний аналіз: Successful)
   користувачі (frontend) ->      20 v2 
-відповіді під час релізу v2:     101 200 
+відповіді під час релізу v2:     146 200 
 v3: фаза rollout = Degraded, abort = true
   аналіз: frontend-548cb7fbd6-2-pre   Successful frontend-84f547cf8c-3-pre   Error 
   користувачі (frontend) ->      20 v2 

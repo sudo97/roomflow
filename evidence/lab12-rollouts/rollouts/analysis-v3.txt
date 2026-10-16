@@ -1,13 +1,18 @@
+        message: 'Get "http://frontend-preview.rf-ui.svc.cluster.local:8081/api/rooms":
+          dial tcp 10.96.148.61:8081: connect: connection refused'
+        phase: Error
+        startedAt: "2026-10-16T18:39:06Z"
+      - finishedAt: "2026-10-16T18:39:16Z"
         phase: Successful
-        startedAt: "2026-10-16T18:01:15Z"
+        startedAt: "2026-10-16T18:39:16Z"
         value: '"r1"'
-      - finishedAt: "2026-10-16T18:01:20Z"
+      - finishedAt: "2026-10-16T18:39:21Z"
         phase: Successful
-        startedAt: "2026-10-16T18:01:20Z"
+        startedAt: "2026-10-16T18:39:21Z"
         value: '"r1"'
-      - finishedAt: "2026-10-16T18:01:25Z"
+      - finishedAt: "2026-10-16T18:39:26Z"
         phase: Successful
-        startedAt: "2026-10-16T18:01:25Z"
+        startedAt: "2026-10-16T18:39:26Z"
         value: '"r1"'
       name: rooms-through-preview
       phase: Successful
@@ -23,18 +28,13 @@
     metricResults:
 --
         phase: Successful
-        startedAt: "2026-10-16T18:02:05Z"
+        startedAt: "2026-10-16T18:40:07Z"
         value: '"r1"'
-      - finishedAt: "2026-10-16T18:02:10Z"
+      - finishedAt: "2026-10-16T18:40:12Z"
         message: 'received non 2xx response code: 502'
         phase: Error
-        startedAt: "2026-10-16T18:02:10Z"
-      - finishedAt: "2026-10-16T18:02:20Z"
+        startedAt: "2026-10-16T18:40:12Z"
+      - finishedAt: "2026-10-16T18:40:22Z"
         message: 'received non 2xx response code: 502'
         phase: Error
-        startedAt: "2026-10-16T18:02:20Z"
-      - finishedAt: "2026-10-16T18:02:30Z"
-        message: 'received non 2xx response code: 502'
-        phase: Error
-        startedAt: "2026-10-16T18:02:30Z"
-      message: 'received non 2xx response code: 502'
+        startedAt: "2026-10-16T18:40:22Z"
