@@ -1,0 +1,34 @@
+step common: Спільний каркас (Kubernetes, CI/CD, каталог)
+step language: Код сервісу (${{ parameters.language }})
+step publish: Публікація репозиторію
+step register: Реєстрація в каталозі
+.github/workflows/ci.yml
+Dockerfile
+README.md
+catalog-info.yaml
+docs/index.md
+go.mod
+k8s/deployment.yaml
+main.go
+main_test.go
+mkdocs.yml
+[32minfo[39m: Processing 4 template files/directories with input values {"database":"postgres","description":"Відгуки гостей","language":"go","name":"guest-reviews","owner":"group:default/platform-team"}
+[32minfo[39m: Writing file Dockerfile to template output path with mode 33188.
+[32minfo[39m: Writing file go.mod to template output path with mode 33188.
+[32minfo[39m: Writing file main.go to template output path with mode 33188.
+[32minfo[39m: Writing file main_test.go to template output path with mode 33188.
+[32minfo[39m: Template result written to /tmp/dry-run-e2a08100-cbb8-461a-8bec-ab14d6788b92
+Finished step Код сервісу (${{ parameters.language }})
+Beginning step Публікація репозиторію
+[32minfo[39m: Running publish:github in dry-run mode with inputs (secrets redacted): {
+  "repoUrl": "github.com?owner=sudo97&repo=guest-reviews",
+  "defaultBranch": "main",
+  "description": "Відгуки гостей"
+}
+Skipping because publish:github does not support dry-run
+Beginning step Реєстрація в каталозі
+[32minfo[39m: Running catalog:register in dry-run mode with inputs (secrets redacted): {
+  "repoContentsUrl": "<example>",
+  "catalogInfoPath": "/catalog-info.yaml"
+}
+Skipping because catalog:register does not support dry-run

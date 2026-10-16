@@ -1,8 +1,152 @@
 [94m➤[39m YN0000: · Yarn 4.13.0
 [94m➤[39m [90mYN0000[39m: ┌ Resolution step
 ::group::Resolution step
-[91m➤[39m YN0001: │ Error: [38;5;173mgot[39m[38;5;37m@[39m[38;5;37mpatch:got@npm%3A11.8.2#~/.yarn/patches/got-npm-11.8.2-c1eb105458.patch[39m: ENOENT: no such file or directory, open '/tmp/portal/.yarn/patches/got-npm-11.8.2-c1eb105458.patch'
+[94m➤[39m YN0085: │ [38;5;70m+[39m [38;5;166m@backstage/[39m[38;5;173mbackend-defaults[39m[38;5;111m@[39m[38;5;111mnpm:0.18.0[39m, [38;5;166m@backstage/[39m[38;5;173mcli-defaults[39m[38;5;111m@[39m[38;5;111mnpm:0.1.6[39m, [38;5;166m@backstage/[39m[38;5;173mcli[39m[38;5;111m@[39m[38;5;111mnpm:0.36.6[39m, [38;5;166m@backstage/[39m[38;5;173mconfig[39m[38;5;111m@[39m[38;5;111mnpm:1.3.9[39m, and [38;5;220m2937[39m more.
 ::endgroup::
-[91m➤[39m YN0001: Error: [38;5;173mgot[39m[38;5;37m@[39m[38;5;37mpatch:got@npm%3A11.8.2#~/.yarn/patches/got-npm-11.8.2-c1eb105458.patch[39m: ENOENT: no such file or directory, open '/tmp/portal/.yarn/patches/got-npm-11.8.2-c1eb105458.patch'
-[94m➤[39m [90mYN0000[39m: └ Completed in 4s 60ms
-[91m➤[39m YN0000: · Failed with errors in 4s 69ms
+[94m➤[39m [90mYN0000[39m: └ Completed in 4s 102ms
+[94m➤[39m [90mYN0000[39m: ┌ Post-resolution validation
+::group::Post-resolution validation
+[93m➤[39m YN0060: │ [38;5;166m@testing-library/[39m[38;5;173mdom[39m is listed by your project with version [38;5;111m9.3.4[39m ([38;5;111mp0661ee[39m), which doesn't satisfy what [38;5;166m@backstage/[39m[38;5;173mfrontend-test-utils[39m and other dependencies request ([38;5;37m^10.0.0[39m).
+[93m➤[39m YN0060: │ [38;5;166m@testing-library/[39m[38;5;173mreact[39m is listed by your project with version [38;5;111m14.3.1[39m ([38;5;111mpc9eb9f[39m), which doesn't satisfy what [38;5;166m@backstage/[39m[38;5;173mfrontend-test-utils[39m and other dependencies request ([38;5;37m^16.0.0[39m).
+[93m➤[39m YN0060: │ [38;5;173mreact[39m is listed by your project with version [38;5;111m18.3.1[39m ([38;5;111mpd98da7[39m), which doesn't satisfy what [38;5;166m@material-ui/[39m[38;5;173mcore[39m and other dependencies request ([91mbut they have non-overlapping ranges![39m).
+[93m➤[39m YN0060: │ [38;5;173mreact-dom[39m is listed by your project with version [38;5;111m18.3.1[39m ([38;5;111mpfa8000[39m), which doesn't satisfy what [38;5;166m@material-ui/[39m[38;5;173mcore[39m and other dependencies request ([91mbut they have non-overlapping ranges![39m).
+[93m➤[39m YN0002: │ [38;5;173mapp[39m[38;5;111m@[39m[38;5;111mworkspace:packages/app[39m doesn't provide [38;5;166m@types/[39m[38;5;173mreact[39m ([38;5;111mpceee16[39m), requested by [38;5;166m@backstage/[39m[38;5;173mcore-components[39m and other dependencies.
+[93m➤[39m YN0002: │ [38;5;173mapp[39m[38;5;111m@[39m[38;5;111mworkspace:packages/app[39m doesn't provide [38;5;173mjest[39m ([38;5;111mp99cdc2[39m), requested by [38;5;166m@backstage/[39m[38;5;173mcli[39m.
+[93m➤[39m YN0002: │ [38;5;173mbackend[39m[38;5;111m@[39m[38;5;111mworkspace:packages/backend[39m doesn't provide [38;5;173mjest[39m ([38;5;111mp35ee37[39m), requested by [38;5;166m@backstage/[39m[38;5;173mcli[39m.
+[93m➤[39m YN0086: │ Some peer dependencies are incorrectly met by your project; run [38;5;111myarn explain peer-requirements <hash>[39m for details, where [38;5;111m<hash>[39m is the six-letter p-prefixed code.
+[93m➤[39m YN0086: │ Some peer dependencies are incorrectly met by dependencies; run [38;5;111myarn explain peer-requirements[39m for details.
+::endgroup::
+[94m➤[39m [90mYN0000[39m: └ Completed
+[94m➤[39m [90mYN0000[39m: ┌ Fetch step
+::group::Fetch step
+[94m➤[39m YN0013: │ [38;5;220m2849[39m packages were added to the project ([38;5;160m+ 1.1 GiB[39m).
+::endgroup::
+[94m➤[39m [90mYN0000[39m: └ Completed in 19s 288ms
+[94m➤[39m [90mYN0000[39m: ┌ Link step
+::group::Link step
+[94m➤[39m YN0007: │ [38;5;166m@swc/[39m[38;5;173mcore[39m[38;5;111m@[39m[38;5;111mnpm:1.16.18 [634db][39m must be built because it never has been before or the last one failed
+[94m➤[39m YN0007: │ [38;5;173mbetter-sqlite3[39m[38;5;111m@[39m[38;5;111mnpm:12.11.1[39m must be built because it never has been before or the last one failed
+[94m➤[39m YN0007: │ [38;5;173mcore-js[39m[38;5;111m@[39m[38;5;111mnpm:3.50.0[39m must be built because it never has been before or the last one failed
+[94m➤[39m YN0007: │ [38;5;173mkeytar[39m[38;5;111m@[39m[38;5;111mnpm:7.9.0[39m must be built because it never has been before or the last one failed
+[94m➤[39m YN0007: │ [38;5;173mcore-js-pure[39m[38;5;111m@[39m[38;5;111mnpm:3.50.0[39m must be built because it never has been before or the last one failed
+[94m➤[39m YN0007: │ [38;5;173mesbuild[39m[38;5;111m@[39m[38;5;111mnpm:0.28.2[39m must be built because it never has been before or the last one failed
+[94m➤[39m YN0007: │ [38;5;173munrs-resolver[39m[38;5;111m@[39m[38;5;111mnpm:1.12.2[39m must be built because it never has been before or the last one failed
+[94m➤[39m YN0007: │ [38;5;166m@scarf/[39m[38;5;173mscarf[39m[38;5;111m@[39m[38;5;111mnpm:1.4.0[39m must be built because it never has been before or the last one failed
+[94m➤[39m YN0007: │ [38;5;173mprotobufjs[39m[38;5;111m@[39m[38;5;111mnpm:7.6.6[39m must be built because it never has been before or the last one failed
+[94m➤[39m YN0007: │ [38;5;173mtree-sitter[39m[38;5;111m@[39m[38;5;111mnpm:0.22.4[39m must be built because it never has been before or the last one failed
+[94m➤[39m YN0007: │ [38;5;173mtree-sitter[39m[38;5;111m@[39m[38;5;111mnpm:0.21.1[39m must be built because it never has been before or the last one failed
+[94m➤[39m YN0007: │ [38;5;173mcore-js[39m[38;5;111m@[39m[38;5;111mnpm:2.6.12[39m must be built because it never has been before or the last one failed
+[94m➤[39m YN0007: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m must be built because it never has been before or the last one failed
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info it worked if it ends with ok
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info using node-gyp@13.1.0
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info using node@22.11.0 | linux | x64
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info find Python using Python version 3.12.3 found at "/usr/bin/python3"
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m 
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp http GET https://nodejs.org/download/release/v22.11.0/node-v22.11.0-headers.tar.gz
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp http 200 https://nodejs.org/download/release/v22.11.0/node-v22.11.0-headers.tar.gz
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp http GET https://nodejs.org/download/release/v22.11.0/SHASUMS256.txt
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp http 200 https://nodejs.org/download/release/v22.11.0/SHASUMS256.txt
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn /usr/bin/python3
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args [
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '/tmp/portal/node_modules/tree-sitter/node_modules/node-gyp/gyp/gyp_main.py',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args 'binding.gyp',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '-f',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args 'make',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '-I',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '/tmp/portal/node_modules/cpu-features/build/config.gypi',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '-I',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '/tmp/portal/node_modules/tree-sitter/node_modules/node-gyp/addon.gypi',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '-I',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '/home/runner/.cache/node-gyp/22.11.0/include/node/common.gypi',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '-Dlibrary=shared_library',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '-Dvisibility=default',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '-Dnode_root_dir=/home/runner/.cache/node-gyp/22.11.0',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '-Dnode_gyp_dir=/tmp/portal/node_modules/tree-sitter/node_modules/node-gyp',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '-Dnode_lib_file=/home/runner/.cache/node-gyp/22.11.0/<(target_arch)/node.lib',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '-Dmodule_root_dir=/tmp/portal/node_modules/cpu-features',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '-Dnode_engine=v8',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '--depth=.',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '--no-parallel',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '--generator-output',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args 'build',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args '-Goutput_dir=.'
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args ]
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn make
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info spawn args [ 'BUILDTYPE=Release', '-C', 'build' ]
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m make: Entering directory '/tmp/portal/node_modules/cpu-features/build'
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m   CC(target) Release/obj.target/cpu_features/deps/cpu_features/src/impl_aarch64_linux_or_android.o
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m   CC(target) Release/obj.target/cpu_features/deps/cpu_features/src/impl_aarch64_macos_or_iphone.o
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m   CC(target) Release/obj.target/cpu_features/deps/cpu_features/src/impl_aarch64_windows.o
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m   CC(target) Release/obj.target/cpu_features/deps/cpu_features/src/impl_arm_linux_or_android.o
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m   CC(target) Release/obj.target/cpu_features/deps/cpu_features/src/impl_mips_linux_or_android.o
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m   CC(target) Release/obj.target/cpu_features/deps/cpu_features/src/impl_ppc_linux.o
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m   CC(target) Release/obj.target/cpu_features/deps/cpu_features/src/impl_x86_freebsd.o
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m   CC(target) Release/obj.target/cpu_features/deps/cpu_features/src/impl_x86_linux_or_android.o
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m   CC(target) Release/obj.target/cpu_features/deps/cpu_features/src/impl_x86_macos.o
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m   CC(target) Release/obj.target/cpu_features/deps/cpu_features/src/impl_x86_windows.o
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m   CC(target) Release/obj.target/cpu_features/deps/cpu_features/src/filesystem.o
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m   CC(target) Release/obj.target/cpu_features/deps/cpu_features/src/stack_line_reader.o
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m   CC(target) Release/obj.target/cpu_features/deps/cpu_features/src/string_view.o
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m rm -f Release/obj.target/deps/cpu_features/cpu_features.a Release/obj.target/deps/cpu_features/cpu_features.a.ar-file-list; mkdir -p `dirname Release/obj.target/deps/cpu_features/cpu_features.a`
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m ar crs Release/obj.target/deps/cpu_features/cpu_features.a @Release/obj.target/deps/cpu_features/cpu_features.a.ar-file-list
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m   COPY Release/cpu_features.a
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m   CXX(target) Release/obj.target/cpufeatures/src/binding.o
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m In file included from ../src/binding.cc:1:
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m /home/runner/.cache/node-gyp/22.11.0/include/node/node.h:1232:7: warning: cast between incompatible function types from ‘void (*)(Nan::ADDON_REGISTER_FUNCTION_ARGS_TYPE)’ {aka ‘void (*)(v8::Local<v8::Object>)’} to ‘node::addon_register_func’ {aka ‘void (*)(v8::Local<v8::Object>, v8::Local<v8::Value>, void*)’} [-Wcast-function-type]
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m  1232 |       (node::addon_register_func) (regfunc),                          \
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m       |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m /home/runner/.cache/node-gyp/22.11.0/include/node/node.h:1266:3: note: in expansion of macro ‘NODE_MODULE_X’
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m  1266 |   NODE_MODULE_X(modname, regfunc, NULL, 0)  // NOLINT (readability/null_usage)
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m       |   ^~~~~~~~~~~~~
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m ../src/binding.cc:151:1: note: in expansion of macro ‘NODE_MODULE’
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m   151 | NODE_MODULE(cpufeatures, init)
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m       | ^~~~~~~~~~~
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m   SOLINK_MODULE(target) Release/obj.target/cpufeatures.node
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m   COPY Release/cpufeatures.node
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [32mSTDOUT[39m make: Leaving directory '/tmp/portal/node_modules/cpu-features/build'
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mcpu-features[39m[38;5;111m@[39m[38;5;111mnpm:0.0.10[39m [31mSTDERR[39m gyp info ok 
+[94m➤[39m YN0007: │ [38;5;166m@tree-sitter-grammars/[39m[38;5;173mtree-sitter-yaml[39m[38;5;111m@[39m[38;5;111mnpm:0.7.1 [c2cf0][39m must be built because it never has been before or the last one failed
+[94m➤[39m YN0007: │ [38;5;173mtree-sitter-json[39m[38;5;111m@[39m[38;5;111mnpm:0.24.8 [b5c6f][39m must be built because it never has been before or the last one failed
+[94m➤[39m YN0007: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m must be built because it never has been before or the last one failed
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info it worked if it ends with ok
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info using node-gyp@10.3.1
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info using node@22.11.0 | linux | x64
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info find Python using Python version 3.12.3 found at "/usr/bin/python3"
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [32mSTDOUT[39m 
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn /usr/bin/python3
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args [
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '/tmp/portal/node_modules/node-gyp/gyp/gyp_main.py',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args 'binding.gyp',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '-f',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args 'make',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '-I',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '/tmp/portal/node_modules/ssh2/lib/protocol/crypto/build/config.gypi',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '-I',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '/tmp/portal/node_modules/node-gyp/addon.gypi',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '-I',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '/home/runner/.cache/node-gyp/22.11.0/include/node/common.gypi',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '-Dlibrary=shared_library',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '-Dvisibility=default',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '-Dnode_root_dir=/home/runner/.cache/node-gyp/22.11.0',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '-Dnode_gyp_dir=/tmp/portal/node_modules/node-gyp',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '-Dnode_lib_file=/home/runner/.cache/node-gyp/22.11.0/<(target_arch)/node.lib',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '-Dmodule_root_dir=/tmp/portal/node_modules/ssh2/lib/protocol/crypto',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '-Dnode_engine=v8',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '--depth=.',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '--no-parallel',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '--generator-output',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args 'build',
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args '-Goutput_dir=.'
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args ]
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn make
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info spawn args [ 'BUILDTYPE=Release', '-C', 'build' ]
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [32mSTDOUT[39m make: Entering directory '/tmp/portal/node_modules/ssh2/lib/protocol/crypto/build'
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [32mSTDOUT[39m   CXX(target) Release/obj.target/sshcrypto/src/binding.o
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [32mSTDOUT[39m   SOLINK_MODULE(target) Release/obj.target/sshcrypto.node
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [32mSTDOUT[39m   COPY Release/sshcrypto.node
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [32mSTDOUT[39m make: Leaving directory '/tmp/portal/node_modules/ssh2/lib/protocol/crypto/build'
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [31mSTDERR[39m gyp info ok 
+[94m➤[39m [90mYN0000[39m: │ [38;5;173mssh2[39m[38;5;111m@[39m[38;5;111mnpm:1.17.0[39m [32mSTDOUT[39m Succeeded in building optional crypto binding
+::endgroup::
+[94m➤[39m [90mYN0000[39m: └ Completed in 29s 776ms
+[93m➤[39m YN0000: · Done with warnings in 53s 416ms

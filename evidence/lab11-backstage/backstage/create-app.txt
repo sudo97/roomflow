@@ -12,14 +12,14 @@ Creating the app...
   checking      /tmp/portal ✔ 
 
  Preparing files:
-  copying       .eslintignore ✔ 
   copying       .dockerignore ✔ 
+  copying       .eslintignore ✔ 
   templating    .eslintrc.js.hbs ✔ 
   templating    .gitignore.hbs ✔ 
   copying       .prettierignore ✔ 
   templating    .yarnrc.yml.hbs ✔ 
-  copying       app-config.production.yaml ✔ 
   copying       README.md ✔ 
+  copying       app-config.production.yaml ✔ 
   templating    app-config.yaml.hbs ✔ 
   templating    backstage.json.hbs ✔ 
   templating    catalog-info.yaml.hbs ✔ 
@@ -29,8 +29,8 @@ Creating the app...
   copying       yarn.lock ✔ 
   copying       README.md ✔ 
   copying       yarn-4.13.0.cjs ✔ 
-  copying       entities.yaml ✔ 
   copying       org.yaml ✔ 
+  copying       entities.yaml ✔ 
   copying       template.yaml ✔ 
   copying       catalog-info.yaml ✔ 
   copying       index.js ✔ 
@@ -38,32 +38,32 @@ Creating the app...
   copying       README.md ✔ 
   templating    .eslintrc.js.hbs ✔ 
   copying       README.md ✔ 
-  copying       Dockerfile ✔ 
   templating    package.json.hbs ✔ 
+  copying       Dockerfile ✔ 
   copying       index.ts ✔ 
-  templating    .eslintrc.js.hbs ✔ 
   copying       .eslintignore ✔ 
+  templating    .eslintrc.js.hbs ✔ 
   templating    package.json.hbs ✔ 
   copying       app.test.ts ✔ 
-  copying       apple-touch-icon.png ✔ 
   copying       android-chrome-192x192.png ✔ 
+  copying       apple-touch-icon.png ✔ 
   copying       favicon-16x16.png ✔ 
-  copying       favicon.ico ✔ 
   copying       favicon-32x32.png ✔ 
+  copying       favicon.ico ✔ 
   copying       index.html ✔ 
   copying       manifest.json ✔ 
   copying       robots.txt ✔ 
   copying       safari-pinned-tab.svg ✔ 
   copying       App.test.tsx ✔ 
-  copying       index.tsx ✔ 
   copying       App.tsx ✔ 
+  copying       index.tsx ✔ 
   copying       setupTests.ts ✔ 
   copying       homeModule.tsx ✔ 
   copying       index.ts ✔ 
   copying       LogoFull.tsx ✔ 
   copying       LogoIcon.tsx ✔ 
-  copying       Sidebar.tsx ✔ 
   copying       SidebarLogo.tsx ✔ 
+  copying       Sidebar.tsx ✔ 
   copying       index.ts ✔ 
   fetching      yarn.lock seed ✔ 
 
