@@ -12,11 +12,12 @@ Success! 5 passed, 0 failed.
 == terraform test: lb
 tests/lb.tftest.hcl... in progress
   run "routes_to_active_color"... pass
+  run "tenant_affinity_for_three_replicas"... pass
   run "rejects_unknown_color"... pass
 tests/lb.tftest.hcl... tearing down
 tests/lb.tftest.hcl... pass
 
-Success! 2 passed, 0 failed.
+Success! 3 passed, 0 failed.
 == terraform test: network
 tests/network.tftest.hcl... in progress
   run "creates_isolated_private_network"... pass
