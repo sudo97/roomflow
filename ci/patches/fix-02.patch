@@ -1,0 +1,203 @@
+diff --git a/.gitleaks.toml b/.gitleaks.toml
+new file mode 100644
+index 0000000..8c178f2
+--- /dev/null
++++ b/.gitleaks.toml
+@@ -0,0 +1,11 @@
++# gitleaks: стандартні правила + винятки для артефактів, що не є секретами.
++[extend]
++useDefault = true
++
++[allowlist]
++description = "Звіти аналізаторів у гілці evidence, baseline detect-secrets і навчальні фіктивні ключі"
++paths = [
++  '''^evidence/''',
++  '''^\.secrets\.baseline$''',
++  '''^ci/lab8/secrets\.sh$''',
++]
+diff --git a/.secrets.baseline b/.secrets.baseline
+index 59f81b4..a50482f 100644
+--- a/.secrets.baseline
++++ b/.secrets.baseline
+@@ -129,6 +129,44 @@
+     }
+   ],
+   "results": {
++    ".github/workflows/lab11-platform.yml": [
++      {
++        "type": "Secret Keyword",
++        "filename": ".github/workflows/lab11-platform.yml",
++        "hashed_secret": "17687b71d83fd3960fbd8d09d74a6207615ee1a6",
++        "is_verified": false,
++        "line_number": 36,
++        "is_secret": false
++      }
++    ],
++    ".github/workflows/lab6-iac.yml": [
++      {
++        "type": "Secret Keyword",
++        "filename": ".github/workflows/lab6-iac.yml",
++        "hashed_secret": "e6c9da68beda1baa33e998a7f83f1323a3a5ecef",
++        "is_verified": false,
++        "line_number": 29,
++        "is_secret": false
++      },
++      {
++        "type": "Basic Auth Credentials",
++        "filename": ".github/workflows/lab6-iac.yml",
++        "hashed_secret": "e6c9da68beda1baa33e998a7f83f1323a3a5ecef",
++        "is_verified": false,
++        "line_number": 35,
++        "is_secret": false
++      }
++    ],
++    ".github/workflows/lab8-devsecops.yml": [
++      {
++        "type": "Hex High Entropy String",
++        "filename": ".github/workflows/lab8-devsecops.yml",
++        "hashed_secret": "da27605716a27570f7a9a439731d6a5d87fc5f23",
++        "is_verified": false,
++        "line_number": 142,
++        "is_secret": false
++      }
++    ],
+     ".github/workflows/sonar.yml": [
+       {
+         "type": "Secret Keyword",
+@@ -147,6 +185,48 @@
+         "is_secret": false
+       }
+     ],
++    "ci/lab8/secrets.sh": [
++      {
++        "type": "AWS Access Key",
++        "filename": "ci/lab8/secrets.sh",
++        "hashed_secret": "25910f981e85ca04baf359199dd0bd4a3ae738b6",
++        "is_verified": false,
++        "line_number": 14,
++        "is_secret": false
++      },
++      {
++        "type": "AWS Access Key",
++        "filename": "ci/lab8/secrets.sh",
++        "hashed_secret": "d70eab08607a4d05faa2d0d6647206599e9abc65",
++        "is_verified": false,
++        "line_number": 15,
++        "is_secret": false
++      },
++      {
++        "type": "Base64 High Entropy String",
++        "filename": "ci/lab8/secrets.sh",
++        "hashed_secret": "d70eab08607a4d05faa2d0d6647206599e9abc65",
++        "is_verified": false,
++        "line_number": 15,
++        "is_secret": false
++      },
++      {
++        "type": "Secret Keyword",
++        "filename": "ci/lab8/secrets.sh",
++        "hashed_secret": "d70eab08607a4d05faa2d0d6647206599e9abc65",
++        "is_verified": false,
++        "line_number": 15,
++        "is_secret": false
++      },
++      {
++        "type": "Secret Keyword",
++        "filename": "ci/lab8/secrets.sh",
++        "hashed_secret": "85cb27caf40b1933ad1f8ae941281a106b9c945f",
++        "is_verified": false,
++        "line_number": 16,
++        "is_secret": false
++      }
++    ],
+     "ci/sonar/docker-compose.yml": [
+       {
+         "type": "Secret Keyword",
+@@ -157,6 +237,44 @@
+         "is_secret": false
+       }
+     ],
++    "ci/workflows/lab11-platform.yml": [
++      {
++        "type": "Secret Keyword",
++        "filename": "ci/workflows/lab11-platform.yml",
++        "hashed_secret": "17687b71d83fd3960fbd8d09d74a6207615ee1a6",
++        "is_verified": false,
++        "line_number": 36,
++        "is_secret": false
++      }
++    ],
++    "ci/workflows/lab6-iac.yml": [
++      {
++        "type": "Secret Keyword",
++        "filename": "ci/workflows/lab6-iac.yml",
++        "hashed_secret": "e6c9da68beda1baa33e998a7f83f1323a3a5ecef",
++        "is_verified": false,
++        "line_number": 29,
++        "is_secret": false
++      },
++      {
++        "type": "Basic Auth Credentials",
++        "filename": "ci/workflows/lab6-iac.yml",
++        "hashed_secret": "e6c9da68beda1baa33e998a7f83f1323a3a5ecef",
++        "is_verified": false,
++        "line_number": 35,
++        "is_secret": false
++      }
++    ],
++    "ci/workflows/lab8-devsecops.yml": [
++      {
++        "type": "Hex High Entropy String",
++        "filename": "ci/workflows/lab8-devsecops.yml",
++        "hashed_secret": "da27605716a27570f7a9a439731d6a5d87fc5f23",
++        "is_verified": false,
++        "line_number": 142,
++        "is_secret": false
++      }
++    ],
+     "internal/trace/trace_test.go": [
+       {
+         "type": "Hex High Entropy String",
+@@ -168,5 +286,5 @@
+       }
+     ]
+   },
+-  "generated_at": "2026-10-16T16:21:23Z"
++  "generated_at": "2026-10-16T17:34:50Z"
+ }
+diff --git a/ci/lab6/deploy.sh b/ci/lab6/deploy.sh
+index a5ba8bd..bf34ea0 100755
+--- a/ci/lab6/deploy.sh
++++ b/ci/lab6/deploy.sh
+@@ -12,7 +12,7 @@ E=$EVIDENCE
+ LB=http://localhost:8088
+ 
+ tf() { terraform -chdir="$1" "${@:2}" -no-color; }
+-conftest() { docker run --rm -v "$PWD:/work" -w /work openpolicyagent/conftest:v0.55.0 test --policy policies/terraform -o table "$@"; }
++conftest() { docker run --rm -v "$PWD:/work" -v "$EVIDENCE:$EVIDENCE" -w /work openpolicyagent/conftest:v0.55.0 test --policy policies/terraform -o table "$@"; }
+ 
+ log "images v1/v2 -> local registry"
+ build_image roomflow:v1
+diff --git a/deploy/observability/prometheus/recording.rules.yml b/deploy/observability/prometheus/recording.rules.yml
+index 2ee90a5..06bb176 100644
+--- a/deploy/observability/prometheus/recording.rules.yml
++++ b/deploy/observability/prometheus/recording.rules.yml
+@@ -8,7 +8,8 @@ groups:
+       - record: roomflow:http_requests:rate1m
+         expr: sum(rate(roomflow_http_requests_total[1m]))
+       - record: roomflow:http_errors:ratio_rate1m
+-        expr: sum(rate(roomflow_http_requests_total{code=~"5.."}[1m])) / sum(rate(roomflow_http_requests_total[1m]))
++        # "or vector(0)": без жодної відповіді 5xx чисельник порожній, і без цього правило не мало б значення
++        expr: (sum(rate(roomflow_http_requests_total{code=~"5.."}[1m])) or vector(0)) / sum(rate(roomflow_http_requests_total[1m]))
+       - record: roomflow:http_latency_seconds:p95_1m
+         expr: histogram_quantile(0.95, sum by (le) (rate(roomflow_http_request_duration_seconds_bucket[1m])))
+       - record: route:roomflow_http_latency_seconds:p95_1m
+@@ -21,7 +22,7 @@ groups:
+     rules:
+       # SLO: 99.5% успішних (не 5xx) запитів. Error budget = 0.5%.
+       - record: slo:availability:ratio_rate5m
+-        expr: 1 - (sum(rate(roomflow_http_requests_total{code=~"5.."}[5m])) / sum(rate(roomflow_http_requests_total[5m])))
++        expr: 1 - ((sum(rate(roomflow_http_requests_total{code=~"5.."}[5m])) or vector(0)) / sum(rate(roomflow_http_requests_total[5m])))
+       - record: slo:error_budget_burn_rate:5m
+         expr: (1 - slo:availability:ratio_rate5m) / 0.005
+       - record: slo:error_budget_burn_rate:1m
