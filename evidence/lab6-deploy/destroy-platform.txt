@@ -1,0 +1,1437 @@
+module.database.random_password.db: Refreshing state... [id=none]
+module.monitoring.local_file.config["alertmanager.yml"]: Refreshing state... [id=0851f41de555743472328faddf3e19e370ae91ef]
+module.monitoring.local_file.config["prometheus.yml"]: Refreshing state... [id=2effaf3925e87da4987bbec6ed654f8eb32c8e5a]
+module.monitoring.local_file.config["alerts.yml"]: Refreshing state... [id=53b4b90e8b16cf9e521a35c75938068b536b5db9]
+module.lb.local_file.config: Refreshing state... [id=6659919cdbb80dc6db65c32707b8a3755f0854a4]
+module.network.docker_network.this["egress"]: Refreshing state... [id=05cd2402e727c18fa9b8b4a1db08485b6a4ddd4c5793567d42f289793fbe6804]
+module.lb.docker_image.nginx: Refreshing state... [id=sha256:6769dc3a703c719c1d2756bda113659be28ae16cf0da58dd5fd823d6b9a050eanginx:1.27-alpine]
+module.network.docker_network.this["private"]: Refreshing state... [id=6aca828dee505be9d5c9599394a4c70ce123eb21cf137401de4ec491cbe7a823]
+module.network.docker_network.this["app"]: Refreshing state... [id=7d89504fa1c77524c7d1fdaa212bd58d489f89a1d15f74bfe3e1f01a93ddc30c]
+module.database.docker_volume.data: Refreshing state... [id=rf-ci-db-data]
+module.network.docker_network.this["public"]: Refreshing state... [id=7ae496b38f19a369ac54ac00da609a2e296c258e2058e71e74fad0b9153cdbd7]
+module.database.docker_image.postgres: Refreshing state... [id=sha256:81bd698b4594e751a3269e4dcd3e03a4a0ec0daf7b72e7aa1abd43cce9887542postgres:16-alpine]
+module.database.docker_volume.backups: Refreshing state... [id=rf-ci-db-backups]
+module.monitoring.docker_image.this["alert-sink"]: Refreshing state... [id=sha256:979e5a8a56846771598d47ebf1f8a75b46155104e168a0b237c0783c1dedff8apython:3.12-alpine]
+module.monitoring.docker_image.this["prometheus"]: Refreshing state... [id=sha256:4022a502929b890bc9fd6231dda3ca1aec863ee08cef4113742949736ecd234fprom/prometheus:v2.54.1]
+module.monitoring.docker_image.this["alertmanager"]: Refreshing state... [id=sha256:11f11916f8cdfb17c1da74b20deb2075d778357b4d60474d82453303f8d461f5prom/alertmanager:v0.27.0]
+module.database.docker_container.db: Refreshing state... [id=15829caa1e2f79a717b198b170951a1cad7c8da6b230fb5c5e37ae0793b72479]
+module.monitoring.docker_container.this["alertmanager"]: Refreshing state... [id=fc44cf1a4fbdcd4825ff5ee791f7f494ba3eea84f0c2bda67856a37092db1c1e]
+module.monitoring.docker_container.this["alert-sink"]: Refreshing state... [id=b868db5b3ef9e4dc824cdbb30d01ce6f1d16460676782f2e2e589728ae3b83f1]
+module.lb.docker_container.lb: Refreshing state... [id=c9121f4b83cf1034e57d54d74f2d5ef418b343a271ec4906560fefbbb414dd41]
+module.monitoring.docker_container.this["prometheus"]: Refreshing state... [id=297595b1a43952a2d7529571bf65eead015bee91f0d0804d5c17b8610b8e67f3]
+module.lb.terraform_data.reload: Refreshing state... [id=28c48f69-f6b3-de1e-e901-18df3e595950]
+module.database.docker_container.backup: Refreshing state... [id=5e2341ab4188c3004f8154c85339bb32c0e84bde0e6445bbc3366fb5ef9bf9e1]
+module.monitoring.terraform_data.reload: Refreshing state... [id=d99c56a0-a098-de3c-2755-6e38c4a635ff]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # module.database.docker_container.backup will be destroyed
+  - resource "docker_container" "backup" {
+      - attach                                      = false -> null
+      - command                                     = [
+          - "sh",
+          - "-c",
+          - "sleep 5; while true; do pg_dump -h db -U postgres \"$DB\" > /backups/$DB-$(date +%Y%m%d%H%M%S).sql && ls -1t /backups/*.sql | tail -n +$((RETENTION + 1)) | xargs -r rm; sleep \"$INTERVAL\"; done",
+        ] -> null
+      - container_read_refresh_timeout_milliseconds = 15000 -> null
+      - cpu_shares                                  = 0 -> null
+      - dns                                         = [] -> null
+      - dns_opts                                    = [] -> null
+      - dns_search                                  = [] -> null
+      - entrypoint                                  = [
+          - "docker-entrypoint.sh",
+        ] -> null
+      - env                                         = (sensitive value) -> null
+      - group_add                                   = [] -> null
+      - hostname                                    = "5e2341ab4188" -> null
+      - id                                          = "5e2341ab4188c3004f8154c85339bb32c0e84bde0e6445bbc3366fb5ef9bf9e1" -> null
+      - image                                       = "sha256:81bd698b4594e751a3269e4dcd3e03a4a0ec0daf7b72e7aa1abd43cce9887542" -> null
+      - init                                        = false -> null
+      - ipc_mode                                    = "private" -> null
+      - log_driver                                  = "json-file" -> null
+      - log_opts                                    = {} -> null
+      - logs                                        = false -> null
+      - max_retry_count                             = 0 -> null
+      - memory                                      = 64 -> null
+      - memory_reservation                          = 0 -> null
+      - memory_swap                                 = 128 -> null
+      - must_run                                    = true -> null
+      - name                                        = "rf-ci-db-backup" -> null
+      - network_data                                = [
+          - {
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "10.60.3.3"
+              - ip_prefix_length          = 24
+              - mac_address               = "96:34:ba:04:b0:09"
+              - network_name              = "rf-ci-private"
+                # (3 unchanged attributes hidden)
+            },
+        ] -> null
+      - network_mode                                = "bridge" -> null
+      - privileged                                  = false -> null
+      - publish_all_ports                           = false -> null
+      - read_only                                   = false -> null
+      - remove_volumes                              = true -> null
+      - restart                                     = "unless-stopped" -> null
+      - rm                                          = false -> null
+      - runtime                                     = "runc" -> null
+      - security_opts                               = [] -> null
+      - shm_size                                    = 64 -> null
+      - start                                       = true -> null
+      - stdin_open                                  = false -> null
+      - stop_signal                                 = "SIGINT" -> null
+      - stop_timeout                                = 0 -> null
+      - storage_opts                                = {} -> null
+      - sysctls                                     = {} -> null
+      - tmpfs                                       = {} -> null
+      - tty                                         = false -> null
+      - wait                                        = false -> null
+      - wait_timeout                                = 60 -> null
+      - working_dir                                 = "/" -> null
+        # (6 unchanged attributes hidden)
+
+      - labels {
+          - label = "component" -> null
+          - value = "database-backup" -> null
+        }
+      - labels {
+          - label = "cost_center" -> null
+          - value = "roomflow-edu" -> null
+        }
+      - labels {
+          - label = "environment" -> null
+          - value = "ci" -> null
+        }
+      - labels {
+          - label = "managed_by" -> null
+          - value = "terraform" -> null
+        }
+      - labels {
+          - label = "owner" -> null
+          - value = "platform-team" -> null
+        }
+      - labels {
+          - label = "project" -> null
+          - value = "roomflow" -> null
+        }
+
+      - mounts {
+          - read_only = false -> null
+          - source    = "rf-ci-db-backups" -> null
+          - target    = "/backups" -> null
+          - type      = "volume" -> null
+        }
+
+      - networks_advanced {
+          - aliases      = [] -> null
+          - name         = "rf-ci-private" -> null
+            # (3 unchanged attributes hidden)
+        }
+    }
+
+  # module.database.docker_container.db will be destroyed
+  - resource "docker_container" "db" {
+      - attach                                      = false -> null
+      - command                                     = [
+          - "postgres",
+        ] -> null
+      - container_read_refresh_timeout_milliseconds = 15000 -> null
+      - cpu_shares                                  = 0 -> null
+      - dns                                         = [] -> null
+      - dns_opts                                    = [] -> null
+      - dns_search                                  = [] -> null
+      - entrypoint                                  = [
+          - "docker-entrypoint.sh",
+        ] -> null
+      - env                                         = (sensitive value) -> null
+      - group_add                                   = [] -> null
+      - hostname                                    = "15829caa1e2f" -> null
+      - id                                          = "15829caa1e2f79a717b198b170951a1cad7c8da6b230fb5c5e37ae0793b72479" -> null
+      - image                                       = "sha256:81bd698b4594e751a3269e4dcd3e03a4a0ec0daf7b72e7aa1abd43cce9887542" -> null
+      - init                                        = false -> null
+      - ipc_mode                                    = "private" -> null
+      - log_driver                                  = "json-file" -> null
+      - log_opts                                    = {} -> null
+      - logs                                        = false -> null
+      - max_retry_count                             = 0 -> null
+      - memory                                      = 256 -> null
+      - memory_reservation                          = 0 -> null
+      - memory_swap                                 = 512 -> null
+      - must_run                                    = true -> null
+      - name                                        = "rf-ci-db" -> null
+      - network_data                                = [
+          - {
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "10.60.3.2"
+              - ip_prefix_length          = 24
+              - mac_address               = "ea:98:95:f4:25:f3"
+              - network_name              = "rf-ci-private"
+                # (3 unchanged attributes hidden)
+            },
+        ] -> null
+      - network_mode                                = "bridge" -> null
+      - privileged                                  = false -> null
+      - publish_all_ports                           = false -> null
+      - read_only                                   = false -> null
+      - remove_volumes                              = true -> null
+      - restart                                     = "unless-stopped" -> null
+      - rm                                          = false -> null
+      - runtime                                     = "runc" -> null
+      - security_opts                               = [] -> null
+      - shm_size                                    = 64 -> null
+      - start                                       = true -> null
+      - stdin_open                                  = false -> null
+      - stop_signal                                 = "SIGINT" -> null
+      - stop_timeout                                = 0 -> null
+      - storage_opts                                = {} -> null
+      - sysctls                                     = {} -> null
+      - tmpfs                                       = {} -> null
+      - tty                                         = false -> null
+      - wait                                        = false -> null
+      - wait_timeout                                = 60 -> null
+      - working_dir                                 = "/" -> null
+        # (6 unchanged attributes hidden)
+
+      - healthcheck {
+          - interval       = "5s" -> null
+          - retries        = 5 -> null
+          - start_interval = "0s" -> null
+          - start_period   = "0s" -> null
+          - test           = [
+              - "CMD",
+              - "pg_isready",
+              - "-U",
+              - "postgres",
+            ] -> null
+          - timeout        = "3s" -> null
+        }
+
+      - labels {
+          - label = "component" -> null
+          - value = "database" -> null
+        }
+      - labels {
+          - label = "cost_center" -> null
+          - value = "roomflow-edu" -> null
+        }
+      - labels {
+          - label = "environment" -> null
+          - value = "ci" -> null
+        }
+      - labels {
+          - label = "managed_by" -> null
+          - value = "terraform" -> null
+        }
+      - labels {
+          - label = "owner" -> null
+          - value = "platform-team" -> null
+        }
+      - labels {
+          - label = "project" -> null
+          - value = "roomflow" -> null
+        }
+
+      - mounts {
+          - read_only = false -> null
+          - source    = "rf-ci-db-data" -> null
+          - target    = "/var/lib/postgresql/data" -> null
+          - type      = "volume" -> null
+        }
+
+      - networks_advanced {
+          - aliases      = [
+              - "db",
+            ] -> null
+          - name         = "rf-ci-private" -> null
+            # (3 unchanged attributes hidden)
+        }
+    }
+
+  # module.database.docker_image.postgres will be destroyed
+  - resource "docker_image" "postgres" {
+      - id           = "sha256:81bd698b4594e751a3269e4dcd3e03a4a0ec0daf7b72e7aa1abd43cce9887542postgres:16-alpine" -> null
+      - image_id     = "sha256:81bd698b4594e751a3269e4dcd3e03a4a0ec0daf7b72e7aa1abd43cce9887542" -> null
+      - keep_locally = true -> null
+      - name         = "postgres:16-alpine" -> null
+      - repo_digest  = "postgres@sha256:721873c34ceb9f8d8fc265984940dc982404c105f19ad51be9fdc5970a6080ea" -> null
+    }
+
+  # module.database.docker_volume.backups will be destroyed
+  - resource "docker_volume" "backups" {
+      - driver      = "local" -> null
+      - driver_opts = {} -> null
+      - id          = "rf-ci-db-backups" -> null
+      - mountpoint  = "/var/lib/docker/volumes/rf-ci-db-backups/_data" -> null
+      - name        = "rf-ci-db-backups" -> null
+
+      - labels {
+          - label = "component" -> null
+          - value = "database" -> null
+        }
+      - labels {
+          - label = "cost_center" -> null
+          - value = "roomflow-edu" -> null
+        }
+      - labels {
+          - label = "environment" -> null
+          - value = "ci" -> null
+        }
+      - labels {
+          - label = "managed_by" -> null
+          - value = "terraform" -> null
+        }
+      - labels {
+          - label = "owner" -> null
+          - value = "platform-team" -> null
+        }
+      - labels {
+          - label = "project" -> null
+          - value = "roomflow" -> null
+        }
+    }
+
+  # module.database.docker_volume.data will be destroyed
+  - resource "docker_volume" "data" {
+      - driver      = "local" -> null
+      - driver_opts = {} -> null
+      - id          = "rf-ci-db-data" -> null
+      - mountpoint  = "/var/lib/docker/volumes/rf-ci-db-data/_data" -> null
+      - name        = "rf-ci-db-data" -> null
+
+      - labels {
+          - label = "component" -> null
+          - value = "database" -> null
+        }
+      - labels {
+          - label = "cost_center" -> null
+          - value = "roomflow-edu" -> null
+        }
+      - labels {
+          - label = "environment" -> null
+          - value = "ci" -> null
+        }
+      - labels {
+          - label = "managed_by" -> null
+          - value = "terraform" -> null
+        }
+      - labels {
+          - label = "owner" -> null
+          - value = "platform-team" -> null
+        }
+      - labels {
+          - label = "project" -> null
+          - value = "roomflow" -> null
+        }
+    }
+
+  # module.database.random_password.db will be destroyed
+  - resource "random_password" "db" {
+      - bcrypt_hash = (sensitive value) -> null
+      - id          = "none" -> null
+      - length      = 24 -> null
+      - lower       = true -> null
+      - min_lower   = 0 -> null
+      - min_numeric = 0 -> null
+      - min_special = 0 -> null
+      - min_upper   = 0 -> null
+      - number      = true -> null
+      - numeric     = true -> null
+      - result      = (sensitive value) -> null
+      - special     = false -> null
+      - upper       = true -> null
+    }
+
+  # module.lb.docker_container.lb will be destroyed
+  - resource "docker_container" "lb" {
+      - attach                                      = false -> null
+      - command                                     = [
+          - "nginx",
+          - "-g",
+          - "daemon off;",
+          - "-c",
+          - "/etc/nginx/rf/nginx.conf",
+        ] -> null
+      - container_read_refresh_timeout_milliseconds = 15000 -> null
+      - cpu_shares                                  = 0 -> null
+      - dns                                         = [] -> null
+      - dns_opts                                    = [] -> null
+      - dns_search                                  = [] -> null
+      - entrypoint                                  = [
+          - "/docker-entrypoint.sh",
+        ] -> null
+      - env                                         = [] -> null
+      - group_add                                   = [] -> null
+      - hostname                                    = "c9121f4b83cf" -> null
+      - id                                          = "c9121f4b83cf1034e57d54d74f2d5ef418b343a271ec4906560fefbbb414dd41" -> null
+      - image                                       = "sha256:6769dc3a703c719c1d2756bda113659be28ae16cf0da58dd5fd823d6b9a050ea" -> null
+      - init                                        = false -> null
+      - ipc_mode                                    = "private" -> null
+      - log_driver                                  = "json-file" -> null
+      - log_opts                                    = {} -> null
+      - logs                                        = false -> null
+      - max_retry_count                             = 0 -> null
+      - memory                                      = 64 -> null
+      - memory_reservation                          = 0 -> null
+      - memory_swap                                 = 128 -> null
+      - must_run                                    = true -> null
+      - name                                        = "rf-ci-lb" -> null
+      - network_data                                = [
+          - {
+              - gateway                   = "10.60.2.1"
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "10.60.2.2"
+              - ip_prefix_length          = 24
+              - mac_address               = "12:15:00:88:1c:dc"
+              - network_name              = "rf-ci-app"
+                # (2 unchanged attributes hidden)
+            },
+          - {
+              - gateway                   = "10.60.1.1"
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "10.60.1.2"
+              - ip_prefix_length          = 24
+              - mac_address               = "1e:ef:58:7a:61:65"
+              - network_name              = "rf-ci-public"
+                # (2 unchanged attributes hidden)
+            },
+        ] -> null
+      - network_mode                                = "bridge" -> null
+      - privileged                                  = false -> null
+      - publish_all_ports                           = false -> null
+      - read_only                                   = false -> null
+      - remove_volumes                              = true -> null
+      - restart                                     = "unless-stopped" -> null
+      - rm                                          = false -> null
+      - runtime                                     = "runc" -> null
+      - security_opts                               = [] -> null
+      - shm_size                                    = 64 -> null
+      - start                                       = true -> null
+      - stdin_open                                  = false -> null
+      - stop_signal                                 = "SIGQUIT" -> null
+      - stop_timeout                                = 0 -> null
+      - storage_opts                                = {} -> null
+      - sysctls                                     = {} -> null
+      - tmpfs                                       = {} -> null
+      - tty                                         = false -> null
+      - wait                                        = false -> null
+      - wait_timeout                                = 60 -> null
+      - working_dir                                 = "/" -> null
+        # (6 unchanged attributes hidden)
+
+      - labels {
+          - label = "component" -> null
+          - value = "lb" -> null
+        }
+      - labels {
+          - label = "cost_center" -> null
+          - value = "roomflow-edu" -> null
+        }
+      - labels {
+          - label = "environment" -> null
+          - value = "ci" -> null
+        }
+      - labels {
+          - label = "managed_by" -> null
+          - value = "terraform" -> null
+        }
+      - labels {
+          - label = "owner" -> null
+          - value = "platform-team" -> null
+        }
+      - labels {
+          - label = "project" -> null
+          - value = "roomflow" -> null
+        }
+
+      - mounts {
+          - read_only = true -> null
+          - source    = "/home/runner/work/roomflow/roomflow/infra/terraform/envs/platform/.generated/lb" -> null
+          - target    = "/etc/nginx/rf" -> null
+          - type      = "bind" -> null
+        }
+
+      - networks_advanced {
+          - aliases      = [] -> null
+          - name         = "rf-ci-app" -> null
+            # (3 unchanged attributes hidden)
+        }
+      - networks_advanced {
+          - aliases      = [] -> null
+          - name         = "rf-ci-public" -> null
+            # (3 unchanged attributes hidden)
+        }
+
+      - ports {
+          - external = 8088 -> null
+          - internal = 80 -> null
+          - ip       = "0.0.0.0" -> null
+          - protocol = "tcp" -> null
+        }
+    }
+
+  # module.lb.docker_image.nginx will be destroyed
+  - resource "docker_image" "nginx" {
+      - id           = "sha256:6769dc3a703c719c1d2756bda113659be28ae16cf0da58dd5fd823d6b9a050eanginx:1.27-alpine" -> null
+      - image_id     = "sha256:6769dc3a703c719c1d2756bda113659be28ae16cf0da58dd5fd823d6b9a050ea" -> null
+      - keep_locally = true -> null
+      - name         = "nginx:1.27-alpine" -> null
+      - repo_digest  = "nginx@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10" -> null
+    }
+
+  # module.lb.local_file.config will be destroyed
+  - resource "local_file" "config" {
+      - content              = <<-EOT
+            # Згенеровано Terraform (модуль lb). Активне середовище: green
+            events {}
+            
+            http {
+              # Вбудований DNS Docker: імена контейнерів-реплік розв'язуються під час запиту.
+              resolver 127.0.0.11 valid=5s ipv6=off;
+              access_log /dev/stdout;
+            
+              # Прив'язка орендаря до репліки (tenant affinity): усі запити готелю потрапляють в одну репліку,
+              # тому стан орендаря в пам'яті репліки узгоджений. Хеш заголовка X-Tenant-ID (MurmurHash2) стабільний.
+              split_clients "$http_x_tenant_id" $replica {
+                50.00% 0;
+                * 1;
+              }
+            
+              server {
+                listen 80;
+            
+                location = /lb/active {
+                  default_type text/plain;
+                  return 200 "green\n";
+                }
+            
+                location / {
+                  set $backend "http://rf-ci-green-$replica:8080";
+                  proxy_pass $backend;
+                  proxy_set_header Host $host;
+                  proxy_next_upstream error timeout http_502 http_503;
+                  proxy_connect_timeout 2s;
+                }
+              }
+            }
+        EOT -> null
+      - content_base64sha256 = "LIVS/QWA3iMafeJ5NXRFkTmeSB+/I0MSfbPjYKM5U+I=" -> null
+      - content_base64sha512 = "dllKqEyZDMVSV4k1CHEPWMOCBMQB0iNQpZLtMknx0Dsxh6Me1hXuubbmzmHmCbuVGY9FpEpN4Nw8g9tibJ2h4w==" -> null
+      - content_md5          = "51f1e823701005fa813ce8efc998ba21" -> null
+      - content_sha1         = "6659919cdbb80dc6db65c32707b8a3755f0854a4" -> null
+      - content_sha256       = "2c8552fd0580de231a7de27935744591399e481fbf2343127db3e360a33953e2" -> null
+      - content_sha512       = "76594aa84c990cc55257893508710f58c38204c401d22350a592ed3249f1d03b3187a31ed615eeb9b6e6ce61e609bb95198f45a44a4de0dc3c83db626c9da1e3" -> null
+      - directory_permission = "0777" -> null
+      - file_permission      = "0644" -> null
+      - filename             = "./.generated/lb/nginx.conf" -> null
+      - id                   = "6659919cdbb80dc6db65c32707b8a3755f0854a4" -> null
+    }
+
+  # module.lb.terraform_data.reload will be destroyed
+  - resource "terraform_data" "reload" {
+      - id               = "28c48f69-f6b3-de1e-e901-18df3e595950" -> null
+      - triggers_replace = [
+          - <<-EOT
+                # Згенеровано Terraform (модуль lb). Активне середовище: green
+                events {}
+                
+                http {
+                  # Вбудований DNS Docker: імена контейнерів-реплік розв'язуються під час запиту.
+                  resolver 127.0.0.11 valid=5s ipv6=off;
+                  access_log /dev/stdout;
+                
+                  # Прив'язка орендаря до репліки (tenant affinity): усі запити готелю потрапляють в одну репліку,
+                  # тому стан орендаря в пам'яті репліки узгоджений. Хеш заголовка X-Tenant-ID (MurmurHash2) стабільний.
+                  split_clients "$http_x_tenant_id" $replica {
+                    50.00% 0;
+                    * 1;
+                  }
+                
+                  server {
+                    listen 80;
+                
+                    location = /lb/active {
+                      default_type text/plain;
+                      return 200 "green\n";
+                    }
+                
+                    location / {
+                      set $backend "http://rf-ci-green-$replica:8080";
+                      proxy_pass $backend;
+                      proxy_set_header Host $host;
+                      proxy_next_upstream error timeout http_502 http_503;
+                      proxy_connect_timeout 2s;
+                    }
+                  }
+                }
+            EOT,
+        ] -> null
+    }
+
+  # module.monitoring.docker_container.this["alert-sink"] will be destroyed
+  - resource "docker_container" "this" {
+      - attach                                      = false -> null
+      - command                                     = [
+          - "python",
+          - "-u",
+          - "-c",
+          - <<-EOT
+                import http.server as h
+                class S(h.BaseHTTPRequestHandler):
+                 def do_POST(self):
+                  n=int(self.headers['Content-Length']); print('ALERT', self.rfile.read(n).decode(), flush=True); self.send_response(200); self.end_headers()
+                h.HTTPServer(('',8080),S).serve_forever()
+            EOT,
+        ] -> null
+      - container_read_refresh_timeout_milliseconds = 15000 -> null
+      - cpu_shares                                  = 0 -> null
+      - dns                                         = [] -> null
+      - dns_opts                                    = [] -> null
+      - dns_search                                  = [] -> null
+      - entrypoint                                  = [] -> null
+      - env                                         = [] -> null
+      - group_add                                   = [] -> null
+      - hostname                                    = "b868db5b3ef9" -> null
+      - id                                          = "b868db5b3ef9e4dc824cdbb30d01ce6f1d16460676782f2e2e589728ae3b83f1" -> null
+      - image                                       = "sha256:979e5a8a56846771598d47ebf1f8a75b46155104e168a0b237c0783c1dedff8a" -> null
+      - init                                        = false -> null
+      - ipc_mode                                    = "private" -> null
+      - log_driver                                  = "json-file" -> null
+      - log_opts                                    = {} -> null
+      - logs                                        = false -> null
+      - max_retry_count                             = 0 -> null
+      - memory                                      = 256 -> null
+      - memory_reservation                          = 0 -> null
+      - memory_swap                                 = 512 -> null
+      - must_run                                    = true -> null
+      - name                                        = "rf-ci-alert-sink" -> null
+      - network_data                                = [
+          - {
+              - gateway                   = "10.60.2.1"
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "10.60.2.5"
+              - ip_prefix_length          = 24
+              - mac_address               = "46:94:28:59:6e:f1"
+              - network_name              = "rf-ci-app"
+                # (2 unchanged attributes hidden)
+            },
+          - {
+              - gateway                   = "10.60.1.1"
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "10.60.1.3"
+              - ip_prefix_length          = 24
+              - mac_address               = "4a:c6:3f:07:a2:ef"
+              - network_name              = "rf-ci-public"
+                # (2 unchanged attributes hidden)
+            },
+        ] -> null
+      - network_mode                                = "bridge" -> null
+      - privileged                                  = false -> null
+      - publish_all_ports                           = false -> null
+      - read_only                                   = false -> null
+      - remove_volumes                              = true -> null
+      - restart                                     = "unless-stopped" -> null
+      - rm                                          = false -> null
+      - runtime                                     = "runc" -> null
+      - security_opts                               = [] -> null
+      - shm_size                                    = 64 -> null
+      - start                                       = true -> null
+      - stdin_open                                  = false -> null
+      - stop_timeout                                = 0 -> null
+      - storage_opts                                = {} -> null
+      - sysctls                                     = {} -> null
+      - tmpfs                                       = {} -> null
+      - tty                                         = false -> null
+      - wait                                        = false -> null
+      - wait_timeout                                = 60 -> null
+      - working_dir                                 = "/" -> null
+        # (7 unchanged attributes hidden)
+
+      - labels {
+          - label = "component" -> null
+          - value = "monitoring" -> null
+        }
+      - labels {
+          - label = "cost_center" -> null
+          - value = "roomflow-edu" -> null
+        }
+      - labels {
+          - label = "environment" -> null
+          - value = "ci" -> null
+        }
+      - labels {
+          - label = "managed_by" -> null
+          - value = "terraform" -> null
+        }
+      - labels {
+          - label = "owner" -> null
+          - value = "platform-team" -> null
+        }
+      - labels {
+          - label = "project" -> null
+          - value = "roomflow" -> null
+        }
+      - labels {
+          - label = "service" -> null
+          - value = "alert-sink" -> null
+        }
+
+      - mounts {
+          - read_only = true -> null
+          - source    = "/home/runner/work/roomflow/roomflow/infra/terraform/envs/platform/.generated/monitoring" -> null
+          - target    = "/etc/rf" -> null
+          - type      = "bind" -> null
+        }
+
+      - networks_advanced {
+          - aliases      = [
+              - "alert-sink",
+            ] -> null
+          - name         = "rf-ci-app" -> null
+            # (3 unchanged attributes hidden)
+        }
+      - networks_advanced {
+          - aliases      = [
+              - "alert-sink",
+            ] -> null
+          - name         = "rf-ci-public" -> null
+            # (3 unchanged attributes hidden)
+        }
+    }
+
+  # module.monitoring.docker_container.this["alertmanager"] will be destroyed
+  - resource "docker_container" "this" {
+      - attach                                      = false -> null
+      - command                                     = [
+          - "--config.file=/etc/rf/alertmanager.yml",
+        ] -> null
+      - container_read_refresh_timeout_milliseconds = 15000 -> null
+      - cpu_shares                                  = 0 -> null
+      - dns                                         = [] -> null
+      - dns_opts                                    = [] -> null
+      - dns_search                                  = [] -> null
+      - entrypoint                                  = [
+          - "/bin/alertmanager",
+        ] -> null
+      - env                                         = [] -> null
+      - group_add                                   = [] -> null
+      - hostname                                    = "fc44cf1a4fbd" -> null
+      - id                                          = "fc44cf1a4fbdcd4825ff5ee791f7f494ba3eea84f0c2bda67856a37092db1c1e" -> null
+      - image                                       = "sha256:11f11916f8cdfb17c1da74b20deb2075d778357b4d60474d82453303f8d461f5" -> null
+      - init                                        = false -> null
+      - ipc_mode                                    = "private" -> null
+      - log_driver                                  = "json-file" -> null
+      - log_opts                                    = {} -> null
+      - logs                                        = false -> null
+      - max_retry_count                             = 0 -> null
+      - memory                                      = 256 -> null
+      - memory_reservation                          = 0 -> null
+      - memory_swap                                 = 512 -> null
+      - must_run                                    = true -> null
+      - name                                        = "rf-ci-alertmanager" -> null
+      - network_data                                = [
+          - {
+              - gateway                   = "10.60.1.1"
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "10.60.1.5"
+              - ip_prefix_length          = 24
+              - mac_address               = "2e:9c:5a:22:3d:2d"
+              - network_name              = "rf-ci-public"
+                # (2 unchanged attributes hidden)
+            },
+          - {
+              - gateway                   = "10.60.2.1"
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "10.60.2.4"
+              - ip_prefix_length          = 24
+              - mac_address               = "66:fa:51:c4:43:71"
+              - network_name              = "rf-ci-app"
+                # (2 unchanged attributes hidden)
+            },
+        ] -> null
+      - network_mode                                = "bridge" -> null
+      - privileged                                  = false -> null
+      - publish_all_ports                           = false -> null
+      - read_only                                   = false -> null
+      - remove_volumes                              = true -> null
+      - restart                                     = "unless-stopped" -> null
+      - rm                                          = false -> null
+      - runtime                                     = "runc" -> null
+      - security_opts                               = [] -> null
+      - shm_size                                    = 64 -> null
+      - start                                       = true -> null
+      - stdin_open                                  = false -> null
+      - stop_timeout                                = 0 -> null
+      - storage_opts                                = {} -> null
+      - sysctls                                     = {} -> null
+      - tmpfs                                       = {} -> null
+      - tty                                         = false -> null
+      - user                                        = "nobody" -> null
+      - wait                                        = false -> null
+      - wait_timeout                                = 60 -> null
+      - working_dir                                 = "/alertmanager" -> null
+        # (6 unchanged attributes hidden)
+
+      - labels {
+          - label = "component" -> null
+          - value = "monitoring" -> null
+        }
+      - labels {
+          - label = "cost_center" -> null
+          - value = "roomflow-edu" -> null
+        }
+      - labels {
+          - label = "environment" -> null
+          - value = "ci" -> null
+        }
+      - labels {
+          - label = "managed_by" -> null
+          - value = "terraform" -> null
+        }
+      - labels {
+          - label = "owner" -> null
+          - value = "platform-team" -> null
+        }
+      - labels {
+          - label = "project" -> null
+          - value = "roomflow" -> null
+        }
+      - labels {
+          - label = "service" -> null
+          - value = "alertmanager" -> null
+        }
+
+      - mounts {
+          - read_only = true -> null
+          - source    = "/home/runner/work/roomflow/roomflow/infra/terraform/envs/platform/.generated/monitoring" -> null
+          - target    = "/etc/rf" -> null
+          - type      = "bind" -> null
+        }
+
+      - networks_advanced {
+          - aliases      = [
+              - "alertmanager",
+            ] -> null
+          - name         = "rf-ci-app" -> null
+            # (3 unchanged attributes hidden)
+        }
+      - networks_advanced {
+          - aliases      = [
+              - "alertmanager",
+            ] -> null
+          - name         = "rf-ci-public" -> null
+            # (3 unchanged attributes hidden)
+        }
+
+      - ports {
+          - external = 9093 -> null
+          - internal = 9093 -> null
+          - ip       = "0.0.0.0" -> null
+          - protocol = "tcp" -> null
+        }
+    }
+
+  # module.monitoring.docker_container.this["prometheus"] will be destroyed
+  - resource "docker_container" "this" {
+      - attach                                      = false -> null
+      - command                                     = [
+          - "--config.file=/etc/rf/prometheus.yml",
+          - "--storage.tsdb.retention.time=2h",
+          - "--web.enable-lifecycle",
+        ] -> null
+      - container_read_refresh_timeout_milliseconds = 15000 -> null
+      - cpu_shares                                  = 0 -> null
+      - dns                                         = [] -> null
+      - dns_opts                                    = [] -> null
+      - dns_search                                  = [] -> null
+      - entrypoint                                  = [
+          - "/bin/prometheus",
+        ] -> null
+      - env                                         = [] -> null
+      - group_add                                   = [] -> null
+      - hostname                                    = "297595b1a439" -> null
+      - id                                          = "297595b1a43952a2d7529571bf65eead015bee91f0d0804d5c17b8610b8e67f3" -> null
+      - image                                       = "sha256:4022a502929b890bc9fd6231dda3ca1aec863ee08cef4113742949736ecd234f" -> null
+      - init                                        = false -> null
+      - ipc_mode                                    = "private" -> null
+      - log_driver                                  = "json-file" -> null
+      - log_opts                                    = {} -> null
+      - logs                                        = false -> null
+      - max_retry_count                             = 0 -> null
+      - memory                                      = 256 -> null
+      - memory_reservation                          = 0 -> null
+      - memory_swap                                 = 512 -> null
+      - must_run                                    = true -> null
+      - name                                        = "rf-ci-prometheus" -> null
+      - network_data                                = [
+          - {
+              - gateway                   = "10.60.2.1"
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "10.60.2.3"
+              - ip_prefix_length          = 24
+              - mac_address               = "22:64:7a:e5:bc:bb"
+              - network_name              = "rf-ci-app"
+                # (2 unchanged attributes hidden)
+            },
+          - {
+              - gateway                   = "10.60.1.1"
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "10.60.1.4"
+              - ip_prefix_length          = 24
+              - mac_address               = "0a:dc:0e:96:2b:02"
+              - network_name              = "rf-ci-public"
+                # (2 unchanged attributes hidden)
+            },
+        ] -> null
+      - network_mode                                = "bridge" -> null
+      - privileged                                  = false -> null
+      - publish_all_ports                           = false -> null
+      - read_only                                   = false -> null
+      - remove_volumes                              = true -> null
+      - restart                                     = "unless-stopped" -> null
+      - rm                                          = false -> null
+      - runtime                                     = "runc" -> null
+      - security_opts                               = [] -> null
+      - shm_size                                    = 64 -> null
+      - start                                       = true -> null
+      - stdin_open                                  = false -> null
+      - stop_timeout                                = 0 -> null
+      - storage_opts                                = {} -> null
+      - sysctls                                     = {} -> null
+      - tmpfs                                       = {} -> null
+      - tty                                         = false -> null
+      - user                                        = "nobody" -> null
+      - wait                                        = false -> null
+      - wait_timeout                                = 60 -> null
+      - working_dir                                 = "/prometheus" -> null
+        # (6 unchanged attributes hidden)
+
+      - labels {
+          - label = "component" -> null
+          - value = "monitoring" -> null
+        }
+      - labels {
+          - label = "cost_center" -> null
+          - value = "roomflow-edu" -> null
+        }
+      - labels {
+          - label = "environment" -> null
+          - value = "ci" -> null
+        }
+      - labels {
+          - label = "managed_by" -> null
+          - value = "terraform" -> null
+        }
+      - labels {
+          - label = "owner" -> null
+          - value = "platform-team" -> null
+        }
+      - labels {
+          - label = "project" -> null
+          - value = "roomflow" -> null
+        }
+      - labels {
+          - label = "service" -> null
+          - value = "prometheus" -> null
+        }
+
+      - mounts {
+          - read_only = true -> null
+          - source    = "/home/runner/work/roomflow/roomflow/infra/terraform/envs/platform/.generated/monitoring" -> null
+          - target    = "/etc/rf" -> null
+          - type      = "bind" -> null
+        }
+
+      - networks_advanced {
+          - aliases      = [
+              - "prometheus",
+            ] -> null
+          - name         = "rf-ci-app" -> null
+            # (3 unchanged attributes hidden)
+        }
+      - networks_advanced {
+          - aliases      = [
+              - "prometheus",
+            ] -> null
+          - name         = "rf-ci-public" -> null
+            # (3 unchanged attributes hidden)
+        }
+
+      - ports {
+          - external = 9090 -> null
+          - internal = 9090 -> null
+          - ip       = "0.0.0.0" -> null
+          - protocol = "tcp" -> null
+        }
+    }
+
+  # module.monitoring.docker_image.this["alert-sink"] will be destroyed
+  - resource "docker_image" "this" {
+      - id           = "sha256:979e5a8a56846771598d47ebf1f8a75b46155104e168a0b237c0783c1dedff8apython:3.12-alpine" -> null
+      - image_id     = "sha256:979e5a8a56846771598d47ebf1f8a75b46155104e168a0b237c0783c1dedff8a" -> null
+      - keep_locally = true -> null
+      - name         = "python:3.12-alpine" -> null
+      - repo_digest  = "python@sha256:1b668429b3511ab407d8e00648891631b0b1a4d7e15e3ca70f38ab5b91ad4ab4" -> null
+    }
+
+  # module.monitoring.docker_image.this["alertmanager"] will be destroyed
+  - resource "docker_image" "this" {
+      - id           = "sha256:11f11916f8cdfb17c1da74b20deb2075d778357b4d60474d82453303f8d461f5prom/alertmanager:v0.27.0" -> null
+      - image_id     = "sha256:11f11916f8cdfb17c1da74b20deb2075d778357b4d60474d82453303f8d461f5" -> null
+      - keep_locally = true -> null
+      - name         = "prom/alertmanager:v0.27.0" -> null
+      - repo_digest  = "prom/alertmanager@sha256:e13b6ed5cb929eeaee733479dce55e10eb3bc2e9c4586c705a4e8da41e5eacf5" -> null
+    }
+
+  # module.monitoring.docker_image.this["prometheus"] will be destroyed
+  - resource "docker_image" "this" {
+      - id           = "sha256:4022a502929b890bc9fd6231dda3ca1aec863ee08cef4113742949736ecd234fprom/prometheus:v2.54.1" -> null
+      - image_id     = "sha256:4022a502929b890bc9fd6231dda3ca1aec863ee08cef4113742949736ecd234f" -> null
+      - keep_locally = true -> null
+      - name         = "prom/prometheus:v2.54.1" -> null
+      - repo_digest  = "prom/prometheus@sha256:f6639335d34a77d9d9db382b92eeb7fc00934be8eae81dbc03b31cfe90411a94" -> null
+    }
+
+  # module.monitoring.local_file.config["alertmanager.yml"] will be destroyed
+  - resource "local_file" "config" {
+      - content              = <<-EOT
+            route:
+              receiver: incident-webhook
+              group_by: [alertname]
+              group_wait: 5s
+              group_interval: 10s
+              repeat_interval: 1h
+            receivers:
+              - name: incident-webhook
+                webhook_configs:
+                  - url: http://alert-sink:8080/
+                    send_resolved: true
+        EOT -> null
+      - content_base64sha256 = "6gIpmg/NjA9hspTPmJGuuCx+UBXZmPwrB4Cw1fgCgVs=" -> null
+      - content_base64sha512 = "D0urLUyqJ+KaKDFcxJ+nsDS1w4ESsy+5Xfk2IfdhMLZA9ok2rr3kpb00oa5AcF48sB+G3OOHYCjFMLxtAMYyfw==" -> null
+      - content_md5          = "ec681e133dac91555af47e24c3c4d4cb" -> null
+      - content_sha1         = "0851f41de555743472328faddf3e19e370ae91ef" -> null
+      - content_sha256       = "ea02299a0fcd8c0f61b294cf9891aeb82c7e5015d998fc2b0780b0d5f802815b" -> null
+      - content_sha512       = "0f4bab2d4caa27e29a28315cc49fa7b034b5c38112b32fb95df93621f76130b640f68936aebde4a5bd34a1ae40705e3cb01f86dce3876028c530bc6d00c6327f" -> null
+      - directory_permission = "0777" -> null
+      - file_permission      = "0644" -> null
+      - filename             = "./.generated/monitoring/alertmanager.yml" -> null
+      - id                   = "0851f41de555743472328faddf3e19e370ae91ef" -> null
+    }
+
+  # module.monitoring.local_file.config["alerts.yml"] will be destroyed
+  - resource "local_file" "config" {
+      - content              = <<-EOT
+            # Згенеровано Terraform (модуль monitoring). Пороги задаються змінними модуля.
+            groups:
+              - name: roomflow-infrastructure
+                rules:
+                  - alert: InstanceDown
+                    expr: up{job="roomflow"} == 0
+                    for: 10s
+                    labels: { severity: critical }
+                    annotations:
+                      summary: "Репліка {{ $labels.instance }} ({{ $labels.color }}) недоступна"
+                  - alert: ReplicaGroupDegraded
+                    expr: count by (color) (up{job="roomflow"} == 1) < 2
+                    for: 15s
+                    labels: { severity: warning }
+                    annotations:
+                      summary: "У групі {{ $labels.color }} менше двох здорових реплік"
+                  - alert: HighErrorRate
+                    expr: sum(rate(roomflow_http_requests_total{code=~"5.."}[1m])) / sum(rate(roomflow_http_requests_total[1m])) > 0.05
+                    for: 30s
+                    labels: { severity: critical }
+                    annotations:
+                      summary: "Частка помилок 5xx перевищує 0.05"
+                  - alert: HighLatencyP95
+                    expr: histogram_quantile(0.95, sum by (le) (rate(roomflow_http_request_duration_seconds_bucket[1m]))) > 0.5
+                    for: 30s
+                    labels: { severity: warning }
+                    annotations:
+                      summary: "p95 затримки перевищує 0.5 с"
+        EOT -> null
+      - content_base64sha256 = "6BPCWIPjpzlgJPpmWkDcfkl6eCdNJzzPczla9q4hJYA=" -> null
+      - content_base64sha512 = "2S9shc5s8fv1ttFnCb995SVlFtsepFj5h7wTpDSlaIbVke7WTmSyHcpax8cI0EqKAcSq43T6/gFJ+vBXJNN6qA==" -> null
+      - content_md5          = "9c1390defb7c30b64b93d6881a63c7ba" -> null
+      - content_sha1         = "53b4b90e8b16cf9e521a35c75938068b536b5db9" -> null
+      - content_sha256       = "e813c25883e3a7396024fa665a40dc7e497a78274d273ccf73395af6ae212580" -> null
+      - content_sha512       = "d92f6c85ce6cf1fbf5b6d16709bf7de5256516db1ea458f987bc13a434a56886d591eed64e64b21dca5ac7c708d04a8a01c4aae374fafe0149faf05724d37aa8" -> null
+      - directory_permission = "0777" -> null
+      - file_permission      = "0644" -> null
+      - filename             = "./.generated/monitoring/alerts.yml" -> null
+      - id                   = "53b4b90e8b16cf9e521a35c75938068b536b5db9" -> null
+    }
+
+  # module.monitoring.local_file.config["prometheus.yml"] will be destroyed
+  - resource "local_file" "config" {
+      - content              = <<-EOT
+            # Згенеровано Terraform (модуль monitoring).
+            global:
+              scrape_interval: 5s
+              scrape_timeout: 4s
+              evaluation_interval: 5s
+            
+            rule_files: [/etc/rf/alerts.yml]
+            
+            alerting:
+              alertmanagers:
+                - static_configs:
+                    - targets: ["alertmanager:9093"]
+            
+            scrape_configs:
+              - job_name: roomflow
+                dns_sd_configs:
+                  - names: ["app-blue","app-green"]
+                    type: A
+                    port: 8080
+                    refresh_interval: 5s
+                relabel_configs:
+                  - source_labels: [__meta_dns_name]
+                    regex: app-(.*)
+                    target_label: color
+              - job_name: prometheus
+                static_configs:
+                  - targets: ["localhost:9090"]
+        EOT -> null
+      - content_base64sha256 = "awlPGNiDtlbXKBcMwLNoCyRFMptFRv/GKy7yjzq1HcQ=" -> null
+      - content_base64sha512 = "EiJ68ZwJ3pajP4XCiRQ7K4neN7Ha7K2uD8f7tY+BuDUI7blfciUAkvgDzs0Tr4BO6g/csW+3qQXxHWCkTux1pQ==" -> null
+      - content_md5          = "262e5f366664c3f25ae09e14780d4302" -> null
+      - content_sha1         = "2effaf3925e87da4987bbec6ed654f8eb32c8e5a" -> null
+      - content_sha256       = "6b094f18d883b656d728170cc0b3680b2445329b4546ffc62b2ef28f3ab51dc4" -> null
+      - content_sha512       = "12227af19c09de96a33f85c289143b2b89de37b1daecadae0fc7fbb58f81b83508edb95f72250092f803cecd13af804eea0fdcb16fb7a905f11d60a44eec75a5" -> null
+      - directory_permission = "0777" -> null
+      - file_permission      = "0644" -> null
+      - filename             = "./.generated/monitoring/prometheus.yml" -> null
+      - id                   = "2effaf3925e87da4987bbec6ed654f8eb32c8e5a" -> null
+    }
+
+  # module.monitoring.terraform_data.reload will be destroyed
+  - resource "terraform_data" "reload" {
+      - id               = "d99c56a0-a098-de3c-2755-6e38c4a635ff" -> null
+      - triggers_replace = [
+          - <<-EOT
+                route:
+                  receiver: incident-webhook
+                  group_by: [alertname]
+                  group_wait: 5s
+                  group_interval: 10s
+                  repeat_interval: 1h
+                receivers:
+                  - name: incident-webhook
+                    webhook_configs:
+                      - url: http://alert-sink:8080/
+                        send_resolved: true
+            EOT,
+          - <<-EOT
+                # Згенеровано Terraform (модуль monitoring). Пороги задаються змінними модуля.
+                groups:
+                  - name: roomflow-infrastructure
+                    rules:
+                      - alert: InstanceDown
+                        expr: up{job="roomflow"} == 0
+                        for: 10s
+                        labels: { severity: critical }
+                        annotations:
+                          summary: "Репліка {{ $labels.instance }} ({{ $labels.color }}) недоступна"
+                      - alert: ReplicaGroupDegraded
+                        expr: count by (color) (up{job="roomflow"} == 1) < 2
+                        for: 15s
+                        labels: { severity: warning }
+                        annotations:
+                          summary: "У групі {{ $labels.color }} менше двох здорових реплік"
+                      - alert: HighErrorRate
+                        expr: sum(rate(roomflow_http_requests_total{code=~"5.."}[1m])) / sum(rate(roomflow_http_requests_total[1m])) > 0.05
+                        for: 30s
+                        labels: { severity: critical }
+                        annotations:
+                          summary: "Частка помилок 5xx перевищує 0.05"
+                      - alert: HighLatencyP95
+                        expr: histogram_quantile(0.95, sum by (le) (rate(roomflow_http_request_duration_seconds_bucket[1m]))) > 0.5
+                        for: 30s
+                        labels: { severity: warning }
+                        annotations:
+                          summary: "p95 затримки перевищує 0.5 с"
+            EOT,
+          - <<-EOT
+                # Згенеровано Terraform (модуль monitoring).
+                global:
+                  scrape_interval: 5s
+                  scrape_timeout: 4s
+                  evaluation_interval: 5s
+                
+                rule_files: [/etc/rf/alerts.yml]
+                
+                alerting:
+                  alertmanagers:
+                    - static_configs:
+                        - targets: ["alertmanager:9093"]
+                
+                scrape_configs:
+                  - job_name: roomflow
+                    dns_sd_configs:
+                      - names: ["app-blue","app-green"]
+                        type: A
+                        port: 8080
+                        refresh_interval: 5s
+                    relabel_configs:
+                      - source_labels: [__meta_dns_name]
+                        regex: app-(.*)
+                        target_label: color
+                  - job_name: prometheus
+                    static_configs:
+                      - targets: ["localhost:9090"]
+            EOT,
+        ] -> null
+    }
+
+  # module.network.docker_network.this["app"] will be destroyed
+  - resource "docker_network" "this" {
+      - attachable   = false -> null
+      - driver       = "bridge" -> null
+      - id           = "7d89504fa1c77524c7d1fdaa212bd58d489f89a1d15f74bfe3e1f01a93ddc30c" -> null
+      - ingress      = false -> null
+      - internal     = false -> null
+      - ipam_driver  = "default" -> null
+      - ipam_options = {} -> null
+      - ipv6         = false -> null
+      - name         = "rf-ci-app" -> null
+      - options      = {} -> null
+      - scope        = "local" -> null
+
+      - ipam_config {
+          - aux_address = {} -> null
+          - subnet      = "10.60.2.0/24" -> null
+            # (2 unchanged attributes hidden)
+        }
+
+      - labels {
+          - label = "cost_center" -> null
+          - value = "roomflow-edu" -> null
+        }
+      - labels {
+          - label = "environment" -> null
+          - value = "ci" -> null
+        }
+      - labels {
+          - label = "managed_by" -> null
+          - value = "terraform" -> null
+        }
+      - labels {
+          - label = "owner" -> null
+          - value = "platform-team" -> null
+        }
+      - labels {
+          - label = "project" -> null
+          - value = "roomflow" -> null
+        }
+      - labels {
+          - label = "tier" -> null
+          - value = "app" -> null
+        }
+    }
+
+  # module.network.docker_network.this["egress"] will be destroyed
+  - resource "docker_network" "this" {
+      - attachable   = false -> null
+      - driver       = "bridge" -> null
+      - id           = "05cd2402e727c18fa9b8b4a1db08485b6a4ddd4c5793567d42f289793fbe6804" -> null
+      - ingress      = false -> null
+      - internal     = false -> null
+      - ipam_driver  = "default" -> null
+      - ipam_options = {} -> null
+      - ipv6         = false -> null
+      - name         = "rf-ci-egress" -> null
+      - options      = {} -> null
+      - scope        = "local" -> null
+
+      - ipam_config {
+          - aux_address = {} -> null
+          - subnet      = "10.60.4.0/24" -> null
+            # (2 unchanged attributes hidden)
+        }
+
+      - labels {
+          - label = "cost_center" -> null
+          - value = "roomflow-edu" -> null
+        }
+      - labels {
+          - label = "environment" -> null
+          - value = "ci" -> null
+        }
+      - labels {
+          - label = "managed_by" -> null
+          - value = "terraform" -> null
+        }
+      - labels {
+          - label = "owner" -> null
+          - value = "platform-team" -> null
+        }
+      - labels {
+          - label = "project" -> null
+          - value = "roomflow" -> null
+        }
+      - labels {
+          - label = "tier" -> null
+          - value = "egress" -> null
+        }
+    }
+
+  # module.network.docker_network.this["private"] will be destroyed
+  - resource "docker_network" "this" {
+      - attachable   = false -> null
+      - driver       = "bridge" -> null
+      - id           = "6aca828dee505be9d5c9599394a4c70ce123eb21cf137401de4ec491cbe7a823" -> null
+      - ingress      = false -> null
+      - internal     = true -> null
+      - ipam_driver  = "default" -> null
+      - ipam_options = {} -> null
+      - ipv6         = false -> null
+      - name         = "rf-ci-private" -> null
+      - options      = {} -> null
+      - scope        = "local" -> null
+
+      - ipam_config {
+          - aux_address = {} -> null
+          - subnet      = "10.60.3.0/24" -> null
+            # (2 unchanged attributes hidden)
+        }
+
+      - labels {
+          - label = "cost_center" -> null
+          - value = "roomflow-edu" -> null
+        }
+      - labels {
+          - label = "environment" -> null
+          - value = "ci" -> null
+        }
+      - labels {
+          - label = "managed_by" -> null
+          - value = "terraform" -> null
+        }
+      - labels {
+          - label = "owner" -> null
+          - value = "platform-team" -> null
+        }
+      - labels {
+          - label = "project" -> null
+          - value = "roomflow" -> null
+        }
+      - labels {
+          - label = "tier" -> null
+          - value = "private" -> null
+        }
+    }
+
+  # module.network.docker_network.this["public"] will be destroyed
+  - resource "docker_network" "this" {
+      - attachable   = false -> null
+      - driver       = "bridge" -> null
+      - id           = "7ae496b38f19a369ac54ac00da609a2e296c258e2058e71e74fad0b9153cdbd7" -> null
+      - ingress      = false -> null
+      - internal     = false -> null
+      - ipam_driver  = "default" -> null
+      - ipam_options = {} -> null
+      - ipv6         = false -> null
+      - name         = "rf-ci-public" -> null
+      - options      = {} -> null
+      - scope        = "local" -> null
+
+      - ipam_config {
+          - aux_address = {} -> null
+          - subnet      = "10.60.1.0/24" -> null
+            # (2 unchanged attributes hidden)
+        }
+
+      - labels {
+          - label = "cost_center" -> null
+          - value = "roomflow-edu" -> null
+        }
+      - labels {
+          - label = "environment" -> null
+          - value = "ci" -> null
+        }
+      - labels {
+          - label = "managed_by" -> null
+          - value = "terraform" -> null
+        }
+      - labels {
+          - label = "owner" -> null
+          - value = "platform-team" -> null
+        }
+      - labels {
+          - label = "project" -> null
+          - value = "roomflow" -> null
+        }
+      - labels {
+          - label = "tier" -> null
+          - value = "public" -> null
+        }
+    }
+
+Plan: 0 to add, 0 to change, 24 to destroy.
+
+Changes to Outputs:
+  - active_color      = "blue" -> null
+  - db_backups_volume = "rf-ci-db-backups" -> null
+  - networks          = {
+      - app     = "rf-ci-app"
+      - egress  = "rf-ci-egress"
+      - private = "rf-ci-private"
+      - public  = "rf-ci-public"
+    } -> null
+  - prometheus_url    = "http://localhost:9090" -> null
+  - url               = "http://localhost:8088" -> null
+module.lb.terraform_data.reload: Destroying... [id=28c48f69-f6b3-de1e-e901-18df3e595950]
+module.lb.terraform_data.reload: Destruction complete after 0s
+module.monitoring.terraform_data.reload: Destroying... [id=d99c56a0-a098-de3c-2755-6e38c4a635ff]
+module.monitoring.terraform_data.reload: Destruction complete after 0s
+module.database.docker_container.backup: Destroying... [id=5e2341ab4188c3004f8154c85339bb32c0e84bde0e6445bbc3366fb5ef9bf9e1]
+module.monitoring.docker_container.this["alert-sink"]: Destroying... [id=b868db5b3ef9e4dc824cdbb30d01ce6f1d16460676782f2e2e589728ae3b83f1]
+module.monitoring.docker_container.this["prometheus"]: Destroying... [id=297595b1a43952a2d7529571bf65eead015bee91f0d0804d5c17b8610b8e67f3]
+module.lb.docker_container.lb: Destroying... [id=c9121f4b83cf1034e57d54d74f2d5ef418b343a271ec4906560fefbbb414dd41]
+module.monitoring.docker_container.this["alertmanager"]: Destroying... [id=fc44cf1a4fbdcd4825ff5ee791f7f494ba3eea84f0c2bda67856a37092db1c1e]
+module.database.docker_container.backup: Destruction complete after 0s
+module.database.docker_volume.backups: Destroying... [id=rf-ci-db-backups]
+module.database.docker_container.db: Destroying... [id=15829caa1e2f79a717b198b170951a1cad7c8da6b230fb5c5e37ae0793b72479]
+module.monitoring.docker_container.this["alert-sink"]: Destruction complete after 0s
+module.database.docker_container.db: Destruction complete after 0s
+module.database.docker_image.postgres: Destroying... [id=sha256:81bd698b4594e751a3269e4dcd3e03a4a0ec0daf7b72e7aa1abd43cce9887542postgres:16-alpine]
+module.database.random_password.db: Destroying... [id=none]
+module.database.docker_volume.data: Destroying... [id=rf-ci-db-data]
+module.database.docker_image.postgres: Destruction complete after 0s
+module.database.random_password.db: Destruction complete after 0s
+module.lb.docker_container.lb: Destruction complete after 0s
+module.lb.docker_image.nginx: Destroying... [id=sha256:6769dc3a703c719c1d2756bda113659be28ae16cf0da58dd5fd823d6b9a050eanginx:1.27-alpine]
+module.lb.docker_image.nginx: Destruction complete after 0s
+module.lb.local_file.config: Destroying... [id=6659919cdbb80dc6db65c32707b8a3755f0854a4]
+module.lb.local_file.config: Destruction complete after 0s
+module.monitoring.docker_container.this["alertmanager"]: Destruction complete after 0s
+module.monitoring.docker_container.this["prometheus"]: Destruction complete after 0s
+module.monitoring.local_file.config["prometheus.yml"]: Destroying... [id=2effaf3925e87da4987bbec6ed654f8eb32c8e5a]
+module.monitoring.local_file.config["alertmanager.yml"]: Destroying... [id=0851f41de555743472328faddf3e19e370ae91ef]
+module.monitoring.local_file.config["alerts.yml"]: Destroying... [id=53b4b90e8b16cf9e521a35c75938068b536b5db9]
+module.monitoring.local_file.config["prometheus.yml"]: Destruction complete after 0s
+module.monitoring.local_file.config["alerts.yml"]: Destruction complete after 0s
+module.monitoring.local_file.config["alertmanager.yml"]: Destruction complete after 0s
+module.network.docker_network.this["public"]: Destroying... [id=7ae496b38f19a369ac54ac00da609a2e296c258e2058e71e74fad0b9153cdbd7]
+module.monitoring.docker_image.this["prometheus"]: Destroying... [id=sha256:4022a502929b890bc9fd6231dda3ca1aec863ee08cef4113742949736ecd234fprom/prometheus:v2.54.1]
+module.network.docker_network.this["app"]: Destroying... [id=7d89504fa1c77524c7d1fdaa212bd58d489f89a1d15f74bfe3e1f01a93ddc30c]
+module.network.docker_network.this["egress"]: Destroying... [id=05cd2402e727c18fa9b8b4a1db08485b6a4ddd4c5793567d42f289793fbe6804]
+module.network.docker_network.this["private"]: Destroying... [id=6aca828dee505be9d5c9599394a4c70ce123eb21cf137401de4ec491cbe7a823]
+module.monitoring.docker_image.this["alert-sink"]: Destroying... [id=sha256:979e5a8a56846771598d47ebf1f8a75b46155104e168a0b237c0783c1dedff8apython:3.12-alpine]
+module.monitoring.docker_image.this["alertmanager"]: Destroying... [id=sha256:11f11916f8cdfb17c1da74b20deb2075d778357b4d60474d82453303f8d461f5prom/alertmanager:v0.27.0]
+module.monitoring.docker_image.this["prometheus"]: Destruction complete after 0s
+module.monitoring.docker_image.this["alert-sink"]: Destruction complete after 0s
+module.monitoring.docker_image.this["alertmanager"]: Destruction complete after 0s
+module.database.docker_volume.backups: Destruction complete after 2s
+module.network.docker_network.this["app"]: Destruction complete after 2s
+module.database.docker_volume.data: Destruction complete after 2s
+module.network.docker_network.this["egress"]: Destruction complete after 2s
+module.network.docker_network.this["private"]: Destruction complete after 2s
+module.network.docker_network.this["public"]: Destruction complete after 3s
+
+Destroy complete! Resources: 24 destroyed.

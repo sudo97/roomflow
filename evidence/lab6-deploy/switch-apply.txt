@@ -1,0 +1,227 @@
+module.lb.local_file.config: Refreshing state... [id=a8750ec05ac0aa8cb2b770baf3e15f2308a0b333]
+module.monitoring.local_file.config["prometheus.yml"]: Refreshing state... [id=2effaf3925e87da4987bbec6ed654f8eb32c8e5a]
+module.monitoring.local_file.config["alerts.yml"]: Refreshing state... [id=53b4b90e8b16cf9e521a35c75938068b536b5db9]
+module.monitoring.local_file.config["alertmanager.yml"]: Refreshing state... [id=0851f41de555743472328faddf3e19e370ae91ef]
+module.database.random_password.db: Refreshing state... [id=none]
+module.database.docker_volume.backups: Refreshing state... [id=rf-ci-db-backups]
+module.database.docker_image.postgres: Refreshing state... [id=sha256:81bd698b4594e751a3269e4dcd3e03a4a0ec0daf7b72e7aa1abd43cce9887542postgres:16-alpine]
+module.monitoring.docker_image.this["prometheus"]: Refreshing state... [id=sha256:4022a502929b890bc9fd6231dda3ca1aec863ee08cef4113742949736ecd234fprom/prometheus:v2.54.1]
+module.monitoring.docker_image.this["alert-sink"]: Refreshing state... [id=sha256:979e5a8a56846771598d47ebf1f8a75b46155104e168a0b237c0783c1dedff8apython:3.12-alpine]
+module.monitoring.docker_image.this["alertmanager"]: Refreshing state... [id=sha256:11f11916f8cdfb17c1da74b20deb2075d778357b4d60474d82453303f8d461f5prom/alertmanager:v0.27.0]
+module.network.docker_network.this["private"]: Refreshing state... [id=6aca828dee505be9d5c9599394a4c70ce123eb21cf137401de4ec491cbe7a823]
+module.network.docker_network.this["public"]: Refreshing state... [id=7ae496b38f19a369ac54ac00da609a2e296c258e2058e71e74fad0b9153cdbd7]
+module.network.docker_network.this["egress"]: Refreshing state... [id=05cd2402e727c18fa9b8b4a1db08485b6a4ddd4c5793567d42f289793fbe6804]
+module.network.docker_network.this["app"]: Refreshing state... [id=7d89504fa1c77524c7d1fdaa212bd58d489f89a1d15f74bfe3e1f01a93ddc30c]
+module.database.docker_volume.data: Refreshing state... [id=rf-ci-db-data]
+module.lb.docker_image.nginx: Refreshing state... [id=sha256:6769dc3a703c719c1d2756bda113659be28ae16cf0da58dd5fd823d6b9a050eanginx:1.27-alpine]
+module.database.docker_container.db: Refreshing state... [id=15829caa1e2f79a717b198b170951a1cad7c8da6b230fb5c5e37ae0793b72479]
+module.lb.docker_container.lb: Refreshing state... [id=c9121f4b83cf1034e57d54d74f2d5ef418b343a271ec4906560fefbbb414dd41]
+module.monitoring.docker_container.this["alertmanager"]: Refreshing state... [id=fc44cf1a4fbdcd4825ff5ee791f7f494ba3eea84f0c2bda67856a37092db1c1e]
+module.monitoring.docker_container.this["alert-sink"]: Refreshing state... [id=b868db5b3ef9e4dc824cdbb30d01ce6f1d16460676782f2e2e589728ae3b83f1]
+module.monitoring.docker_container.this["prometheus"]: Refreshing state... [id=297595b1a43952a2d7529571bf65eead015bee91f0d0804d5c17b8610b8e67f3]
+module.lb.terraform_data.reload: Refreshing state... [id=a4c4bc76-61ee-92c8-5966-b7b57734732d]
+module.monitoring.terraform_data.reload: Refreshing state... [id=d99c56a0-a098-de3c-2755-6e38c4a635ff]
+module.database.docker_container.backup: Refreshing state... [id=5e2341ab4188c3004f8154c85339bb32c0e84bde0e6445bbc3366fb5ef9bf9e1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # module.database.docker_container.backup will be updated in-place
+  ~ resource "docker_container" "backup" {
+        id                                          = "5e2341ab4188c3004f8154c85339bb32c0e84bde0e6445bbc3366fb5ef9bf9e1"
+      - memory_swap                                 = 128 -> null
+        name                                        = "rf-ci-db-backup"
+        # (49 unchanged attributes hidden)
+
+        # (8 unchanged blocks hidden)
+    }
+
+  # module.database.docker_container.db will be updated in-place
+  ~ resource "docker_container" "db" {
+        id                                          = "15829caa1e2f79a717b198b170951a1cad7c8da6b230fb5c5e37ae0793b72479"
+      - memory_swap                                 = 512 -> null
+        name                                        = "rf-ci-db"
+        # (49 unchanged attributes hidden)
+
+        # (9 unchanged blocks hidden)
+    }
+
+  # module.lb.docker_container.lb will be updated in-place
+  ~ resource "docker_container" "lb" {
+        id                                          = "c9121f4b83cf1034e57d54d74f2d5ef418b343a271ec4906560fefbbb414dd41"
+      - memory_swap                                 = 128 -> null
+        name                                        = "rf-ci-lb"
+        # (49 unchanged attributes hidden)
+
+        # (10 unchanged blocks hidden)
+    }
+
+  # module.lb.local_file.config must be replaced
+-/+ resource "local_file" "config" {
+      ~ content              = <<-EOT # forces replacement
+          - # Згенеровано Terraform (модуль lb). Активне середовище: blue
+          + # Згенеровано Terraform (модуль lb). Активне середовище: green
+            events {}
+            
+            http {
+              # Вбудований DNS Docker: імена контейнерів-реплік розв'язуються під час запиту.
+              resolver 127.0.0.11 valid=5s ipv6=off;
+              access_log /dev/stdout;
+            
+              # Прив'язка орендаря до репліки (tenant affinity): усі запити готелю потрапляють в одну репліку,
+              # тому стан орендаря в пам'яті репліки узгоджений. Хеш заголовка X-Tenant-ID (MurmurHash2) стабільний.
+              split_clients "$http_x_tenant_id" $replica {
+                50.00% 0;
+                * 1;
+              }
+            
+              server {
+                listen 80;
+            
+                location = /lb/active {
+                  default_type text/plain;
+          -       return 200 "blue\n";
+          +       return 200 "green\n";
+                }
+            
+                location / {
+          -       set $backend "http://rf-ci-blue-$replica:8080";
+          +       set $backend "http://rf-ci-green-$replica:8080";
+                  proxy_pass $backend;
+                  proxy_set_header Host $host;
+                  proxy_next_upstream error timeout http_502 http_503;
+                  proxy_connect_timeout 2s;
+                }
+              }
+            }
+        EOT
+      ~ content_base64sha256 = "X5SlVkZktlMuVIApSs8gcrVUkBhlxQp0tp3WuKa+aD8=" -> (known after apply)
+      ~ content_base64sha512 = "V7xSW7e2ukYJvG0QyW3RQDvGqnhSv+/FskxWXVsmi9puawVh62gHju4j0bm3ShEuyxLs/Zj+6qHh/Uuh78zNBg==" -> (known after apply)
+      ~ content_md5          = "58602bd000aaa280f3c4ceca89daf030" -> (known after apply)
+      ~ content_sha1         = "a8750ec05ac0aa8cb2b770baf3e15f2308a0b333" -> (known after apply)
+      ~ content_sha256       = "5f94a5564664b6532e5480294acf2072b554901865c50a74b69dd6b8a6be683f" -> (known after apply)
+      ~ content_sha512       = "57bc525bb7b6ba4609bc6d10c96dd1403bc6aa7852bfefc5b24c565d5b268bda6e6b0561eb68078eee23d1b9b74a112ecb12ecfd98feeaa1e1fd4ba1efcccd06" -> (known after apply)
+      ~ id                   = "a8750ec05ac0aa8cb2b770baf3e15f2308a0b333" -> (known after apply)
+        # (3 unchanged attributes hidden)
+    }
+
+  # module.lb.terraform_data.reload must be replaced
+-/+ resource "terraform_data" "reload" {
+      ~ id               = "a4c4bc76-61ee-92c8-5966-b7b57734732d" -> (known after apply)
+      ~ triggers_replace = [
+          ~ <<-EOT
+              - # Згенеровано Terraform (модуль lb). Активне середовище: blue
+              + # Згенеровано Terraform (модуль lb). Активне середовище: green
+                events {}
+                
+                http {
+                  # Вбудований DNS Docker: імена контейнерів-реплік розв'язуються під час запиту.
+                  resolver 127.0.0.11 valid=5s ipv6=off;
+                  access_log /dev/stdout;
+                
+                  # Прив'язка орендаря до репліки (tenant affinity): усі запити готелю потрапляють в одну репліку,
+                  # тому стан орендаря в пам'яті репліки узгоджений. Хеш заголовка X-Tenant-ID (MurmurHash2) стабільний.
+                  split_clients "$http_x_tenant_id" $replica {
+                    50.00% 0;
+                    * 1;
+                  }
+                
+                  server {
+                    listen 80;
+                
+                    location = /lb/active {
+                      default_type text/plain;
+              -       return 200 "blue\n";
+              +       return 200 "green\n";
+                    }
+                
+                    location / {
+              -       set $backend "http://rf-ci-blue-$replica:8080";
+              +       set $backend "http://rf-ci-green-$replica:8080";
+                      proxy_pass $backend;
+                      proxy_set_header Host $host;
+                      proxy_next_upstream error timeout http_502 http_503;
+                      proxy_connect_timeout 2s;
+                    }
+                  }
+                }
+            EOT,
+        ]
+    }
+
+  # module.monitoring.docker_container.this["alert-sink"] will be updated in-place
+  ~ resource "docker_container" "this" {
+        id                                          = "b868db5b3ef9e4dc824cdbb30d01ce6f1d16460676782f2e2e589728ae3b83f1"
+      - memory_swap                                 = 512 -> null
+        name                                        = "rf-ci-alert-sink"
+        # (49 unchanged attributes hidden)
+
+        # (10 unchanged blocks hidden)
+    }
+
+  # module.monitoring.docker_container.this["alertmanager"] will be updated in-place
+  ~ resource "docker_container" "this" {
+        id                                          = "fc44cf1a4fbdcd4825ff5ee791f7f494ba3eea84f0c2bda67856a37092db1c1e"
+      - memory_swap                                 = 512 -> null
+        name                                        = "rf-ci-alertmanager"
+        # (49 unchanged attributes hidden)
+
+        # (11 unchanged blocks hidden)
+    }
+
+  # module.monitoring.docker_container.this["prometheus"] will be updated in-place
+  ~ resource "docker_container" "this" {
+        id                                          = "297595b1a43952a2d7529571bf65eead015bee91f0d0804d5c17b8610b8e67f3"
+      - memory_swap                                 = 512 -> null
+        name                                        = "rf-ci-prometheus"
+        # (49 unchanged attributes hidden)
+
+        # (11 unchanged blocks hidden)
+    }
+
+Plan: 2 to add, 6 to change, 2 to destroy.
+
+Changes to Outputs:
+  ~ active_color      = "blue" -> "green"
+module.lb.terraform_data.reload: Destroying... [id=a4c4bc76-61ee-92c8-5966-b7b57734732d]
+module.lb.terraform_data.reload: Destruction complete after 0s
+module.lb.local_file.config: Destroying... [id=a8750ec05ac0aa8cb2b770baf3e15f2308a0b333]
+module.lb.local_file.config: Destruction complete after 0s
+module.lb.local_file.config: Creating...
+module.lb.local_file.config: Creation complete after 0s [id=6659919cdbb80dc6db65c32707b8a3755f0854a4]
+module.monitoring.docker_container.this["alertmanager"]: Modifying... [id=fc44cf1a4fbdcd4825ff5ee791f7f494ba3eea84f0c2bda67856a37092db1c1e]
+module.database.docker_container.db: Modifying... [id=15829caa1e2f79a717b198b170951a1cad7c8da6b230fb5c5e37ae0793b72479]
+module.monitoring.docker_container.this["alert-sink"]: Modifying... [id=b868db5b3ef9e4dc824cdbb30d01ce6f1d16460676782f2e2e589728ae3b83f1]
+module.monitoring.docker_container.this["prometheus"]: Modifying... [id=297595b1a43952a2d7529571bf65eead015bee91f0d0804d5c17b8610b8e67f3]
+module.lb.docker_container.lb: Modifying... [id=c9121f4b83cf1034e57d54d74f2d5ef418b343a271ec4906560fefbbb414dd41]
+module.monitoring.docker_container.this["alert-sink"]: Modifications complete after 0s [id=b868db5b3ef9e4dc824cdbb30d01ce6f1d16460676782f2e2e589728ae3b83f1]
+module.monitoring.docker_container.this["prometheus"]: Modifications complete after 0s [id=297595b1a43952a2d7529571bf65eead015bee91f0d0804d5c17b8610b8e67f3]
+module.lb.docker_container.lb: Modifications complete after 0s [id=c9121f4b83cf1034e57d54d74f2d5ef418b343a271ec4906560fefbbb414dd41]
+module.lb.terraform_data.reload: Creating...
+module.lb.terraform_data.reload: Provisioning with 'local-exec'...
+module.lb.terraform_data.reload (local-exec): Executing: ["/bin/sh" "-c" "docker exec rf-ci-lb nginx -s reload"]
+module.database.docker_container.db: Modifications complete after 0s [id=15829caa1e2f79a717b198b170951a1cad7c8da6b230fb5c5e37ae0793b72479]
+module.monitoring.docker_container.this["alertmanager"]: Modifications complete after 0s [id=fc44cf1a4fbdcd4825ff5ee791f7f494ba3eea84f0c2bda67856a37092db1c1e]
+module.database.docker_container.backup: Modifying... [id=5e2341ab4188c3004f8154c85339bb32c0e84bde0e6445bbc3366fb5ef9bf9e1]
+module.database.docker_container.backup: Modifications complete after 0s [id=5e2341ab4188c3004f8154c85339bb32c0e84bde0e6445bbc3366fb5ef9bf9e1]
+module.lb.terraform_data.reload (local-exec): 2026/10/16 18:00:53 [notice] 39#39: signal process started
+module.lb.terraform_data.reload: Creation complete after 0s [id=28c48f69-f6b3-de1e-e901-18df3e595950]
+
+Apply complete! Resources: 2 added, 6 changed, 2 destroyed.
+
+Outputs:
+
+active_color = "green"
+db_backups_volume = "rf-ci-db-backups"
+networks = {
+  "app" = "rf-ci-app"
+  "egress" = "rf-ci-egress"
+  "private" = "rf-ci-private"
+  "public" = "rf-ci-public"
+}
+prometheus_url = "http://localhost:9090"
+url = "http://localhost:8088"

@@ -1,0 +1,19 @@
+
+Error: Error acquiring the state lock
+
+Error message: Already locked for workspace creation: default
+Lock Info:
+  ID:        a5067286-f2bf-23d8-a430-5fdf8cedab23
+  Path:      
+  Operation: OperationTypePlan
+  Who:       runner@runnervm8k3b6
+  Version:   1.9.8
+  Created:   2026-10-16 18:02:22.581732232 +0000 UTC
+  Info:      
+
+
+Terraform acquires a state lock to protect the state from being written
+by multiple users at the same time. Please resolve the issue above and try
+again. For most commands, you can disable locking with the "-lock=false"
+flag, but this is not recommended.
+second plan exit code: 1

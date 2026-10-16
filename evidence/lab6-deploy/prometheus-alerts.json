@@ -1,0 +1,35 @@
+{
+  "status": "success",
+  "data": {
+    "alerts": [
+      {
+        "labels": {
+          "alertname": "InstanceDown",
+          "color": "green",
+          "instance": "10.60.2.9:8080",
+          "job": "roomflow",
+          "severity": "critical"
+        },
+        "annotations": {
+          "summary": "Репліка 10.60.2.9:8080 (green) недоступна"
+        },
+        "state": "firing",
+        "activeAt": "2026-10-16T18:01:18.176292528Z",
+        "value": "0e+00"
+      },
+      {
+        "labels": {
+          "alertname": "ReplicaGroupDegraded",
+          "color": "green",
+          "severity": "warning"
+        },
+        "annotations": {
+          "summary": "У групі green менше двох здорових реплік"
+        },
+        "state": "firing",
+        "activeAt": "2026-10-16T18:01:18.176292528Z",
+        "value": "1e+00"
+      }
+    ]
+  }
+}

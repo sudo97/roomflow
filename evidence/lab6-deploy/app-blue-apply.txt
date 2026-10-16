@@ -1,9 +1,9 @@
 module.app.docker_image.app: Creating...
-module.app.docker_image.app: Creation complete after 0s [id=sha256:b8b791b4738742086b30ab6ceda0ed21851c29a33e17b2a001dd70ed1d8a79a8localhost:5000/roomflow:v1]
-module.app.docker_container.replica[1]: Creating...
+module.app.docker_image.app: Creation complete after 0s [id=sha256:f286f5086595117b55980edf0a415f171ac888eb62d4b26ba509db9dedba7af3localhost:5000/roomflow:v1]
 module.app.docker_container.replica[0]: Creating...
-module.app.docker_container.replica[1]: Creation complete after 0s [id=786bb70c50eb8efbe67cccd5ba76625d8c0a25d83d790bc0ce59110265cc3dfa]
-module.app.docker_container.replica[0]: Creation complete after 0s [id=4e7d52d59d973eb05f1736cec1bbc7fc0f23e02beaa2808b641e81d2af11a6e1]
+module.app.docker_container.replica[1]: Creating...
+module.app.docker_container.replica[0]: Creation complete after 0s [id=77eb18986c27d56b9359e1843df3f7c14d8f0f8d10b793b6a6c6beb94823dfeb]
+module.app.docker_container.replica[1]: Creation complete after 0s [id=ae6adab4689d628a7679b4c517d1f121d012994fe7abc072e4910a16c0238ac3]
 
 Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
 

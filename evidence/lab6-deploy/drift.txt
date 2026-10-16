@@ -1,0 +1,2 @@
+terraform plan -detailed-exitcode = 2 (2 означає дрейф)
+after re-apply: exit 2

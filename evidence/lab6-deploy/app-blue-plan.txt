@@ -1,7 +1,7 @@
 data.docker_network.private: Reading...
 data.docker_network.app: Reading...
-data.docker_network.private: Read complete after 0s [id=c687118f3ca2cff95d62bb88d9c123ff95ab976bb171f88337b5f41d0e826d84]
-data.docker_network.app: Read complete after 0s [id=94c81709b8cc56315e37017ddfc1042f6c37f0320ebc58672619ba677fcfbb2b]
+data.docker_network.app: Read complete after 0s [id=7d89504fa1c77524c7d1fdaa212bd58d489f89a1d15f74bfe3e1f01a93ddc30c]
+data.docker_network.private: Read complete after 0s [id=6aca828dee505be9d5c9599394a4c70ce123eb21cf137401de4ec491cbe7a823]
 
 Terraform used the selected providers to generate the following execution
 plan. Resource actions are indicated with the following symbols:

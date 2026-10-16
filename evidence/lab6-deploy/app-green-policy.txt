@@ -1,0 +1,10 @@
++---------+-----------------------------------+-----------+---------+
+| RESULT  |               FILE                | NAMESPACE | MESSAGE |
++---------+-----------------------------------+-----------+---------+
+| success | /tmp/evidence/app-green-plan.json | main      | SUCCESS |
+| success | /tmp/evidence/app-green-plan.json | main      | SUCCESS |
+| success | /tmp/evidence/app-green-plan.json | main      | SUCCESS |
+| success | /tmp/evidence/app-green-plan.json | main      | SUCCESS |
+| success | /tmp/evidence/app-green-plan.json | main      | SUCCESS |
+| success | /tmp/evidence/app-green-plan.json | main      | SUCCESS |
++---------+-----------------------------------+-----------+---------+

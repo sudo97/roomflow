@@ -1,0 +1,14 @@
+ schemaname | relname 
+------------+---------
+ app        | states
+ platform   | states
+ locktest   | states
+(3 rows)
+
+  name   | bytes 
+---------+-------
+ default | 63450
+ blue    | 14568
+ green   | 14563
+(3 rows)
+

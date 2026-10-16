@@ -1,0 +1,7 @@
+{"color":"green","commit":"efbd385","version":"v2"}
+PASS healthz (200)
+PASS add-room (201)
+PASS book (201)
+PASS double-booking (409)
+PASS cancel (204)
+smoke OK

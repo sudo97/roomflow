@@ -1,3 +1,6 @@
 PASS healthz (200)
 PASS add-room (201)
-FAIL book: got 404, want 201: {"error":"not found"}
+PASS book (201)
+PASS double-booking (409)
+PASS cancel (204)
+smoke OK

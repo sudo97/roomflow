@@ -1,0 +1,299 @@
+data.docker_network.app: Reading...
+data.docker_network.private: Reading...
+module.app.docker_image.app: Refreshing state... [id=sha256:93a1a8df0159c89a481d73e4ccc02865d98167df3b2d1570a6e9a0c41348caaflocalhost:5000/roomflow:v2]
+data.docker_network.app: Read complete after 0s [id=7d89504fa1c77524c7d1fdaa212bd58d489f89a1d15f74bfe3e1f01a93ddc30c]
+data.docker_network.private: Read complete after 0s [id=6aca828dee505be9d5c9599394a4c70ce123eb21cf137401de4ec491cbe7a823]
+module.app.docker_container.replica[0]: Refreshing state... [id=a3e64a529ff99e633dff457967ad6ff87b10af99e39963e45f97a4d63a2acf47]
+module.app.docker_container.replica[1]: Refreshing state... [id=b1fc6c1eb46422681aa690a5ccc69677e2edbed625794dfc60a50b68d566ecd9]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # module.app.docker_container.replica[0] will be destroyed
+  - resource "docker_container" "replica" {
+      - attach                                      = false -> null
+      - command                                     = [] -> null
+      - container_read_refresh_timeout_milliseconds = 15000 -> null
+      - cpu_shares                                  = 0 -> null
+      - dns                                         = [] -> null
+      - dns_opts                                    = [] -> null
+      - dns_search                                  = [] -> null
+      - entrypoint                                  = [
+          - "/roomflow",
+        ] -> null
+      - env                                         = [
+          - "COLOR=green",
+        ] -> null
+      - group_add                                   = [] -> null
+      - hostname                                    = "a3e64a529ff9" -> null
+      - id                                          = "a3e64a529ff99e633dff457967ad6ff87b10af99e39963e45f97a4d63a2acf47" -> null
+      - image                                       = "sha256:93a1a8df0159c89a481d73e4ccc02865d98167df3b2d1570a6e9a0c41348caaf" -> null
+      - init                                        = false -> null
+      - ipc_mode                                    = "private" -> null
+      - log_driver                                  = "json-file" -> null
+      - log_opts                                    = {} -> null
+      - logs                                        = false -> null
+      - max_retry_count                             = 0 -> null
+      - memory                                      = 128 -> null
+      - memory_reservation                          = 0 -> null
+      - memory_swap                                 = 256 -> null
+      - must_run                                    = true -> null
+      - name                                        = "rf-ci-green-0" -> null
+      - network_data                                = [
+          - {
+              - gateway                   = "10.60.2.1"
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "10.60.2.9"
+              - ip_prefix_length          = 24
+              - mac_address               = "2a:bd:4a:2a:76:ff"
+              - network_name              = "rf-ci-app"
+                # (2 unchanged attributes hidden)
+            },
+          - {
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "10.60.3.6"
+              - ip_prefix_length          = 24
+              - mac_address               = "da:4a:73:38:44:95"
+              - network_name              = "rf-ci-private"
+                # (3 unchanged attributes hidden)
+            },
+        ] -> null
+      - network_mode                                = "bridge" -> null
+      - privileged                                  = false -> null
+      - publish_all_ports                           = false -> null
+      - read_only                                   = false -> null
+      - remove_volumes                              = true -> null
+      - restart                                     = "unless-stopped" -> null
+      - rm                                          = false -> null
+      - runtime                                     = "runc" -> null
+      - security_opts                               = [] -> null
+      - shm_size                                    = 64 -> null
+      - start                                       = true -> null
+      - stdin_open                                  = false -> null
+      - stop_timeout                                = 0 -> null
+      - storage_opts                                = {} -> null
+      - sysctls                                     = {} -> null
+      - tmpfs                                       = {} -> null
+      - tty                                         = false -> null
+      - user                                        = "nonroot:nonroot" -> null
+      - wait                                        = false -> null
+      - wait_timeout                                = 60 -> null
+      - working_dir                                 = "/home/nonroot" -> null
+        # (6 unchanged attributes hidden)
+
+      - healthcheck {
+          - interval       = "5s" -> null
+          - retries        = 3 -> null
+          - start_interval = "0s" -> null
+          - start_period   = "0s" -> null
+          - test           = [
+              - "CMD",
+              - "/roomflow",
+              - "-healthcheck",
+            ] -> null
+          - timeout        = "2s" -> null
+        }
+
+      - labels {
+          - label = "color" -> null
+          - value = "green" -> null
+        }
+      - labels {
+          - label = "component" -> null
+          - value = "app" -> null
+        }
+      - labels {
+          - label = "cost_center" -> null
+          - value = "roomflow-edu" -> null
+        }
+      - labels {
+          - label = "environment" -> null
+          - value = "ci" -> null
+        }
+      - labels {
+          - label = "managed_by" -> null
+          - value = "terraform" -> null
+        }
+      - labels {
+          - label = "owner" -> null
+          - value = "platform-team" -> null
+        }
+      - labels {
+          - label = "project" -> null
+          - value = "roomflow" -> null
+        }
+
+      - networks_advanced {
+          - aliases      = [
+              - "app-green",
+            ] -> null
+          - name         = "rf-ci-app" -> null
+            # (3 unchanged attributes hidden)
+        }
+      - networks_advanced {
+          - aliases      = [
+              - "app-green",
+            ] -> null
+          - name         = "rf-ci-private" -> null
+            # (3 unchanged attributes hidden)
+        }
+    }
+
+  # module.app.docker_container.replica[1] will be destroyed
+  - resource "docker_container" "replica" {
+      - attach                                      = false -> null
+      - command                                     = [] -> null
+      - container_read_refresh_timeout_milliseconds = 15000 -> null
+      - cpu_shares                                  = 0 -> null
+      - dns                                         = [] -> null
+      - dns_opts                                    = [] -> null
+      - dns_search                                  = [] -> null
+      - entrypoint                                  = [
+          - "/roomflow",
+        ] -> null
+      - env                                         = [
+          - "COLOR=green",
+        ] -> null
+      - group_add                                   = [] -> null
+      - hostname                                    = "b1fc6c1eb464" -> null
+      - id                                          = "b1fc6c1eb46422681aa690a5ccc69677e2edbed625794dfc60a50b68d566ecd9" -> null
+      - image                                       = "sha256:93a1a8df0159c89a481d73e4ccc02865d98167df3b2d1570a6e9a0c41348caaf" -> null
+      - init                                        = false -> null
+      - ipc_mode                                    = "private" -> null
+      - log_driver                                  = "json-file" -> null
+      - log_opts                                    = {} -> null
+      - logs                                        = false -> null
+      - max_retry_count                             = 0 -> null
+      - memory                                      = 128 -> null
+      - memory_reservation                          = 0 -> null
+      - memory_swap                                 = 256 -> null
+      - must_run                                    = true -> null
+      - name                                        = "rf-ci-green-1" -> null
+      - network_data                                = [
+          - {
+              - gateway                   = "10.60.2.1"
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "10.60.2.8"
+              - ip_prefix_length          = 24
+              - mac_address               = "d6:45:eb:17:5d:1a"
+              - network_name              = "rf-ci-app"
+                # (2 unchanged attributes hidden)
+            },
+          - {
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "10.60.3.7"
+              - ip_prefix_length          = 24
+              - mac_address               = "da:c1:91:be:07:e9"
+              - network_name              = "rf-ci-private"
+                # (3 unchanged attributes hidden)
+            },
+        ] -> null
+      - network_mode                                = "bridge" -> null
+      - privileged                                  = false -> null
+      - publish_all_ports                           = false -> null
+      - read_only                                   = false -> null
+      - remove_volumes                              = true -> null
+      - restart                                     = "unless-stopped" -> null
+      - rm                                          = false -> null
+      - runtime                                     = "runc" -> null
+      - security_opts                               = [] -> null
+      - shm_size                                    = 64 -> null
+      - start                                       = true -> null
+      - stdin_open                                  = false -> null
+      - stop_timeout                                = 0 -> null
+      - storage_opts                                = {} -> null
+      - sysctls                                     = {} -> null
+      - tmpfs                                       = {} -> null
+      - tty                                         = false -> null
+      - user                                        = "nonroot:nonroot" -> null
+      - wait                                        = false -> null
+      - wait_timeout                                = 60 -> null
+      - working_dir                                 = "/home/nonroot" -> null
+        # (6 unchanged attributes hidden)
+
+      - healthcheck {
+          - interval       = "5s" -> null
+          - retries        = 3 -> null
+          - start_interval = "0s" -> null
+          - start_period   = "0s" -> null
+          - test           = [
+              - "CMD",
+              - "/roomflow",
+              - "-healthcheck",
+            ] -> null
+          - timeout        = "2s" -> null
+        }
+
+      - labels {
+          - label = "color" -> null
+          - value = "green" -> null
+        }
+      - labels {
+          - label = "component" -> null
+          - value = "app" -> null
+        }
+      - labels {
+          - label = "cost_center" -> null
+          - value = "roomflow-edu" -> null
+        }
+      - labels {
+          - label = "environment" -> null
+          - value = "ci" -> null
+        }
+      - labels {
+          - label = "managed_by" -> null
+          - value = "terraform" -> null
+        }
+      - labels {
+          - label = "owner" -> null
+          - value = "platform-team" -> null
+        }
+      - labels {
+          - label = "project" -> null
+          - value = "roomflow" -> null
+        }
+
+      - networks_advanced {
+          - aliases      = [
+              - "app-green",
+            ] -> null
+          - name         = "rf-ci-app" -> null
+            # (3 unchanged attributes hidden)
+        }
+      - networks_advanced {
+          - aliases      = [
+              - "app-green",
+            ] -> null
+          - name         = "rf-ci-private" -> null
+            # (3 unchanged attributes hidden)
+        }
+    }
+
+  # module.app.docker_image.app will be destroyed
+  - resource "docker_image" "app" {
+      - id           = "sha256:93a1a8df0159c89a481d73e4ccc02865d98167df3b2d1570a6e9a0c41348caaflocalhost:5000/roomflow:v2" -> null
+      - image_id     = "sha256:93a1a8df0159c89a481d73e4ccc02865d98167df3b2d1570a6e9a0c41348caaf" -> null
+      - keep_locally = true -> null
+      - name         = "localhost:5000/roomflow:v2" -> null
+      - repo_digest  = "localhost:5000/roomflow@sha256:93cc531969a1b310fae1014e06286ca84c1747db642159fef6f5b747eb7d458a" -> null
+    }
+
+Plan: 0 to add, 0 to change, 3 to destroy.
+
+Changes to Outputs:
+  - color    = "green" -> null
+  - replicas = [
+      - "rf-ci-green-0",
+      - "rf-ci-green-1",
+    ] -> null
+module.app.docker_container.replica[1]: Destroying... [id=b1fc6c1eb46422681aa690a5ccc69677e2edbed625794dfc60a50b68d566ecd9]
+module.app.docker_container.replica[0]: Destroying... [id=a3e64a529ff99e633dff457967ad6ff87b10af99e39963e45f97a4d63a2acf47]
+module.app.docker_container.replica[1]: Destruction complete after 1s
+module.app.docker_container.replica[0]: Destruction complete after 1s
+module.app.docker_image.app: Destroying... [id=sha256:93a1a8df0159c89a481d73e4ccc02865d98167df3b2d1570a6e9a0c41348caaflocalhost:5000/roomflow:v2]
+module.app.docker_image.app: Destruction complete after 0s
+
+Destroy complete! Resources: 3 destroyed.

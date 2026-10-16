@@ -1,0 +1,224 @@
+data.docker_network.app: Reading...
+data.docker_network.private: Reading...
+data.docker_network.app: Read complete after 0s [id=7d89504fa1c77524c7d1fdaa212bd58d489f89a1d15f74bfe3e1f01a93ddc30c]
+data.docker_network.private: Read complete after 0s [id=6aca828dee505be9d5c9599394a4c70ce123eb21cf137401de4ec491cbe7a823]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.app.docker_container.replica[0] will be created
+  + resource "docker_container" "replica" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = (known after apply)
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = [
+          + "COLOR=green",
+        ]
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = (known after apply)
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + memory                                      = 128
+      + memory_reservation                          = 0
+      + must_run                                    = true
+      + name                                        = "rf-ci-green-0"
+      + network_data                                = (known after apply)
+      + network_mode                                = "bridge"
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "unless-stopped"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck {
+          + interval       = "5s"
+          + retries        = 3
+          + start_interval = "0s"
+          + start_period   = "0s"
+          + test           = [
+              + "CMD",
+              + "/roomflow",
+              + "-healthcheck",
+            ]
+          + timeout        = "2s"
+        }
+
+      + labels {
+          + label = "color"
+          + value = "green"
+        }
+      + labels {
+          + label = "component"
+          + value = "app"
+        }
+      + labels {
+          + label = "cost_center"
+          + value = "roomflow-edu"
+        }
+      + labels {
+          + label = "environment"
+          + value = "ci"
+        }
+      + labels {
+          + label = "managed_by"
+          + value = "terraform"
+        }
+      + labels {
+          + label = "owner"
+          + value = "platform-team"
+        }
+      + labels {
+          + label = "project"
+          + value = "roomflow"
+        }
+
+      + networks_advanced {
+          + aliases      = [
+              + "app-green",
+            ]
+          + name         = "rf-ci-app"
+            # (3 unchanged attributes hidden)
+        }
+      + networks_advanced {
+          + aliases      = [
+              + "app-green",
+            ]
+          + name         = "rf-ci-private"
+            # (3 unchanged attributes hidden)
+        }
+    }
+
+  # module.app.docker_container.replica[1] will be created
+  + resource "docker_container" "replica" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = (known after apply)
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = [
+          + "COLOR=green",
+        ]
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = (known after apply)
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + memory                                      = 128
+      + memory_reservation                          = 0
+      + must_run                                    = true
+      + name                                        = "rf-ci-green-1"
+      + network_data                                = (known after apply)
+      + network_mode                                = "bridge"
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "unless-stopped"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck {
+          + interval       = "5s"
+          + retries        = 3
+          + start_interval = "0s"
+          + start_period   = "0s"
+          + test           = [
+              + "CMD",
+              + "/roomflow",
+              + "-healthcheck",
+            ]
+          + timeout        = "2s"
+        }
+
+      + labels {
+          + label = "color"
+          + value = "green"
+        }
+      + labels {
+          + label = "component"
+          + value = "app"
+        }
+      + labels {
+          + label = "cost_center"
+          + value = "roomflow-edu"
+        }
+      + labels {
+          + label = "environment"
+          + value = "ci"
+        }
+      + labels {
+          + label = "managed_by"
+          + value = "terraform"
+        }
+      + labels {
+          + label = "owner"
+          + value = "platform-team"
+        }
+      + labels {
+          + label = "project"
+          + value = "roomflow"
+        }
+
+      + networks_advanced {
+          + aliases      = [
+              + "app-green",
+            ]
+          + name         = "rf-ci-app"
+            # (3 unchanged attributes hidden)
+        }
+      + networks_advanced {
+          + aliases      = [
+              + "app-green",
+            ]
+          + name         = "rf-ci-private"
+            # (3 unchanged attributes hidden)
+        }
+    }
+
+  # module.app.docker_image.app will be created
+  + resource "docker_image" "app" {
+      + id           = (known after apply)
+      + image_id     = (known after apply)
+      + keep_locally = true
+      + name         = "localhost:5000/roomflow:v2"
+      + repo_digest  = (known after apply)
+    }
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + color    = "green"
+  + replicas = [
+      + "rf-ci-green-0",
+      + "rf-ci-green-1",
+    ]

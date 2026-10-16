@@ -1,0 +1,24 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # time_sleep.hold_lock will be created
+  + resource "time_sleep" "hold_lock" {
+      + create_duration = "30s"
+      + id              = (known after apply)
+      + triggers        = {
+          + "run" = "38943752813-a"
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+time_sleep.hold_lock: Creating...
+time_sleep.hold_lock: Still creating... [10s elapsed]
+time_sleep.hold_lock: Still creating... [20s elapsed]
+time_sleep.hold_lock: Still creating... [30s elapsed]
+time_sleep.hold_lock: Creation complete after 30s [id=2026-10-16T18:02:44Z]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.

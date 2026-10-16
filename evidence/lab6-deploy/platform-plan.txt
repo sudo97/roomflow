@@ -384,9 +384,16 @@ Terraform will perform the following actions:
             events {}
             
             http {
-              # Вбудований DNS Docker: ім'я app-blue повертає адреси всіх реплік групи.
+              # Вбудований DNS Docker: імена контейнерів-реплік розв'язуються під час запиту.
               resolver 127.0.0.11 valid=5s ipv6=off;
               access_log /dev/stdout;
+            
+              # Прив'язка орендаря до репліки (tenant affinity): усі запити готелю потрапляють в одну репліку,
+              # тому стан орендаря в пам'яті репліки узгоджений. Хеш заголовка X-Tenant-ID (MurmurHash2) стабільний.
+              split_clients "$http_x_tenant_id" $replica {
+                50.00% 0;
+                * 1;
+              }
             
               server {
                 listen 80;
@@ -397,7 +404,7 @@ Terraform will perform the following actions:
                 }
             
                 location / {
-                  set $backend "http://app-blue:8080";
+                  set $backend "http://rf-ci-blue-$replica:8080";
                   proxy_pass $backend;
                   proxy_set_header Host $host;
                   proxy_next_upstream error timeout http_502 http_503;
@@ -427,9 +434,16 @@ Terraform will perform the following actions:
                 events {}
                 
                 http {
-                  # Вбудований DNS Docker: ім'я app-blue повертає адреси всіх реплік групи.
+                  # Вбудований DNS Docker: імена контейнерів-реплік розв'язуються під час запиту.
                   resolver 127.0.0.11 valid=5s ipv6=off;
                   access_log /dev/stdout;
+                
+                  # Прив'язка орендаря до репліки (tenant affinity): усі запити готелю потрапляють в одну репліку,
+                  # тому стан орендаря в пам'яті репліки узгоджений. Хеш заголовка X-Tenant-ID (MurmurHash2) стабільний.
+                  split_clients "$http_x_tenant_id" $replica {
+                    50.00% 0;
+                    * 1;
+                  }
                 
                   server {
                     listen 80;
@@ -440,7 +454,7 @@ Terraform will perform the following actions:
                     }
                 
                     location / {
-                      set $backend "http://app-blue:8080";
+                      set $backend "http://rf-ci-blue-$replica:8080";
                       proxy_pass $backend;
                       proxy_set_header Host $host;
                       proxy_next_upstream error timeout http_502 http_503;
