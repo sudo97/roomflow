@@ -28,6 +28,7 @@ Terraform will perform the following actions:
       + logs                                        = false
       + memory                                      = 64
       + memory_reservation                          = 0
+      + memory_swap                                 = 128
       + must_run                                    = true
       + name                                        = "rf-ci-db-backup"
       + network_data                                = (known after apply)
@@ -106,6 +107,7 @@ Terraform will perform the following actions:
       + logs                                        = false
       + memory                                      = 256
       + memory_reservation                          = 0
+      + memory_swap                                 = 512
       + must_run                                    = true
       + name                                        = "rf-ci-db"
       + network_data                                = (known after apply)
@@ -296,6 +298,7 @@ Terraform will perform the following actions:
       + logs                                        = false
       + memory                                      = 64
       + memory_reservation                          = 0
+      + memory_swap                                 = 128
       + must_run                                    = true
       + name                                        = "rf-ci-lb"
       + network_data                                = (known after apply)
@@ -496,6 +499,7 @@ Terraform will perform the following actions:
       + logs                                        = false
       + memory                                      = 256
       + memory_reservation                          = 0
+      + memory_swap                                 = 512
       + must_run                                    = true
       + name                                        = "rf-ci-alert-sink"
       + network_data                                = (known after apply)
@@ -590,6 +594,7 @@ Terraform will perform the following actions:
       + logs                                        = false
       + memory                                      = 256
       + memory_reservation                          = 0
+      + memory_swap                                 = 512
       + must_run                                    = true
       + name                                        = "rf-ci-alertmanager"
       + network_data                                = (known after apply)
@@ -693,6 +698,7 @@ Terraform will perform the following actions:
       + logs                                        = false
       + memory                                      = 256
       + memory_reservation                          = 0
+      + memory_swap                                 = 512
       + must_run                                    = true
       + name                                        = "rf-ci-prometheus"
       + network_data                                = (known after apply)

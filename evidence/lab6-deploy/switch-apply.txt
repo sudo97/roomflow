@@ -1,64 +1,33 @@
-module.lb.local_file.config: Refreshing state... [id=a8750ec05ac0aa8cb2b770baf3e15f2308a0b333]
-module.monitoring.local_file.config["prometheus.yml"]: Refreshing state... [id=2effaf3925e87da4987bbec6ed654f8eb32c8e5a]
+module.database.docker_volume.backups: Refreshing state... [id=rf-ci-db-backups]
+module.monitoring.docker_image.this["prometheus"]: Refreshing state... [id=sha256:4022a502929b890bc9fd6231dda3ca1aec863ee08cef4113742949736ecd234fprom/prometheus:v2.54.1]
+module.lb.docker_image.nginx: Refreshing state... [id=sha256:6769dc3a703c719c1d2756bda113659be28ae16cf0da58dd5fd823d6b9a050eanginx:1.27-alpine]
+module.network.docker_network.this["egress"]: Refreshing state... [id=c2de0959ca05a5c7be95d85f5bb1cef94430041547ff22902946b6aac6ba83f5]
+module.network.docker_network.this["app"]: Refreshing state... [id=1ebe70de495d5060a9fe0012f3f132a95561099accd62a869b8243b89e069c5e]
+module.network.docker_network.this["private"]: Refreshing state... [id=d45b4fe61d38ff20c70985ec2ae53294f1dff4758a2defdcb2725413fcfd1a0b]
+module.database.docker_volume.data: Refreshing state... [id=rf-ci-db-data]
+module.database.docker_image.postgres: Refreshing state... [id=sha256:81bd698b4594e751a3269e4dcd3e03a4a0ec0daf7b72e7aa1abd43cce9887542postgres:16-alpine]
+module.monitoring.docker_image.this["alert-sink"]: Refreshing state... [id=sha256:979e5a8a56846771598d47ebf1f8a75b46155104e168a0b237c0783c1dedff8apython:3.12-alpine]
+module.network.docker_network.this["public"]: Refreshing state... [id=3497d4f806066392fcfdd7c6c764e5a882ab7e65dd6ba8e96d7bf73150e022ae]
+module.monitoring.docker_image.this["alertmanager"]: Refreshing state... [id=sha256:11f11916f8cdfb17c1da74b20deb2075d778357b4d60474d82453303f8d461f5prom/alertmanager:v0.27.0]
 module.monitoring.local_file.config["alerts.yml"]: Refreshing state... [id=53b4b90e8b16cf9e521a35c75938068b536b5db9]
 module.monitoring.local_file.config["alertmanager.yml"]: Refreshing state... [id=0851f41de555743472328faddf3e19e370ae91ef]
+module.monitoring.local_file.config["prometheus.yml"]: Refreshing state... [id=2effaf3925e87da4987bbec6ed654f8eb32c8e5a]
+module.lb.local_file.config: Refreshing state... [id=a8750ec05ac0aa8cb2b770baf3e15f2308a0b333]
 module.database.random_password.db: Refreshing state... [id=none]
-module.database.docker_volume.backups: Refreshing state... [id=rf-ci-db-backups]
-module.database.docker_image.postgres: Refreshing state... [id=sha256:81bd698b4594e751a3269e4dcd3e03a4a0ec0daf7b72e7aa1abd43cce9887542postgres:16-alpine]
-module.monitoring.docker_image.this["prometheus"]: Refreshing state... [id=sha256:4022a502929b890bc9fd6231dda3ca1aec863ee08cef4113742949736ecd234fprom/prometheus:v2.54.1]
-module.monitoring.docker_image.this["alert-sink"]: Refreshing state... [id=sha256:979e5a8a56846771598d47ebf1f8a75b46155104e168a0b237c0783c1dedff8apython:3.12-alpine]
-module.monitoring.docker_image.this["alertmanager"]: Refreshing state... [id=sha256:11f11916f8cdfb17c1da74b20deb2075d778357b4d60474d82453303f8d461f5prom/alertmanager:v0.27.0]
-module.network.docker_network.this["private"]: Refreshing state... [id=6aca828dee505be9d5c9599394a4c70ce123eb21cf137401de4ec491cbe7a823]
-module.network.docker_network.this["public"]: Refreshing state... [id=7ae496b38f19a369ac54ac00da609a2e296c258e2058e71e74fad0b9153cdbd7]
-module.network.docker_network.this["egress"]: Refreshing state... [id=05cd2402e727c18fa9b8b4a1db08485b6a4ddd4c5793567d42f289793fbe6804]
-module.network.docker_network.this["app"]: Refreshing state... [id=7d89504fa1c77524c7d1fdaa212bd58d489f89a1d15f74bfe3e1f01a93ddc30c]
-module.database.docker_volume.data: Refreshing state... [id=rf-ci-db-data]
-module.lb.docker_image.nginx: Refreshing state... [id=sha256:6769dc3a703c719c1d2756bda113659be28ae16cf0da58dd5fd823d6b9a050eanginx:1.27-alpine]
-module.database.docker_container.db: Refreshing state... [id=15829caa1e2f79a717b198b170951a1cad7c8da6b230fb5c5e37ae0793b72479]
-module.lb.docker_container.lb: Refreshing state... [id=c9121f4b83cf1034e57d54d74f2d5ef418b343a271ec4906560fefbbb414dd41]
-module.monitoring.docker_container.this["alertmanager"]: Refreshing state... [id=fc44cf1a4fbdcd4825ff5ee791f7f494ba3eea84f0c2bda67856a37092db1c1e]
-module.monitoring.docker_container.this["alert-sink"]: Refreshing state... [id=b868db5b3ef9e4dc824cdbb30d01ce6f1d16460676782f2e2e589728ae3b83f1]
-module.monitoring.docker_container.this["prometheus"]: Refreshing state... [id=297595b1a43952a2d7529571bf65eead015bee91f0d0804d5c17b8610b8e67f3]
-module.lb.terraform_data.reload: Refreshing state... [id=a4c4bc76-61ee-92c8-5966-b7b57734732d]
-module.monitoring.terraform_data.reload: Refreshing state... [id=d99c56a0-a098-de3c-2755-6e38c4a635ff]
-module.database.docker_container.backup: Refreshing state... [id=5e2341ab4188c3004f8154c85339bb32c0e84bde0e6445bbc3366fb5ef9bf9e1]
+module.lb.docker_container.lb: Refreshing state... [id=a1d3e7c6c819de68d350adacf4d29f6400551e082328a23a403a435e365daa7d]
+module.database.docker_container.db: Refreshing state... [id=907f620c482e106383f6aed71fe02085ed62d6414fa2f4c1acf2e0635f4404fc]
+module.monitoring.docker_container.this["alertmanager"]: Refreshing state... [id=4ef920f560c5b6c11c1b3a69a5312d1be6887277d96dd7a82635c2e3e032ac73]
+module.monitoring.docker_container.this["prometheus"]: Refreshing state... [id=370dcbbc443bb05379aadfaa282c97383bad2c533fbc71fb0ba7b7044d3391d2]
+module.monitoring.docker_container.this["alert-sink"]: Refreshing state... [id=07e944bc9f26f8452f35aca439afb22b02b3a2ff9295cfa134bf1f5916585e66]
+module.lb.terraform_data.reload: Refreshing state... [id=8b0d8230-c6a1-dc63-d789-7542cd1c1bc0]
+module.database.docker_container.backup: Refreshing state... [id=0d2da3ec545fffd866f54a45532913f22fe0b1f9d01272c8cef583d0b58bfed6]
+module.monitoring.terraform_data.reload: Refreshing state... [id=231ae07e-d677-4ea4-f989-68f10e85e8a9]
 
 Terraform used the selected providers to generate the following execution
 plan. Resource actions are indicated with the following symbols:
-  ~ update in-place
 -/+ destroy and then create replacement
 
 Terraform will perform the following actions:
-
-  # module.database.docker_container.backup will be updated in-place
-  ~ resource "docker_container" "backup" {
-        id                                          = "5e2341ab4188c3004f8154c85339bb32c0e84bde0e6445bbc3366fb5ef9bf9e1"
-      - memory_swap                                 = 128 -> null
-        name                                        = "rf-ci-db-backup"
-        # (49 unchanged attributes hidden)
-
-        # (8 unchanged blocks hidden)
-    }
-
-  # module.database.docker_container.db will be updated in-place
-  ~ resource "docker_container" "db" {
-        id                                          = "15829caa1e2f79a717b198b170951a1cad7c8da6b230fb5c5e37ae0793b72479"
-      - memory_swap                                 = 512 -> null
-        name                                        = "rf-ci-db"
-        # (49 unchanged attributes hidden)
-
-        # (9 unchanged blocks hidden)
-    }
-
-  # module.lb.docker_container.lb will be updated in-place
-  ~ resource "docker_container" "lb" {
-        id                                          = "c9121f4b83cf1034e57d54d74f2d5ef418b343a271ec4906560fefbbb414dd41"
-      - memory_swap                                 = 128 -> null
-        name                                        = "rf-ci-lb"
-        # (49 unchanged attributes hidden)
-
-        # (10 unchanged blocks hidden)
-    }
 
   # module.lb.local_file.config must be replaced
 -/+ resource "local_file" "config" {
@@ -111,7 +80,7 @@ Terraform will perform the following actions:
 
   # module.lb.terraform_data.reload must be replaced
 -/+ resource "terraform_data" "reload" {
-      ~ id               = "a4c4bc76-61ee-92c8-5966-b7b57734732d" -> (known after apply)
+      ~ id               = "8b0d8230-c6a1-dc63-d789-7542cd1c1bc0" -> (known after apply)
       ~ triggers_replace = [
           ~ <<-EOT
               - # Згенеровано Terraform (модуль lb). Активне середовище: blue
@@ -153,65 +122,23 @@ Terraform will perform the following actions:
         ]
     }
 
-  # module.monitoring.docker_container.this["alert-sink"] will be updated in-place
-  ~ resource "docker_container" "this" {
-        id                                          = "b868db5b3ef9e4dc824cdbb30d01ce6f1d16460676782f2e2e589728ae3b83f1"
-      - memory_swap                                 = 512 -> null
-        name                                        = "rf-ci-alert-sink"
-        # (49 unchanged attributes hidden)
-
-        # (10 unchanged blocks hidden)
-    }
-
-  # module.monitoring.docker_container.this["alertmanager"] will be updated in-place
-  ~ resource "docker_container" "this" {
-        id                                          = "fc44cf1a4fbdcd4825ff5ee791f7f494ba3eea84f0c2bda67856a37092db1c1e"
-      - memory_swap                                 = 512 -> null
-        name                                        = "rf-ci-alertmanager"
-        # (49 unchanged attributes hidden)
-
-        # (11 unchanged blocks hidden)
-    }
-
-  # module.monitoring.docker_container.this["prometheus"] will be updated in-place
-  ~ resource "docker_container" "this" {
-        id                                          = "297595b1a43952a2d7529571bf65eead015bee91f0d0804d5c17b8610b8e67f3"
-      - memory_swap                                 = 512 -> null
-        name                                        = "rf-ci-prometheus"
-        # (49 unchanged attributes hidden)
-
-        # (11 unchanged blocks hidden)
-    }
-
-Plan: 2 to add, 6 to change, 2 to destroy.
+Plan: 2 to add, 0 to change, 2 to destroy.
 
 Changes to Outputs:
   ~ active_color      = "blue" -> "green"
-module.lb.terraform_data.reload: Destroying... [id=a4c4bc76-61ee-92c8-5966-b7b57734732d]
+module.lb.terraform_data.reload: Destroying... [id=8b0d8230-c6a1-dc63-d789-7542cd1c1bc0]
 module.lb.terraform_data.reload: Destruction complete after 0s
 module.lb.local_file.config: Destroying... [id=a8750ec05ac0aa8cb2b770baf3e15f2308a0b333]
 module.lb.local_file.config: Destruction complete after 0s
 module.lb.local_file.config: Creating...
 module.lb.local_file.config: Creation complete after 0s [id=6659919cdbb80dc6db65c32707b8a3755f0854a4]
-module.monitoring.docker_container.this["alertmanager"]: Modifying... [id=fc44cf1a4fbdcd4825ff5ee791f7f494ba3eea84f0c2bda67856a37092db1c1e]
-module.database.docker_container.db: Modifying... [id=15829caa1e2f79a717b198b170951a1cad7c8da6b230fb5c5e37ae0793b72479]
-module.monitoring.docker_container.this["alert-sink"]: Modifying... [id=b868db5b3ef9e4dc824cdbb30d01ce6f1d16460676782f2e2e589728ae3b83f1]
-module.monitoring.docker_container.this["prometheus"]: Modifying... [id=297595b1a43952a2d7529571bf65eead015bee91f0d0804d5c17b8610b8e67f3]
-module.lb.docker_container.lb: Modifying... [id=c9121f4b83cf1034e57d54d74f2d5ef418b343a271ec4906560fefbbb414dd41]
-module.monitoring.docker_container.this["alert-sink"]: Modifications complete after 0s [id=b868db5b3ef9e4dc824cdbb30d01ce6f1d16460676782f2e2e589728ae3b83f1]
-module.monitoring.docker_container.this["prometheus"]: Modifications complete after 0s [id=297595b1a43952a2d7529571bf65eead015bee91f0d0804d5c17b8610b8e67f3]
-module.lb.docker_container.lb: Modifications complete after 0s [id=c9121f4b83cf1034e57d54d74f2d5ef418b343a271ec4906560fefbbb414dd41]
 module.lb.terraform_data.reload: Creating...
 module.lb.terraform_data.reload: Provisioning with 'local-exec'...
 module.lb.terraform_data.reload (local-exec): Executing: ["/bin/sh" "-c" "docker exec rf-ci-lb nginx -s reload"]
-module.database.docker_container.db: Modifications complete after 0s [id=15829caa1e2f79a717b198b170951a1cad7c8da6b230fb5c5e37ae0793b72479]
-module.monitoring.docker_container.this["alertmanager"]: Modifications complete after 0s [id=fc44cf1a4fbdcd4825ff5ee791f7f494ba3eea84f0c2bda67856a37092db1c1e]
-module.database.docker_container.backup: Modifying... [id=5e2341ab4188c3004f8154c85339bb32c0e84bde0e6445bbc3366fb5ef9bf9e1]
-module.database.docker_container.backup: Modifications complete after 0s [id=5e2341ab4188c3004f8154c85339bb32c0e84bde0e6445bbc3366fb5ef9bf9e1]
-module.lb.terraform_data.reload (local-exec): 2026/10/16 18:00:53 [notice] 39#39: signal process started
-module.lb.terraform_data.reload: Creation complete after 0s [id=28c48f69-f6b3-de1e-e901-18df3e595950]
+module.lb.terraform_data.reload (local-exec): 2026/10/16 18:13:58 [notice] 38#38: signal process started
+module.lb.terraform_data.reload: Creation complete after 0s [id=af3e59e5-e6e7-11db-3d77-ec0f253a48b1]
 
-Apply complete! Resources: 2 added, 6 changed, 2 destroyed.
+Apply complete! Resources: 2 added, 0 changed, 2 destroyed.
 
 Outputs:
 

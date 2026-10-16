@@ -1,10 +1,10 @@
 data.docker_network.app: Reading...
 data.docker_network.private: Reading...
-module.app.docker_image.app: Refreshing state... [id=sha256:93a1a8df0159c89a481d73e4ccc02865d98167df3b2d1570a6e9a0c41348caaflocalhost:5000/roomflow:v2]
-data.docker_network.app: Read complete after 0s [id=7d89504fa1c77524c7d1fdaa212bd58d489f89a1d15f74bfe3e1f01a93ddc30c]
-data.docker_network.private: Read complete after 0s [id=6aca828dee505be9d5c9599394a4c70ce123eb21cf137401de4ec491cbe7a823]
-module.app.docker_container.replica[0]: Refreshing state... [id=a3e64a529ff99e633dff457967ad6ff87b10af99e39963e45f97a4d63a2acf47]
-module.app.docker_container.replica[1]: Refreshing state... [id=b1fc6c1eb46422681aa690a5ccc69677e2edbed625794dfc60a50b68d566ecd9]
+module.app.docker_image.app: Refreshing state... [id=sha256:d0c3c3368bab9db10ba1ba90761b086dbf92a526c507312633c08851df8f28a0localhost:5000/roomflow:v2]
+data.docker_network.private: Read complete after 0s [id=d45b4fe61d38ff20c70985ec2ae53294f1dff4758a2defdcb2725413fcfd1a0b]
+data.docker_network.app: Read complete after 0s [id=1ebe70de495d5060a9fe0012f3f132a95561099accd62a869b8243b89e069c5e]
+module.app.docker_container.replica[0]: Refreshing state... [id=eb862eb8517e1bf0efb0d1250f5199b3e754ac0738dbf2fe20b8fe8678257724]
+module.app.docker_container.replica[1]: Refreshing state... [id=e63629bc1d0bccb474273d2f93ec1e0631b71f10301b382922df0080a9a6e5e1]
 
 Terraform used the selected providers to generate the following execution
 plan. Resource actions are indicated with the following symbols:
@@ -28,9 +28,9 @@ Terraform will perform the following actions:
           - "COLOR=green",
         ] -> null
       - group_add                                   = [] -> null
-      - hostname                                    = "a3e64a529ff9" -> null
-      - id                                          = "a3e64a529ff99e633dff457967ad6ff87b10af99e39963e45f97a4d63a2acf47" -> null
-      - image                                       = "sha256:93a1a8df0159c89a481d73e4ccc02865d98167df3b2d1570a6e9a0c41348caaf" -> null
+      - hostname                                    = "eb862eb8517e" -> null
+      - id                                          = "eb862eb8517e1bf0efb0d1250f5199b3e754ac0738dbf2fe20b8fe8678257724" -> null
+      - image                                       = "sha256:d0c3c3368bab9db10ba1ba90761b086dbf92a526c507312633c08851df8f28a0" -> null
       - init                                        = false -> null
       - ipc_mode                                    = "private" -> null
       - log_driver                                  = "json-file" -> null
@@ -44,21 +44,21 @@ Terraform will perform the following actions:
       - name                                        = "rf-ci-green-0" -> null
       - network_data                                = [
           - {
-              - gateway                   = "10.60.2.1"
-              - global_ipv6_prefix_length = 0
-              - ip_address                = "10.60.2.9"
-              - ip_prefix_length          = 24
-              - mac_address               = "2a:bd:4a:2a:76:ff"
-              - network_name              = "rf-ci-app"
-                # (2 unchanged attributes hidden)
-            },
-          - {
               - global_ipv6_prefix_length = 0
               - ip_address                = "10.60.3.6"
               - ip_prefix_length          = 24
-              - mac_address               = "da:4a:73:38:44:95"
+              - mac_address               = "26:a0:31:88:fb:a7"
               - network_name              = "rf-ci-private"
                 # (3 unchanged attributes hidden)
+            },
+          - {
+              - gateway                   = "10.60.2.1"
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "10.60.2.8"
+              - ip_prefix_length          = 24
+              - mac_address               = "76:4a:61:fd:0d:f4"
+              - network_name              = "rf-ci-app"
+                # (2 unchanged attributes hidden)
             },
         ] -> null
       - network_mode                                = "bridge" -> null
@@ -158,9 +158,9 @@ Terraform will perform the following actions:
           - "COLOR=green",
         ] -> null
       - group_add                                   = [] -> null
-      - hostname                                    = "b1fc6c1eb464" -> null
-      - id                                          = "b1fc6c1eb46422681aa690a5ccc69677e2edbed625794dfc60a50b68d566ecd9" -> null
-      - image                                       = "sha256:93a1a8df0159c89a481d73e4ccc02865d98167df3b2d1570a6e9a0c41348caaf" -> null
+      - hostname                                    = "e63629bc1d0b" -> null
+      - id                                          = "e63629bc1d0bccb474273d2f93ec1e0631b71f10301b382922df0080a9a6e5e1" -> null
+      - image                                       = "sha256:d0c3c3368bab9db10ba1ba90761b086dbf92a526c507312633c08851df8f28a0" -> null
       - init                                        = false -> null
       - ipc_mode                                    = "private" -> null
       - log_driver                                  = "json-file" -> null
@@ -176,9 +176,9 @@ Terraform will perform the following actions:
           - {
               - gateway                   = "10.60.2.1"
               - global_ipv6_prefix_length = 0
-              - ip_address                = "10.60.2.8"
+              - ip_address                = "10.60.2.9"
               - ip_prefix_length          = 24
-              - mac_address               = "d6:45:eb:17:5d:1a"
+              - mac_address               = "6e:e1:65:a0:1e:3a"
               - network_name              = "rf-ci-app"
                 # (2 unchanged attributes hidden)
             },
@@ -186,7 +186,7 @@ Terraform will perform the following actions:
               - global_ipv6_prefix_length = 0
               - ip_address                = "10.60.3.7"
               - ip_prefix_length          = 24
-              - mac_address               = "da:c1:91:be:07:e9"
+              - mac_address               = "06:43:c3:11:7c:f2"
               - network_name              = "rf-ci-private"
                 # (3 unchanged attributes hidden)
             },
@@ -274,11 +274,11 @@ Terraform will perform the following actions:
 
   # module.app.docker_image.app will be destroyed
   - resource "docker_image" "app" {
-      - id           = "sha256:93a1a8df0159c89a481d73e4ccc02865d98167df3b2d1570a6e9a0c41348caaflocalhost:5000/roomflow:v2" -> null
-      - image_id     = "sha256:93a1a8df0159c89a481d73e4ccc02865d98167df3b2d1570a6e9a0c41348caaf" -> null
+      - id           = "sha256:d0c3c3368bab9db10ba1ba90761b086dbf92a526c507312633c08851df8f28a0localhost:5000/roomflow:v2" -> null
+      - image_id     = "sha256:d0c3c3368bab9db10ba1ba90761b086dbf92a526c507312633c08851df8f28a0" -> null
       - keep_locally = true -> null
       - name         = "localhost:5000/roomflow:v2" -> null
-      - repo_digest  = "localhost:5000/roomflow@sha256:93cc531969a1b310fae1014e06286ca84c1747db642159fef6f5b747eb7d458a" -> null
+      - repo_digest  = "localhost:5000/roomflow@sha256:de843fb7ae3521d937f382d9189bc490c0b198522b49aca5b96cec4053e84d29" -> null
     }
 
 Plan: 0 to add, 0 to change, 3 to destroy.
@@ -289,11 +289,11 @@ Changes to Outputs:
       - "rf-ci-green-0",
       - "rf-ci-green-1",
     ] -> null
-module.app.docker_container.replica[1]: Destroying... [id=b1fc6c1eb46422681aa690a5ccc69677e2edbed625794dfc60a50b68d566ecd9]
-module.app.docker_container.replica[0]: Destroying... [id=a3e64a529ff99e633dff457967ad6ff87b10af99e39963e45f97a4d63a2acf47]
-module.app.docker_container.replica[1]: Destruction complete after 1s
-module.app.docker_container.replica[0]: Destruction complete after 1s
-module.app.docker_image.app: Destroying... [id=sha256:93a1a8df0159c89a481d73e4ccc02865d98167df3b2d1570a6e9a0c41348caaflocalhost:5000/roomflow:v2]
+module.app.docker_container.replica[0]: Destroying... [id=eb862eb8517e1bf0efb0d1250f5199b3e754ac0738dbf2fe20b8fe8678257724]
+module.app.docker_container.replica[1]: Destroying... [id=e63629bc1d0bccb474273d2f93ec1e0631b71f10301b382922df0080a9a6e5e1]
+module.app.docker_container.replica[0]: Destruction complete after 0s
+module.app.docker_container.replica[1]: Destruction complete after 0s
+module.app.docker_image.app: Destroying... [id=sha256:d0c3c3368bab9db10ba1ba90761b086dbf92a526c507312633c08851df8f28a0localhost:5000/roomflow:v2]
 module.app.docker_image.app: Destruction complete after 0s
 
 Destroy complete! Resources: 3 destroyed.

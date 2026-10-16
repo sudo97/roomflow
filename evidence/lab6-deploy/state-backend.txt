@@ -7,8 +7,8 @@
 
   name   | bytes 
 ---------+-------
- default | 63450
+ default | 63462
  blue    | 14568
- green   | 14563
+ green   | 14565
 (3 rows)
 

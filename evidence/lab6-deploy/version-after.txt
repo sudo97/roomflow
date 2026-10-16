@@ -1,1 +1,1 @@
-{"color":"green","commit":"efbd385","version":"v2"}
+{"color":"green","commit":"c26632f","version":"v2"}

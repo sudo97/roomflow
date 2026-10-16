@@ -6,15 +6,15 @@
         "labels": {
           "alertname": "InstanceDown",
           "color": "green",
-          "instance": "10.60.2.9:8080",
+          "instance": "10.60.2.8:8080",
           "job": "roomflow",
           "severity": "critical"
         },
         "annotations": {
-          "summary": "Репліка 10.60.2.9:8080 (green) недоступна"
+          "summary": "Репліка 10.60.2.8:8080 (green) недоступна"
         },
         "state": "firing",
-        "activeAt": "2026-10-16T18:01:18.176292528Z",
+        "activeAt": "2026-10-16T18:14:23.176292528Z",
         "value": "0e+00"
       },
       {
@@ -27,7 +27,7 @@
           "summary": "У групі green менше двох здорових реплік"
         },
         "state": "firing",
-        "activeAt": "2026-10-16T18:01:18.176292528Z",
+        "activeAt": "2026-10-16T18:14:23.176292528Z",
         "value": "1e+00"
       }
     ]

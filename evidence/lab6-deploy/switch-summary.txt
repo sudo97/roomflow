@@ -1,2 +1,2 @@
-    131 200 blue
-     77 200 green
+    130 200 blue
+     74 200 green

@@ -1,6 +1,6 @@
-platform apply: 7 s
-app blue apply: 1 s
-app green apply: 1 s
-switch blue->green: 2857 ms
+platform apply: 5 s
+app blue apply: 0 s
+app green apply: 0 s
+switch blue->green: 3096 ms
 alert InstanceDown delivered after 26 s
 containers left: 0

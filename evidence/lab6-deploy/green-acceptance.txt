@@ -1,4 +1,4 @@
-{"color":"green","commit":"efbd385","version":"v2"}
+{"color":"green","commit":"c26632f","version":"v2"}
 PASS healthz (200)
 PASS add-room (201)
 PASS book (201)
