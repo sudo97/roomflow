@@ -1,0 +1,243 @@
+Unable to find image 'aquasec/trivy:0.56.2' locally
+0.56.2: Pulling from aquasec/trivy
+43c4264eed91: Pulling fs layer
+2fb915365b73: Pulling fs layer
+55dd28896ea8: Pulling fs layer
+4ff82ebd20fe: Pulling fs layer
+4ff82ebd20fe: Waiting
+43c4264eed91: Download complete
+2fb915365b73: Verifying Checksum
+2fb915365b73: Download complete
+55dd28896ea8: Verifying Checksum
+55dd28896ea8: Download complete
+43c4264eed91: Pull complete
+4ff82ebd20fe: Verifying Checksum
+4ff82ebd20fe: Download complete
+2fb915365b73: Pull complete
+55dd28896ea8: Pull complete
+4ff82ebd20fe: Pull complete
+Digest: sha256:26245f364b6f5d223003dc344ec1eb5eb8439052bfecb31d79aeba0c74344b3a
+Status: Downloaded newer image for aquasec/trivy:0.56.2
+
+ci/lab8/Dockerfile.naive (dockerfile)
+=====================================
+Tests: 24 (SUCCESSES: 23, FAILURES: 1, EXCEPTIONS: 0)
+Failures: 1 (MEDIUM: 0, HIGH: 1, CRITICAL: 0)
+
+HIGH: Specify at least 1 USER command in Dockerfile with non-root user as argument
+════════════════════════════════════════
+Running containers with 'root' user can lead to a container escape situation. It is a best practice to run containers as non-root users, which can be done by adding a 'USER' statement to the Dockerfile.
+
+See https://avd.aquasec.com/misconfig/ds002
+────────────────────────────────────────
+
+
+
+deploy/k8s/probe/probe.yaml (kubernetes)
+========================================
+Tests: 43 (SUCCESSES: 42, FAILURES: 1, EXCEPTIONS: 0)
+Failures: 1 (MEDIUM: 1, HIGH: 0, CRITICAL: 0)
+
+MEDIUM: Container curl in pod probe (namespace: default) uses an image from an untrusted registry.
+════════════════════════════════════════
+Ensure that all containers use images only from trusted registry domains.
+
+See https://avd.aquasec.com/misconfig/ksv0125
+────────────────────────────────────────
+ deploy/k8s/probe/probe.yaml:11-15
+────────────────────────────────────────
+  11 ┌     - name: curl
+  12 │       image: curlimages/curl:8.10.1
+  13 │       command: ["sleep", "infinity"]
+  14 │       resources: { requests: { cpu: 10m, memory: 16Mi }, limits: { cpu: 500m, memory: 64Mi } }
+  15 └       securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }
+────────────────────────────────────────
+
+
+
+deploy/mesh/istio/jaeger.yaml (kubernetes)
+==========================================
+Tests: 50 (SUCCESSES: 43, FAILURES: 7, EXCEPTIONS: 0)
+Failures: 7 (MEDIUM: 4, HIGH: 3, CRITICAL: 0)
+
+MEDIUM: Container 'jaeger' of Deployment 'jaeger' should set 'securityContext.allowPrivilegeEscalation' to false
+════════════════════════════════════════
+A program inside the container can elevate its own privileges and run as root, which might give the program control over the container and node.
+
+See https://avd.aquasec.com/misconfig/ksv001
+────────────────────────────────────────
+ deploy/mesh/istio/jaeger.yaml:13-16
+────────────────────────────────────────
+  13 ┌         - name: jaeger
+  14 │           image: jaegertracing/all-in-one:1.62.0
+  15 │           env: [{ name: COLLECTOR_OTLP_ENABLED, value: "true" }, { name: SPAN_STORAGE_TYPE, value: memory }]
+  16 └           resources: { limits: { memory: 512Mi } }
+────────────────────────────────────────
+
+
+MEDIUM: Container 'jaeger' of Deployment 'jaeger' should set 'securityContext.runAsNonRoot' to true
+════════════════════════════════════════
+Force the running image to run as a non-root user to ensure least privileges.
+
+See https://avd.aquasec.com/misconfig/ksv012
+────────────────────────────────────────
+ deploy/mesh/istio/jaeger.yaml:13-16
+────────────────────────────────────────
+  13 ┌         - name: jaeger
+  14 │           image: jaegertracing/all-in-one:1.62.0
+  15 │           env: [{ name: COLLECTOR_OTLP_ENABLED, value: "true" }, { name: SPAN_STORAGE_TYPE, value: memory }]
+  16 └           resources: { limits: { memory: 512Mi } }
+────────────────────────────────────────
+
+
+HIGH: Container 'jaeger' of Deployment 'jaeger' should set 'securityContext.readOnlyRootFilesystem' to true
+════════════════════════════════════════
+An immutable root file system prevents applications from writing to their local disk. This can limit intrusions, as attackers will not be able to tamper with the file system or write foreign executables to disk.
+
+See https://avd.aquasec.com/misconfig/ksv014
+────────────────────────────────────────
+ deploy/mesh/istio/jaeger.yaml:13-16
+────────────────────────────────────────
+  13 ┌         - name: jaeger
+  14 │           image: jaegertracing/all-in-one:1.62.0
+  15 │           env: [{ name: COLLECTOR_OTLP_ENABLED, value: "true" }, { name: SPAN_STORAGE_TYPE, value: memory }]
+  16 └           resources: { limits: { memory: 512Mi } }
+────────────────────────────────────────
+
+
+MEDIUM: container "jaeger" of deployment "jaeger" in "istio-system" namespace should specify a seccomp profile
+════════════════════════════════════════
+A program inside the container can bypass Seccomp protection policies.
+
+See https://avd.aquasec.com/misconfig/ksv104
+────────────────────────────────────────
+ deploy/mesh/istio/jaeger.yaml:13-16
+────────────────────────────────────────
+  13 ┌         - name: jaeger
+  14 │           image: jaegertracing/all-in-one:1.62.0
+  15 │           env: [{ name: COLLECTOR_OTLP_ENABLED, value: "true" }, { name: SPAN_STORAGE_TYPE, value: memory }]
+  16 └           resources: { limits: { memory: 512Mi } }
+────────────────────────────────────────
+
+
+HIGH: container jaeger in istio-system namespace is using the default security context
+════════════════════════════════════════
+Security context controls the allocation of security parameters for the pod/container/volume, ensuring the appropriate level of protection. Relying on default security context may expose vulnerabilities to potential attacks that rely on privileged access.
+
+See https://avd.aquasec.com/misconfig/ksv118
+────────────────────────────────────────
+ deploy/mesh/istio/jaeger.yaml:13-16
+────────────────────────────────────────
+  13 ┌         - name: jaeger
+  14 │           image: jaegertracing/all-in-one:1.62.0
+  15 │           env: [{ name: COLLECTOR_OTLP_ENABLED, value: "true" }, { name: SPAN_STORAGE_TYPE, value: memory }]
+  16 └           resources: { limits: { memory: 512Mi } }
+────────────────────────────────────────
+
+
+HIGH: deployment jaeger in istio-system namespace is using the default security context, which allows root privileges
+════════════════════════════════════════
+Security context controls the allocation of security parameters for the pod/container/volume, ensuring the appropriate level of protection. Relying on default security context may expose vulnerabilities to potential attacks that rely on privileged access.
+
+See https://avd.aquasec.com/misconfig/ksv118
+────────────────────────────────────────
+ deploy/mesh/istio/jaeger.yaml:12-16
+────────────────────────────────────────
+  12 ┌       containers:
+  13 │         - name: jaeger
+  14 │           image: jaegertracing/all-in-one:1.62.0
+  15 │           env: [{ name: COLLECTOR_OTLP_ENABLED, value: "true" }, { name: SPAN_STORAGE_TYPE, value: memory }]
+  16 └           resources: { limits: { memory: 512Mi } }
+────────────────────────────────────────
+
+
+MEDIUM: Container jaeger in deployment jaeger (namespace: istio-system) uses an image from an untrusted registry.
+════════════════════════════════════════
+Ensure that all containers use images only from trusted registry domains.
+
+See https://avd.aquasec.com/misconfig/ksv0125
+────────────────────────────────────────
+ deploy/mesh/istio/jaeger.yaml:13-16
+────────────────────────────────────────
+  13 ┌         - name: jaeger
+  14 │           image: jaegertracing/all-in-one:1.62.0
+  15 │           env: [{ name: COLLECTOR_OTLP_ENABLED, value: "true" }, { name: SPAN_STORAGE_TYPE, value: memory }]
+  16 └           resources: { limits: { memory: 512Mi } }
+────────────────────────────────────────
+
+
+
+deploy/mesh/rollouts/backend.yaml (kubernetes)
+==============================================
+Tests: 46 (SUCCESSES: 43, FAILURES: 3, EXCEPTIONS: 0)
+Failures: 3 (MEDIUM: 2, HIGH: 1, CRITICAL: 0)
+
+MEDIUM: Container 'backend' of Deployment 'backend' should set 'securityContext.allowPrivilegeEscalation' to false
+════════════════════════════════════════
+A program inside the container can elevate its own privileges and run as root, which might give the program control over the container and node.
+
+See https://avd.aquasec.com/misconfig/ksv001
+────────────────────────────────────────
+ deploy/mesh/rollouts/backend.yaml:12-17
+────────────────────────────────────────
+  12 ┌         - name: backend
+  13 │           image: roomflow:mesh
+  14 │           imagePullPolicy: IfNotPresent
+  15 │           ports: [{ name: http, containerPort: 8080 }]
+  16 │           readinessProbe: { httpGet: { path: /healthz, port: http } }
+  17 └           resources: { limits: { cpu: 300m, memory: 128Mi } }
+────────────────────────────────────────
+
+
+HIGH: Container 'backend' of Deployment 'backend' should set 'securityContext.readOnlyRootFilesystem' to true
+════════════════════════════════════════
+An immutable root file system prevents applications from writing to their local disk. This can limit intrusions, as attackers will not be able to tamper with the file system or write foreign executables to disk.
+
+See https://avd.aquasec.com/misconfig/ksv014
+────────────────────────────────────────
+ deploy/mesh/rollouts/backend.yaml:12-17
+────────────────────────────────────────
+  12 ┌         - name: backend
+  13 │           image: roomflow:mesh
+  14 │           imagePullPolicy: IfNotPresent
+  15 │           ports: [{ name: http, containerPort: 8080 }]
+  16 │           readinessProbe: { httpGet: { path: /healthz, port: http } }
+  17 └           resources: { limits: { cpu: 300m, memory: 128Mi } }
+────────────────────────────────────────
+
+
+MEDIUM: container "backend" of deployment "backend" in "default" namespace should specify a seccomp profile
+════════════════════════════════════════
+A program inside the container can bypass Seccomp protection policies.
+
+See https://avd.aquasec.com/misconfig/ksv104
+────────────────────────────────────────
+ deploy/mesh/rollouts/backend.yaml:12-17
+────────────────────────────────────────
+  12 ┌         - name: backend
+  13 │           image: roomflow:mesh
+  14 │           imagePullPolicy: IfNotPresent
+  15 │           ports: [{ name: http, containerPort: 8080 }]
+  16 │           readinessProbe: { httpGet: { path: /healthz, port: http } }
+  17 └           resources: { limits: { cpu: 300m, memory: 128Mi } }
+────────────────────────────────────────
+
+
+
+platform/crossplane/00-packages.yaml (kubernetes)
+=================================================
+Tests: 44 (SUCCESSES: 43, FAILURES: 1, EXCEPTIONS: 0)
+Failures: 1 (MEDIUM: 1, HIGH: 0, CRITICAL: 0)
+
+MEDIUM: ClusterRoleBinding 'provider-kubernetes-admin' should not bind to roles ["cluster-admin", "admin", "edit"]
+════════════════════════════════════════
+Either cluster-admin or those granted powerful permissions.
+
+See https://avd.aquasec.com/misconfig/ksv111
+────────────────────────────────────────
+ platform/crossplane/00-packages.yaml:31
+────────────────────────────────────────
+  31 [   name: provider-kubernetes-admin
+────────────────────────────────────────
+
+

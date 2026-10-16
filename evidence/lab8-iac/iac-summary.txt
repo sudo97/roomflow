@@ -1,0 +1,4 @@
+checkov-dockerfile.txt: Passed checks: 90, Failed checks: 0, Skipped checks: 0
+checkov-helm.txt: Passed checks: 170, Failed checks: 12, Skipped checks: 0
+checkov-k8s.txt: Passed checks: 517, Failed checks: 25, Skipped checks: 0
+checkov-terraform.txt: 
