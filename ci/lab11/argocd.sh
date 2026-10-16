@@ -60,8 +60,10 @@ for _ in $(seq 1 10); do
   TOKEN=$(curl -skL localhost:8088/api/v1/session -d "{\"username\":\"admin\",\"password\":\"$PASS\"}" | jq -r '.token // empty' 2>/dev/null || true)
   [ -n "$TOKEN" ] && break; sleep 3
 done
+export SHOT_LOGIN_URL=http://localhost:8088/login SHOT_USER=admin SHOT_PASS="$PASS"   # cookie з токеном API UI не приймав (сторінка входу)
 SHOT_COOKIE="argocd.token=$TOKEN" shoot "$E/argocd-applications.png" "http://localhost:8088/applications" 5000 || true
 SHOT_COOKIE="argocd.token=$TOKEN" shoot "$E/argocd-roomflow.png" "http://localhost:8088/applications/argocd/roomflow?view=tree" 6000 1600 900 || true
+unset SHOT_LOGIN_URL SHOT_USER SHOT_PASS
 kill $PF
 endlog
 section "ArgoCD self-heal" "$E/self-heal.txt"

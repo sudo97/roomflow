@@ -39,7 +39,11 @@ spec:
   replicas: 2
   selector: { matchLabels: { app: frontend } }
   template:
-    metadata: { labels: { app: frontend, version: v1 } }
+    metadata:
+      labels: { app: frontend, version: v1 }
+      annotations:
+        # статистика повторів і outlier detection у sidecar (за замовчуванням Istio її не експортує)
+        proxy.istio.io/config: '{"proxyStatsMatcher":{"inclusionRegexps":[".*outlier_detection.*",".*upstream_rq_retry.*",".*upstream_rq_pending_overflow.*",".*upstream_cx_overflow.*"]}}'
     spec:
       serviceAccountName: frontend
       securityContext: { runAsNonRoot: true, runAsUser: 65532, seccompProfile: { type: RuntimeDefault } }

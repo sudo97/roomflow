@@ -36,7 +36,14 @@ func envOr(key, def string) string {
 
 // newHandler builds the frontend: page, version, health, metrics and a traced reverse proxy to backend.
 func newHandler(backend *url.URL, in info, tracer *trace.Tracer, reg *obs.Registry, logger *slog.Logger) http.Handler {
-	proxy := httputil.NewSingleHostReverseProxy(backend)
+	// Rewrite (а не NewSingleHostReverseProxy) встановлює Host = адреса backend. Інакше запит іде з
+	// Host: frontend:8081, sidecar Envoy не знаходить маршрут backend і пропускає трафік повз
+	// VirtualService/DestinationRule (повтори, outlier detection, fault injection не діють).
+	proxy := &httputil.ReverseProxy{Rewrite: func(pr *httputil.ProxyRequest) {
+		pr.SetURL(backend)
+		pr.Out.Host = backend.Host
+		pr.SetXForwarded()
+	}}
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /{$}", func(w http.ResponseWriter, _ *http.Request) { _ = page.Execute(w, in) })
 	mux.HandleFunc("GET /version", func(w http.ResponseWriter, _ *http.Request) {

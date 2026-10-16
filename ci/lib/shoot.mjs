@@ -10,6 +10,15 @@ if (process.env.SHOT_COOKIE) { // name=value
   const [name, ...v] = process.env.SHOT_COOKIE.split('=');
   await page.context().addCookies([{ name, value: v.join('='), url: new URL(url).origin }]);
 }
+if (process.env.SHOT_LOGIN_URL) { // вхід через форму: перше текстове поле — логін, поле password — пароль
+  try {
+    await page.goto(process.env.SHOT_LOGIN_URL, { waitUntil: 'networkidle', timeout: 60000 });
+    await page.fill('input[type=text], input[name=username]', process.env.SHOT_USER || '');
+    await page.fill('input[type=password]', process.env.SHOT_PASS || '');
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(4000);
+  } catch (e) { console.log('login:', e.message); }
+}
 try {
   await page.goto(url, { waitUntil: 'networkidle', timeout: 90000 });
 } catch (e) { console.log('goto:', e.message); }

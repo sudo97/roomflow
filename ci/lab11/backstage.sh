@@ -18,23 +18,17 @@ printf 'roomflow-portal\n' | npx -y @backstage/create-app@latest --path $BS --sk
 cd $BS
 export YARN_ENABLE_IMMUTABLE_INSTALLS=false   # у CI (CI=true) Yarn за замовчуванням забороняє змінювати lockfile
 if ! yarn install > "$E/yarn-install.txt" 2>&1; then
-  # пакет @backstage/create-app не містить каталогу .yarn/patches шаблону, а package.json/yarn.lock
-  # посилаються на патчі звідти (patch:got@npm%3A11.8.2#~/.yarn/patches/...). Відновлюємо їх із репозиторію Backstage.
-  grep -rn "patch:" --include=package.json --include=.yarnrc.yml . 2>/dev/null | grep -v node_modules > "$E/patch-refs.txt" || true
-  grep -rln "yarn/patches" . --exclude-dir=node_modules --exclude-dir=cache 2>/dev/null >> "$E/patch-refs.txt" || true
+  # Один із опублікованих пакетів залежностей посилається на patch:got@npm%3A11.8.2#~/.yarn/patches/...,
+  # тобто на файл у корені ПРОЄКТУ-споживача, якого в згенерованому create-app проєкті немає (ENOENT).
+  # Створюємо відсутні файли як порожні за змістом (no-op) патчі: Yarn вимагає валідний diff, тому патч
+  # лише додає службовий файл NOOP.md у пакет, не змінюючи його коду.
+  grep -oE "$BS/\.yarn/patches/[^': ]+\.patch" "$E/yarn-install.txt" | sort -u > "$E/patch-refs.txt" || true
   cat "$E/patch-refs.txt"
-  mkdir -p .yarn/patches
-  for p in $(grep -rhoE '\.yarn/patches/[^"#]+\.patch' --include=package.json --include=yarn.lock . 2>/dev/null | sort -u); do
-    curl -fsSL "https://raw.githubusercontent.com/backstage/backstage/master/packages/create-app/templates/default-app/$p" -o "$p" \
-      && echo "restored $p" || echo "not found upstream: $p"
-  done | tee -a "$E/patch-refs.txt"
-  if ! yarn install > "$E/yarn-install-retry.txt" 2>&1; then
-    # запасний варіант: прибрати patch:-посилання (патч стосується лише сумісності got) і перебудувати lockfile
-    grep -rlE 'patch:[^" ]*yarn/patches' . --exclude-dir=node_modules --exclude-dir=cache 2>/dev/null \
-      | xargs -r sed -i -E 's#"?patch:[^"@ ]+@npm%3A([^"# ]+)\#[^" ]*"?#"\1"#g'
-    rm -f yarn.lock
-    yarn install > "$E/yarn-install-retry2.txt" 2>&1 || { tail -50 "$E/yarn-install-retry2.txt"; exit 1; }
-  fi
+  while read -r f; do
+    mkdir -p "$(dirname "$f")"
+    printf 'diff --git a/NOOP.md b/NOOP.md\nnew file mode 100644\n--- /dev/null\n+++ b/NOOP.md\n@@ -0,0 +1 @@\n+placeholder for a patch missing in the published dependency\n' > "$f"
+  done < "$E/patch-refs.txt"
+  yarn install > "$E/yarn-install-retry.txt" 2>&1 || { tail -50 "$E/yarn-install-retry.txt"; exit 1; }
 fi
 grep -m1 '"version"' node_modules/@backstage/cli/package.json | tee "$E/versions.txt"
 yarn add --cwd packages/backend pg >/dev/null 2>&1 || (cd packages/backend && yarn add pg >/dev/null)

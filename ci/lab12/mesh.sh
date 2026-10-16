@@ -155,7 +155,7 @@ sleep 15
   echo "  outside(без mTLS) -> frontend:                   $(code outside http://frontend.$NS:8081/)"
   echo "  probe(mesh) -> redis:6379 (TCP):                 $(kubectl -n $NS exec probe -c probe -- sh -c 'printf "PING\r\n" | timeout 3 nc redis 6379' 2>/dev/null | head -1 || echo blocked)"
   echo "  frontend -> backend через UI:                    $(kubectl -n $NS exec fortio -c fortio -- fortio curl -quiet -H 'X-Tenant-ID: demo-hotel' $F/api/rooms 2>/dev/null | head -c 60)"
-  istioctl x describe pod "$(kubectl -n $NS get pod -l app=backend,version=v1 --field-selector=status.phase=Running -o jsonpath='{.items[0].metadata.name}')" -n $NS 2>&1 | head -20
+  istioctl x describe pod "$(kubectl -n $NS get pod -l app=backend,version=v1 --sort-by=.metadata.creationTimestamp -o name | tail -1 | cut -d/ -f2)" -n $NS 2>&1 | head -20
 } | tee "$E/zero-trust.txt"
 kubectl apply -f https://raw.githubusercontent.com/aquasecurity/kube-bench/v0.9.0/job.yaml >/dev/null
 kubectl wait --for=condition=complete job/kube-bench --timeout=300s >/dev/null || true

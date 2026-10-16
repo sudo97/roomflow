@@ -25,7 +25,9 @@ mesh_images() { # cluster
 # fortio NS ARGS...: навантажувальний клієнт Istio (fortio) усередині mesh
 fortio_pod() {
   # образ fortio не містить shell/sleep: под працює у режимі fortio server, навантаження — через exec fortio load
-  kubectl -n "$1" run fortio --image=fortio/fortio:latest_release --restart=Never >/dev/null 2>&1 || true
+  # proxyStatsMatcher: Istio за замовчуванням не експортує статистику circuit breaker / outlier detection
+  local ann='proxy.istio.io/config={"proxyStatsMatcher":{"inclusionRegexps":[".*outlier_detection.*",".*upstream_rq_retry.*",".*upstream_rq_pending_overflow.*",".*upstream_cx_overflow.*"]}}'
+  kubectl -n "$1" run fortio --image=fortio/fortio:latest_release --restart=Never --annotations="$ann" >/dev/null 2>&1 || true
   kubectl -n "$1" wait --for=condition=Ready pod/fortio --timeout=180s >/dev/null
 }
 fortio() { local ns=$1; shift; kubectl -n "$ns" exec fortio -c fortio -- fortio load -quiet "$@" 2>&1; }

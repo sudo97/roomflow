@@ -5,6 +5,10 @@ E=$EVIDENCE
 pip install -q detect-secrets==1.5.0 2>/dev/null || pip install -q --break-system-packages detect-secrets==1.5.0
 
 log "detect-secrets: поточний стан відповідає baseline"
+# перший прохід лише оновлює номери рядків у baseline (вони зсуваються після будь-якої зміни файлів);
+# baseline індексується, бо detect-secrets-hook відмовляється працювати з неіндексованим baseline
+git ls-files -z | xargs -0 detect-secrets-hook --baseline .secrets.baseline >/dev/null 2>&1 || true
+git add .secrets.baseline
 git ls-files -z | xargs -0 detect-secrets-hook --baseline .secrets.baseline > "$E/detect-secrets-clean.txt" 2>&1 && echo "OK: нових секретів немає" >> "$E/detect-secrets-clean.txt"
 python3 -c "import json;d=json.load(open('.secrets.baseline'));print('baseline:', sum(len(v) for v in d['results'].values()), 'audited entries, all is_secret=false:', all(not x.get('is_secret', True) for v in d['results'].values() for x in v))" >> "$E/detect-secrets-clean.txt"
 endlog

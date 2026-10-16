@@ -8,4 +8,5 @@ paths = [
   '''^evidence/''',
   '''^\.secrets\.baseline$''',
   '''^ci/lab8/secrets\.sh$''',
+  '''^ci/patches/''',   # патчі, що містять зміни .secrets.baseline (хеші, а не секрети)
 ]

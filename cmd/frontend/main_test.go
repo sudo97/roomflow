@@ -14,9 +14,9 @@ import (
 )
 
 func TestFrontendProxiesWithTraceContext(t *testing.T) {
-	var gotParent, gotTenant string
+	var gotParent, gotTenant, gotHost string
 	backend := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		gotParent, gotTenant = r.Header.Get("traceparent"), r.Header.Get("X-Tenant-ID")
+		gotParent, gotTenant, gotHost = r.Header.Get("traceparent"), r.Header.Get("X-Tenant-ID"), r.Host
 		_, _ = w.Write([]byte(`[]`))
 	}))
 	defer backend.Close()
@@ -31,6 +31,10 @@ func TestFrontendProxiesWithTraceContext(t *testing.T) {
 	}
 	if w := get("/api/rooms"); w.Body.String() != "[]" || gotTenant != "demo-hotel" || !strings.HasPrefix(gotParent, "00-") {
 		t.Fatalf("proxy: body %q tenant %q traceparent %q", w.Body, gotTenant, gotParent)
+	}
+	// Host має бути адресою backend: за ним sidecar service mesh обирає маршрут (ЛР12)
+	if gotHost != u.Host {
+		t.Fatalf("proxy Host = %q, want backend host %q", gotHost, u.Host)
 	}
 	if w := get("/"); !strings.Contains(w.Body.String(), "frontend v2 (green)") {
 		t.Fatalf("page: %s", w.Body)
