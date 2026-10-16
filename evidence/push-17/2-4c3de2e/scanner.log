@@ -1,0 +1,40 @@
+17:21:43.660 INFO  170/170 source files have been analyzed for the text and secrets analysis
+17:21:43.663 INFO  Sensor TextAndSecretsSensor [text] (done) | time=345ms
+17:21:43.666 INFO  ------------- Run sensors on project
+17:21:43.808 INFO  Sensor GoProjectSensor [go]
+17:21:43.810 INFO  Sensor GoProjectSensor [go] (done) | time=0ms
+17:21:43.813 INFO  Sensor JavaScript/TypeScript/CSS analysis [javascript]
+17:21:44.007 INFO  Detected os: Linux arch: amd64 alpine: false. Platform: LINUX_X64
+17:21:44.008 INFO  Deploy location /opt/sonar-scanner/.sonar/js/node-runtime, tagetRuntime: /opt/sonar-scanner/.sonar/js/node-runtime/node,  version: /opt/sonar-scanner/.sonar/js/node-runtime/version.txt
+17:21:45.967 INFO  Using embedded Node.js runtime.
+17:21:45.968 INFO  Using Node.js executable: '/opt/sonar-scanner/.sonar/js/node-runtime/node'.
+17:21:47.331 INFO  Memory configuration: OS (15989 MB), Node.js (4288 MB).
+17:21:47.341 INFO  gRPC analyze-project server listening on 127.0.0.1:42399
+17:21:47.469 INFO  Plugin version: [14.0.0.46108]
+17:21:48.777 INFO  Found 0 tsconfig.json file(s): []
+17:21:49.401 INFO  4 source files to be analyzed
+17:21:49.402 INFO  Analyzing 4 file(s) using default options [lib: lib.esnext.d.ts, lib.dom.d.ts]
+17:21:49.403 INFO  4/4 source files have been analyzed
+17:21:49.409 INFO  Hit the cache for 0 out of 4
+17:21:49.411 INFO  Miss the cache for 4 out of 4: ANALYSIS_MODE_INELIGIBLE [4/4]
+17:21:49.411 INFO  Sensor JavaScript/TypeScript/CSS analysis [javascript] (done) | time=5602ms
+17:21:49.411 INFO  Sensor IaC Project Sensor [iac]
+17:21:49.413 INFO  Sensor IaC Project Sensor [iac] (done) | time=2ms
+17:21:49.414 INFO  Sensor Zero Coverage Sensor
+17:21:49.417 INFO  Sensor Zero Coverage Sensor (done) | time=4ms
+17:21:49.418 INFO  ------------- Gather SCA dependencies on project
+17:21:49.424 INFO  Dependency analysis skipped
+17:21:49.426 INFO  SCM Publisher SCM provider for this project is: git
+17:21:49.427 INFO  SCM Publisher 131 source files to be analyzed
+17:21:49.584 INFO  SCM Publisher 131/131 source files have been analyzed (done) | time=151ms
+17:21:49.594 INFO  CPD Executor Calculating CPD for 41 files
+17:21:49.605 INFO  CPD Executor CPD calculation finished (done) | time=10ms
+17:21:49.610 INFO  SCM revision ID '4c3de2e2b6b14ffd1ca4c7bf2c111e4344d8c40a'
+17:21:49.684 INFO  Analysis report generated in 70ms, dir size=754.4 kB
+17:21:49.836 INFO  Analysis report compressed in 152ms, zip size=465.5 kB
+17:21:49.862 INFO  Analysis report uploaded in 27ms
+17:21:49.863 INFO  ------------- Check Quality Gate status
+17:21:49.863 INFO  Waiting for the analysis report to be processed (max 300s)
+17:21:55.019 ERROR QUALITY GATE STATUS: FAILED - View details on http://localhost:9000/dashboard?id=roomflow
+17:21:55.040 INFO  EXECUTION FAILURE
+17:21:55.041 INFO  Total time: 20.139s
