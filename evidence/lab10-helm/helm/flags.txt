@@ -1,0 +1,8 @@
+flags (до):    {"price_breakdown":false}
+бронювання (до): {"ID":"bk-1","TenantID":"beta-hotel","RoomID":"r1","GuestName":"A","GuestEmail":"a@x.io","Guests":1,"CheckIn":"2027-05-07T00:00:00Z","CheckOut":"2027-05-09T00:00:00Z","Total":440000,"Status":"confirmed"}
+прапорець застосовано через 29 с (синхронізація ConfigMap kubelet + перечитування файлу)
+flags (після): {"price_breakdown":true}
+бронювання (після): {"ID":"bk-2","TenantID":"beta-hotel","RoomID":"r1","GuestName":"B","GuestEmail":"b@x.io","Guests":1,"CheckIn":"2027-05-14T00:00:00Z","CheckOut":"2027-05-16T00:00:00Z","Total":440000,"Status":"confirmed","Nightly":[200000,240000]}
+под до:    74a82183-8ffc-4d7f-b2e1-d2d8bfef36ae restarts=0
+под після: 74a82183-8ffc-4d7f-b2e1-d2d8bfef36ae restarts=0
+таргетування: beta-hotel={"price_breakdown":true} other-hotel={"price_breakdown":false}

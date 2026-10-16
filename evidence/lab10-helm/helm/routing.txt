@@ -1,0 +1,3 @@
+before: blue=100 
+after:  green=100 
+after failed upgrade: green=50 

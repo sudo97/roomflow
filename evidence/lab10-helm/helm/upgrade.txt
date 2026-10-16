@@ -1,0 +1,11 @@
+Release "rf" has been upgraded. Happy Helming!
+NAME: rf
+LAST DEPLOYED: Fri Oct 16 17:17:10 2026
+NAMESPACE: rf-helm
+STATUS: deployed
+REVISION: 2
+TEST SUITE: None
+NOTES:
+RoomFlow rf: активне середовище green
+(blue=v1, green=v2).
+Перемикання: helm upgrade rf <chart> --reuse-values --set activeColor=<blue|green> --atomic

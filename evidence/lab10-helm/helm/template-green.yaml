@@ -1,0 +1,210 @@
+---
+# Source: roomflow/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rf-flags
+  labels:
+    app.kubernetes.io/name: roomflow
+    app.kubernetes.io/instance: rf
+    app.kubernetes.io/version: "v1"
+    app.kubernetes.io/managed-by: Helm
+    helm.sh/chart: roomflow-0.3.0
+data:
+  flags.json: |
+    {"price_breakdown":{"enabled":false,"percent":0,"tenants":[]}}
+---
+# Source: roomflow/templates/services.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: rf
+  labels:
+    app.kubernetes.io/name: roomflow
+    app.kubernetes.io/instance: rf
+    app.kubernetes.io/version: "v1"
+    app.kubernetes.io/managed-by: Helm
+    helm.sh/chart: roomflow-0.3.0
+  annotations:
+    roomflow.io/active-color: green
+spec:
+  selector:
+    app.kubernetes.io/name: roomflow
+    app.kubernetes.io/instance: rf
+    color: green
+  ports:
+    - { name: http, port: 80, targetPort: http }
+---
+# Source: roomflow/templates/services.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: rf-blue-preview
+  labels:
+    app.kubernetes.io/name: roomflow
+    app.kubernetes.io/instance: rf
+    app.kubernetes.io/version: "v1"
+    app.kubernetes.io/managed-by: Helm
+    helm.sh/chart: roomflow-0.3.0
+spec:
+  selector:
+    app.kubernetes.io/name: roomflow
+    app.kubernetes.io/instance: rf
+    color: blue
+  ports:
+    - { name: http, port: 80, targetPort: http }
+---
+# Source: roomflow/templates/services.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: rf-green-preview
+  labels:
+    app.kubernetes.io/name: roomflow
+    app.kubernetes.io/instance: rf
+    app.kubernetes.io/version: "v1"
+    app.kubernetes.io/managed-by: Helm
+    helm.sh/chart: roomflow-0.3.0
+spec:
+  selector:
+    app.kubernetes.io/name: roomflow
+    app.kubernetes.io/instance: rf
+    color: green
+  ports:
+    - { name: http, port: 80, targetPort: http }
+---
+# Source: roomflow/templates/deployments.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rf-blue
+  labels:
+    app.kubernetes.io/name: roomflow
+    app.kubernetes.io/instance: rf
+    app.kubernetes.io/version: "v1"
+    app.kubernetes.io/managed-by: Helm
+    helm.sh/chart: roomflow-0.3.0
+    color: blue
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: roomflow
+      app.kubernetes.io/instance: rf
+      color: blue
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: roomflow
+        app.kubernetes.io/instance: rf
+        color: blue
+        version: "v1"
+      annotations:
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: roomflow
+          image: "roomflow:v1"
+          imagePullPolicy: IfNotPresent
+          env:
+            - { name: COLOR, value: "blue" }
+            - { name: FLAGS_FILE, value: /etc/roomflow/flags/flags.json }
+          ports:
+            - { name: http, containerPort: 8080 }
+          readinessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 2
+          livenessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 10
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 32Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: [ALL] }
+          volumeMounts:
+            - { name: flags, mountPath: /etc/roomflow/flags, readOnly: true }
+      volumes:
+        - name: flags
+          configMap:
+            name: rf-flags
+---
+# Source: roomflow/templates/deployments.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rf-green
+  labels:
+    app.kubernetes.io/name: roomflow
+    app.kubernetes.io/instance: rf
+    app.kubernetes.io/version: "v1"
+    app.kubernetes.io/managed-by: Helm
+    helm.sh/chart: roomflow-0.3.0
+    color: green
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: roomflow
+      app.kubernetes.io/instance: rf
+      color: green
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: roomflow
+        app.kubernetes.io/instance: rf
+        color: green
+        version: "v2"
+      annotations:
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: roomflow
+          image: "roomflow:v2"
+          imagePullPolicy: IfNotPresent
+          env:
+            - { name: COLOR, value: "green" }
+            - { name: FLAGS_FILE, value: /etc/roomflow/flags/flags.json }
+          ports:
+            - { name: http, containerPort: 8080 }
+          readinessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 2
+          livenessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 10
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 32Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: [ALL] }
+          volumeMounts:
+            - { name: flags, mountPath: /etc/roomflow/flags, readOnly: true }
+      volumes:
+        - name: flags
+          configMap:
+            name: rf-flags
