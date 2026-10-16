@@ -5,11 +5,11 @@ v8.21.2: Pulling from zricethezav/gitleaks
 4874c05f69ad: Pulling fs layer
 43aa3c0c54b2: Pulling fs layer
 43aa3c0c54b2: Waiting
-4874c05f69ad: Verifying Checksum
-4874c05f69ad: Download complete
+94c7366c1c30: Download complete
 3e97f466b634: Verifying Checksum
 3e97f466b634: Download complete
-94c7366c1c30: Download complete
+4874c05f69ad: Verifying Checksum
+4874c05f69ad: Download complete
 94c7366c1c30: Pull complete
 43aa3c0c54b2: Verifying Checksum
 43aa3c0c54b2: Download complete
@@ -25,7 +25,7 @@ Status: Downloaded newer image for zricethezav/gitleaks:v8.21.2
     ○ ░
     ░    gitleaks
 
-[90m5:14PM[0m [32mINF[0m 39 commits scanned.
-[90m5:14PM[0m [32mINF[0m scan completed in 192ms
-[90m5:14PM[0m [31mWRN[0m leaks found: 114
+[90m5:29PM[0m [32mINF[0m 59 commits scanned.
+[90m5:29PM[0m [32mINF[0m scan completed in 3.47s
+[90m5:29PM[0m [31mWRN[0m leaks found: 163
 gitleaks exit code: 1
