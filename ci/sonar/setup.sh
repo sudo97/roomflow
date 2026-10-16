@@ -3,7 +3,7 @@
 # ворота якості, токен для сканера. Ідемпотентність не потрібна: сервер одноразовий (CI).
 set -euo pipefail
 : "${SONAR_HOST_URL:?}" "${SONAR_ADMIN_PASSWORD:?}"
-api() { curl -sS -u "admin:${SONAR_ADMIN_PASSWORD}" "$@"; }
+api() { curl -sS --fail-with-body -u "admin:${SONAR_ADMIN_PASSWORD}" "$@"; }
 
 echo "== Зміна пароля адміністратора"
 curl -sS -u admin:admin -X POST "$SONAR_HOST_URL/api/users/change_password" \

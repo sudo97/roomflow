@@ -5,8 +5,8 @@ const base = process.env.SONAR_HOST_URL, pw = process.env.SONAR_ADMIN_PASSWORD;
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, locale: 'en-US' });
 await page.goto(`${base}/sessions/new`);
-await page.fill('#login', 'admin');
-await page.fill('#password', pw);
+await page.fill('input[name=login]', 'admin');
+await page.fill('input[name=password]', pw);
 await page.click('button[type=submit]');
 await page.waitForTimeout(4000);
 const shots = {
