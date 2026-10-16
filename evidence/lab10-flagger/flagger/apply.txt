@@ -1,0 +1,4 @@
+namespace/rf-flagger configured
+deployment.apps/roomflow created
+ingress.networking.k8s.io/roomflow created
+canary.flagger.app/roomflow created

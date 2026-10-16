@@ -1,0 +1,82 @@
+Name:         roomflow
+Namespace:    rf-flagger
+Labels:       <none>
+Annotations:  <none>
+API Version:  flagger.app/v1beta1
+Kind:         Canary
+Metadata:
+  Creation Timestamp:  2026-10-16T17:17:38Z
+  Generation:          1
+  Resource Version:    1595
+  UID:                 9c473f80-bd9f-4fd0-8b66-4bf23e594b21
+Spec:
+  Analysis:
+    Interval:    15s
+    Max Weight:  50
+    Metrics:
+      Interval:  1m
+      Name:      request-success-rate
+      Threshold Range:
+        Min:     95
+      Interval:  1m
+      Name:      request-duration
+      Threshold Range:
+        Max:      500
+    Step Weight:  10
+    Threshold:    3
+    Webhooks:
+      Metadata:
+        Cmd:    hey -z 1m -q 10 -c 2 -host app.roomflow.test http://ingress-nginx-controller.ingress-nginx/api/rooms
+        Type:   cmd
+      Name:     load-test
+      Timeout:  5s
+      Type:     rollout
+      URL:      http://flagger-loadtester.rf-flagger/
+  Ingress Ref:
+    API Version:              networking.k8s.io/v1
+    Kind:                     Ingress
+    Name:                     roomflow
+  Progress Deadline Seconds:  180
+  Provider:                   nginx
+  Service:
+    Port:         80
+    Target Port:  8080
+  Target Ref:
+    API Version:  apps/v1
+    Kind:         Deployment
+    Name:         roomflow
+Status:
+  Canary Weight:  0
+  Conditions:
+    Last Transition Time:  2026-10-16T17:21:54Z
+    Last Update Time:      2026-10-16T17:21:54Z
+    Message:               Canary analysis failed, Deployment scaled to zero.
+    Reason:                Failed
+    Status:                False
+    Type:                  Promoted
+  Failed Checks:           0
+  Iterations:              0
+  Last Applied Spec:       659784b6b
+  Last Promoted Spec:      c5c99c997
+  Last Transition Time:    2026-10-16T17:21:54Z
+  Phase:                   Failed
+  Tracked Configs:
+Events:
+  Type     Reason  Age                   From     Message
+  ----     ------  ----                  ----     -------
+  Warning  Synced  4m19s                 flagger  roomflow-primary.rf-flagger not ready: waiting for rollout to finish: observed deployment generation less than desired generation
+  Normal   Synced  4m4s                  flagger  Initialization done! roomflow.rf-flagger
+  Normal   Synced  4m4s (x2 over 4m19s)  flagger  all the metrics providers are available!
+  Normal   Synced  3m4s                  flagger  Advance roomflow.rf-flagger canary weight 20
+  Normal   Synced  2m49s                 flagger  Advance roomflow.rf-flagger canary weight 30
+  Normal   Synced  2m34s                 flagger  Advance roomflow.rf-flagger canary weight 40
+  Normal   Synced  2m19s                 flagger  Advance roomflow.rf-flagger canary weight 50
+  Normal   Synced  94s (x3 over 2m4s)    flagger  (combined from similar events): Promotion completed! Scaling down roomflow.rf-flagger
+  Normal   Synced  79s (x2 over 3m49s)   flagger  New revision detected! Scaling up roomflow.rf-flagger
+  Normal   Synced  64s (x2 over 3m34s)   flagger  Starting canary analysis for roomflow.rf-flagger
+  Normal   Synced  64s (x2 over 3m34s)   flagger  Advance roomflow.rf-flagger canary weight 10
+  Warning  Synced  49s (x2 over 3m19s)   flagger  Halt advancement no values found for nginx metric request-success-rate probably roomflow.rf-flagger is not receiving traffic: running query failed: no values found
+  Warning  Synced  34s                   flagger  Halt roomflow.rf-flagger advancement success rate 44.47% < 95%
+  Warning  Synced  19s                   flagger  Halt roomflow.rf-flagger advancement success rate 61.28% < 95%
+  Warning  Synced  4s                    flagger  Rolling back roomflow.rf-flagger failed checks threshold reached 3
+  Warning  Synced  4s                    flagger  Canary failed! Scaling down roomflow.rf-flagger

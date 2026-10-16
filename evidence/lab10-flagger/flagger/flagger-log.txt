@@ -1,0 +1,29 @@
+2026-10-16T17:17:39.248Z Service roomflow-canary.rf-flagger created
+2026-10-16T17:17:39.256Z Service roomflow-primary.rf-flagger created
+2026-10-16T17:17:39.259Z all the metrics providers are available!
+2026-10-16T17:17:39.266Z Deployment roomflow-primary.rf-flagger created
+2026-10-16T17:17:39.267Z roomflow-primary.rf-flagger not ready: waiting for rollout to finish: observed deployment generation less than desired generation
+2026-10-16T17:17:54.245Z all the metrics providers are available!
+2026-10-16T17:17:54.257Z Service roomflow.rf-flagger created
+2026-10-16T17:17:54.257Z Scaling down Deployment roomflow.rf-flagger
+2026-10-16T17:17:54.273Z Ingress roomflow-canary.rf-flagger created
+2026-10-16T17:17:54.314Z Initialization done! roomflow.rf-flagger
+2026-10-16T17:18:09.254Z New revision detected! Scaling up roomflow.rf-flagger
+2026-10-16T17:18:24.255Z Starting canary analysis for roomflow.rf-flagger
+2026-10-16T17:18:24.264Z Advance roomflow.rf-flagger canary weight 10
+2026-10-16T17:18:39.259Z Halt advancement no values found for nginx metric request-success-rate probably roomflow.rf-flagger is not receiving traffic: running query failed: no values found
+2026-10-16T17:18:54.272Z Advance roomflow.rf-flagger canary weight 20
+2026-10-16T17:19:09.269Z Advance roomflow.rf-flagger canary weight 30
+2026-10-16T17:19:24.267Z Advance roomflow.rf-flagger canary weight 40
+2026-10-16T17:19:39.271Z Advance roomflow.rf-flagger canary weight 50
+2026-10-16T17:19:54.258Z Copying roomflow.rf-flagger template spec to roomflow-primary.rf-flagger
+2026-10-16T17:20:09.255Z Routing all traffic to primary
+2026-10-16T17:20:24.267Z Promotion completed! Scaling down roomflow.rf-flagger
+2026-10-16T17:20:39.256Z New revision detected! Scaling up roomflow.rf-flagger
+2026-10-16T17:20:54.288Z Starting canary analysis for roomflow.rf-flagger
+2026-10-16T17:20:54.298Z Advance roomflow.rf-flagger canary weight 10
+2026-10-16T17:21:09.259Z Halt advancement no values found for nginx metric request-success-rate probably roomflow.rf-flagger is not receiving traffic: running query failed: no values found
+2026-10-16T17:21:24.259Z Halt roomflow.rf-flagger advancement success rate 44.47% < 95%
+2026-10-16T17:21:39.262Z Halt roomflow.rf-flagger advancement success rate 61.28% < 95%
+2026-10-16T17:21:54.258Z Rolling back roomflow.rf-flagger failed checks threshold reached 3
+2026-10-16T17:21:54.262Z Canary failed! Scaling down roomflow.rf-flagger

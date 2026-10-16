@@ -1,0 +1,14 @@
+NAME                                 READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/flagger-loadtester   1/1     1            1           25s
+deployment.apps/roomflow             0/0     0            0           20s
+deployment.apps/roomflow-primary     2/2     2            2           19s
+
+NAME                         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+service/flagger-loadtester   ClusterIP   10.96.45.223   <none>        80/TCP    25s
+service/roomflow             ClusterIP   10.96.80.223   <none>        80/TCP    4s
+service/roomflow-canary      ClusterIP   10.96.37.128   <none>        80/TCP    19s
+service/roomflow-primary     ClusterIP   10.96.232.90   <none>        80/TCP    19s
+
+NAME                                        CLASS   HOSTS               ADDRESS   PORTS   AGE
+ingress.networking.k8s.io/roomflow          nginx   app.roomflow.test             80      20s
+ingress.networking.k8s.io/roomflow-canary   nginx   app.roomflow.test             80      4s
