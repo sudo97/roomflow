@@ -1,0 +1,17 @@
+ok  	github.com/sudo97/roomflow/cmd/frontend	0.015s	coverage: 62.9% of statements
+ok  	github.com/sudo97/roomflow/cmd/roomflow	0.013s	coverage: 82.0% of statements
+ok  	github.com/sudo97/roomflow/internal/arch	0.004s	coverage: [no statements]
+ok  	github.com/sudo97/roomflow/internal/booking	0.022s	coverage: 97.8% of statements
+ok  	github.com/sudo97/roomflow/internal/cache	0.007s	coverage: 96.7% of statements
+ok  	github.com/sudo97/roomflow/internal/chaos	0.017s	coverage: 100.0% of statements
+ok  	github.com/sudo97/roomflow/internal/flags	0.024s	coverage: 96.1% of statements
+ok  	github.com/sudo97/roomflow/internal/httpapi	0.007s	coverage: 98.0% of statements
+ok  	github.com/sudo97/roomflow/internal/obs	0.008s	coverage: 97.8% of statements
+ok  	github.com/sudo97/roomflow/internal/ratelimit	0.005s	coverage: 100.0% of statements
+ok  	github.com/sudo97/roomflow/internal/store	0.004s	coverage: 98.2% of statements
+ok  	github.com/sudo97/roomflow/internal/trace	0.014s	coverage: 97.6% of statements
+	github.com/sudo97/roomflow/test/load/seed		coverage: 0.0% of statements
+ok  	github.com/sudo97/roomflow/tools/dora-exporter	0.007s	coverage: 81.0% of statements
+ok  	github.com/sudo97/roomflow/tools/platform-exporter	0.017s	coverage: 73.2% of statements
+ok  	github.com/sudo97/roomflow/tools/rfctl	0.008s	coverage: 92.5% of statements
+ok  	github.com/sudo97/roomflow/tools/sqlcheck	0.010s	coverage: 81.1% of statements
