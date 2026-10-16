@@ -1,0 +1,11 @@
+# gitleaks: стандартні правила + винятки для артефактів, що не є секретами.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Звіти аналізаторів у гілці evidence, baseline detect-secrets і навчальні фіктивні ключі"
+paths = [
+  '''^evidence/''',
+  '''^\.secrets\.baseline$''',
+  '''^ci/lab8/secrets\.sh$''',
+]

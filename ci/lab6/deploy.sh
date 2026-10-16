@@ -12,7 +12,7 @@ E=$EVIDENCE
 LB=http://localhost:8088
 
 tf() { terraform -chdir="$1" "${@:2}" -no-color; }
-conftest() { docker run --rm -v "$PWD:/work" -w /work openpolicyagent/conftest:v0.55.0 test --policy policies/terraform -o table "$@"; }
+conftest() { docker run --rm -v "$PWD:/work" -v "$EVIDENCE:$EVIDENCE" -w /work openpolicyagent/conftest:v0.55.0 test --policy policies/terraform -o table "$@"; }
 
 log "images v1/v2 -> local registry"
 build_image roomflow:v1
