@@ -1,2 +1,2 @@
-legacy gosec 1358
-legacy semgrep 9476
+demo gosec 2101
+demo semgrep 10157
