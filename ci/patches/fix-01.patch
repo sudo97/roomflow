@@ -1,0 +1,541 @@
+diff --git a/ci/lab10/loop.sh b/ci/lab10/loop.sh
+index f4876ad..e913bde 100755
+--- a/ci/lab10/loop.sh
++++ b/ci/lab10/loop.sh
+@@ -7,5 +7,6 @@ while [ "$N" -eq 0 ] || [ "$i" -lt "$N" ]; do
+   code=${r##* }
+   color=$(echo "$r" | sed -n 's/.*"color":"\([^"]*\)".*/\1/p')
+   echo "$(date +%s) $code ${color:--}"
+-  [ "$N" -eq 0 ] && sleep 0.05
++  if [ "$N" -eq 0 ]; then sleep 0.05; fi
+ done
++exit 0
+diff --git a/ci/lab10/strategies.sh b/ci/lab10/strategies.sh
+index 22e4626..2605d75 100755
+--- a/ci/lab10/strategies.sh
++++ b/ci/lab10/strategies.sh
+@@ -31,6 +31,7 @@ spec:
+           env: [{ name: COLOR, value: "$4" }, { name: FAULT_RATE, value: "$5" }]
+           readinessProbe: { httpGet: { path: /healthz, port: 8080 }, periodSeconds: 2 }
+           resources: { requests: { cpu: 20m, memory: 24Mi }, limits: { cpu: 300m, memory: 96Mi } }
++          lifecycle: $PRESTOP
+ YAML
+ }
+ service() { # selector-json
+@@ -111,6 +112,9 @@ run() { # strategy faulty(0|1)
+     "$([ "$detect" = -1 ] && echo - || echo "$detect")" "$([ "$f" = 1 ] && echo $(( restored - t0 )) || echo -)" "$fails" "$total" | tee -a "$E/results.md"
+ }
+ 
++# GRACEFUL=1: preStop-пауза (под встигає зникнути з Endpoints до SIGTERM) + graceful shutdown у застосунку.
++PRESTOP='{}'
++[ "${GRACEFUL:-1}" = 1 ] && PRESTOP='{ preStop: { sleep: { seconds: 5 } } }'
+ echo "| Стратегія | Реліз | Тривалість розгортання, с | Виявлення збою, с | Відновлення (MTTR), с | Невдалих запитів | Усього запитів |" > "$E/results.md"
+ echo "|---|---|---|---|---|---|---|" >> "$E/results.md"
+ for s in rolling bluegreen canary; do
+diff --git a/ci/lab11/argocd.sh b/ci/lab11/argocd.sh
+index f0f4b4b..6de0070 100755
+--- a/ci/lab11/argocd.sh
++++ b/ci/lab11/argocd.sh
+@@ -9,7 +9,7 @@ docker build -q --target production --build-arg VERSION=v2 -t roomflow:v2 . >/de
+ kind load docker-image roomflow:v1 roomflow:v2 --name rf-argo >/dev/null
+ helm repo add argo https://argoproj.github.io/argo-helm >/dev/null && helm repo update >/dev/null
+ helm install argocd argo/argo-cd --version 7.6.8 -n argocd --create-namespace --set dex.enabled=false --set notifications.enabled=false \
+-  --set configs.params."server\.insecure"=true --wait --timeout 6m > "$E/install.txt"
++  --set 'configs.params.server\.insecure=true' --wait --timeout 6m > "$E/install.txt"
+ 
+ app_state() { kubectl -n argocd get application "$1" -o jsonpath='{.status.sync.status}/{.status.health.status}'; }
+ wait_app() { # app timeout
+@@ -55,7 +55,11 @@ log "screenshots"
+ kubectl -n argocd port-forward svc/argocd-server 8088:80 >/dev/null 2>&1 &
+ PF=$!; sleep 5
+ PASS=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d)
+-TOKEN=$(curl -s localhost:8088/api/v1/session -d "{\"username\":\"admin\",\"password\":\"$PASS\"}" | jq -r .token)
++TOKEN=""
++for _ in $(seq 1 10); do
++  TOKEN=$(curl -skL localhost:8088/api/v1/session -d "{\"username\":\"admin\",\"password\":\"$PASS\"}" | jq -r '.token // empty' 2>/dev/null || true)
++  [ -n "$TOKEN" ] && break; sleep 3
++done
+ SHOT_COOKIE="argocd.token=$TOKEN" shoot "$E/argocd-applications.png" "http://localhost:8088/applications" 5000 || true
+ SHOT_COOKIE="argocd.token=$TOKEN" shoot "$E/argocd-roomflow.png" "http://localhost:8088/applications/argocd/roomflow?view=tree" 6000 1600 900 || true
+ kill $PF
+diff --git a/ci/lab11/backstage.sh b/ci/lab11/backstage.sh
+index 9822701..e8855c2 100644
+--- a/ci/lab11/backstage.sh
++++ b/ci/lab11/backstage.sh
+@@ -7,6 +7,12 @@ E=$EVIDENCE/backstage; mkdir -p "$E"
+ REPO=$PWD
+ BS=/tmp/portal
+ log "create-app"
++# Backstage вимагає Node.js 22/24 LTS
++if [ "$(node -p 'process.versions.node.split(".")[0]')" -lt 22 ]; then
++  curl -sSL https://nodejs.org/dist/v22.11.0/node-v22.11.0-linux-x64.tar.xz | tar -xJ -C /tmp
++  export PATH=/tmp/node-v22.11.0-linux-x64/bin:$PATH
++fi
++node --version
+ corepack enable
+ printf 'roomflow-portal\n' | npx -y @backstage/create-app@latest --path $BS --skip-install > "$E/create-app.txt" 2>&1 || { cat "$E/create-app.txt"; exit 1; }
+ cd $BS
+diff --git a/ci/lab11/crossplane.sh b/ci/lab11/crossplane.sh
+index 4a33e6b..836f29a 100755
+--- a/ci/lab11/crossplane.sh
++++ b/ci/lab11/crossplane.sh
+@@ -37,6 +37,7 @@ kubectl -n team-reviews describe postgresqlinstance reviews-db > "$E/claim-descr
+ # Видалення claim прибирає всі створені ресурси.
+ s=$(date +%s)
+ kubectl -n team-reviews delete postgresqlinstance reviews-db --wait=true --timeout=180s
+-for _ in $(seq 1 60); do kubectl -n team-reviews get deploy reviews-db-postgres >/dev/null 2>&1 || break; sleep 2; done
+-echo "deprovisioning: $(( $(date +%s) - s )) s; leftovers: $(kubectl -n team-reviews get deploy,svc,secret,pvc --no-headers 2>/dev/null | grep -c reviews-db || true)" | tee -a "$E/provisioning.txt"
++left() { kubectl -n team-reviews get deploy,svc,secret,pvc --no-headers 2>/dev/null | grep -c reviews-db || true; }
++for _ in $(seq 1 90); do [ "$(left)" = 0 ] && break; sleep 2; done
++echo "deprovisioning: $(( $(date +%s) - s )) s; leftovers: $(left)" | tee -a "$E/provisioning.txt"
+ section "Crossplane" "$E/provisioning.txt"
+diff --git a/ci/lab12/lib.sh b/ci/lab12/lib.sh
+index 95d577a..0a69524 100755
+--- a/ci/lab12/lib.sh
++++ b/ci/lab12/lib.sh
+@@ -24,7 +24,8 @@ mesh_images() { # cluster
+ 
+ # fortio NS ARGS...: навантажувальний клієнт Istio (fortio) усередині mesh
+ fortio_pod() {
+-  kubectl -n "$1" run fortio --image=fortio/fortio:latest_release --restart=Never --command -- sleep 3600 >/dev/null 2>&1 || true
++  # образ fortio не містить shell/sleep: под працює у режимі fortio server, навантаження — через exec fortio load
++  kubectl -n "$1" run fortio --image=fortio/fortio:latest_release --restart=Never >/dev/null 2>&1 || true
+   kubectl -n "$1" wait --for=condition=Ready pod/fortio --timeout=180s >/dev/null
+ }
+ fortio() { local ns=$1; shift; kubectl -n "$ns" exec fortio -c fortio -- fortio load -quiet "$@" 2>&1; }
+diff --git a/ci/lab12/monitoring.sh b/ci/lab12/monitoring.sh
+index ebf1827..53000be 100755
+--- a/ci/lab12/monitoring.sh
++++ b/ci/lab12/monitoring.sh
+@@ -21,8 +21,7 @@ kubectl -n monitoring create configmap roomflow-dashboard --from-file=roomflow.j
+   | kubectl label --local -f - grafana_dashboard=1 -o yaml | kubectl apply -f -
+ 
+ log "навантаження (у т.ч. помилки) і перевірки"
+-kubectl -n $NS run fortio --image=fortio/fortio:latest_release --restart=Never --command -- sleep 3600 >/dev/null
+-kubectl -n $NS wait --for=condition=Ready pod/fortio --timeout=180s >/dev/null
++fortio_pod $NS
+ kubectl -n $NS exec fortio -- fortio curl -quiet -H 'X-Tenant-ID: demo-hotel' -payload '{"id":"r1","name":"Suite","capacity":2,"price":200000}' http://backend:8080/api/rooms >/dev/null 2>&1 || true
+ kubectl -n $NS exec fortio -- fortio load -quiet -c 4 -qps 30 -t 150s -H 'X-Tenant-ID: demo-hotel' 'http://frontend:8081/api/rooms/r1/availability?from=2027-01-01&to=2027-02-01' > "$E/load.txt" 2>&1 &
+ L=$!
+diff --git a/ci/lab12/rollouts.sh b/ci/lab12/rollouts.sh
+index aa13d74..9714a92 100755
+--- a/ci/lab12/rollouts.sh
++++ b/ci/lab12/rollouts.sh
+@@ -18,7 +18,8 @@ log "ArgoCD Application (v1)"
+ kubectl apply -f deploy/mesh/rollouts-application.yaml
+ for _ in $(seq 1 100); do kubectl -n rf-ui get rollout frontend >/dev/null 2>&1 && break; sleep 3; done
+ kubectl -n rf-ui rollout status deploy/backend --timeout=300s
+-R status frontend --timeout 300s | tail -3
++for _ in $(seq 1 100); do [ "$(kubectl -n rf-ui get rollout frontend -o jsonpath='{.status.phase}' 2>/dev/null)" = Healthy ] && break; sleep 3; done
++R get rollout frontend --no-color | head -15
+ kubectl -n rf-ui run probe --image=curlimages/curl:8.10.1 --restart=Never --command -- sleep 3600 >/dev/null
+ kubectl -n rf-ui wait --for=condition=Ready pod/probe --timeout=180s >/dev/null
+ kubectl -n rf-ui exec probe -c probe -- curl -s -H 'X-Tenant-ID: demo-hotel' -X POST http://backend:8080/api/rooms -d '{"id":"r1","name":"Suite","capacity":2,"price":200000}' >/dev/null
+diff --git a/ci/lab7/run.sh b/ci/lab7/run.sh
+index 4b815c6..94f8523 100755
+--- a/ci/lab7/run.sh
++++ b/ci/lab7/run.sh
+@@ -2,7 +2,7 @@
+ # ЛР7: розгортання стеку спостережуваності, генерація трафіку, інцидент із невдалим релізом,
+ # автоматичне вимірювання DORA (lead time, CFR, MTTR) і знімки дашбордів.
+ source "$(dirname "$0")/../lib/common.sh"
+-E=$EVIDENCE
++E=$EVIDENCE; chmod 777 "$E"
+ OBS=deploy/observability
+ dc() { docker compose -f $OBS/docker-compose.yml "$@"; }
+ prom() { curl -s --data-urlencode "query=$1" http://localhost:9090/api/v1/query | jq -c '.data.result | map({metric: .metric, value: .value[1]})'; }
+diff --git a/ci/lab9/gate.sh b/ci/lab9/gate.sh
+index 5680a05..9620b80 100755
+--- a/ci/lab9/gate.sh
++++ b/ci/lab9/gate.sh
+@@ -6,7 +6,7 @@
+ source "$(dirname "$0")/../lib/common.sh"
+ REF=${1:-}
+ P95_MS=${P95_MS:-100}
+-E=$EVIDENCE/gate-${REF:-head}; mkdir -p "$E"
++E=$EVIDENCE/gate-${REF:-head}; mkdir -p "$E"; chmod 777 "$E"   # k6 у контейнері працює не від root
+ build_image roomflow:gate "$REF"
+ docker rm -f rf-gate >/dev/null 2>&1 || true
+ docker run -d --name rf-gate --cpus 1 --memory 512m -p 8080:8080 roomflow:gate >/dev/null
+@@ -15,9 +15,13 @@ go run ./test/load/seed -url http://localhost:8080 -tenants 20 -rooms 10 -bookin
+ set +e
+ docker run --rm --network host -v "$PWD/test/load/k6:/k6:ro" -v "$E:/out" grafana/k6:0.54.0 run --quiet \
+   -e ENDPOINT=availability -e MAX_VUS=50 -e RAMP=20s -e HOLD=20s -e P95_MS="$P95_MS" \
+-  --summary-export /out/gate.json /k6/load.js 2>&1 | tee "$E/gate.txt"
+-code=${PIPESTATUS[0]}
++  --summary-export /out/gate.json /k6/load.js > "$E/gate.txt" 2>&1
++code=$?
++grep -v 'level=warning' "$E/gate.txt" | tail -40
+ set -e
++docker inspect rf-gate --format 'status={{.State.Status}} exit={{.State.ExitCode}} oom={{.State.OOMKilled}} restarts={{.RestartCount}}' | tee "$E/container-state.txt"
++docker logs rf-gate 2>&1 | grep -v '"msg":"http_request"' | tail -60 > "$E/container-log.txt"
++docker stats --no-stream rf-gate >> "$E/container-state.txt" 2>/dev/null || true
+ docker rm -f rf-gate >/dev/null
+ p95=$(jq -r '.metrics.http_req_duration["p(95)"]' "$E/gate.json")
+ echo "### Ворота продуктивності: p95 = ${p95} мс (поріг ${P95_MS} мс), k6 exit code ${code}" | summary
+diff --git a/ci/lab9/run.sh b/ci/lab9/run.sh
+index d80d9ce..909620c 100755
+--- a/ci/lab9/run.sh
++++ b/ci/lab9/run.sh
+@@ -7,12 +7,18 @@
+ # Використання: run.sh REF_BEFORE REF_AFTER
+ source "$(dirname "$0")/../lib/common.sh"
+ BEFORE=${1:?ref before}; AFTER=${2:?ref after}
+-E=$EVIDENCE; mkdir -p "$E/k6" "$E/jmeter" "$E/pprof" "$E/stats"
++E=$EVIDENCE; mkdir -p "$E/k6" "$E/jmeter" "$E/pprof" "$E/stats"; chmod 777 "$E/k6"
+ K6="docker run --rm --network host -v $PWD/test/load/k6:/k6:ro -v $E/k6:/out grafana/k6:0.54.0"
+ NET=rf-load
+ docker network create $NET >/dev/null 2>&1 || true
+ 
++diag() { # стан контейнера застосунку після сценарію
++  docker inspect rf-load --format "$1: status={{.State.Status}} exit={{.State.ExitCode}} oom={{.State.OOMKilled}}" >> "$E/container-state.txt" 2>/dev/null || true
++  docker logs rf-load 2>&1 | grep -v '"msg":"http_request"' | tail -30 > "$E/container-log-$1.txt" 2>/dev/null || true
++}
+ start_app() { # image [env...]
++  [ -n "${CURRENT:-}" ] && diag "$CURRENT"
++  CURRENT=$(echo "$1 $*" | tr -c 'a-zA-Z0-9\n' '-' | cut -c1-40)
+   docker rm -f rf-load >/dev/null 2>&1 || true
+   local img=$1; shift
+   local envs=(); for e in "$@"; do envs+=(-e "$e"); done
+@@ -58,7 +64,7 @@ profile() { # label (CPU-профіль під навантаженням на a
+ log "images"
+ build_image roomflow:before "$BEFORE"
+ build_image roomflow:after "$AFTER"
+-docker pull -q grafana/k6:0.54.0 justb4/jmeter:5.5 redis:7.4-alpine >/dev/null
++for i in grafana/k6:0.54.0 justb4/jmeter:5.5 redis:7.4-alpine; do docker pull -q "$i" >/dev/null; done
+ endlog
+ 
+ log "BEFORE: k6 + JMeter, стрес, профіль"
+@@ -96,6 +102,7 @@ $K6 run --quiet --summary-export /out/limit.json /k6/ratelimit.js > "$E/k6/limit
+ set -e
+ curl -s http://localhost:8080/metrics | grep -E '^roomflow_(rate_limited_total|http_requests_total.*availability)' > "$E/limit-metrics.txt" || true
+ endlog
++diag "$CURRENT"
+ docker rm -f rf-load rf-redis >/dev/null
+ 
+ python3 ci/lab9/report.py "$E" | tee "$E/results.md"
+diff --git a/cmd/roomflow/main.go b/cmd/roomflow/main.go
+index 5275d09..532d80f 100644
+--- a/cmd/roomflow/main.go
++++ b/cmd/roomflow/main.go
+@@ -2,6 +2,7 @@
+ package main
+ 
+ import (
++	"context"
+ 	"encoding/json"
+ 	"flag"
+ 	"fmt"
+@@ -9,6 +10,8 @@ import (
+ 	"log/slog"
+ 	"net/http"
+ 	"os"
++	"os/signal"
++	"syscall"
+ 	"time"
+ 
+ 	"github.com/sudo97/roomflow/internal/booking"
+@@ -49,7 +52,9 @@ func main() {
+ 		servePprof(logger)
+ 		srv := &http.Server{Addr: addr, Handler: h, ReadHeaderTimeout: 5 * time.Second}
+ 		logger.Info("starting", "addr", addr, "build", obs.Labels(buildInfo()...))
+-		log.Fatal(srv.ListenAndServe())
++		if err := serve(srv, 10*time.Second); err != nil {
++			log.Fatal(err)
++		}
+ 	}
+ }
+ 
+@@ -118,6 +123,23 @@ func routeName(inner, outer *http.ServeMux) func(*http.Request) string {
+ 	}
+ }
+ 
++// serve runs the server until SIGTERM/SIGINT, then stops accepting connections and lets in-flight
++// requests finish (graceful shutdown) so that rolling updates do not drop requests.
++func serve(srv *http.Server, grace time.Duration) error {
++	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGTERM, os.Interrupt)
++	defer stop()
++	errc := make(chan error, 1)
++	go func() { errc <- srv.ListenAndServe() }()
++	select {
++	case err := <-errc:
++		return err
++	case <-ctx.Done():
++	}
++	shutdown, cancel := context.WithTimeout(context.Background(), grace)
++	defer cancel()
++	return srv.Shutdown(shutdown)
++}
++
+ // probe returns a process exit code: 0 if the endpoint answers 200, 1 otherwise.
+ func probe(url string) int {
+ 	client := http.Client{Timeout: 2 * time.Second}
+diff --git a/cmd/roomflow/main_test.go b/cmd/roomflow/main_test.go
+index 3c9a57e..edddcfa 100644
+--- a/cmd/roomflow/main_test.go
++++ b/cmd/roomflow/main_test.go
+@@ -8,7 +8,9 @@ import (
+ 	"os"
+ 	"path/filepath"
+ 	"strings"
++	"syscall"
+ 	"testing"
++	"time"
+ )
+ 
+ func TestEnvOr(t *testing.T) {
+@@ -132,3 +134,41 @@ func TestRuntimeOptions(t *testing.T) {
+ 		t.Fatalf("rate limit metric missing: %s", m)
+ 	}
+ }
++
++func TestGracefulShutdown(t *testing.T) {
++	started := make(chan struct{})
++	release := make(chan struct{})
++	h := http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
++		close(started)
++		<-release
++		_, _ = w.Write([]byte("done"))
++	})
++	srv := &http.Server{Addr: "127.0.0.1:18931", Handler: h}
++	errc := make(chan error, 1)
++	go func() { errc <- serve(srv, 5*time.Second) }()
++	time.Sleep(100 * time.Millisecond)
++	body := make(chan string, 1)
++	go func() {
++		resp, err := http.Get("http://127.0.0.1:18931/")
++		if err != nil {
++			body <- err.Error()
++			return
++		}
++		defer func() { _ = resp.Body.Close() }()
++		b, _ := io.ReadAll(resp.Body)
++		body <- string(b)
++	}()
++	<-started
++	_ = syscall.Kill(os.Getpid(), syscall.SIGTERM)
++	time.Sleep(100 * time.Millisecond)
++	close(release)
++	if got := <-body; got != "done" {
++		t.Fatalf("in-flight request must complete during shutdown, got %q", got)
++	}
++	if err := <-errc; err != nil {
++		t.Fatalf("serve: %v", err)
++	}
++	if err := serve(&http.Server{Addr: "bad-address"}, time.Second); err == nil {
++		t.Fatal("listen error must be returned")
++	}
++}
+diff --git a/deploy/helm/roomflow/templates/deployments.yaml b/deploy/helm/roomflow/templates/deployments.yaml
+index 3bdde3a..1e86d71 100644
+--- a/deploy/helm/roomflow/templates/deployments.yaml
++++ b/deploy/helm/roomflow/templates/deployments.yaml
+@@ -49,6 +49,9 @@ spec:
+           livenessProbe:
+             httpGet: { path: /healthz, port: http }
+             periodSeconds: 10
++          lifecycle:
++            # под спершу зникає з Endpoints, потім отримує SIGTERM і завершує активні запити
++            preStop: { sleep: { seconds: 5 } }
+           resources:
+             {{- toYaml $.Values.resources | nindent 12 }}
+           securityContext:
+diff --git a/deploy/k8s/bluegreen/deployments.yaml b/deploy/k8s/bluegreen/deployments.yaml
+index a493689..3c4b88b 100644
+--- a/deploy/k8s/bluegreen/deployments.yaml
++++ b/deploy/k8s/bluegreen/deployments.yaml
+@@ -39,6 +39,8 @@ spec:
+           livenessProbe:
+             httpGet: { path: /healthz, port: http }
+             periodSeconds: 10
++          lifecycle:
++            preStop: { sleep: { seconds: 5 } }
+           resources:
+             requests: { cpu: 50m, memory: 32Mi }
+             limits: { cpu: 500m, memory: 128Mi }
+@@ -79,6 +81,8 @@ spec:
+           livenessProbe:
+             httpGet: { path: /healthz, port: http }
+             periodSeconds: 10
++          lifecycle:
++            preStop: { sleep: { seconds: 5 } }
+           resources:
+             requests: { cpu: 50m, memory: 32Mi }
+             limits: { cpu: 500m, memory: 128Mi }
+diff --git a/deploy/mesh/rollouts/analysis.yaml b/deploy/mesh/rollouts/analysis.yaml
+index 097a8b5..e205c96 100644
+--- a/deploy/mesh/rollouts/analysis.yaml
++++ b/deploy/mesh/rollouts/analysis.yaml
+@@ -1,7 +1,9 @@
+ # Валідація нової версії перед перемиканням: через preview-сервіс нова версія має віддати каталог номерів.
+ apiVersion: argoproj.io/v1alpha1
+ kind: AnalysisTemplate
+-metadata: { name: frontend-smoke }
++metadata:
++  name: frontend-smoke
++  annotations: { argocd.argoproj.io/sync-wave: "-1" }   # створюється раніше за Rollout
+ spec:
+   metrics:
+     - name: rooms-through-preview
+diff --git a/infra/terraform/envs/app/main.tf b/infra/terraform/envs/app/main.tf
+index 3a71461..1ddd5d9 100644
+--- a/infra/terraform/envs/app/main.tf
++++ b/infra/terraform/envs/app/main.tf
+@@ -15,8 +15,9 @@ terraform {
+ 
+ provider "docker" {}
+ 
++# Колір визначає workspace; у workspace default (напр. terraform validate) — blue, а check нижче попереджає.
+ locals {
+-  color  = terraform.workspace
++  color  = contains(["blue", "green"], terraform.workspace) ? terraform.workspace : "blue"
+   prefix = "rf-${var.environment}"
+   labels = {
+     project     = "roomflow"
+diff --git a/internal/flags/flags_test.go b/internal/flags/flags_test.go
+index f116d47..215484b 100644
+--- a/internal/flags/flags_test.go
++++ b/internal/flags/flags_test.go
+@@ -27,8 +27,11 @@ func TestRules(t *testing.T) {
+ 	if on < 400 || on > 600 {
+ 		t.Fatalf("percentage rollout is skewed: %d/1000", on)
+ 	}
+-	if s.Enabled("half", "t1") != s.Enabled("half", "t1") {
+-		t.Fatal("rollout must be stable per tenant")
++	first := s.Enabled("half", "t1")
++	for i := 0; i < 10; i++ {
++		if s.Enabled("half", "t1") != first {
++			t.Fatal("rollout must be stable per tenant")
++		}
+ 	}
+ 	if all := s.All("hotel-a"); !all["global"] || !all["listed"] || all["nobody"] {
+ 		t.Fatalf("All = %v", all)
+diff --git a/internal/obs/metrics.go b/internal/obs/metrics.go
+index 0e9f000..fc4cb87 100644
+--- a/internal/obs/metrics.go
++++ b/internal/obs/metrics.go
+@@ -123,7 +123,7 @@ func (r *Registry) Render(w io.Writer) {
+ 	defer r.mu.Unlock()
+ 	for _, name := range r.order {
+ 		f := r.families[name]
+-		fmt.Fprintf(w, "# HELP %s %s\n# TYPE %s %s\n", f.name, f.help, f.name, f.kind)
++		_, _ = fmt.Fprintf(w, "# HELP %s %s\n# TYPE %s %s\n", f.name, f.help, f.name, f.kind)
+ 		keys := make([]string, 0, len(f.series))
+ 		for k := range f.series {
+ 			keys = append(keys, k)
+@@ -137,14 +137,14 @@ func (r *Registry) Render(w io.Writer) {
+ 
+ func writeSeries(w io.Writer, f *family, s *series) {
+ 	if f.kind != "histogram" {
+-		fmt.Fprintf(w, "%s%s %s\n", f.name, s.labels, num(s.value))
++		_, _ = fmt.Fprintf(w, "%s%s %s\n", f.name, s.labels, num(s.value))
+ 		return
+ 	}
+ 	for i, b := range f.buckets {
+-		fmt.Fprintf(w, "%s_bucket%s %d\n", f.name, withLabel(s.labels, "le", num(b)), s.counts[i])
++		_, _ = fmt.Fprintf(w, "%s_bucket%s %d\n", f.name, withLabel(s.labels, "le", num(b)), s.counts[i])
+ 	}
+-	fmt.Fprintf(w, "%s_bucket%s %d\n", f.name, withLabel(s.labels, "le", "+Inf"), s.count)
+-	fmt.Fprintf(w, "%s_sum%s %s\n%s_count%s %d\n", f.name, s.labels, num(s.sum), f.name, s.labels, s.count)
++	_, _ = fmt.Fprintf(w, "%s_bucket%s %d\n", f.name, withLabel(s.labels, "le", "+Inf"), s.count)
++	_, _ = fmt.Fprintf(w, "%s_sum%s %s\n%s_count%s %d\n", f.name, s.labels, num(s.sum), f.name, s.labels, s.count)
+ }
+ 
+ func withLabel(labels, k, v string) string {
+diff --git a/policies/golden-path/dockerfile.rego b/policies/golden-path/dockerfile.rego
+index 4b7196a..0f660c5 100644
+--- a/policies/golden-path/dockerfile.rego
++++ b/policies/golden-path/dockerfile.rego
+@@ -5,10 +5,16 @@ import rego.v1
+ 
+ stages := [i | some i, cmd in input; cmd.Cmd == "from"]
+ 
++# Імена етапів (FROM image AS name): посилання на попередній етап — не базовий образ.
++stage_names := {lower(cmd.Value[2]) | some cmd in input; cmd.Cmd == "from"; count(cmd.Value) == 3}
++
++external(image) if not lower(image) in stage_names
++
+ deny contains msg if {
+ 	some cmd in input
+ 	cmd.Cmd == "from"
+ 	image := cmd.Value[0]
++	external(image)
+ 	not contains(image, ":")
+ 	msg := sprintf("FROM %s: версію базового образу треба зафіксувати", [image])
+ }
+diff --git a/test/load/seed/main.go b/test/load/seed/main.go
+index 9d210c5..d65be10 100644
+--- a/test/load/seed/main.go
++++ b/test/load/seed/main.go
+@@ -57,6 +57,16 @@ func bookingFor(i int, c config) (string, string) {
+ 	return fmt.Sprintf("hotel-%d", t), body
+ }
+ 
++// worker creates the bookings received from jobs and counts failures.
++func worker(client *http.Client, c config, jobs <-chan int, failed *atomic.Int64) {
++	for i := range jobs {
++		tenant, body := bookingFor(i, c)
++		if post(client, c.base+"/api/bookings", tenant, body) != nil {
++			failed.Add(1)
++		}
++	}
++}
++
+ func seedBookings(client *http.Client, c config) int64 {
+ 	var failed atomic.Int64
+ 	jobs := make(chan int)
+@@ -65,12 +75,7 @@ func seedBookings(client *http.Client, c config) int64 {
+ 		wg.Add(1)
+ 		go func() {
+ 			defer wg.Done()
+-			for i := range jobs {
+-				tenant, body := bookingFor(i, c)
+-				if post(client, c.base+"/api/bookings", tenant, body) != nil {
+-					failed.Add(1)
+-				}
+-			}
++			worker(client, c, jobs, &failed)
+ 		}()
+ 	}
+ 	for i := 0; i < c.bookings; i++ {
+diff --git a/tools/rfctl/main.go b/tools/rfctl/main.go
+index 2e6fd40..e4e3635 100644
+--- a/tools/rfctl/main.go
++++ b/tools/rfctl/main.go
+@@ -27,7 +27,7 @@ func main() {
+ 
+ func run(args []string, stdout, stderr io.Writer) int {
+ 	if len(args) == 0 {
+-		fmt.Fprint(stderr, usage)
++		_, _ = fmt.Fprint(stderr, usage)
+ 		return 2
+ 	}
+ 	cmds := map[string]func([]string) (any, error){
+@@ -35,13 +35,13 @@ func run(args []string, stdout, stderr io.Writer) int {
+ 	}
+ 	cmd, ok := cmds[args[0]]
+ 	if !ok {
+-		fmt.Fprint(stderr, usage)
++		_, _ = fmt.Fprint(stderr, usage)
+ 		return 2
+ 	}
+ 	rest, format := outputFormat(args[1:])
+ 	res, err := cmd(rest)
+ 	if err != nil {
+-		fmt.Fprintln(stderr, "error:", err)
++		_, _ = fmt.Fprintln(stderr, "error:", err)
+ 		return 1
+ 	}
+ 	if format == "json" {
+@@ -51,9 +51,9 @@ func run(args []string, stdout, stderr io.Writer) int {
+ 		return 0
+ 	}
+ 	if s, ok := res.(fmt.Stringer); ok {
+-		fmt.Fprintln(stdout, s.String())
++		_, _ = fmt.Fprintln(stdout, s.String())
+ 	} else {
+-		fmt.Fprintf(stdout, "%v\n", res)
++		_, _ = fmt.Fprintf(stdout, "%v\n", res)
+ 	}
+ 	return 0
+ }
