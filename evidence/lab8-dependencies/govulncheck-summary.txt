@@ -1,0 +1,54 @@
+go1.24.0: 180 відомих вразливостей у модулях/stdlib, 53 досяжні з коду RoomFlow
+  GO-2025-3503  stdlib  fixed in 1.24.1  HTTP Proxy bypass using IPv6 Zone IDs in golang.org/x/net
+  GO-2025-3563  stdlib  fixed in 1.24.2  Request smuggling due to acceptance of invalid chunked data in net/http
+  GO-2025-3749  stdlib  fixed in 1.24.4  Usage of ExtKeyUsageAny disables policy validation in crypto/x509
+  GO-2025-3750  stdlib  fixed in 1.24.4  Inconsistent handling of O_CREATE|O_EXCL on Unix and Windows in os in syscall
+  GO-2025-3751  stdlib  fixed in 1.24.4  Sensitive headers not cleared on cross-origin redirect in net/http
+  GO-2025-3849  stdlib  fixed in 1.24.6  Incorrect results returned from Rows.Scan in database/sql
+  GO-2025-4006  stdlib  fixed in 1.25.2  Excessive CPU consumption in ParseAddress in net/mail
+  GO-2025-4007  stdlib  fixed in 1.25.3  Quadratic complexity when checking name constraints in crypto/x509
+  GO-2025-4008  stdlib  fixed in 1.25.2  ALPN negotiation error contains attacker controlled information in crypto/tls
+  GO-2025-4009  stdlib  fixed in 1.25.2  Quadratic complexity when parsing some invalid inputs in encoding/pem
+  GO-2025-4010  stdlib  fixed in 1.25.2  Insufficient validation of bracketed IPv6 hostnames in net/url
+  GO-2025-4011  stdlib  fixed in 1.25.2  Parsing DER payload can cause memory exhaustion in encoding/asn1
+  GO-2025-4012  stdlib  fixed in 1.25.2  Lack of limit when parsing cookies can cause memory exhaustion in net/http
+  GO-2025-4013  stdlib  fixed in 1.25.2  Panic when validating certificates with DSA public keys in crypto/x509
+  GO-2025-4155  stdlib  fixed in 1.25.5  Excessive resource consumption when printing error string for host certificate validation 
+  GO-2025-4175  stdlib  fixed in 1.25.5  Improper application of excluded DNS name constraints when verifying wildcard names in cry
+  GO-2026-4337  stdlib  fixed in 1.26.0-rc.3  Unexpected session resumption in crypto/tls
+  GO-2026-4340  stdlib  fixed in 1.25.6  Handshake messages may be processed at the incorrect encryption level in crypto/tls
+  GO-2026-4341  stdlib  fixed in 1.25.6  Memory exhaustion in query parameter parsing in net/url
+  GO-2026-4601  stdlib  fixed in 1.26.1  Incorrect parsing of IPv6 host literals in net/url
+  GO-2026-4602  stdlib  fixed in 1.26.1  FileInfo can escape from a Root in os
+  GO-2026-4603  stdlib  fixed in 1.26.1  URLs in meta content attribute actions are not escaped in html/template
+  GO-2026-4865  stdlib  fixed in 1.26.2  JsBraceDepth Context Tracking Bugs (XSS) in html/template
+  GO-2026-4870  stdlib  fixed in 1.26.2  Unauthenticated TLS 1.3 KeyUpdate record can cause persistent connection retention and DoS
+  GO-2026-4918  golang.org/x/net  fixed in 0.53.0  Infinite loop in HTTP/2 transport when given bad SETTINGS_MAX_FRAME_SIZE in net/http/inter
+  GO-2026-4946  stdlib  fixed in 1.26.2  Inefficient policy validation in crypto/x509
+  GO-2026-4947  stdlib  fixed in 1.26.2  Unexpected work during chain building in crypto/x509
+  GO-2026-4971  stdlib  fixed in 1.26.3  Panic in Dial and LookupPort when handling NUL byte on Windows in net
+  GO-2026-4976  stdlib  fixed in 1.26.3  ReverseProxy forwards queries with more than urlmaxqueryparams parameters in net/http/http
+  GO-2026-4977  stdlib  fixed in 1.26.3  Quadratic string concatenation in consumePhrase in net/mail
+  GO-2026-4980  stdlib  fixed in 1.26.3  Escaper bypass leads to XSS in html/template
+  GO-2026-4982  stdlib  fixed in 1.26.3  Bypass of meta content URL escaping causes XSS in html/template
+  GO-2026-4986  stdlib  fixed in 1.26.3  Quadratic string concatentation in consumeComment in net/mail
+  GO-2026-5026  stdlib  fixed in 1.27.0-rc.3  Invoking failure to reject ASCII-only Punycode-encoded labels in golang.org/x/net/idna
+  GO-2026-5037  stdlib  fixed in 1.26.4  Inefficient candidate hostname parsing in crypto/x509
+  GO-2026-5039  stdlib  fixed in 1.26.4  Arbitrary inputs are included in errors without any escaping in net/textproto
+  GO-2026-5856  stdlib  fixed in 1.27.0-rc.2  Invoking Encrypted Client Hello privacy leak in crypto/tls
+  GO-2026-5972  stdlib  fixed in 1.27.0-rc.3  Enforce maximum recursion depth in encoding/asn1
+  GO-2026-6089  stdlib  fixed in 1.27.0-rc.3  Apply ReadHeaderTimeout when doing unencrypted HTTP/2 check in net/http
+  GO-2026-6090  stdlib  fixed in 1.27.0-rc.3  Limit handshake messages we are willing to accept post-handshake in crypto/tls
+  GO-2026-6091  stdlib  fixed in 1.27.0-rc.3  Fix Javascript regexp context tracking in html/template
+  GO-2026-6218  stdlib  fixed in 1.27.0-rc.3  Avoid quadratic complexity in resolvePath in net/url
+  GO-2026-6599  stdlib  fixed in 1.27.2  Reset context tracking on consecutive template expressions in html/template
+  GO-2026-6600  stdlib  fixed in 1.27.2  Recognize yield as regexp preceder keyword in html/template
+  GO-2026-6603  stdlib  fixed in 1.26.9  HTTP/2 server memory exhaustion due to Trailer headers in net/http
+  GO-2026-6605  stdlib  fixed in 1.27.2  HTTP/1 client connection desynchronization after CONNECT rejection in net/http
+  GO-2026-6607  stdlib  fixed in 1.27.2  Reject malformed ECH outer extension references in crypto/tls
+  GO-2026-6608  stdlib  fixed in 1.27.2  Memory limit bypass when parsing MIME headers in net/textproto, mime/multipart
+  GO-2026-6610  stdlib  fixed in 1.26.9  HTTP/2 transport accepts malformed framing-related headers in net/http
+  GO-2026-6611  stdlib  fixed in 1.26.9  Excessive CPU consumption from repeated initial window changes in net/http
+  GO-2026-6612  stdlib  fixed in 1.26.9  Double flow control refund on HTTP/2 server streams in net/http
+  GO-2026-6613  stdlib  fixed in 1.27.2  HTTP/1 server connection desynchronization after 2xx CONNECT response in net/http
+  GO-2026-6617  stdlib  fixed in 1.26.9  HTTP/2 server crash due to HPACK encoder race in net/http
