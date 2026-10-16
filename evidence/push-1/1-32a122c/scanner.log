@@ -1,0 +1,37 @@
+Unable to find image 'sonarsource/sonar-scanner-cli:latest' locally
+latest: Pulling from sonarsource/sonar-scanner-cli
+0f0cc63a5845: Pulling fs layer
+3aabe83a1b6f: Pulling fs layer
+4e1ca7d91219: Pulling fs layer
+392aaab27b8a: Pulling fs layer
+d1bec7d37842: Pulling fs layer
+4f4fb700ef54: Pulling fs layer
+392aaab27b8a: Waiting
+d1bec7d37842: Waiting
+4f4fb700ef54: Waiting
+4e1ca7d91219: Verifying Checksum
+4e1ca7d91219: Download complete
+0f0cc63a5845: Verifying Checksum
+0f0cc63a5845: Download complete
+d1bec7d37842: Download complete
+3aabe83a1b6f: Verifying Checksum
+3aabe83a1b6f: Download complete
+4f4fb700ef54: Verifying Checksum
+4f4fb700ef54: Download complete
+392aaab27b8a: Verifying Checksum
+392aaab27b8a: Download complete
+0f0cc63a5845: Pull complete
+3aabe83a1b6f: Pull complete
+4e1ca7d91219: Pull complete
+392aaab27b8a: Pull complete
+d1bec7d37842: Pull complete
+4f4fb700ef54: Pull complete
+Digest: sha256:a3f4215076706c95a17a68c19322ee916e40a3acd081a8c1a1e839e0194afa57
+Status: Downloaded newer image for sonarsource/sonar-scanner-cli:latest
+14:32:59.694 INFO  Scanner configuration file: /opt/sonar-scanner/conf/sonar-scanner.properties
+14:32:59.696 INFO  Project root configuration file: /usr/src/sonar-project.properties
+14:32:59.707 INFO  SonarScanner CLI 8.1.0.6389
+14:32:59.711 INFO  Linux 6.17.0-1022-azure amd64
+14:33:00.488 ERROR Failed to query server version: GET http://localhost:9000/api/v2/analysis/version failed with HTTP 401 Unauthorized. Please check the property sonar.token or the environment variable SONAR_TOKEN.
+14:33:00.489 INFO  EXECUTION FAILURE
+14:33:00.489 INFO  Total time: 0.797s

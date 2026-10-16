@@ -1,0 +1,7 @@
+14:33:44.488 INFO  Scanner configuration file: /opt/sonar-scanner/conf/sonar-scanner.properties
+14:33:44.491 INFO  Project root configuration file: /usr/src/sonar-project.properties
+14:33:44.502 INFO  SonarScanner CLI 8.1.0.6389
+14:33:44.507 INFO  Linux 6.17.0-1022-azure amd64
+14:33:45.468 ERROR Failed to query server version: GET http://localhost:9000/api/v2/analysis/version failed with HTTP 401 Unauthorized. Please check the property sonar.token or the environment variable SONAR_TOKEN.
+14:33:45.469 INFO  EXECUTION FAILURE
+14:33:45.469 INFO  Total time: 0.983s
