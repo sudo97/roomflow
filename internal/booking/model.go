@@ -10,6 +10,12 @@ import (
 // TenantID identifies a hotel (tenant) in the multi-tenant platform.
 type TenantID string
 
+// Booking statuses.
+const (
+	StatusConfirmed = "confirmed"
+	StatusCancelled = "cancelled"
+)
+
 // Room is a bookable room that belongs to a single tenant.
 type Room struct {
 	ID        string
@@ -33,10 +39,22 @@ type Booking struct {
 	Status     string
 }
 
+// Active reports whether the booking still occupies the room.
+func (b Booking) Active() bool { return b.Status != StatusCancelled }
+
+// Overlaps reports whether the booking intersects the half-open range [in, out).
+func (b Booking) Overlaps(in, out time.Time) bool {
+	return in.Before(b.CheckOut) && out.After(b.CheckIn)
+}
+
+// Nights returns the number of nights in the booking.
+func (b Booking) Nights() int { return nightsBetween(b.CheckIn, b.CheckOut) }
+
+func nightsBetween(in, out time.Time) int { return int(out.Sub(in).Hours() / 24) }
+
 // Domain errors.
 var (
 	ErrNotFound     = errors.New("not found")
 	ErrUnavailable  = errors.New("room is not available for the requested dates")
 	ErrInvalidInput = errors.New("invalid input")
-	ErrWrongTenant  = errors.New("resource belongs to another tenant")
 )

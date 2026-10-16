@@ -43,7 +43,7 @@ jobs:
           - 9000:9000
     env:
       SONAR_HOST_URL: http://localhost:9000
-      REFS: ${{ inputs.refs || github.sha }}
+      REFS: ${{ inputs.refs || 'origin/baseline HEAD' }}
       LABEL: ${{ inputs.label || format('push-{0}', github.run_number) }}
     steps:
       - uses: actions/checkout@v4
@@ -75,6 +75,7 @@ jobs:
           cp /tmp/setup.log /tmp/evidence/
           i=0
           for ref in $REFS; do
+            git rev-parse -q --verify "$ref" >/dev/null || { echo "skip $ref"; continue; }
             i=$((i+1)); git checkout -q "$ref"
             name="$i-$(git rev-parse --short HEAD)"
             out=/tmp/evidence/$name; mkdir -p "$out"

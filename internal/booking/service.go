@@ -2,8 +2,7 @@ package booking
 
 import (
 	"fmt"
-	"strings"
-	"time"
+	"sync/atomic"
 )
 
 // Repository is the storage port used by the service.
@@ -19,130 +18,83 @@ type Repository interface {
 // Service implements booking use cases.
 type Service struct {
 	repo Repository
-	now  func() time.Time
-	seq  int
+	seq  atomic.Int64
 }
 
 // NewService creates a booking service.
 func NewService(repo Repository) *Service {
-	return &Service{repo: repo, now: time.Now}
+	return &Service{repo: repo}
 }
 
 // CreateBooking validates the request, checks availability, calculates price and stores the booking.
-// TODO: split this function, it does too many things
-func (s *Service) CreateBooking(tenant string, roomID string, guestName string, guestEmail string, guests int, checkIn string, checkOut string, promo string) (Booking, error) {
-	var b Booking
-	if tenant == "" {
-		return b, ErrInvalidInput
-	}
-	if roomID == "" {
-		return b, ErrInvalidInput
-	}
-	if guestName == "" {
-		return b, ErrInvalidInput
-	}
-	if guestEmail == "" || !strings.Contains(guestEmail, "@") {
-		return b, ErrInvalidInput
-	}
-	in, err := time.Parse("2006-01-02", checkIn)
+func (s *Service) CreateBooking(req BookingRequest) (Booking, error) {
+	st, err := req.validate()
 	if err != nil {
-		return b, ErrInvalidInput
+		return Booking{}, err
 	}
-	out, err := time.Parse("2006-01-02", checkOut)
+	room, err := s.repo.GetRoom(req.Tenant, req.RoomID)
 	if err != nil {
-		return b, ErrInvalidInput
+		return Booking{}, err
 	}
-	if !out.After(in) {
-		return b, ErrInvalidInput
+	if req.Guests > room.Capacity {
+		return Booking{}, fmt.Errorf("%w: room capacity is %d", ErrInvalidInput, room.Capacity)
 	}
-	room, err := s.repo.GetRoom(TenantID(tenant), roomID)
-	if err != nil {
-		return b, err
+	if err := s.ensureAvailable(st); err != nil {
+		return Booking{}, err
 	}
-	if guests > room.Capacity {
-		return b, ErrInvalidInput
+	b := Booking{
+		ID:         fmt.Sprintf("bk-%d", s.seq.Add(1)),
+		TenantID:   req.Tenant,
+		RoomID:     req.RoomID,
+		GuestName:  req.GuestName,
+		GuestEmail: req.GuestEmail,
+		Guests:     req.Guests,
+		CheckIn:    st.in,
+		CheckOut:   st.out,
+		Total:      quote(room, st),
+		Status:     StatusConfirmed,
 	}
-	existing, _ := s.repo.ListBookings(TenantID(tenant), roomID)
-	for _, e := range existing {
-		if e.Status != "cancelled" {
-			if in.Before(e.CheckOut) {
-				if out.After(e.CheckIn) {
-					return b, ErrUnavailable
-				}
-			}
-		}
-	}
-	nights := int(out.Sub(in).Hours() / 24)
-	var total int64
-	for i := 0; i < nights; i++ {
-		day := in.AddDate(0, 0, i)
-		price := room.BasePrice
-		if day.Weekday() == time.Saturday || day.Weekday() == time.Sunday {
-			price = price * 120 / 100
-		}
-		if day.Month() == time.July || day.Month() == time.August {
-			price = price * 130 / 100
-		} else if day.Month() == time.December && day.Day() > 20 {
-			price = price * 150 / 100
-		}
-		total += price
-	}
-	if promo != "" {
-		if promo == "WELCOME10" {
-			total = total * 90 / 100
-		} else if promo == "LONGSTAY" {
-			if nights >= 7 {
-				total = total * 85 / 100
-			}
-		} else if promo == "FRIENDS" {
-			if guests >= 3 {
-				total = total * 95 / 100
-			}
-		}
-	}
-	s.seq++
-	b = Booking{
-		ID:         fmt.Sprintf("bk-%d", s.seq),
-		TenantID:   TenantID(tenant),
-		RoomID:     roomID,
-		GuestName:  guestName,
-		GuestEmail: guestEmail,
-		Guests:     guests,
-		CheckIn:    in,
-		CheckOut:   out,
-		Total:      total,
-		Status:     "confirmed",
-	}
-	err = s.repo.SaveBooking(b)
-	if err != nil {
+	if err := s.repo.SaveBooking(b); err != nil {
 		return Booking{}, err
 	}
 	return b, nil
 }
 
-// CancelBooking marks a booking as cancelled.
-func (s *Service) CancelBooking(tenant string, id string) error {
-	b, err := s.repo.GetBooking(TenantID(tenant), id)
+func (s *Service) ensureAvailable(st stay) error {
+	existing, err := s.repo.ListBookings(st.Tenant, st.RoomID)
 	if err != nil {
 		return err
 	}
-	if b.Status == "cancelled" {
+	for _, e := range existing {
+		if e.Active() && e.Overlaps(st.in, st.out) {
+			return ErrUnavailable
+		}
+	}
+	return nil
+}
+
+// CancelBooking marks a booking as cancelled. Cancelling twice is a no-op.
+func (s *Service) CancelBooking(tenant TenantID, id string) error {
+	b, err := s.repo.GetBooking(tenant, id)
+	if err != nil {
+		return err
+	}
+	if !b.Active() {
 		return nil
 	}
-	b.Status = "cancelled"
+	b.Status = StatusCancelled
 	return s.repo.SaveBooking(b)
 }
 
 // AddRoom registers a new room for a tenant.
-func (s *Service) AddRoom(tenant string, id string, name string, capacity int, price int64) (Room, error) {
-	if tenant == "" || id == "" || name == "" || capacity <= 0 || price <= 0 {
+func (s *Service) AddRoom(r Room) (Room, error) {
+	if r.TenantID == "" || r.ID == "" || r.Name == "" || r.Capacity <= 0 || r.BasePrice <= 0 {
 		return Room{}, ErrInvalidInput
 	}
-	r := Room{ID: id, TenantID: TenantID(tenant), Name: name, Capacity: capacity, BasePrice: price}
 	return r, s.repo.SaveRoom(r)
 }
 
 // Rooms lists rooms of a tenant.
-func (s *Service) Rooms(tenant string) ([]Room, error) {
-	return s.repo.ListRooms(TenantID(tenant))
+func (s *Service) Rooms(tenant TenantID) ([]Room, error) {
+	return s.repo.ListRooms(tenant)
 }

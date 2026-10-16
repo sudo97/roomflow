@@ -5,23 +5,26 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/sudo97/roomflow/internal/booking"
 	"github.com/sudo97/roomflow/internal/httpapi"
 	"github.com/sudo97/roomflow/internal/store"
 )
 
-const adminPassword = "roomflow-admin-2024"
-
 func main() {
-	addr := os.Getenv("ADDR")
-	if addr == "" {
-		addr = ":8080"
+	srv := &http.Server{
+		Addr:              envOr("ADDR", ":8080"),
+		Handler:           httpapi.New(booking.NewService(store.NewMemory())).Routes(),
+		ReadHeaderTimeout: 5 * time.Second,
 	}
-	if os.Getenv("ADMIN_PASSWORD") == "" {
-		os.Setenv("ADMIN_PASSWORD", adminPassword)
+	log.Printf("roomflow listening on %s", srv.Addr)
+	log.Fatal(srv.ListenAndServe())
+}
+
+func envOr(key, def string) string {
+	if v := os.Getenv(key); v != "" {
+		return v
 	}
-	svc := booking.NewService(store.NewMemory())
-	log.Printf("roomflow listening on %s", addr)
-	log.Fatal(http.ListenAndServe(addr, httpapi.New(svc).Routes()))
+	return def
 }
