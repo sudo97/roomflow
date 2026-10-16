@@ -1,10 +1,10 @@
-test_health (test_app.AppTest.test_health) ... 127.0.0.1 - - [16/Oct/2026 18:12:28] "GET /healthz HTTP/1.1" 200 -
-/usr/lib/python3.12/unittest/case.py:589: ResourceWarning: unclosed <socket.socket fd=3, family=2, type=1, proto=0, laddr=('127.0.0.1', 38989)>
+test_health (test_app.AppTest.test_health) ... 127.0.0.1 - - [16/Oct/2026 18:37:00] "GET /healthz HTTP/1.1" 200 -
+/usr/lib/python3.12/unittest/case.py:589: ResourceWarning: unclosed <socket.socket fd=3, family=2, type=1, proto=0, laddr=('127.0.0.1', 40033)>
   if method() is not None:
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
 
 ----------------------------------------------------------------------
-Ran 1 test in 0.097s
+Ran 1 test in 0.033s
 
 OK

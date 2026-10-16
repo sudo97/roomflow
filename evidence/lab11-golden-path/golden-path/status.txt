@@ -1,13 +1,13 @@
 WORKFLOW                     STATUS     RESULT     COMMIT   UPDATED
-lab12-cloud-native           in_progress            c26632f  2026-10-16T18:12:08Z
-lab11-platform               in_progress            c26632f  2026-10-16T18:12:08Z
-lab6-iac                     in_progress            c26632f  2026-10-16T18:12:30Z
-run-script                   completed  failure    ee631d4  2026-10-16T18:10:39Z
-sonar                        in_progress            ee631d4  2026-10-16T18:09:53Z
-quality                      completed  success    ee631d4  2026-10-16T18:11:16Z
-ci                           in_progress            ee631d4  2026-10-16T18:11:39Z
-lab8-devsecops               completed  success    ee631d4  2026-10-16T18:11:42Z
-ci-sequential                completed  success    ee631d4  2026-10-16T18:12:03Z
-tests                        completed  success    ee631d4  2026-10-16T18:12:01Z
-lab9-performance             in_progress            efbd385  2026-10-16T18:02:32Z
+lab12-cloud-native           in_progress            901d04b  2026-10-16T18:36:53Z
+lab11-platform               in_progress            901d04b  2026-10-16T18:36:37Z
+lab8-devsecops               in_progress            901d04b  2026-10-16T18:36:42Z
+run-script                   completed  failure    29414d0  2026-10-16T18:35:02Z
+ci-sequential                completed  success    29414d0  2026-10-16T18:36:30Z
+tests                        completed  success    29414d0  2026-10-16T18:36:30Z
+quality                      completed  success    29414d0  2026-10-16T18:35:59Z
+ci                           in_progress            29414d0  2026-10-16T18:36:04Z
+sonar                        in_progress            29414d0  2026-10-16T18:34:33Z
+lab6-iac                     completed  success    c26632f  2026-10-16T18:16:05Z
+lab9-performance             completed  failure    efbd385  2026-10-16T18:35:13Z
 lab10-deployments            completed  success    59173c5  2026-10-16T17:39:24Z
