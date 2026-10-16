@@ -1,0 +1,4 @@
+stable=9 canary=1 (план 10%): canary-v2=50 stable-v1=350  errors=0/100
+stable=7 canary=3 (план 30%): canary-v2=133 stable-v1=267  errors=0/100
+stable=5 canary=5 (план 50%): canary-v2=217 stable-v1=183  errors=0/100
+stable=0 canary=10 (план 100%): canary-v2=400  errors=0/100
