@@ -1,0 +1,16 @@
+traces: 20
+66161e5ced4c63c6e2e2987e0d125351: 1 spans {'frontend': 1}
+10956c0982f917d0e1b60b85eeeebfc1: 8 spans {'frontend': 2, 'frontend.rf-mesh': 2, 'fortio.rf-mesh': 1, 'backend.rf-mesh': 1, 'backend': 2}
+a07d2c931e35bf062d5f3c8ea0367c5d: 8 spans {'backend': 2, 'frontend': 2, 'frontend.rf-mesh': 2, 'fortio.rf-mesh': 1, 'backend.rf-mesh': 1}
+489ec6acfdb505471532e8ba93976250: 8 spans {'backend': 2, 'frontend.rf-mesh': 2, 'backend.rf-mesh': 1, 'fortio.rf-mesh': 1, 'frontend': 2}
+6a2f883e7a3435ea3bb0144917fdf987: 8 spans {'fortio.rf-mesh': 1, 'backend.rf-mesh': 1, 'frontend.rf-mesh': 2, 'backend': 2, 'frontend': 2}
+
+найдовша трасa: 10956c0982f917d0e1b60b85eeeebfc1
+  fortio.rf-mesh           frontend.rf-mesh.svc.cluster.local:8081/*                        3.38 ms
+  frontend.rf-mesh         frontend.rf-mesh.svc.cluster.local:8081/*                        2.71 ms
+  frontend                 /api/                                                            2.13 ms
+  frontend                 proxy GET /api/rooms/r1/availability                             2.12 ms
+  frontend.rf-mesh         backend.rf-mesh.svc.cluster.local:8080/*                         1.80 ms
+  backend.rf-mesh          backend.rf-mesh.svc.cluster.local:8080/*                         1.29 ms
+  backend                  GET /api/rooms/{id}/availability                                 0.62 ms
+  backend                  cache.lookup                                                     0.60 ms

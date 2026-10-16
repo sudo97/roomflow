@@ -1,0 +1,30 @@
+== Summary master ==
+36 checks PASS
+11 checks FAIL
+12 checks WARN
+0 checks INFO
+== Summary etcd ==
+7 checks PASS
+0 checks FAIL
+0 checks WARN
+0 checks INFO
+== Summary controlplane ==
+0 checks PASS
+0 checks FAIL
+5 checks WARN
+0 checks INFO
+== Summary node ==
+16 checks PASS
+2 checks FAIL
+6 checks WARN
+0 checks INFO
+== Summary policies ==
+0 checks PASS
+6 checks FAIL
+29 checks WARN
+0 checks INFO
+== Summary total ==
+59 checks PASS
+19 checks FAIL
+52 checks WARN
+0 checks INFO

@@ -1,0 +1,9 @@
+== з повторами (retries 3, retryOn 5xx) і outlier detection, 1-ша хвилина
+Code 200 : 400 (100.0 %)
+All done 400 calls (plus 2 warmup) 3.574 ms avg, 20.0 qps
+== наступні 20 с (несправна репліка вилучена з балансування)
+Code 200 : 400 (100.0 %)
+All done 400 calls (plus 2 warmup) 3.774 ms avg, 20.0 qps
+== без повторів (VirtualService без retries)
+Code 200 : 400 (100.0 %)
+All done 400 calls (plus 2 warmup) 3.734 ms avg, 20.0 qps
