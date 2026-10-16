@@ -1,0 +1,4 @@
+package	killed	lived	not_covered	timed_out	not_viable	efficacy	mutant_coverage
+internal/booking	48	3	7	0	0	94.11764705882352	87.93103448275862
+internal/store	9	2	0	0	0	81.81818181818183	100
+internal/httpapi	9	0	0	0	0	100	100

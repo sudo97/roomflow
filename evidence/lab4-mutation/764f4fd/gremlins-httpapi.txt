@@ -1,0 +1,18 @@
+Starting...
+Gathering coverage... go: no module dependencies to download
+done in 242.013858ms
+      KILLED INVERT_BITWISE at handlers.go:20:46
+      KILLED INVERT_BITWISE at handlers.go:68:19
+      KILLED INVERT_BITWISE at handlers.go:91:19
+      KILLED CONDITIONALS_NEGATION at handlers.go:42:13
+      KILLED CONDITIONALS_NEGATION at handlers.go:52:9
+      KILLED CONDITIONALS_NEGATION at handlers.go:72:9
+      KILLED CONDITIONALS_NEGATION at handlers.go:98:9
+      KILLED CONDITIONALS_NEGATION at handlers.go:106:64
+      KILLED CONDITIONALS_NEGATION at handlers.go:128:53
+
+Mutation testing completed in 1 second 463 milliseconds
+Killed: 9, Lived: 0, Not covered: 0
+Timed out: 0, Not viable: 0, Skipped: 0
+Test efficacy: 100.00%
+Mutator coverage: 100.00%
