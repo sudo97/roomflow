@@ -9,3 +9,9 @@ monitoring: Success! The configuration is valid.
 monitoring: 
 network: Success! The configuration is valid.
 network: 
+app: Success! The configuration is valid.
+app: 
+locktest: Success! The configuration is valid.
+locktest: 
+platform: Success! The configuration is valid.
+platform: 

@@ -1,0 +1,40 @@
+Unable to find image 'openpolicyagent/conftest:v0.55.0' locally
+v0.55.0: Pulling from openpolicyagent/conftest
+ec99f8b99825: Pulling fs layer
+8ee52d7aaa8a: Pulling fs layer
+6c16ace40987: Pulling fs layer
+4c1e61fcb3f4: Pulling fs layer
+bf2bd93c3bc8: Pulling fs layer
+4c1e61fcb3f4: Waiting
+bf2bd93c3bc8: Waiting
+ec99f8b99825: Verifying Checksum
+ec99f8b99825: Download complete
+8ee52d7aaa8a: Verifying Checksum
+8ee52d7aaa8a: Download complete
+6c16ace40987: Verifying Checksum
+6c16ace40987: Download complete
+ec99f8b99825: Pull complete
+4c1e61fcb3f4: Verifying Checksum
+4c1e61fcb3f4: Download complete
+bf2bd93c3bc8: Verifying Checksum
+bf2bd93c3bc8: Download complete
+8ee52d7aaa8a: Pull complete
+6c16ace40987: Pull complete
+4c1e61fcb3f4: Pull complete
+bf2bd93c3bc8: Pull complete
+Digest: sha256:d5a1215791a8b900162655002681a32de1e0e9871c407bc76867f0c1748a86e9
+Status: Downloaded newer image for openpolicyagent/conftest:v0.55.0
++---------+--------------------------+-----------+---------+
+| RESULT  |           FILE           | NAMESPACE | MESSAGE |
++---------+--------------------------+-----------+---------+
+| success | terraform/main_test.rego |           | SUCCESS |
+| success | terraform/main_test.rego |           | SUCCESS |
+| success | terraform/main_test.rego |           | SUCCESS |
+| success | terraform/main_test.rego |           | SUCCESS |
+| success | terraform/main_test.rego |           | SUCCESS |
+| success | terraform/main_test.rego |           | SUCCESS |
+| success | terraform/main_test.rego |           | SUCCESS |
+| success | terraform/main_test.rego |           | SUCCESS |
+| success | terraform/main_test.rego |           | SUCCESS |
+| success | terraform/main_test.rego |           | SUCCESS |
++---------+--------------------------+-----------+---------+

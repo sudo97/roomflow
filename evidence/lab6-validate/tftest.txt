@@ -1,0 +1,26 @@
+== terraform test: app
+tests/app.tftest.hcl... in progress
+  run "default_group_has_two_replicas"... pass
+  run "scales_up_to_max"... pass
+  run "rejects_desired_above_max"... pass
+  run "rejects_unknown_color"... pass
+  run "mandatory_labels_and_color_env"... pass
+tests/app.tftest.hcl... tearing down
+tests/app.tftest.hcl... pass
+
+Success! 5 passed, 0 failed.
+== terraform test: lb
+tests/lb.tftest.hcl... in progress
+  run "routes_to_active_color"... pass
+  run "rejects_unknown_color"... pass
+tests/lb.tftest.hcl... tearing down
+tests/lb.tftest.hcl... pass
+
+Success! 2 passed, 0 failed.
+== terraform test: network
+tests/network.tftest.hcl... in progress
+  run "creates_isolated_private_network"... pass
+tests/network.tftest.hcl... tearing down
+tests/network.tftest.hcl... pass
+
+Success! 1 passed, 0 failed.
