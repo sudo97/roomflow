@@ -1,0 +1,18 @@
+# Мутаційне тестування (Gremlins): які мутації застосовувати і мінімальні пороги.
+unleash:
+  timeout-coefficient: 10
+  threshold:
+    efficacy: 0      # поріг вмикається в CI параметром --threshold-efficacy
+    mutant-coverage: 0
+mutants:
+  arithmetic-base: { enabled: true }
+  conditionals-boundary: { enabled: true }
+  conditionals-negation: { enabled: true }
+  increment-decrement: { enabled: true }
+  invert-negatives: { enabled: true }
+  invert-logical: { enabled: true }
+  invert-loopctrl: { enabled: true }
+  invert-assignments: { enabled: true }
+  invert-bitwise: { enabled: true }
+  invert-bwassign: { enabled: true }
+  remove-self-assignments: { enabled: true }

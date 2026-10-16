@@ -1,0 +1,36 @@
+# Правила якості коду RoomFlow (golangci-lint v2). Пороги узгоджені з профілем SonarQube з ЛР2.
+version: "2"
+linters:
+  default: standard        # errcheck, govet, ineffassign, staticcheck, unused
+  enable:
+    - gocyclo              # цикломатична складність
+    - gocognit             # когнітивна складність
+    - funlen               # довжина функцій
+    - dupl                 # дублювання
+    - goconst              # повторювані літерали
+    - gosec                # безпека (SQL-ін'єкції, слабка криптографія, жорсткі секрети)
+    - revive               # стиль і документування
+    - nestif               # глибина вкладеності if
+    - errorlint            # коректна робота з обгорнутими помилками
+    - bodyclose            # закриття тіла HTTP-відповіді
+    - misspell
+  settings:
+    gocyclo:
+      min-complexity: 8
+    gocognit:
+      min-complexity: 8
+    funlen:
+      lines: 50
+      statements: 40
+    dupl:
+      threshold: 100
+    nestif:
+      min-complexity: 4
+  exclusions:
+    rules:
+      - path: _test\.go
+        linters: [funlen, dupl, gocognit, gocyclo, gosec, goconst]
+formatters:
+  enable:
+    - gofmt
+    - goimports
