@@ -1,14 +1,13 @@
 WORKFLOW                     STATUS     RESULT     COMMIT   UPDATED
-lab9-performance             pending               efbd385  2026-10-16T17:58:53Z
-lab12-cloud-native           in_progress            efbd385  2026-10-16T17:59:07Z
-lab11-platform               in_progress            efbd385  2026-10-16T17:58:53Z
-lab8-devsecops               in_progress            efbd385  2026-10-16T17:58:47Z
-lab6-iac                     in_progress            efbd385  2026-10-16T17:59:26Z
-run-script                   completed  failure    b1b5e80  2026-10-16T17:56:57Z
-sonar                        in_progress            b1b5e80  2026-10-16T17:56:20Z
-quality                      completed  success    b1b5e80  2026-10-16T17:57:47Z
-tests                        completed  success    b1b5e80  2026-10-16T17:58:05Z
-ci-sequential                completed  success    b1b5e80  2026-10-16T17:58:09Z
-ci                           completed  failure    b1b5e80  2026-10-16T17:59:29Z
+lab12-cloud-native           in_progress            c26632f  2026-10-16T18:12:08Z
+lab11-platform               in_progress            c26632f  2026-10-16T18:12:08Z
+lab6-iac                     in_progress            c26632f  2026-10-16T18:12:30Z
+run-script                   completed  failure    ee631d4  2026-10-16T18:10:39Z
+sonar                        in_progress            ee631d4  2026-10-16T18:09:53Z
+quality                      completed  success    ee631d4  2026-10-16T18:11:16Z
+ci                           in_progress            ee631d4  2026-10-16T18:11:39Z
+lab8-devsecops               completed  success    ee631d4  2026-10-16T18:11:42Z
+ci-sequential                completed  success    ee631d4  2026-10-16T18:12:03Z
+tests                        completed  success    ee631d4  2026-10-16T18:12:01Z
+lab9-performance             in_progress            efbd385  2026-10-16T18:02:32Z
 lab10-deployments            completed  success    59173c5  2026-10-16T17:39:24Z
-lab7-observability           completed  success    4c3de2e  2026-10-16T17:29:02Z

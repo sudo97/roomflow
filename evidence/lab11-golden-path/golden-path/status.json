@@ -1,80 +1,80 @@
 [
   {
-    "workflow": "lab9-performance",
-    "status": "pending",
-    "conclusion": "",
-    "commit": "efbd385",
-    "updated": "2026-10-16T17:58:53Z"
-  },
-  {
     "workflow": "lab12-cloud-native",
     "status": "in_progress",
     "conclusion": "",
-    "commit": "efbd385",
-    "updated": "2026-10-16T17:59:07Z"
+    "commit": "c26632f",
+    "updated": "2026-10-16T18:12:08Z"
   },
   {
     "workflow": "lab11-platform",
     "status": "in_progress",
     "conclusion": "",
-    "commit": "efbd385",
-    "updated": "2026-10-16T17:58:53Z"
-  },
-  {
-    "workflow": "lab8-devsecops",
-    "status": "in_progress",
-    "conclusion": "",
-    "commit": "efbd385",
-    "updated": "2026-10-16T17:58:47Z"
+    "commit": "c26632f",
+    "updated": "2026-10-16T18:12:08Z"
   },
   {
     "workflow": "lab6-iac",
     "status": "in_progress",
     "conclusion": "",
-    "commit": "efbd385",
-    "updated": "2026-10-16T17:59:26Z"
+    "commit": "c26632f",
+    "updated": "2026-10-16T18:12:30Z"
   },
   {
     "workflow": "run-script",
     "status": "completed",
     "conclusion": "failure",
-    "commit": "b1b5e80",
-    "updated": "2026-10-16T17:56:57Z"
+    "commit": "ee631d4",
+    "updated": "2026-10-16T18:10:39Z"
   },
   {
     "workflow": "sonar",
     "status": "in_progress",
     "conclusion": "",
-    "commit": "b1b5e80",
-    "updated": "2026-10-16T17:56:20Z"
+    "commit": "ee631d4",
+    "updated": "2026-10-16T18:09:53Z"
   },
   {
     "workflow": "quality",
     "status": "completed",
     "conclusion": "success",
-    "commit": "b1b5e80",
-    "updated": "2026-10-16T17:57:47Z"
+    "commit": "ee631d4",
+    "updated": "2026-10-16T18:11:16Z"
   },
   {
-    "workflow": "tests",
+    "workflow": "ci",
+    "status": "in_progress",
+    "conclusion": "",
+    "commit": "ee631d4",
+    "updated": "2026-10-16T18:11:39Z"
+  },
+  {
+    "workflow": "lab8-devsecops",
     "status": "completed",
     "conclusion": "success",
-    "commit": "b1b5e80",
-    "updated": "2026-10-16T17:58:05Z"
+    "commit": "ee631d4",
+    "updated": "2026-10-16T18:11:42Z"
   },
   {
     "workflow": "ci-sequential",
     "status": "completed",
     "conclusion": "success",
-    "commit": "b1b5e80",
-    "updated": "2026-10-16T17:58:09Z"
+    "commit": "ee631d4",
+    "updated": "2026-10-16T18:12:03Z"
   },
   {
-    "workflow": "ci",
+    "workflow": "tests",
     "status": "completed",
-    "conclusion": "failure",
-    "commit": "b1b5e80",
-    "updated": "2026-10-16T17:59:29Z"
+    "conclusion": "success",
+    "commit": "ee631d4",
+    "updated": "2026-10-16T18:12:01Z"
+  },
+  {
+    "workflow": "lab9-performance",
+    "status": "in_progress",
+    "conclusion": "",
+    "commit": "efbd385",
+    "updated": "2026-10-16T18:02:32Z"
   },
   {
     "workflow": "lab10-deployments",
@@ -82,12 +82,5 @@
     "conclusion": "success",
     "commit": "59173c5",
     "updated": "2026-10-16T17:39:24Z"
-  },
-  {
-    "workflow": "lab7-observability",
-    "status": "completed",
-    "conclusion": "success",
-    "commit": "4c3de2e",
-    "updated": "2026-10-16T17:29:02Z"
   }
 ]
