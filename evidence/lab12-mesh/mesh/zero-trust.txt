@@ -7,4 +7,4 @@
   outside(без mTLS) -> frontend:                   000
   probe(mesh) -> redis:6379 (TCP):                 blocked
   frontend -> backend через UI:                    null
-Error: pods "backend-6c4b7cdc67-q2l44" not found
+Error: pods "backend-6c4b7cdc67-fpbm8" not found

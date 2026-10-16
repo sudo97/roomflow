@@ -1,9 +1,11 @@
 == 1 з'єднання (у межах ліміту)
 Sockets used: 1 (for perfect keepalive, would be 1)
 Code 200 : 30 (100.0 %)
-All done 30 calls (plus 0 warmup) 2.983 ms avg, 335.1 qps
+All done 30 calls (plus 0 warmup) 3.316 ms avg, 301.5 qps
 == 4 паралельні з'єднання (ліміт maxConnections=1, pending=1)
-Code 200 : 21 (26.2 %)
-Code 503 : 59 (73.8 %)
-All done 80 calls (plus 0 warmup) 2.664 ms avg, 1430.5 qps
+Code 200 : 29 (36.2 %)
+Code 503 : 51 (63.8 %)
+All done 80 calls (plus 0 warmup) 4.549 ms avg, 786.3 qps
 == статистика Envoy (overflow — запити, відхилені circuit breaker)
+cluster.outbound|8080||backend.rf-mesh.svc.cluster.local;.upstream_cx_overflow: 24
+cluster.outbound|8080||backend.rf-mesh.svc.cluster.local;.upstream_rq_pending_overflow: 51

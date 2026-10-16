@@ -1,9 +1,12 @@
 == 1) без повторів і без outlier detection (1 з 3 реплік backend повертає 500)
-Code 200 : 400 (100.0 %)
-All done 400 calls (plus 2 warmup) 3.171 ms avg, 20.0 qps
 == 2) з повторами (attempts 3, retryOn 5xx), без outlier detection
 Code 200 : 400 (100.0 %)
-All done 400 calls (plus 2 warmup) 3.524 ms avg, 20.0 qps
+All done 400 calls (plus 2 warmup) 8.662 ms avg, 20.0 qps
+cluster.outbound|8080||backend.rf-mesh.svc.cluster.local;.upstream_rq_retry: 60
+cluster.outbound|8080||backend.rf-mesh.svc.cluster.local;.upstream_rq_retry_success: 59
 == 3) повтори + outlier detection (3 поспіль 5xx -> репліку вилучено на 30 с)
 Code 200 : 400 (100.0 %)
-All done 400 calls (plus 2 warmup) 3.307 ms avg, 20.0 qps
+All done 400 calls (plus 2 warmup) 3.929 ms avg, 20.0 qps
+cluster.outbound|8080||backend.rf-mesh.svc.cluster.local;.outlier_detection.ejections_active: 1
+cluster.outbound|8080||backend.rf-mesh.svc.cluster.local;.outlier_detection.ejections_enforced_total: 1
+cluster.outbound|8080||backend.rf-mesh.svc.cluster.local;.upstream_rq_retry: 63

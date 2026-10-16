@@ -1,22 +1,23 @@
 == базова лінія
-# target 50% 0.00441475
-# target 99% 0.00816667
+# target 50% 0.00525902
+# target 99% 0.0092
 Code 200 : 800 (100.0 %)
-All done 800 calls (plus 4 warmup) 4.469 ms avg, 40.0 qps
+All done 800 calls (plus 4 warmup) 5.398 ms avg, 40.0 qps
    (fault-конфігурація в маршрутах sidecar frontend: 2 входжень)
 == затримка 1 с (30%) + 503 (10%), через frontend
-# target 50% 0.00439954
-# target 99% 0.0075
-Code 200 : 800 (100.0 %)
-All done 800 calls (plus 4 warmup) 4.439 ms avg, 40.0 qps
+# target 50% -8.13125
+# target 50% 0.00289615
+# target 99% 2.01548
+Code 200 : 251 (100.0 %)
+All done 251 calls (plus 4 warmup) 322.945 ms avg, 12.3 qps
 == те саме, напряму до backend (sidecar fortio)
-# target 50% -6.79727
-# target 50% 0.0015969
-# target 99% 1.00484
-Code 200 : 278 (89.1 %)
-Code 503 : 34 (10.9 %)
-All done 312 calls (plus 4 warmup) 257.957 ms avg, 15.1 qps
+# target 50% -6.70156
+# target 50% 0.00175676
+# target 99% 1.0058
+Code 200 : 246 (87.2 %)
+Code 503 : 36 (12.8 %)
+All done 282 calls (plus 4 warmup) 285.137 ms avg, 13.6 qps
 == видалення поду backend під навантаженням
-# target 99% 0.00833333
+# target 99% 0.0115
 Code 200 : 800 (100.0 %)
-All done 800 calls (plus 4 warmup) 4.572 ms avg, 40.0 qps
+All done 800 calls (plus 4 warmup) 5.547 ms avg, 40.0 qps
