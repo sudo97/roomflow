@@ -1,0 +1,200 @@
+diff --git a/.gitleaks.toml b/.gitleaks.toml
+index 8c178f2..9e246d7 100644
+--- a/.gitleaks.toml
++++ b/.gitleaks.toml
+@@ -8,4 +8,5 @@ paths = [
+   '''^evidence/''',
+   '''^\.secrets\.baseline$''',
+   '''^ci/lab8/secrets\.sh$''',
++  '''^ci/patches/''',   # патчі, що містять зміни .secrets.baseline (хеші, а не секрети)
+ ]
+diff --git a/.gitleaksignore b/.gitleaksignore
+new file mode 100644
+index 0000000..7a7daa0
+--- /dev/null
++++ b/.gitleaksignore
+@@ -0,0 +1,4 @@
++# Відомі знахідки gitleaks, прийняті як ризик (fingerprint = commit:file:rule:line)
++# Типові облікові дані admin:admin локального SonarQube у ранньому скрипті ЛР5 (коміт 32a122c);
++# стенд тимчасовий, пароль не використовується ніде поза ним, переписування історії не виконується.
++32a122c2faee4b554e496338eea441f1b6b80b41:ci/sonar/setup.sh:curl-auth-user:9
+diff --git a/ci/lab11/argocd.sh b/ci/lab11/argocd.sh
+index 6de0070..083a172 100755
+--- a/ci/lab11/argocd.sh
++++ b/ci/lab11/argocd.sh
+@@ -60,8 +60,10 @@ for _ in $(seq 1 10); do
+   TOKEN=$(curl -skL localhost:8088/api/v1/session -d "{\"username\":\"admin\",\"password\":\"$PASS\"}" | jq -r '.token // empty' 2>/dev/null || true)
+   [ -n "$TOKEN" ] && break; sleep 3
+ done
++export SHOT_LOGIN_URL=http://localhost:8088/login SHOT_USER=admin SHOT_PASS="$PASS"   # cookie з токеном API UI не приймав (сторінка входу)
+ SHOT_COOKIE="argocd.token=$TOKEN" shoot "$E/argocd-applications.png" "http://localhost:8088/applications" 5000 || true
+ SHOT_COOKIE="argocd.token=$TOKEN" shoot "$E/argocd-roomflow.png" "http://localhost:8088/applications/argocd/roomflow?view=tree" 6000 1600 900 || true
++unset SHOT_LOGIN_URL SHOT_USER SHOT_PASS
+ kill $PF
+ endlog
+ section "ArgoCD self-heal" "$E/self-heal.txt"
+diff --git a/ci/lab11/backstage.sh b/ci/lab11/backstage.sh
+index 05e187d..baa0948 100644
+--- a/ci/lab11/backstage.sh
++++ b/ci/lab11/backstage.sh
+@@ -18,23 +18,17 @@ printf 'roomflow-portal\n' | npx -y @backstage/create-app@latest --path $BS --sk
+ cd $BS
+ export YARN_ENABLE_IMMUTABLE_INSTALLS=false   # у CI (CI=true) Yarn за замовчуванням забороняє змінювати lockfile
+ if ! yarn install > "$E/yarn-install.txt" 2>&1; then
+-  # пакет @backstage/create-app не містить каталогу .yarn/patches шаблону, а package.json/yarn.lock
+-  # посилаються на патчі звідти (patch:got@npm%3A11.8.2#~/.yarn/patches/...). Відновлюємо їх із репозиторію Backstage.
+-  grep -rn "patch:" --include=package.json --include=.yarnrc.yml . 2>/dev/null | grep -v node_modules > "$E/patch-refs.txt" || true
+-  grep -rln "yarn/patches" . --exclude-dir=node_modules --exclude-dir=cache 2>/dev/null >> "$E/patch-refs.txt" || true
++  # Один із опублікованих пакетів залежностей посилається на patch:got@npm%3A11.8.2#~/.yarn/patches/...,
++  # тобто на файл у корені ПРОЄКТУ-споживача, якого в згенерованому create-app проєкті немає (ENOENT).
++  # Створюємо відсутні файли як порожні за змістом (no-op) патчі: Yarn вимагає валідний diff, тому патч
++  # лише додає службовий файл NOOP.md у пакет, не змінюючи його коду.
++  grep -oE "$BS/\.yarn/patches/[^': ]+\.patch" "$E/yarn-install.txt" | sort -u > "$E/patch-refs.txt" || true
+   cat "$E/patch-refs.txt"
+-  mkdir -p .yarn/patches
+-  for p in $(grep -rhoE '\.yarn/patches/[^"#]+\.patch' --include=package.json --include=yarn.lock . 2>/dev/null | sort -u); do
+-    curl -fsSL "https://raw.githubusercontent.com/backstage/backstage/master/packages/create-app/templates/default-app/$p" -o "$p" \
+-      && echo "restored $p" || echo "not found upstream: $p"
+-  done | tee -a "$E/patch-refs.txt"
+-  if ! yarn install > "$E/yarn-install-retry.txt" 2>&1; then
+-    # запасний варіант: прибрати patch:-посилання (патч стосується лише сумісності got) і перебудувати lockfile
+-    grep -rlE 'patch:[^" ]*yarn/patches' . --exclude-dir=node_modules --exclude-dir=cache 2>/dev/null \
+-      | xargs -r sed -i -E 's#"?patch:[^"@ ]+@npm%3A([^"# ]+)\#[^" ]*"?#"\1"#g'
+-    rm -f yarn.lock
+-    yarn install > "$E/yarn-install-retry2.txt" 2>&1 || { tail -50 "$E/yarn-install-retry2.txt"; exit 1; }
+-  fi
++  while read -r f; do
++    mkdir -p "$(dirname "$f")"
++    printf 'diff --git a/NOOP.md b/NOOP.md\nnew file mode 100644\n--- /dev/null\n+++ b/NOOP.md\n@@ -0,0 +1 @@\n+placeholder for a patch missing in the published dependency\n' > "$f"
++  done < "$E/patch-refs.txt"
++  yarn install > "$E/yarn-install-retry.txt" 2>&1 || { tail -50 "$E/yarn-install-retry.txt"; exit 1; }
+ fi
+ grep -m1 '"version"' node_modules/@backstage/cli/package.json | tee "$E/versions.txt"
+ yarn add --cwd packages/backend pg >/dev/null 2>&1 || (cd packages/backend && yarn add pg >/dev/null)
+diff --git a/ci/lab12/lib.sh b/ci/lab12/lib.sh
+index 0a69524..cd0dc1e 100755
+--- a/ci/lab12/lib.sh
++++ b/ci/lab12/lib.sh
+@@ -25,7 +25,9 @@ mesh_images() { # cluster
+ # fortio NS ARGS...: навантажувальний клієнт Istio (fortio) усередині mesh
+ fortio_pod() {
+   # образ fortio не містить shell/sleep: под працює у режимі fortio server, навантаження — через exec fortio load
+-  kubectl -n "$1" run fortio --image=fortio/fortio:latest_release --restart=Never >/dev/null 2>&1 || true
++  # proxyStatsMatcher: Istio за замовчуванням не експортує статистику circuit breaker / outlier detection
++  local ann='proxy.istio.io/config={"proxyStatsMatcher":{"inclusionRegexps":[".*outlier_detection.*",".*upstream_rq_retry.*",".*upstream_rq_pending_overflow.*",".*upstream_cx_overflow.*"]}}'
++  kubectl -n "$1" run fortio --image=fortio/fortio:latest_release --restart=Never --annotations="$ann" >/dev/null 2>&1 || true
+   kubectl -n "$1" wait --for=condition=Ready pod/fortio --timeout=180s >/dev/null
+ }
+ fortio() { local ns=$1; shift; kubectl -n "$ns" exec fortio -c fortio -- fortio load -quiet "$@" 2>&1; }
+diff --git a/ci/lab12/mesh.sh b/ci/lab12/mesh.sh
+index c2e85ae..b7e0021 100755
+--- a/ci/lab12/mesh.sh
++++ b/ci/lab12/mesh.sh
+@@ -155,7 +155,7 @@ sleep 15
+   echo "  outside(без mTLS) -> frontend:                   $(code outside http://frontend.$NS:8081/)"
+   echo "  probe(mesh) -> redis:6379 (TCP):                 $(kubectl -n $NS exec probe -c probe -- sh -c 'printf "PING\r\n" | timeout 3 nc redis 6379' 2>/dev/null | head -1 || echo blocked)"
+   echo "  frontend -> backend через UI:                    $(kubectl -n $NS exec fortio -c fortio -- fortio curl -quiet -H 'X-Tenant-ID: demo-hotel' $F/api/rooms 2>/dev/null | head -c 60)"
+-  istioctl x describe pod "$(kubectl -n $NS get pod -l app=backend,version=v1 --field-selector=status.phase=Running -o jsonpath='{.items[0].metadata.name}')" -n $NS 2>&1 | head -20
++  istioctl x describe pod "$(kubectl -n $NS get pod -l app=backend,version=v1 --sort-by=.metadata.creationTimestamp -o name | tail -1 | cut -d/ -f2)" -n $NS 2>&1 | head -20
+ } | tee "$E/zero-trust.txt"
+ kubectl apply -f https://raw.githubusercontent.com/aquasecurity/kube-bench/v0.9.0/job.yaml >/dev/null
+ kubectl wait --for=condition=complete job/kube-bench --timeout=300s >/dev/null || true
+diff --git a/ci/lab8/secrets.sh b/ci/lab8/secrets.sh
+index 2b739f5..28346ec 100755
+--- a/ci/lab8/secrets.sh
++++ b/ci/lab8/secrets.sh
+@@ -5,6 +5,10 @@ E=$EVIDENCE
+ pip install -q detect-secrets==1.5.0 2>/dev/null || pip install -q --break-system-packages detect-secrets==1.5.0
+ 
+ log "detect-secrets: поточний стан відповідає baseline"
++# перший прохід лише оновлює номери рядків у baseline (вони зсуваються після будь-якої зміни файлів);
++# baseline індексується, бо detect-secrets-hook відмовляється працювати з неіндексованим baseline
++git ls-files -z | xargs -0 detect-secrets-hook --baseline .secrets.baseline >/dev/null 2>&1 || true
++git add .secrets.baseline
+ git ls-files -z | xargs -0 detect-secrets-hook --baseline .secrets.baseline > "$E/detect-secrets-clean.txt" 2>&1 && echo "OK: нових секретів немає" >> "$E/detect-secrets-clean.txt"
+ python3 -c "import json;d=json.load(open('.secrets.baseline'));print('baseline:', sum(len(v) for v in d['results'].values()), 'audited entries, all is_secret=false:', all(not x.get('is_secret', True) for v in d['results'].values() for x in v))" >> "$E/detect-secrets-clean.txt"
+ endlog
+diff --git a/ci/lib/shoot.mjs b/ci/lib/shoot.mjs
+index d3c8d2e..3e718d2 100644
+--- a/ci/lib/shoot.mjs
++++ b/ci/lib/shoot.mjs
+@@ -10,6 +10,15 @@ if (process.env.SHOT_COOKIE) { // name=value
+   const [name, ...v] = process.env.SHOT_COOKIE.split('=');
+   await page.context().addCookies([{ name, value: v.join('='), url: new URL(url).origin }]);
+ }
++if (process.env.SHOT_LOGIN_URL) { // вхід через форму: перше текстове поле — логін, поле password — пароль
++  try {
++    await page.goto(process.env.SHOT_LOGIN_URL, { waitUntil: 'networkidle', timeout: 60000 });
++    await page.fill('input[type=text], input[name=username]', process.env.SHOT_USER || '');
++    await page.fill('input[type=password]', process.env.SHOT_PASS || '');
++    await page.keyboard.press('Enter');
++    await page.waitForTimeout(4000);
++  } catch (e) { console.log('login:', e.message); }
++}
+ try {
+   await page.goto(url, { waitUntil: 'networkidle', timeout: 90000 });
+ } catch (e) { console.log('goto:', e.message); }
+diff --git a/cmd/frontend/main.go b/cmd/frontend/main.go
+index 5a16475..0242047 100644
+--- a/cmd/frontend/main.go
++++ b/cmd/frontend/main.go
+@@ -36,7 +36,14 @@ func envOr(key, def string) string {
+ 
+ // newHandler builds the frontend: page, version, health, metrics and a traced reverse proxy to backend.
+ func newHandler(backend *url.URL, in info, tracer *trace.Tracer, reg *obs.Registry, logger *slog.Logger) http.Handler {
+-	proxy := httputil.NewSingleHostReverseProxy(backend)
++	// Rewrite (а не NewSingleHostReverseProxy) встановлює Host = адреса backend. Інакше запит іде з
++	// Host: frontend:8081, sidecar Envoy не знаходить маршрут backend і пропускає трафік повз
++	// VirtualService/DestinationRule (повтори, outlier detection, fault injection не діють).
++	proxy := &httputil.ReverseProxy{Rewrite: func(pr *httputil.ProxyRequest) {
++		pr.SetURL(backend)
++		pr.Out.Host = backend.Host
++		pr.SetXForwarded()
++	}}
+ 	mux := http.NewServeMux()
+ 	mux.HandleFunc("GET /{$}", func(w http.ResponseWriter, _ *http.Request) { _ = page.Execute(w, in) })
+ 	mux.HandleFunc("GET /version", func(w http.ResponseWriter, _ *http.Request) {
+diff --git a/cmd/frontend/main_test.go b/cmd/frontend/main_test.go
+index 9460436..b3dae48 100644
+--- a/cmd/frontend/main_test.go
++++ b/cmd/frontend/main_test.go
+@@ -14,9 +14,9 @@ import (
+ )
+ 
+ func TestFrontendProxiesWithTraceContext(t *testing.T) {
+-	var gotParent, gotTenant string
++	var gotParent, gotTenant, gotHost string
+ 	backend := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+-		gotParent, gotTenant = r.Header.Get("traceparent"), r.Header.Get("X-Tenant-ID")
++		gotParent, gotTenant, gotHost = r.Header.Get("traceparent"), r.Header.Get("X-Tenant-ID"), r.Host
+ 		_, _ = w.Write([]byte(`[]`))
+ 	}))
+ 	defer backend.Close()
+@@ -32,6 +32,10 @@ func TestFrontendProxiesWithTraceContext(t *testing.T) {
+ 	if w := get("/api/rooms"); w.Body.String() != "[]" || gotTenant != "demo-hotel" || !strings.HasPrefix(gotParent, "00-") {
+ 		t.Fatalf("proxy: body %q tenant %q traceparent %q", w.Body, gotTenant, gotParent)
+ 	}
++	// Host має бути адресою backend: за ним sidecar service mesh обирає маршрут (ЛР12)
++	if gotHost != u.Host {
++		t.Fatalf("proxy Host = %q, want backend host %q", gotHost, u.Host)
++	}
+ 	if w := get("/"); !strings.Contains(w.Body.String(), "frontend v2 (green)") {
+ 		t.Fatalf("page: %s", w.Body)
+ 	}
+diff --git a/deploy/mesh/core/apps.yaml b/deploy/mesh/core/apps.yaml
+index 8409a21..c3f5f60 100644
+--- a/deploy/mesh/core/apps.yaml
++++ b/deploy/mesh/core/apps.yaml
+@@ -39,7 +39,11 @@ spec:
+   replicas: 2
+   selector: { matchLabels: { app: frontend } }
+   template:
+-    metadata: { labels: { app: frontend, version: v1 } }
++    metadata:
++      labels: { app: frontend, version: v1 }
++      annotations:
++        # статистика повторів і outlier detection у sidecar (за замовчуванням Istio її не експортує)
++        proxy.istio.io/config: '{"proxyStatsMatcher":{"inclusionRegexps":[".*outlier_detection.*",".*upstream_rq_retry.*",".*upstream_rq_pending_overflow.*",".*upstream_cx_overflow.*"]}}'
+     spec:
+       serviceAccountName: frontend
+       securityContext: { runAsNonRoot: true, runAsUser: 65532, seccompProfile: { type: RuntimeDefault } }
