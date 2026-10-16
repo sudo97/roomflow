@@ -1,0 +1,4 @@
+site_name: ${{ values.name }}
+nav:
+  - Огляд: index.md
+plugins: [techdocs-core]

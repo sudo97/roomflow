@@ -1,0 +1,8 @@
+# Навмисно небезпечний образ для порівняння (не використовується для розгортання):
+# повний базовий образ із компілятором, виконання від root, без фіксації версії патча.
+FROM golang:1.24
+WORKDIR /app
+COPY . .
+RUN go build -o /app/roomflow ./cmd/roomflow
+EXPOSE 8080
+CMD ["/app/roomflow"]

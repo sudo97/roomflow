@@ -1,0 +1,21 @@
+route:
+  receiver: team
+  group_by: [alertname]
+  group_wait: 5s
+  group_interval: 10s
+  repeat_interval: 1h
+  routes:
+    # Критичні тривоги одночасно відкривають інцидент у DORA exporter (вимірювання MTTR).
+    - matchers: ['severity="critical"']
+      receiver: team-and-dora
+receivers:
+  - name: team
+    webhook_configs:
+      - url: http://alert-sink:8080/
+        send_resolved: true
+  - name: team-and-dora
+    webhook_configs:
+      - url: http://alert-sink:8080/
+        send_resolved: true
+      - url: http://dora-exporter:9102/alertmanager
+        send_resolved: true

@@ -1,0 +1,198 @@
+# Лабораторна робота 8: DevSecOps — безпека, інтегрована в конвеєр (shift left).
+# Перевірки виконуються паралельно; етапи запускаються лише для змінених частин (інд. завдання 1).
+name: lab8-devsecops
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+  packages: write
+  security-events: write
+  id-token: write
+  pull-requests: write
+  actions: read
+concurrency:
+  group: lab8-${{ github.ref }}
+  cancel-in-progress: true
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      go: ${{ steps.f.outputs.go }}
+      image: ${{ steps.f.outputs.image }}
+      iac: ${{ steps.f.outputs.iac }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - id: f
+        env:
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT" = workflow_dispatch ] || ! git cat-file -e "$BASE" 2>/dev/null; then files=ALL; else files=$(git diff --name-only "$BASE" HEAD); fi
+          echo "$files"
+          has() { [ "$files" = ALL ] || echo "$files" | grep -qE "$1"; }
+          has '\.go$|go\.mod' && echo go=true >> "$GITHUB_OUTPUT" || echo go=false >> "$GITHUB_OUTPUT"
+          has 'Dockerfile|\.go$|go\.mod' && echo image=true >> "$GITHUB_OUTPUT" || echo image=false >> "$GITHUB_OUTPUT"
+          has '^(infra|deploy|policies)/|Dockerfile' && echo iac=true >> "$GITHUB_OUTPUT" || echo iac=false >> "$GITHUB_OUTPUT"
+
+  dependencies:
+    needs: changes
+    if: needs.changes.outputs.go == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: { go-version: "1.24" }
+      - run: bash ci/lab8/deps.sh
+      - uses: github/codeql-action/upload-sarif@v3
+        if: always() && hashFiles('govulncheck.sarif') != ''
+        with: { sarif_file: govulncheck.sarif, category: govulncheck }
+        continue-on-error: true
+      - uses: github/codeql-action/upload-sarif@v3
+        if: always() && hashFiles('trivy-fs.sarif') != ''
+        with: { sarif_file: trivy-fs.sarif, category: trivy-fs }
+        continue-on-error: true
+      - if: always()
+        run: bash ci/publish-evidence.sh lab8-dependencies
+
+  sast:
+    needs: changes
+    if: needs.changes.outputs.go == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: { go-version: "1.24" }
+      - run: bash ci/lab8/sast.sh
+      - uses: github/codeql-action/upload-sarif@v3
+        if: always() && hashFiles('gosec.sarif') != ''
+        with: { sarif_file: gosec.sarif, category: gosec }
+        continue-on-error: true
+      - if: always()
+        run: bash ci/publish-evidence.sh lab8-sast
+
+  image:
+    needs: changes
+    if: needs.changes.outputs.image == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash ci/lab8/image.sh
+      - uses: github/codeql-action/upload-sarif@v3
+        if: always() && hashFiles('trivy-image.sarif') != ''
+        with: { sarif_file: trivy-image.sarif, category: trivy-image }
+        continue-on-error: true
+      - if: always()
+        run: bash ci/publish-evidence.sh lab8-image
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - run: bash ci/lab8/secrets.sh
+      - if: always()
+        run: bash ci/publish-evidence.sh lab8-secrets
+
+  vault:
+    needs: changes
+    if: needs.changes.outputs.go == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash ci/lab8/vault.sh
+      - if: always()
+        run: bash ci/publish-evidence.sh lab8-vault
+
+  iac:
+    needs: changes
+    if: needs.changes.outputs.iac == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash ci/lab8/iac.sh
+      - if: always()
+        run: bash ci/publish-evidence.sh lab8-iac
+
+  codeql:
+    needs: changes
+    if: needs.changes.outputs.go == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with: { languages: go, queries: security-extended }
+      - uses: github/codeql-action/autobuild@v3
+      - uses: github/codeql-action/analyze@v3
+        with: { category: codeql }
+
+  sast-compare:
+    # Індивідуальне завдання 2: порівняння SAST-інструментів на версіях з відомими вразливостями
+    if: github.event_name != 'pull_request'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: legacy, ref: 32a122c2faee4b554e496338eea441f1b6b80b41 }
+          - { name: demo, ref: demo/unsafe-report-export }
+          - { name: current, ref: main }
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-go@v5
+        with: { go-version: "1.24" }
+      - run: bash ci/lab8/sast-compare.sh ${{ matrix.name }} origin/${{ matrix.ref }} || bash ci/lab8/sast-compare.sh ${{ matrix.name }} ${{ matrix.ref }}
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.ref }}
+          path: target
+      - uses: github/codeql-action/init@v3
+        with: { languages: go, queries: security-extended, source-root: target }
+      - name: Build target for CodeQL
+        working-directory: target
+        run: go build ./...
+      - uses: github/codeql-action/analyze@v3
+        with:
+          upload: never
+          output: /tmp/evidence/sast/${{ matrix.name }}-codeql
+          checkout_path: ${{ github.workspace }}/target
+          category: compare-${{ matrix.name }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sast-${{ matrix.name }}
+          path: /tmp/evidence/sast
+
+  sast-report:
+    needs: sast-compare
+    if: always() && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { pattern: "sast-*", path: /tmp/evidence/sast, merge-multiple: true }
+      - run: |
+          python3 ci/lab8/sast-report.py /tmp/evidence/sast | tee /tmp/evidence/sast/comparison.md
+          cat /tmp/evidence/sast/comparison.md >> "$GITHUB_STEP_SUMMARY"
+      - run: bash ci/publish-evidence.sh lab8-sast-compare
+
+  pr-comment:
+    needs: [dependencies, sast, image, secrets]
+    if: always() && github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        with:
+          script: |
+            const needs = JSON.parse(process.env.RESULTS);
+            const icon = (r) => ({ success: '✅', failure: '❌', skipped: '⏭️' }[r] || '⚠️');
+            const rows = Object.entries(needs).map(([job, v]) => `| ${job} | ${icon(v.result)} ${v.result} |`).join('\n');
+            const body = `### DevSecOps-перевірки\n\n| Перевірка | Результат |\n|---|---|\n${rows}\n\nДеталі — у вкладці **Security → Code scanning** і в журналі запуску.`;
+            await github.rest.issues.createComment({ ...context.repo, issue_number: context.issue.number, body });

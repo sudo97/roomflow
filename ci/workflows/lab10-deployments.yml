@@ -1,0 +1,24 @@
+# Лабораторна робота 10: стратегії розгортання в Kubernetes (kind): Blue-Green, Canary, Helm,
+# Feature Flags, Flagger; порівняння стратегій і гібридна стратегія.
+name: lab10-deployments
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["deploy/k8s/**", "deploy/helm/**", "ci/lab10/**", "internal/flags/**"]
+permissions:
+  contents: write
+concurrency: { group: lab10, cancel-in-progress: false }
+jobs:
+  scenario:
+    strategy:
+      fail-fast: false
+      matrix:
+        name: [bluegreen, canary, helm, flagger, strategies]
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash ci/lab10/${{ matrix.name }}.sh
+      - if: always()
+        run: bash ci/publish-evidence.sh lab10-${{ matrix.name }}

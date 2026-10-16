@@ -16,7 +16,8 @@ ARG VERSION=dev
 ARG VCS_REF=unknown
 RUN CGO_ENABLED=0 GOOS=linux go build -trimpath \
     -ldflags="-s -w -X main.version=${VERSION} -X main.commit=${VCS_REF}" \
-    -o /out/roomflow ./cmd/roomflow
+    -o /out/roomflow ./cmd/roomflow \
+ && CGO_ENABLED=0 GOOS=linux go build -trimpath -ldflags="-s -w" -o /out/frontend ./cmd/frontend
 
 FROM gcr.io/distroless/static-debian12:nonroot AS production
 ARG VERSION=dev
@@ -27,7 +28,7 @@ LABEL org.opencontainers.image.title="roomflow" \
       org.opencontainers.image.version="${VERSION}" \
       org.opencontainers.image.revision="${VCS_REF}" \
       org.opencontainers.image.created="${BUILD_DATE}"
-COPY --from=builder /out/roomflow /roomflow
+COPY --from=builder /out/roomflow /out/frontend /
 EXPOSE 8080
 USER nonroot:nonroot
 HEALTHCHECK --interval=10s --timeout=2s CMD ["/roomflow", "-healthcheck"]

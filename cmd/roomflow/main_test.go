@@ -106,3 +106,29 @@ func TestVault(t *testing.T) {
 		t.Fatal("env fallback")
 	}
 }
+
+func TestRuntimeOptions(t *testing.T) {
+	t.Setenv("FLAGS_FILE", "")
+	t.Setenv("RATE_LIMIT_RPS", "1")
+	t.Setenv("RATE_LIMIT_BURST", "")
+	t.Setenv("FAULT_RATE", "1")
+	t.Setenv("CACHE_REDIS_ADDR", "127.0.0.1:1")
+	t.Setenv("PPROF_ADDR", "127.0.0.1:0")
+	servePprof(slog.New(slog.NewJSONHandler(io.Discard, nil)))
+	h, err := buildHandler(slog.New(slog.NewJSONHandler(io.Discard, nil)))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := call(t, h, "GET", "/api/rooms", "").Code; got != 500 {
+		t.Fatalf("FAULT_RATE=1 must fail API calls, got %d", got)
+	}
+	if got := call(t, h, "GET", "/api/rooms", "").Code; got != 429 {
+		t.Fatalf("second request over 1 rps must be limited, got %d", got)
+	}
+	w := httptest.NewRecorder()
+	h.ServeHTTP(w, httptest.NewRequest("GET", "/metrics", nil)) // scrapes carry no tenant and are not limited
+	m := w.Body.String()
+	if !strings.Contains(m, "roomflow_rate_limited_total") {
+		t.Fatalf("rate limit metric missing: %s", m)
+	}
+}

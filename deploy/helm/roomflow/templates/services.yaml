@@ -1,0 +1,32 @@
+{{- if not (has .Values.activeColor (list "blue" "green")) }}
+{{- fail "activeColor must be blue or green" }}
+{{- end }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "roomflow.name" . }}
+  labels:
+    {{- include "roomflow.labels" . | nindent 4 }}
+  annotations:
+    roomflow.io/active-color: {{ .Values.activeColor }}
+spec:
+  selector:
+    {{- include "roomflow.selector" . | nindent 4 }}
+    color: {{ .Values.activeColor }}
+  ports:
+    - { name: http, port: {{ .Values.service.port }}, targetPort: http }
+{{- range $color := list "blue" "green" }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "roomflow.name" $ }}-{{ $color }}-preview
+  labels:
+    {{- include "roomflow.labels" $ | nindent 4 }}
+spec:
+  selector:
+    {{- include "roomflow.selector" $ | nindent 4 }}
+    color: {{ $color }}
+  ports:
+    - { name: http, port: {{ $.Values.service.port }}, targetPort: http }
+{{- end }}

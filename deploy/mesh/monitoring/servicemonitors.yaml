@@ -1,0 +1,14 @@
+# Збір метрик через Prometheus Operator: ServiceMonitor знаходить Service за мітками.
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: roomflow
+  namespace: rf-mon
+  labels: { release: kps }
+spec:
+  selector:
+    matchExpressions: [{ key: app, operator: In, values: [backend, frontend] }]
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s

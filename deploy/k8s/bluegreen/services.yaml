@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: roomflow
+  namespace: rf-bg
+  annotations:
+    roomflow.io/active-color: blue
+spec:
+  selector: { app: roomflow, color: blue }
+  ports: [{ name: http, port: 80, targetPort: http }]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: roomflow-blue-preview
+  namespace: rf-bg
+spec:
+  selector: { app: roomflow, color: blue }
+  ports: [{ name: http, port: 80, targetPort: http }]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: roomflow-green-preview
+  namespace: rf-bg
+spec:
+  selector: { app: roomflow, color: green }
+  ports: [{ name: http, port: 80, targetPort: http }]

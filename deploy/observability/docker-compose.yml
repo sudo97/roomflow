@@ -1,0 +1,94 @@
+# ЛР7: стек спостережуваності RoomFlow — метрики (Prometheus), логи (Loki + Promtail),
+# візуалізація (Grafana), сповіщення (Alertmanager) і DORA exporter.
+name: rf-obs
+
+x-labels: &labels
+  project: roomflow
+  environment: observability
+
+services:
+  roomflow:
+    image: ${ROOMFLOW_IMAGE:-roomflow:obs}
+    environment:
+      FAULT_RATE: ${FAULT_RATE:-0}
+      COLOR: ${COLOR:-blue}
+    ports: ["8080:8080"]
+    labels: *labels
+
+  prometheus:
+    image: prom/prometheus:v2.54.1
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.retention.time=1d
+      - --web.enable-lifecycle
+    volumes: ["./prometheus:/etc/prometheus:ro"]
+    ports: ["9090:9090"]
+    labels: *labels
+
+  alertmanager:
+    image: prom/alertmanager:v0.27.0
+    command: ["--config.file=/etc/alertmanager/alertmanager.yml"]
+    volumes: ["./alertmanager:/etc/alertmanager:ro"]
+    ports: ["9093:9093"]
+    labels: *labels
+
+  alert-sink:
+    image: python:3.12-alpine
+    command:
+      - python
+      - -u
+      - -c
+      - |
+        import http.server as h
+        class S(h.BaseHTTPRequestHandler):
+            def do_POST(self):
+                n = int(self.headers['Content-Length'])
+                print('ALERT', self.rfile.read(n).decode(), flush=True)
+                self.send_response(200); self.end_headers()
+        h.HTTPServer(('', 8080), S).serve_forever()
+    labels: *labels
+
+  loki:
+    image: grafana/loki:3.2.1
+    command: ["-config.file=/etc/loki/loki.yml"]
+    volumes: ["./loki:/etc/loki:ro"]
+    ports: ["3100:3100"]
+    labels: *labels
+
+  promtail:
+    image: grafana/promtail:3.2.1
+    command: ["-config.file=/etc/promtail/promtail.yml"]
+    volumes:
+      - ./promtail:/etc/promtail:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels: *labels
+
+  grafana:
+    image: grafana/grafana:11.2.2
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+      GF_AUTH_DISABLE_LOGIN_FORM: "true"
+      GF_NEWS_NEWS_FEED_ENABLED: "false"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    ports: ["3000:3000"]
+    labels: *labels
+
+  dora-exporter:
+    image: golang:1.24-alpine
+    working_dir: /src
+    command: ["go", "run", "./tools/dora-exporter"]
+    environment:
+      GITHUB_REPOSITORY: ${GITHUB_REPOSITORY:-}
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      DORA_ENVIRONMENT: staging
+      HISTORY_DELAY: 25s
+      CGO_ENABLED: "0"
+    volumes: ["../..:/src:ro", "gocache:/root/.cache"]
+    ports: ["9102:9102"]
+    labels: *labels
+
+volumes:
+  gocache: {}

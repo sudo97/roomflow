@@ -1,0 +1,175 @@
+# Реалізація абстракції для провайдера "kubernetes": Secret з обліковими даними, PVC, Deployment і Service
+# у просторі імен команди. Для хмари (AWS RDS, Cloud SQL) достатньо іншої Composition з тим самим XRD.
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: postgres-kubernetes
+  labels:
+    provider: kubernetes
+spec:
+  compositeTypeRef:
+    apiVersion: platform.roomflow.io/v1alpha1
+    kind: XPostgreSQLInstance
+  mode: Pipeline
+  pipeline:
+    - step: patch-and-transform
+      functionRef:
+        name: function-patch-and-transform
+      input:
+        apiVersion: pt.fn.crossplane.io/v1beta1
+        kind: Resources
+        patchSets:
+          - name: target
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: metadata.labels[crossplane.io/claim-namespace]
+                toFieldPath: spec.forProvider.manifest.metadata.namespace
+              - type: FromCompositeFieldPath
+                fromFieldPath: metadata.labels[crossplane.io/claim-name]
+                toFieldPath: spec.forProvider.manifest.metadata.labels[app]
+                transforms: [{ type: string, string: { type: Format, fmt: "%s-postgres" } }]
+        resources:
+          - name: credentials
+            base:
+              apiVersion: kubernetes.crossplane.io/v1alpha2
+              kind: Object
+              spec:
+                providerConfigRef: { name: kubernetes }
+                forProvider:
+                  manifest:
+                    apiVersion: v1
+                    kind: Secret
+                    metadata: { namespace: default }
+                    stringData: { username: app, database: app, port: "5432" }
+            patches:
+              - type: PatchSet
+                patchSetName: target
+              - type: FromCompositeFieldPath
+                fromFieldPath: metadata.labels[crossplane.io/claim-name]
+                toFieldPath: spec.forProvider.manifest.metadata.name
+                transforms: [{ type: string, string: { type: Format, fmt: "%s-conn" } }]
+              - type: FromCompositeFieldPath
+                fromFieldPath: metadata.labels[crossplane.io/claim-name]
+                toFieldPath: spec.forProvider.manifest.stringData.host
+                transforms: [{ type: string, string: { type: Format, fmt: "%s-postgres" } }]
+              - type: FromCompositeFieldPath
+                fromFieldPath: metadata.uid
+                toFieldPath: spec.forProvider.manifest.stringData.password
+                transforms: [{ type: string, string: { type: Convert, convert: ToSha256 } }]
+          - name: volume
+            base:
+              apiVersion: kubernetes.crossplane.io/v1alpha2
+              kind: Object
+              spec:
+                providerConfigRef: { name: kubernetes }
+                forProvider:
+                  manifest:
+                    apiVersion: v1
+                    kind: PersistentVolumeClaim
+                    metadata: { namespace: default }
+                    spec:
+                      accessModes: [ReadWriteOnce]
+                      resources: { requests: { storage: 1Gi } }
+            patches:
+              - type: PatchSet
+                patchSetName: target
+              - type: FromCompositeFieldPath
+                fromFieldPath: metadata.labels[crossplane.io/claim-name]
+                toFieldPath: spec.forProvider.manifest.metadata.name
+                transforms: [{ type: string, string: { type: Format, fmt: "%s-data" } }]
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.storageGB
+                toFieldPath: spec.forProvider.manifest.spec.resources.requests.storage
+                transforms:
+                  - { type: convert, convert: { toType: int64 } }
+                  - { type: string, string: { type: Format, fmt: "%dGi" } }
+          - name: database
+            base:
+              apiVersion: kubernetes.crossplane.io/v1alpha2
+              kind: Object
+              spec:
+                providerConfigRef: { name: kubernetes }
+                forProvider:
+                  manifest:
+                    apiVersion: apps/v1
+                    kind: Deployment
+                    metadata: { namespace: default }
+                    spec:
+                      replicas: 1
+                      strategy: { type: Recreate }
+                      selector: { matchLabels: { app: placeholder } }
+                      template:
+                        metadata: { labels: { app: placeholder } }
+                        spec:
+                          containers:
+                            - name: postgres
+                              image: postgres:16-alpine
+                              env:
+                                - { name: POSTGRES_USER, value: app }
+                                - { name: POSTGRES_DB, value: app }
+                                - { name: PGDATA, value: /var/lib/postgresql/data/pgdata }
+                                - name: POSTGRES_PASSWORD
+                                  valueFrom: { secretKeyRef: { name: placeholder, key: password } }
+                              ports: [{ containerPort: 5432 }]
+                              readinessProbe: { exec: { command: [pg_isready, -U, app] }, periodSeconds: 3 }
+                              resources: { limits: { memory: 256Mi } }
+                              volumeMounts: [{ name: data, mountPath: /var/lib/postgresql/data }]
+                          volumes:
+                            - name: data
+                              persistentVolumeClaim: { claimName: placeholder }
+            patches:
+              - type: PatchSet
+                patchSetName: target
+              - type: FromCompositeFieldPath
+                fromFieldPath: metadata.labels[crossplane.io/claim-name]
+                toFieldPath: spec.forProvider.manifest.metadata.name
+                transforms: [{ type: string, string: { type: Format, fmt: "%s-postgres" } }]
+              - type: FromCompositeFieldPath
+                fromFieldPath: metadata.labels[crossplane.io/claim-name]
+                toFieldPath: spec.forProvider.manifest.spec.selector.matchLabels.app
+                transforms: [{ type: string, string: { type: Format, fmt: "%s-postgres" } }]
+              - type: FromCompositeFieldPath
+                fromFieldPath: metadata.labels[crossplane.io/claim-name]
+                toFieldPath: spec.forProvider.manifest.spec.template.metadata.labels.app
+                transforms: [{ type: string, string: { type: Format, fmt: "%s-postgres" } }]
+              - type: FromCompositeFieldPath
+                fromFieldPath: metadata.labels[crossplane.io/claim-name]
+                toFieldPath: spec.forProvider.manifest.spec.template.spec.containers[0].env[3].valueFrom.secretKeyRef.name
+                transforms: [{ type: string, string: { type: Format, fmt: "%s-conn" } }]
+              - type: FromCompositeFieldPath
+                fromFieldPath: metadata.labels[crossplane.io/claim-name]
+                toFieldPath: spec.forProvider.manifest.spec.template.spec.volumes[0].persistentVolumeClaim.claimName
+                transforms: [{ type: string, string: { type: Format, fmt: "%s-data" } }]
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.version
+                toFieldPath: spec.forProvider.manifest.spec.template.spec.containers[0].image
+                transforms: [{ type: string, string: { type: Format, fmt: "postgres:%s-alpine" } }]
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.size
+                toFieldPath: spec.forProvider.manifest.spec.template.spec.containers[0].resources.limits.memory
+                transforms: [{ type: map, map: { small: 256Mi, medium: 512Mi } }]
+          - name: service
+            base:
+              apiVersion: kubernetes.crossplane.io/v1alpha2
+              kind: Object
+              spec:
+                providerConfigRef: { name: kubernetes }
+                forProvider:
+                  manifest:
+                    apiVersion: v1
+                    kind: Service
+                    metadata: { namespace: default }
+                    spec:
+                      selector: { app: placeholder }
+                      ports: [{ port: 5432, targetPort: 5432 }]
+            patches:
+              - type: PatchSet
+                patchSetName: target
+              - type: FromCompositeFieldPath
+                fromFieldPath: metadata.labels[crossplane.io/claim-name]
+                toFieldPath: spec.forProvider.manifest.metadata.name
+                transforms: [{ type: string, string: { type: Format, fmt: "%s-postgres" } }]
+              - type: FromCompositeFieldPath
+                fromFieldPath: metadata.labels[crossplane.io/claim-name]
+                toFieldPath: spec.forProvider.manifest.spec.selector.app
+                transforms: [{ type: string, string: { type: Format, fmt: "%s-postgres" } }]

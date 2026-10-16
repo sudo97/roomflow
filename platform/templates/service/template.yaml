@@ -1,0 +1,86 @@
+# Software Template (golden path) для нового сервісу платформи RoomFlow (ЛР11, завдання 2).
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: roomflow-service
+  title: Новий сервіс RoomFlow
+  description: Сервіс із Dockerfile, маніфестами Kubernetes, CI/CD, метриками та реєстрацією в каталозі
+  tags: [golden-path, go, python]
+spec:
+  owner: group:platform-team
+  type: service
+  parameters:
+    - title: Сервіс
+      required: [name, owner, description]
+      properties:
+        name:
+          title: Назва
+          type: string
+          pattern: "^[a-z][a-z0-9-]{2,30}$"
+        description:
+          title: Опис
+          type: string
+        owner:
+          title: Власник
+          type: string
+          ui:field: OwnerPicker
+          ui:options: { catalogFilter: { kind: Group } }
+    - title: Технології
+      required: [language, database]
+      properties:
+        language:
+          title: Мова програмування
+          type: string
+          enum: [go, python]
+          default: go
+        database:
+          title: База даних
+          type: string
+          enum: [none, postgres, redis]
+          default: none
+    - title: Репозиторій
+      required: [repoUrl]
+      properties:
+        repoUrl:
+          title: Розташування
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options: { allowedHosts: [github.com] }
+  steps:
+    - id: common
+      name: Спільний каркас (Kubernetes, CI/CD, каталог)
+      action: fetch:template
+      input:
+        url: ./skeleton/common
+        values: &values
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.owner }}
+          language: ${{ parameters.language }}
+          database: ${{ parameters.database }}
+    - id: language
+      name: Код сервісу (${{ parameters.language }})
+      action: fetch:template
+      input:
+        url: ./skeleton/${{ parameters.language }}
+        values: *values
+    - id: publish
+      name: Публікація репозиторію
+      action: publish:github
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        defaultBranch: main
+        description: ${{ parameters.description }}
+    - id: register
+      name: Реєстрація в каталозі
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: /catalog-info.yaml
+  output:
+    links:
+      - title: Репозиторій
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Сервіс у каталозі
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}

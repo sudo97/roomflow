@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rf-ui
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/sudo97/roomflow.git
+    targetRevision: main
+    path: deploy/mesh/rollouts
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: rf-ui
+  syncPolicy:
+    automated: { prune: true, selfHeal: true }

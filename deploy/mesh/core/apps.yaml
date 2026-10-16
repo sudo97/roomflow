@@ -1,0 +1,65 @@
+# Backend (API RoomFlow) і frontend. Обидва експортують спани в Jaeger і передають traceparent.
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: backend, namespace: rf-mesh, labels: { app: backend } }
+spec:
+  replicas: 2
+  selector: { matchLabels: { app: backend, version: v1 } }
+  template:
+    metadata: { labels: { app: backend, version: v1 } }
+    spec:
+      serviceAccountName: backend
+      securityContext: { runAsNonRoot: true, runAsUser: 65532, seccompProfile: { type: RuntimeDefault } }
+      containers:
+        - name: backend
+          image: roomflow:mesh
+          imagePullPolicy: IfNotPresent
+          env:
+            - { name: CACHE_REDIS_ADDR, value: "redis:6379" }
+            - { name: OTEL_SERVICE_NAME, value: backend }
+            - { name: OTEL_EXPORTER_OTLP_ENDPOINT, value: "http://jaeger-collector.istio-system:4318" }
+            - { name: COLOR, value: v1 }
+          ports: [{ name: http, containerPort: 8080 }]
+          readinessProbe: { httpGet: { path: /healthz, port: http }, periodSeconds: 3 }
+          livenessProbe: { httpGet: { path: /healthz, port: http }, periodSeconds: 10 }
+          resources: { requests: { cpu: 50m, memory: 32Mi }, limits: { cpu: 500m, memory: 128Mi } }
+          securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: backend, namespace: rf-mesh, labels: { app: backend } }
+spec:
+  selector: { app: backend }
+  ports: [{ name: http, port: 8080 }]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: frontend, namespace: rf-mesh, labels: { app: frontend } }
+spec:
+  replicas: 2
+  selector: { matchLabels: { app: frontend } }
+  template:
+    metadata: { labels: { app: frontend, version: v1 } }
+    spec:
+      serviceAccountName: frontend
+      securityContext: { runAsNonRoot: true, runAsUser: 65532, seccompProfile: { type: RuntimeDefault } }
+      containers:
+        - name: frontend
+          image: roomflow:mesh
+          imagePullPolicy: IfNotPresent
+          command: ["/frontend"]
+          env:
+            - { name: BACKEND_URL, value: "http://backend:8080" }
+            - { name: OTEL_SERVICE_NAME, value: frontend }
+            - { name: OTEL_EXPORTER_OTLP_ENDPOINT, value: "http://jaeger-collector.istio-system:4318" }
+          ports: [{ name: http, containerPort: 8081 }]
+          readinessProbe: { httpGet: { path: /healthz, port: http }, periodSeconds: 3 }
+          resources: { requests: { cpu: 50m, memory: 32Mi }, limits: { cpu: 500m, memory: 128Mi } }
+          securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: frontend, namespace: rf-mesh, labels: { app: frontend } }
+spec:
+  selector: { app: frontend }
+  ports: [{ name: http, port: 8081 }]

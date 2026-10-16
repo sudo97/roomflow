@@ -1,0 +1,28 @@
+groups:
+  - name: platform-recording
+    rules:
+      - record: platform:services_created:total
+        expr: sum(platform_services_created_total)
+      - record: platform:self_service_adoption:ratio
+        expr: sum(platform_requests_total{channel="self-service"}) / sum(platform_requests_total)
+      - record: platform:provisioning_duration_seconds:p90
+        expr: histogram_quantile(0.9, sum by (le) (platform_provisioning_duration_seconds_bucket))
+      - record: platform:provisioning_duration_seconds:avg
+        expr: sum(platform_provisioning_duration_seconds_sum) / sum(platform_provisioning_duration_seconds_count)
+  - name: platform-alerts
+    rules:
+      - alert: ProvisioningSlow
+        expr: platform:provisioning_duration_seconds:p90 > 120
+        for: 10s
+        labels: { severity: warning }
+        annotations: { summary: "p90 часу надання інфраструктури {{ $value | humanizeDuration }} (> 2 хв)" }
+      - alert: SelfServiceAdoptionLow
+        expr: platform:self_service_adoption:ratio < 0.6
+        for: 10s
+        labels: { severity: warning }
+        annotations: { summary: "Лише {{ $value | humanizePercentage }} запитів через самообслуговування (ціль 60%)" }
+      - alert: DeveloperSatisfactionLow
+        expr: platform_developer_satisfaction_score < 3.5
+        for: 10s
+        labels: { severity: warning }
+        annotations: { summary: "Оцінка задоволеності розробників {{ $value }} < 3.5" }

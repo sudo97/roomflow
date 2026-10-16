@@ -1,0 +1,94 @@
+# Опис RoomFlow у каталозі Backstage (ЛР11): система, компоненти, API, ресурси та власники.
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: roomflow
+  description: SaaS-платформа бронювання для малих готелів (multitenancy)
+spec:
+  owner: group:platform-team
+  domain: hospitality
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: roomflow-api
+  description: API бронювання номерів, ціноутворення і календар доступності
+  annotations:
+    github.com/project-slug: sudo97/roomflow
+    backstage.io/techdocs-ref: dir:.
+    prometheus.io/rule: roomflow:http_errors:ratio_rate1m
+  tags: [go, api, multitenancy]
+  links:
+    - url: https://github.com/sudo97/roomflow/actions
+      title: CI/CD
+spec:
+  type: service
+  lifecycle: production
+  owner: group:platform-team
+  system: roomflow
+  providesApis: [roomflow-api]
+  dependsOn: [resource:roomflow-db, resource:roomflow-cache]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: roomflow-frontend
+  description: Веб-інтерфейс і проксі до API з поширенням контексту трасування
+  annotations:
+    github.com/project-slug: sudo97/roomflow
+  tags: [go, website]
+spec:
+  type: website
+  lifecycle: production
+  owner: group:platform-team
+  system: roomflow
+  consumesApis: [roomflow-api]
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: roomflow-api
+  description: REST API RoomFlow (OpenAPI 3)
+spec:
+  type: openapi
+  lifecycle: production
+  owner: group:platform-team
+  system: roomflow
+  definition:
+    $text: ./docs/api/openapi.yaml
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: roomflow-db
+  description: PostgreSQL (надається через Crossplane claim PostgreSQLInstance)
+spec:
+  type: database
+  owner: group:platform-team
+  system: roomflow
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: roomflow-cache
+  description: Redis для cache-aside календаря доступності
+spec:
+  type: cache
+  owner: group:platform-team
+  system: roomflow
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: platform-team
+  description: Команда платформи RoomFlow
+spec:
+  type: team
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: hospitality
+spec:
+  owner: group:platform-team

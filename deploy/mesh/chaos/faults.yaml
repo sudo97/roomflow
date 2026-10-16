@@ -1,0 +1,13 @@
+# ЛР12, інд. завдання 5: хаос-експеримент засобами Istio — затримка 1 с для 30% і відмова 503 для 10% запитів до backend.
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata: { name: backend, namespace: rf-mesh }
+spec:
+  hosts: [backend]
+  http:
+    - fault:
+        delay: { percentage: { value: 30 }, fixedDelay: 1s }
+        abort: { percentage: { value: 10 }, httpStatus: 503 }
+      timeout: 3s
+      retries: { attempts: 3, perTryTimeout: 1s, retryOn: 5xx,reset,connect-failure }
+      route: [{ destination: { host: backend } }]

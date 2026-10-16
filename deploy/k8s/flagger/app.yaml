@@ -1,0 +1,81 @@
+# ЛР10, завдання 5: автоматизований Canary з Flagger (провайдер маршрутизації — ingress-nginx).
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rf-flagger
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: roomflow
+  namespace: rf-flagger
+  labels: { app: roomflow }
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app: roomflow }
+  template:
+    metadata:
+      labels: { app: roomflow }
+    spec:
+      automountServiceAccountToken: false
+      securityContext: { runAsNonRoot: true, runAsUser: 65532, seccompProfile: { type: RuntimeDefault } }
+      containers:
+        - name: roomflow
+          image: roomflow:v1
+          imagePullPolicy: IfNotPresent
+          env: [{ name: COLOR, value: v1 }]
+          ports: [{ name: http, containerPort: 8080 }]
+          readinessProbe: { httpGet: { path: /healthz, port: http }, periodSeconds: 2 }
+          resources: { requests: { cpu: 20m, memory: 24Mi }, limits: { cpu: 300m, memory: 96Mi } }
+          securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: roomflow
+  namespace: rf-flagger
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: app.roomflow.test
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service: { name: roomflow, port: { number: 80 } }
+---
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: roomflow
+  namespace: rf-flagger
+spec:
+  provider: nginx
+  targetRef: { apiVersion: apps/v1, kind: Deployment, name: roomflow }
+  ingressRef: { apiVersion: networking.k8s.io/v1, kind: Ingress, name: roomflow }
+  progressDeadlineSeconds: 180
+  service:
+    port: 80
+    targetPort: 8080
+  analysis:
+    interval: 15s
+    threshold: 3        # після 3 невдалих перевірок — автоматичний відкат
+    maxWeight: 50
+    stepWeight: 10      # 10% -> 20% -> ... -> 50%, далі promotion
+    metrics:
+      - name: request-success-rate   # частка відповідей не 5xx, %
+        thresholdRange: { min: 95 }
+        interval: 1m
+      - name: request-duration       # p99, мс
+        thresholdRange: { max: 500 }
+        interval: 1m
+    webhooks:
+      - name: load-test
+        type: rollout
+        url: http://flagger-loadtester.rf-flagger/
+        timeout: 5s
+        metadata:
+          type: cmd
+          cmd: "hey -z 1m -q 10 -c 2 -host app.roomflow.test http://ingress-nginx-controller.ingress-nginx/api/rooms"

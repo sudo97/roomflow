@@ -1,0 +1,104 @@
+openapi: 3.0.3
+info:
+  title: RoomFlow API
+  version: "1.0"
+  description: API бронювання для малих готелів. Кожен запит до /api виконується в контексті орендаря (заголовок X-Tenant-ID).
+components:
+  parameters:
+    Tenant:
+      name: X-Tenant-ID
+      in: header
+      required: true
+      schema: { type: string }
+  schemas:
+    Room:
+      type: object
+      properties:
+        ID: { type: string }
+        TenantID: { type: string }
+        Name: { type: string }
+        Capacity: { type: integer }
+        BasePrice: { type: integer, description: ціна за ніч у копійках }
+    Booking:
+      type: object
+      properties:
+        ID: { type: string }
+        RoomID: { type: string }
+        GuestName: { type: string }
+        Guests: { type: integer }
+        CheckIn: { type: string, format: date-time }
+        CheckOut: { type: string, format: date-time }
+        Total: { type: integer }
+        Status: { type: string, enum: [confirmed, cancelled] }
+        Nightly: { type: array, items: { type: integer }, description: "ціни ночей (feature flag price_breakdown)" }
+    Night:
+      type: object
+      properties:
+        date: { type: string, format: date }
+        price: { type: integer }
+        booked: { type: boolean }
+    Error:
+      type: object
+      properties: { error: { type: string } }
+paths:
+  /healthz:
+    get: { summary: Перевірка стану, responses: { "200": { description: OK } } }
+  /api/rooms:
+    get:
+      summary: Номери орендаря
+      parameters: [{ $ref: "#/components/parameters/Tenant" }]
+      responses:
+        "200": { description: OK, content: { application/json: { schema: { type: array, items: { $ref: "#/components/schemas/Room" } } } } }
+        "401": { description: Немає X-Tenant-ID }
+    post:
+      summary: Додати номер
+      parameters: [{ $ref: "#/components/parameters/Tenant" }]
+      requestBody:
+        content:
+          application/json:
+            schema: { type: object, properties: { id: { type: string }, name: { type: string }, capacity: { type: integer }, price: { type: integer } } }
+      responses: { "201": { description: Створено }, "400": { description: Некоректні дані } }
+  /api/rooms/{id}/availability:
+    get:
+      summary: Календар доступності і ціни ночей (cache-aside)
+      parameters:
+        - { $ref: "#/components/parameters/Tenant" }
+        - { name: id, in: path, required: true, schema: { type: string } }
+        - { name: from, in: query, required: true, schema: { type: string, format: date } }
+        - { name: to, in: query, required: true, schema: { type: string, format: date } }
+      responses:
+        "200": { description: OK, content: { application/json: { schema: { type: array, items: { $ref: "#/components/schemas/Night" } } } } }
+        "400": { description: Некоректні дати }
+        "404": { description: Номер не знайдено }
+  /api/bookings:
+    post:
+      summary: Створити бронювання
+      parameters: [{ $ref: "#/components/parameters/Tenant" }]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                room_id: { type: string }
+                guest_name: { type: string }
+                guest_email: { type: string, format: email }
+                guests: { type: integer }
+                check_in: { type: string, format: date }
+                check_out: { type: string, format: date }
+                promo: { type: string, enum: [WELCOME10, LONGSTAY, FRIENDS] }
+      responses:
+        "201": { description: Створено, content: { application/json: { schema: { $ref: "#/components/schemas/Booking" } } } }
+        "409": { description: Номер зайнятий на ці дати }
+  /api/bookings/{id}/cancel:
+    post:
+      summary: Скасувати бронювання
+      parameters:
+        - { $ref: "#/components/parameters/Tenant" }
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses: { "204": { description: Скасовано }, "404": { description: Не знайдено } }
+  /api/flags:
+    get:
+      summary: Стан feature flags для орендаря
+      parameters: [{ $ref: "#/components/parameters/Tenant" }]
+      responses: { "200": { description: OK } }

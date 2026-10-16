@@ -1,0 +1,18 @@
+# Валідація нової версії перед перемиканням: через preview-сервіс нова версія має віддати каталог номерів.
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata: { name: frontend-smoke }
+spec:
+  metrics:
+    - name: rooms-through-preview
+      count: 3
+      interval: 5s
+      failureLimit: 0
+      consecutiveErrorLimit: 2
+      successCondition: result == "r1"
+      provider:
+        web:
+          url: http://frontend-preview.rf-ui.svc.cluster.local:8081/api/rooms
+          headers: [{ key: X-Tenant-ID, value: demo-hotel }]
+          jsonPath: "{$[0].ID}"
+          timeoutSeconds: 5

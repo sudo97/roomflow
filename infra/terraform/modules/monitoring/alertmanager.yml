@@ -1,0 +1,11 @@
+route:
+  receiver: incident-webhook
+  group_by: [alertname]
+  group_wait: 5s
+  group_interval: 10s
+  repeat_interval: 1h
+receivers:
+  - name: incident-webhook
+    webhook_configs:
+      - url: http://alert-sink:8080/
+        send_resolved: true

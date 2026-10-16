@@ -1,0 +1,48 @@
+# Образ застосунку. Теги окремо для синього і зеленого середовищ.
+image:
+  repository: roomflow
+  pullPolicy: IfNotPresent
+
+# Середовище, що отримує трафік основного Service.
+activeColor: blue
+
+blue:
+  enabled: true
+  tag: v1
+  replicas: 2
+green:
+  enabled: true
+  tag: v2
+  replicas: 2
+
+# Feature flags (ConfigMap, монтується як каталог: зміни підхоплюються без перезапуску подів).
+flags:
+  price_breakdown:
+    enabled: false
+    tenants: []
+    percent: 0
+
+env: {}
+
+resources:
+  requests: { cpu: 50m, memory: 32Mi }
+  limits: { cpu: 500m, memory: 128Mi }
+
+service:
+  port: 80
+
+# Golden path (ЛР11): горизонтальне масштабування, бюджет збоїв, мережеві політики.
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 70
+podDisruptionBudget:
+  enabled: false
+  minAvailable: 1
+networkPolicy:
+  enabled: false
+
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "8080"

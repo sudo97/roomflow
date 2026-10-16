@@ -85,11 +85,16 @@ func (r *Registry) Set(name, help, labels string, v float64) {
 	r.family(name, help, "gauge", nil).get(labels).value = v
 }
 
-// Observe records a histogram observation.
+// Observe records a histogram observation with DefaultBuckets.
 func (r *Registry) Observe(name, help, labels string, v float64) {
+	r.ObserveBuckets(name, help, labels, v, DefaultBuckets)
+}
+
+// ObserveBuckets records a histogram observation; buckets are fixed when the family is first used.
+func (r *Registry) ObserveBuckets(name, help, labels string, v float64, buckets []float64) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
-	f := r.family(name, help, "histogram", DefaultBuckets)
+	f := r.family(name, help, "histogram", buckets)
 	s := f.get(labels)
 	for i, b := range f.buckets {
 		if v <= b {

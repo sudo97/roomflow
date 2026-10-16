@@ -1,0 +1,88 @@
+# ЛР10, завдання 1: Blue-Green. Обидва середовища працюють одночасно; основний Service
+# спрямовує трафік на одне з них через selector (color), preview-сервіси — на кожне окремо.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rf-bg
+  labels:
+    pod-security.kubernetes.io/enforce: restricted
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: roomflow-blue
+  namespace: rf-bg
+  labels: { app: roomflow, color: blue }
+spec:
+  replicas: 3
+  selector:
+    matchLabels: { app: roomflow, color: blue }
+  template:
+    metadata:
+      labels: { app: roomflow, color: blue, version: v1 }
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: roomflow
+          image: roomflow:v1
+          imagePullPolicy: IfNotPresent
+          env:
+            - { name: COLOR, value: blue }
+          ports: [{ name: http, containerPort: 8080 }]
+          readinessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 2
+          livenessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 10
+          resources:
+            requests: { cpu: 50m, memory: 32Mi }
+            limits: { cpu: 500m, memory: 128Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: [ALL] }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: roomflow-green
+  namespace: rf-bg
+  labels: { app: roomflow, color: green }
+spec:
+  replicas: 3
+  selector:
+    matchLabels: { app: roomflow, color: green }
+  template:
+    metadata:
+      labels: { app: roomflow, color: green, version: v2 }
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: roomflow
+          image: roomflow:v2
+          imagePullPolicy: IfNotPresent
+          env:
+            - { name: COLOR, value: green }
+          ports: [{ name: http, containerPort: 8080 }]
+          readinessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 2
+          livenessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 10
+          resources:
+            requests: { cpu: 50m, memory: 32Mi }
+            limits: { cpu: 500m, memory: 128Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: [ALL] }

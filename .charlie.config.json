@@ -1,0 +1,14 @@
+{
+  "exclude": ["^evidence/", "\\.sum$", "^coverage", "\\.png$", "\\.jmx$", "platform/metrics/history\\.json$", "grafana/dashboards/.*\\.json$", "\\.secrets\\.baseline$"],
+  "architecturalGroups": {
+    "^internal/booking/": "Booking domain",
+    "^internal/store/": "Persistence",
+    "^internal/httpapi/": "HTTP API",
+    "^internal/(obs|trace|flags|cache|ratelimit|chaos)/": "Cross-cutting platform libs",
+    "^cmd/": "Entry points",
+    "^tools/": "Developer tools",
+    "^(infra|deploy|platform|policies)/": "Infrastructure as code",
+    "^(ci|\\.github|scripts)/": "CI/CD",
+    "^test/": "Tests (integration, e2e, load)"
+  }
+}

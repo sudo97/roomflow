@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata: { name: frontend }
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  selector: { matchLabels: { app: frontend } }
+  template:
+    metadata: { labels: { app: frontend } }
+    spec:
+      securityContext: { runAsNonRoot: true, runAsUser: 65532 }
+      containers:
+        - name: frontend
+          image: roomflow-fe
+          imagePullPolicy: IfNotPresent
+          command: ["/frontend"]
+          ports: [{ name: http, containerPort: 8081 }]
+          readinessProbe: { httpGet: { path: /healthz, port: http }, periodSeconds: 2 }
+          resources: { limits: { cpu: 300m, memory: 96Mi } }
+  strategy:
+    blueGreen:
+      activeService: frontend-active
+      previewService: frontend-preview
+      autoPromotionEnabled: false          # перемикання — після аналізу і явного promote
+      prePromotionAnalysis:
+        templates: [{ templateName: frontend-smoke }]
+      scaleDownDelaySeconds: 30            # стара версія ще 30 с готова до миттєвого відкату

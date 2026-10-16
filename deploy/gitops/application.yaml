@@ -1,0 +1,26 @@
+# ЛР11, завдання 4: ArgoCD синхронізує стан кластера з Git (Helm-чарт RoomFlow у main).
+# selfHeal повертає ручні зміни в кластері до стану з репозиторію, prune видаляє зайве.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: roomflow
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/sudo97/roomflow.git
+    targetRevision: main
+    path: deploy/helm/roomflow
+    helm:
+      valuesObject:
+        activeColor: blue
+        blue: { tag: v1, replicas: 2 }
+        green: { tag: v2, replicas: 2 }
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: rf-gitops
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions: [CreateNamespace=true]

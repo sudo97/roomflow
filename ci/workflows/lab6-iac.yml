@@ -1,0 +1,40 @@
+# Лабораторна робота 6: Infrastructure as Code (Terraform, провайдер Docker).
+# validate: fmt, validate, terraform test, тести політик OPA.
+# deploy: plan -> політики -> apply -> тести -> blue/green -> тривоги -> дрейф -> блокування стану -> destroy.
+name: lab6-iac
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["infra/**", "policies/terraform/**", "ci/lab6/**"]
+permissions:
+  contents: write
+concurrency: { group: lab6, cancel-in-progress: false }
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash ci/lab6/validate.sh
+      - if: always()
+        run: bash ci/publish-evidence.sh lab6-validate
+  deploy:
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: { name: iac-ci }
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: { POSTGRES_USER: tf, POSTGRES_PASSWORD: tf, POSTGRES_DB: tfstate }
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U tf" --health-interval 5s --health-retries 10
+      registry:
+        image: registry:2
+        ports: ["5000:5000"]
+    env:
+      PG_CONN_STR: postgres://tf:tf@localhost:5432/tfstate?sslmode=disable
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash ci/lab6/deploy.sh
+      - if: always()
+        run: bash ci/publish-evidence.sh lab6-deploy

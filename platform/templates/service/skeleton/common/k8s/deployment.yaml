@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${{ values.name }}
+  labels: { app.kubernetes.io/name: ${{ values.name }}, app.kubernetes.io/part-of: roomflow }
+  annotations: { roomflow.io/owner: "${{ values.owner }}" }
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app.kubernetes.io/name: ${{ values.name }} }
+  template:
+    metadata:
+      labels: { app.kubernetes.io/name: ${{ values.name }} }
+      annotations: { prometheus.io/scrape: "true", prometheus.io/port: "8080" }
+    spec:
+      automountServiceAccountToken: false
+      securityContext: { runAsNonRoot: true, runAsUser: 65532, seccompProfile: { type: RuntimeDefault } }
+      containers:
+        - name: app
+          image: ghcr.io/roomflow/${{ values.name }}:0.1.0
+          ports: [{ name: http, containerPort: 8080 }]
+{%- if values.database == "postgres" %}
+          env:
+            # Secret створює платформа (Crossplane) для claim ${{ values.name }}-postgres
+            - name: DB_HOST
+              valueFrom: { secretKeyRef: { name: ${{ values.name }}-postgres-conn, key: host } }
+            - name: DB_PASSWORD
+              valueFrom: { secretKeyRef: { name: ${{ values.name }}-postgres-conn, key: password } }
+{%- endif %}
+{%- if values.database == "redis" %}
+          env:
+            - { name: REDIS_ADDR, value: ${{ values.name }}-redis:6379 }
+{%- endif %}
+          readinessProbe: { httpGet: { path: /healthz, port: http } }
+          livenessProbe: { httpGet: { path: /healthz, port: http } }
+          resources:
+            requests: { cpu: 50m, memory: 32Mi }
+            limits: { cpu: 500m, memory: 128Mi }
+          securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${{ values.name }}
+spec:
+  selector: { app.kubernetes.io/name: ${{ values.name }} }
+  ports: [{ name: http, port: 80, targetPort: http }]
+{%- if values.database == "postgres" %}
+---
+# База даних самообслуговування: claim до платформи (Crossplane), деталі провайдера приховано.
+apiVersion: platform.roomflow.io/v1alpha1
+kind: PostgreSQLInstance
+metadata:
+  name: ${{ values.name }}-postgres
+spec:
+  parameters: { size: small, storageGB: 1 }
+  compositionSelector: { matchLabels: { provider: kubernetes } }
+{%- endif %}

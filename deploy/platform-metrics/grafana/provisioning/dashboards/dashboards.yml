@@ -1,0 +1,7 @@
+apiVersion: 1
+providers:
+  - name: roomflow
+    folder: RoomFlow
+    type: file
+    options:
+      path: /var/lib/grafana/dashboards

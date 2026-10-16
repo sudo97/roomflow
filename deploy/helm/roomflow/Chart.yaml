@@ -1,0 +1,8 @@
+apiVersion: v2
+name: roomflow
+description: RoomFlow booking API — blue/green release with feature flags (labs 10-12)
+type: application
+version: 0.3.0
+appVersion: "v1"
+maintainers:
+  - name: platform-team

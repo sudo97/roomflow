@@ -1,0 +1,28 @@
+# ЛР12, завдання 4: circuit breaker (ліміти з'єднань + outlier detection), тайм-аути і повтори.
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata: { name: backend, namespace: rf-mesh }
+spec:
+  host: backend
+  trafficPolicy:
+    connectionPool:
+      tcp: { maxConnections: 1 }
+      http: { http1MaxPendingRequests: 1, maxRequestsPerConnection: 1 }
+    outlierDetection:
+      consecutive5xxErrors: 3
+      interval: 5s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 50
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata: { name: backend, namespace: rf-mesh }
+spec:
+  hosts: [backend]
+  http:
+    - timeout: 3s
+      retries:
+        attempts: 3
+        perTryTimeout: 1s
+        retryOn: 5xx,reset,connect-failure,refused-stream
+      route: [{ destination: { host: backend } }]

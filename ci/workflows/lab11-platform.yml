@@ -1,0 +1,44 @@
+# Лабораторна робота 11: Platform Engineering — Backstage, golden path (rfctl, OPA), Crossplane, ArgoCD.
+name: lab11-platform
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["platform/**", "tools/rfctl/**", "tools/platform-exporter/**", "deploy/gitops/**", "policies/golden-path/**", "catalog-info.yaml", "ci/lab11/**"]
+permissions:
+  contents: write
+  actions: read
+concurrency: { group: lab11, cancel-in-progress: false }
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+jobs:
+  scenario:
+    strategy:
+      fail-fast: false
+      matrix:
+        name: [golden-path, crossplane, argocd]
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: { go-version: "1.24" }
+      - run: bash ci/lab11/${{ matrix.name }}.sh
+      - if: always()
+        run: bash ci/publish-evidence.sh lab11-${{ matrix.name }}
+  backstage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: { POSTGRES_USER: backstage, POSTGRES_PASSWORD: backstage }
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U backstage" --health-interval 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: bash ci/lab11/backstage.sh
+      - if: always()
+        run: bash ci/publish-evidence.sh lab11-backstage

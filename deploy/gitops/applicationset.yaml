@@ -1,0 +1,46 @@
+# ЛР11, індивідуальне завдання 1: ApplicationSet генерує Application для кожного середовища.
+# У навчальному стенді «кластери» staging і production представлені просторами імен одного кластера kind;
+# для реальних кластерів у генераторі змінюється лише поле server (або використовується cluster generator).
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: roomflow-envs
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - env: staging
+            server: https://kubernetes.default.svc
+            replicas: "1"
+            autoscaling: "false"
+            hardening: "false"
+          - env: production
+            server: https://kubernetes.default.svc
+            replicas: "3"
+            autoscaling: "true"
+            hardening: "true"
+  template:
+    metadata:
+      name: "roomflow-{{ .env }}"
+      labels: { env: "{{ .env }}" }
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/sudo97/roomflow.git
+        targetRevision: main
+        path: deploy/helm/roomflow
+        helm:
+          parameters:
+            - { name: blue.replicas, value: "{{ .replicas }}" }
+            - { name: green.enabled, value: "false" }
+            - { name: autoscaling.enabled, value: "{{ .autoscaling }}" }
+            - { name: podDisruptionBudget.enabled, value: "{{ .hardening }}" }
+            - { name: networkPolicy.enabled, value: "{{ .hardening }}" }
+      destination:
+        server: "{{ .server }}"
+        namespace: "rf-{{ .env }}"
+      syncPolicy:
+        automated: { prune: true, selfHeal: true }
+        syncOptions: [CreateNamespace=true]

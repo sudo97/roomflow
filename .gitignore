@@ -2,3 +2,10 @@ coverage.out
 /roomflow
 .scannerwork/
 .env
+
+charlie-report.html
+.gp-tmp/
+infra/terraform/**/.terraform/
+infra/terraform/**/.generated/
+*.tfstate*
+.terraform.lock.hcl

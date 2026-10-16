@@ -1,0 +1,34 @@
+groups:
+  - name: roomflow-alerts
+    rules:
+      - alert: RoomFlowDown
+        expr: up{job="roomflow"} == 0
+        for: 15s
+        labels: { severity: critical }
+        annotations:
+          summary: "RoomFlow недоступний"
+          runbook: "docs/runbooks/roomflow-down.md"
+      - alert: HighErrorRate
+        expr: roomflow:http_errors:ratio_rate1m > 0.05
+        for: 20s
+        labels: { severity: critical }
+        annotations:
+          summary: "Частка відповідей 5xx {{ $value | humanizePercentage }} (> 5%)"
+      - alert: HighLatencyP95
+        expr: roomflow:http_latency_seconds:p95_1m > 0.25
+        for: 30s
+        labels: { severity: warning }
+        annotations:
+          summary: "p95 затримки {{ $value | humanizeDuration }} (> 250 мс)"
+      - alert: ErrorBudgetFastBurn
+        expr: slo:error_budget_burn_rate:1m > 14.4 and slo:error_budget_burn_rate:5m > 14.4
+        for: 15s
+        labels: { severity: warning }
+        annotations:
+          summary: "Бюджет помилок SLO 99.5% вигорає у {{ $value | printf \"%.0f\" }} разів швидше норми"
+      - alert: BookingConflictsSpike
+        expr: sum(rate(roomflow_booking_conflicts_total[2m])) > 2
+        for: 30s
+        labels: { severity: info }
+        annotations:
+          summary: "Незвично багато конфліктів бронювання (можлива атака або помилка клієнта)"

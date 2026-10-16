@@ -10,6 +10,8 @@ import (
 	"time"
 )
 
+const labelRoute = "route"
+
 type statusWriter struct {
 	http.ResponseWriter
 	status int
@@ -44,15 +46,15 @@ func Instrument(reg *Registry, log *slog.Logger, route func(*http.Request) strin
 
 		rt, code := route(r), strconv.Itoa(sw.status)
 		elapsed := time.Since(start)
-		reg.Add("roomflow_http_requests_total", "HTTP requests by route and status code.", Labels("route", rt, "code", code), 1)
-		reg.Observe("roomflow_http_request_duration_seconds", "HTTP request latency.", Labels("route", rt), elapsed.Seconds())
+		reg.Add("roomflow_http_requests_total", "HTTP requests by route and status code.", Labels(labelRoute, rt, "code", code), 1)
+		reg.Observe("roomflow_http_request_duration_seconds", "HTTP request latency.", Labels(labelRoute, rt), elapsed.Seconds())
 		level := slog.LevelInfo
 		if sw.status >= 500 {
 			level = slog.LevelError
 		}
 		log.LogAttrs(r.Context(), level, "http_request",
 			slog.String("request_id", id), slog.String("tenant", r.Header.Get("X-Tenant-ID")),
-			slog.String("route", rt), slog.Int("status", sw.status),
+			slog.String(labelRoute, rt), slog.Int("status", sw.status),
 			slog.Float64("duration_ms", float64(elapsed.Microseconds())/1000))
 	})
 }

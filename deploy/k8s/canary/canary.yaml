@@ -1,0 +1,63 @@
+# ЛР10, завдання 2: Canary через співвідношення реплік. Service обирає поди обох версій
+# (app: roomflow-canary), тому частка трафіку на нову версію ≈ canary / (stable + canary).
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rf-canary
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: roomflow
+  namespace: rf-canary
+spec:
+  selector: { app: roomflow-canary }
+  ports: [{ name: http, port: 80, targetPort: 8080 }]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: roomflow-stable
+  namespace: rf-canary
+spec:
+  replicas: 9
+  selector:
+    matchLabels: { app: roomflow-canary, track: stable }
+  template:
+    metadata:
+      labels: { app: roomflow-canary, track: stable }
+    spec:
+      automountServiceAccountToken: false
+      securityContext: { runAsNonRoot: true, runAsUser: 65532, seccompProfile: { type: RuntimeDefault } }
+      containers:
+        - name: roomflow
+          image: roomflow:v1
+          imagePullPolicy: IfNotPresent
+          env: [{ name: COLOR, value: stable-v1 }]
+          readinessProbe: { httpGet: { path: /healthz, port: 8080 }, periodSeconds: 2 }
+          resources: { requests: { cpu: 20m, memory: 24Mi }, limits: { cpu: 200m, memory: 96Mi } }
+          securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: roomflow-canary
+  namespace: rf-canary
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: roomflow-canary, track: canary }
+  template:
+    metadata:
+      labels: { app: roomflow-canary, track: canary }
+    spec:
+      automountServiceAccountToken: false
+      securityContext: { runAsNonRoot: true, runAsUser: 65532, seccompProfile: { type: RuntimeDefault } }
+      containers:
+        - name: roomflow
+          image: roomflow:v2
+          imagePullPolicy: IfNotPresent
+          env: [{ name: COLOR, value: canary-v2 }]
+          readinessProbe: { httpGet: { path: /healthz, port: 8080 }, periodSeconds: 2 }
+          resources: { requests: { cpu: 20m, memory: 24Mi }, limits: { cpu: 200m, memory: 96Mi } }
+          securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }

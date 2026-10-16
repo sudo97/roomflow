@@ -20,8 +20,12 @@ var forbidden = map[string][]string{
 	"internal/store":   {"net/http", module + "internal/httpapi"},
 	"internal/httpapi": {"database/sql", module + "internal/store"},
 	// Наскрізні модулі (спостережуваність, feature flags) не залежать від бізнес-логіки.
-	"internal/obs":   {module + "internal/booking", module + "internal/store", module + "internal/httpapi"},
-	"internal/flags": {module + "internal/booking", module + "internal/store", module + "internal/httpapi", "net/http"},
+	"internal/obs":       {module + "internal/booking", module + "internal/store", module + "internal/httpapi"},
+	"internal/flags":     {module + "internal/booking", module + "internal/store", module + "internal/httpapi", "net/http"},
+	"internal/cache":     {module + "internal/booking", module + "internal/store", module + "internal/httpapi"},
+	"internal/trace":     {module + "internal/booking", module + "internal/store", module + "internal/httpapi"},
+	"internal/ratelimit": {module + "internal/booking", module + "internal/store", module + "internal/httpapi"},
+	"internal/chaos":     {module + "internal/booking", module + "internal/store", module + "internal/httpapi"},
 }
 
 func imports(t *testing.T, dir string) map[string]string {

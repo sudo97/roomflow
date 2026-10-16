@@ -46,6 +46,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
+		servePprof(logger)
 		srv := &http.Server{Addr: addr, Handler: h, ReadHeaderTimeout: 5 * time.Second}
 		logger.Info("starting", "addr", addr, "build", obs.Labels(buildInfo()...))
 		log.Fatal(srv.ListenAndServe())
@@ -64,14 +65,14 @@ func buildHandler(logger *slog.Logger) (http.Handler, error) {
 	if err != nil {
 		return nil, err
 	}
-	api := httpapi.New(booking.NewService(store.NewMemory())).WithFlags(fl).WithMetrics(reg)
+	api := httpapi.New(booking.NewService(store.NewMemory())).WithFlags(fl).WithMetrics(reg).WithCache(newCache(reg))
 	routes := api.Routes().(*http.ServeMux)
 	mux := http.NewServeMux()
 	mux.Handle("/", routes)
 	mux.Handle("GET /metrics", reg.Handler())
 	mux.HandleFunc("GET /version", serveVersion)
 	mux.Handle("POST /admin/flags/reload", requireToken(adminToken, reloadFlags(fl)))
-	return obs.Instrument(reg, logger, routeName(routes, mux), mux), nil
+	return withMiddleware(reg, logger, routeName(routes, mux), mux), nil
 }
 
 // loadFlags reads feature flags from a JSON file and watches it for changes (e.g. a mounted ConfigMap).

@@ -1,0 +1,9 @@
+# ЛР12, завдання 2: blue-green для frontend через Argo Rollouts; керується ArgoCD (GitOps).
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: rf-ui
+resources: [namespace.yaml, backend.yaml, rollout.yaml, services.yaml, analysis.yaml, virtualservice.yaml]
+images:
+  - name: roomflow-fe
+    newName: roomflow
+    newTag: fe-v1

@@ -1,0 +1,42 @@
+# Абстракція платформи: команда замовляє "PostgreSQL розміру small", не знаючи деталей провайдера.
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xpostgresqlinstances.platform.roomflow.io
+spec:
+  group: platform.roomflow.io
+  names:
+    kind: XPostgreSQLInstance
+    plural: xpostgresqlinstances
+  claimNames:
+    kind: PostgreSQLInstance
+    plural: postgresqlinstances
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                parameters:
+                  type: object
+                  properties:
+                    size:
+                      type: string
+                      enum: [small, medium]
+                      description: Клас ресурсів (small — 256Mi, medium — 512Mi пам'яті)
+                    storageGB:
+                      type: integer
+                      minimum: 1
+                      maximum: 20
+                      default: 1
+                    version:
+                      type: string
+                      enum: ["15", "16"]
+                      default: "16"
+                  required: [size]
+              required: [parameters]

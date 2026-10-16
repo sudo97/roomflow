@@ -1,0 +1,15 @@
+# Клієнт усередині кластера для перевірки маршрутизації (запити йдуть через kube-proxy, як у реальних клієнтів).
+apiVersion: v1
+kind: Pod
+metadata:
+  name: probe
+  labels: { app: probe }
+spec:
+  automountServiceAccountToken: false
+  securityContext: { runAsNonRoot: true, runAsUser: 100, seccompProfile: { type: RuntimeDefault } }
+  containers:
+    - name: curl
+      image: curlimages/curl:8.10.1
+      command: ["sleep", "infinity"]
+      resources: { requests: { cpu: 10m, memory: 16Mi }, limits: { cpu: 500m, memory: 64Mi } }
+      securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }

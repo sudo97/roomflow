@@ -1,0 +1,65 @@
+{{- range $color := list "blue" "green" }}
+{{- $cfg := index $.Values $color }}
+{{- if $cfg.enabled }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "roomflow.name" $ }}-{{ $color }}
+  labels:
+    {{- include "roomflow.labels" $ | nindent 4 }}
+    color: {{ $color }}
+spec:
+  {{- if not $.Values.autoscaling.enabled }}
+  replicas: {{ $cfg.replicas }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "roomflow.selector" $ | nindent 6 }}
+      color: {{ $color }}
+  template:
+    metadata:
+      labels:
+        {{- include "roomflow.selector" $ | nindent 8 }}
+        color: {{ $color }}
+        version: {{ $cfg.tag | quote }}
+      annotations:
+        {{- toYaml $.Values.podAnnotations | nindent 8 }}
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: roomflow
+          image: "{{ $.Values.image.repository }}:{{ $cfg.tag }}"
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          env:
+            - { name: COLOR, value: {{ $color | quote }} }
+            - { name: FLAGS_FILE, value: /etc/roomflow/flags/flags.json }
+            {{- range $k, $v := $.Values.env }}
+            - { name: {{ $k }}, value: {{ $v | quote }} }
+            {{- end }}
+          ports:
+            - { name: http, containerPort: 8080 }
+          readinessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 2
+          livenessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 10
+          resources:
+            {{- toYaml $.Values.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: [ALL] }
+          volumeMounts:
+            - { name: flags, mountPath: /etc/roomflow/flags, readOnly: true }
+      volumes:
+        - name: flags
+          configMap:
+            name: {{ include "roomflow.name" $ }}-flags
+{{- end }}
+{{- end }}

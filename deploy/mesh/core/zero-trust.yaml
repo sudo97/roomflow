@@ -1,0 +1,52 @@
+# ЛР12, інд. завдання 3: zero trust — лише mTLS, явні дозволи між сервісами на рівні методів і шляхів.
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata: { name: default, namespace: rf-mesh }
+spec:
+  mtls: { mode: STRICT }
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata: { name: deny-by-default, namespace: rf-mesh }
+spec: {}
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata: { name: frontend-ingress, namespace: rf-mesh }
+spec:
+  selector: { matchLabels: { app: frontend } }
+  action: ALLOW
+  rules:
+    - to: [{ operation: { methods: [GET, POST], paths: ["/", "/version", "/healthz", "/metrics", "/api/*"] } }]
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata: { name: backend-from-frontend, namespace: rf-mesh }
+spec:
+  selector: { matchLabels: { app: backend } }
+  action: ALLOW
+  rules:
+    - from: [{ source: { principals: ["cluster.local/ns/rf-mesh/sa/frontend"] } }]
+      to: [{ operation: { methods: [GET, POST], paths: ["/api/*", "/version"] } }]
+    - to: [{ operation: { methods: [GET], paths: ["/healthz", "/metrics"] } }]
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata: { name: redis-from-backend, namespace: rf-mesh }
+spec:
+  selector: { matchLabels: { app: redis } }
+  action: ALLOW
+  rules:
+    - from: [{ source: { principals: ["cluster.local/ns/rf-mesh/sa/backend"] } }]
+      to: [{ operation: { ports: ["6379"] } }]
+---
+# Мережевий рівень (захист у глибину): лише очікувані потоки між подами.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: { name: redis-only-backend, namespace: rf-mesh }
+spec:
+  podSelector: { matchLabels: { app: redis } }
+  policyTypes: [Ingress]
+  ingress:
+    - from: [{ podSelector: { matchLabels: { app: backend } } }]
+      ports: [{ port: 6379 }]

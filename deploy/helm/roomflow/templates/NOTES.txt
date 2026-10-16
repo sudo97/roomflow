@@ -1,0 +1,3 @@
+RoomFlow {{ .Release.Name }}: активне середовище {{ .Values.activeColor }}
+(blue={{ .Values.blue.tag }}, green={{ .Values.green.tag }}).
+Перемикання: helm upgrade {{ .Release.Name }} <chart> --reuse-values --set activeColor=<blue|green> --atomic

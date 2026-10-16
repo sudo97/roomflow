@@ -1,0 +1,44 @@
+# Recording rules: попередньо обчислені вирази для дашбордів і тривог (індивідуальне завдання 5).
+groups:
+  - name: roomflow-red
+    interval: 5s
+    rules:
+      - record: route:roomflow_http_requests:rate1m
+        expr: sum by (route) (rate(roomflow_http_requests_total[1m]))
+      - record: roomflow:http_requests:rate1m
+        expr: sum(rate(roomflow_http_requests_total[1m]))
+      - record: roomflow:http_errors:ratio_rate1m
+        expr: sum(rate(roomflow_http_requests_total{code=~"5.."}[1m])) / sum(rate(roomflow_http_requests_total[1m]))
+      - record: roomflow:http_latency_seconds:p95_1m
+        expr: histogram_quantile(0.95, sum by (le) (rate(roomflow_http_request_duration_seconds_bucket[1m])))
+      - record: route:roomflow_http_latency_seconds:p95_1m
+        expr: histogram_quantile(0.95, sum by (le, route) (rate(roomflow_http_request_duration_seconds_bucket[1m])))
+      - record: roomflow:bookings:rate5m
+        expr: sum(rate(roomflow_bookings_created_total[5m]))
+
+  - name: roomflow-slo
+    interval: 15s
+    rules:
+      # SLO: 99.5% успішних (не 5xx) запитів. Error budget = 0.5%.
+      - record: slo:availability:ratio_rate5m
+        expr: 1 - (sum(rate(roomflow_http_requests_total{code=~"5.."}[5m])) / sum(rate(roomflow_http_requests_total[5m])))
+      - record: slo:error_budget_burn_rate:5m
+        expr: (1 - slo:availability:ratio_rate5m) / 0.005
+      - record: slo:error_budget_burn_rate:1m
+        expr: roomflow:http_errors:ratio_rate1m / 0.005
+
+  - name: dora
+    interval: 15s
+    rules:
+      # Пропускна здатність (Throughput за Farley): частота розгортань і час виконання змін.
+      - record: dora:deployments:increase6h
+        expr: sum(increase(dora_deployments_total[6h]))
+      - record: dora:lead_time_seconds:p50_6h
+        expr: histogram_quantile(0.5, sum by (le) (increase(dora_lead_time_seconds_bucket[6h])))
+      - record: dora:lead_time_seconds:avg_6h
+        expr: sum(increase(dora_lead_time_seconds_sum[6h])) / sum(increase(dora_lead_time_seconds_count[6h]))
+      # Стабільність (Stability за Farley): частка невдалих змін і час відновлення.
+      - record: dora:change_failure_ratio:6h
+        expr: sum(increase(dora_failed_deployments_total[6h])) / clamp_min(sum(increase(dora_deployments_total[6h])), 1)
+      - record: dora:restore_seconds:avg_6h
+        expr: sum(increase(dora_restore_seconds_sum[6h])) / sum(increase(dora_restore_seconds_count[6h]))

@@ -1,0 +1,28 @@
+# Згенеровано Terraform (модуль monitoring). Пороги задаються змінними модуля.
+groups:
+  - name: roomflow-infrastructure
+    rules:
+      - alert: InstanceDown
+        expr: up{job="roomflow"} == 0
+        for: 10s
+        labels: { severity: critical }
+        annotations:
+          summary: "Репліка {{ $labels.instance }} ({{ $labels.color }}) недоступна"
+      - alert: ReplicaGroupDegraded
+        expr: count by (color) (up{job="roomflow"} == 1) < 2
+        for: 15s
+        labels: { severity: warning }
+        annotations:
+          summary: "У групі {{ $labels.color }} менше двох здорових реплік"
+      - alert: HighErrorRate
+        expr: sum(rate(roomflow_http_requests_total{code=~"5.."}[1m])) / sum(rate(roomflow_http_requests_total[1m])) > ${error_ratio}
+        for: 30s
+        labels: { severity: critical }
+        annotations:
+          summary: "Частка помилок 5xx перевищує ${error_ratio}"
+      - alert: HighLatencyP95
+        expr: histogram_quantile(0.95, sum by (le) (rate(roomflow_http_request_duration_seconds_bucket[1m]))) > ${latency_p95_seconds}
+        for: 30s
+        labels: { severity: warning }
+        annotations:
+          summary: "p95 затримки перевищує ${latency_p95_seconds} с"

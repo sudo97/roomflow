@@ -7,8 +7,10 @@ import (
 	"net/http"
 
 	"github.com/sudo97/roomflow/internal/booking"
+	"github.com/sudo97/roomflow/internal/cache"
 	"github.com/sudo97/roomflow/internal/flags"
 	"github.com/sudo97/roomflow/internal/obs"
+	"github.com/sudo97/roomflow/internal/trace"
 )
 
 const tenantHeader = "X-Tenant-ID"
@@ -18,10 +20,11 @@ type API struct {
 	svc     *booking.Service
 	flags   *flags.Store
 	metrics *obs.Registry
+	cache   cache.Cache
 }
 
 // New creates the HTTP API.
-func New(svc *booking.Service) *API { return &API{svc: svc} }
+func New(svc *booking.Service) *API { return &API{svc: svc, cache: cache.Nop{}} }
 
 // tenantHandler is a handler that receives the tenant resolved from the request.
 type tenantHandler func(w http.ResponseWriter, r *http.Request, tenant booking.TenantID)
@@ -34,6 +37,7 @@ func (a *API) Routes() http.Handler {
 	})
 	mux.Handle("GET /api/rooms", withTenant(a.listRooms))
 	mux.Handle("POST /api/rooms", withTenant(a.addRoom))
+	mux.Handle("GET /api/rooms/{id}/availability", withTenant(a.availability))
 	mux.Handle("POST /api/bookings", withTenant(a.createBooking))
 	mux.Handle("POST /api/bookings/{id}/cancel", withTenant(a.cancelBooking))
 	mux.Handle("GET /api/flags", withTenant(a.listFlags))
@@ -96,10 +100,13 @@ func (a *API) createBooking(w http.ResponseWriter, r *http.Request, tenant booki
 	if !decode(w, r, &req) {
 		return
 	}
+	_, span := trace.Start(r.Context(), "booking.create")
 	b, err := a.svc.CreateBooking(booking.Request{
 		Tenant: tenant, RoomID: req.RoomID, GuestName: req.Name, GuestEmail: req.Email,
 		Guests: req.Guests, CheckIn: req.CheckIn, CheckOut: req.CheckOut, Promo: req.Promo,
 	})
+	span.Error = err != nil && !errors.Is(err, booking.ErrUnavailable) && !errors.Is(err, booking.ErrInvalidInput)
+	span.Finish()
 	if err != nil {
 		if errors.Is(err, booking.ErrUnavailable) {
 			a.count("roomflow_booking_conflicts_total", "Booking attempts rejected because the room is taken.")
@@ -108,6 +115,7 @@ func (a *API) createBooking(w http.ResponseWriter, r *http.Request, tenant booki
 		return
 	}
 	a.count("roomflow_bookings_created_total", "Confirmed bookings.")
+	a.cache.Bump(r.Context(), string(tenant))
 	if !a.flagOn(FlagPriceBreakdown, tenant) {
 		b.Nightly = nil
 	}
@@ -119,6 +127,7 @@ func (a *API) cancelBooking(w http.ResponseWriter, r *http.Request, tenant booki
 		writeError(w, statusFor(err), err)
 		return
 	}
+	a.cache.Bump(r.Context(), string(tenant))
 	w.WriteHeader(http.StatusNoContent)
 }
 
@@ -152,4 +161,10 @@ func writeJSON(w http.ResponseWriter, status int, v any) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
 	_ = json.NewEncoder(w).Encode(v) // the client has gone away if this fails; nothing to recover
+}
+
+// writeRawJSON writes an already encoded JSON body with status 200.
+func writeRawJSON(w http.ResponseWriter, body []byte) {
+	w.Header().Set("Content-Type", "application/json")
+	_, _ = w.Write(body)
 }

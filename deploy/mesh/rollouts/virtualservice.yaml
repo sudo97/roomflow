@@ -1,0 +1,16 @@
+# Клієнти звертаються до host "frontend"; маршрут завжди веде на активну версію (frontend-active).
+apiVersion: v1
+kind: Service
+metadata: { name: frontend }
+spec:
+  selector: { app: frontend }
+  ports: [{ name: http, port: 8081 }]
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata: { name: frontend }
+spec:
+  hosts: [frontend]
+  http:
+    - route: [{ destination: { host: frontend-active } }]
+      timeout: 5s

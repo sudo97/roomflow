@@ -1,0 +1,30 @@
+# Універсальний ручний запуск будь-якого сценарію з ci/ (для повторних прогонів без зміни workflow).
+name: run-script
+on:
+  workflow_dispatch:
+    inputs:
+      script: { description: "Шлях до сценарію, напр. ci/lab10/flagger.sh", required: true }
+      args: { description: "Аргументи", default: "" }
+      label: { description: "Мітка для гілки evidence", default: "adhoc" }
+permissions:
+  contents: write
+  packages: write
+  security-events: write
+  id-token: write
+  actions: read
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-go@v5
+        with: { go-version: "1.24" }
+      - uses: actions/setup-node@v4
+        with: { node-version: "22" }
+      - run: bash "${{ inputs.script }}" ${{ inputs.args }}
+      - if: always()
+        run: bash ci/publish-evidence.sh "${{ inputs.label }}"
