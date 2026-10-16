@@ -51,7 +51,19 @@ jmeter() { # label endpoint
   docker run --rm --network $NET -v "$PWD/test/load/jmeter:/plan:ro" -v "/tmp/jm-$2:/out" justb4/jmeter:5.5 \
     -n -t /plan/roomflow.jmx -Jhost=rf-load -Jport=8080 -Jendpoint="$2" -Jramp=60 -Jduration=90 \
     -l /out/results.jtl -e -o /out/report > "$E/jmeter/$1-$2.log" 2>&1 || true
-  cp "/tmp/jm-$2/results.jtl" "$E/jmeter/$1-$2.jtl" 2>/dev/null || true
+  # зведення сирих результатів JMeter (CSV .jtl: timeStamp,elapsed,label,responseCode,...,success,...)
+  python3 - "/tmp/jm-$2/results.jtl" > "$E/jmeter/$1-$2-summary.txt" <<'PY' || true
+import csv, sys
+rows = list(csv.DictReader(open(sys.argv[1])))
+el = sorted(int(r["elapsed"]) for r in rows)
+ok = sum(r["success"] == "true" for r in rows)
+dur = (int(rows[-1]["timeStamp"]) - int(rows[0]["timeStamp"])) / 1000 or 1
+pct = lambda q: el[min(len(el) - 1, int(q * len(el)))]
+print(f"samples={len(rows)} errors={len(rows) - ok} ({100 * (len(rows) - ok) / len(rows):.2f}%) throughput={len(rows) / dur:.1f}/s "
+      f"avg={sum(el) / len(el):.1f}ms p50={pct(.5)}ms p90={pct(.9)}ms p95={pct(.95)}ms p99={pct(.99)}ms max={el[-1]}ms")
+PY
+  cat "$E/jmeter/$1-$2-summary.txt"
+  gzip -c "/tmp/jm-$2/results.jtl" > "$E/jmeter/$1-$2.jtl.gz" 2>/dev/null || true
   (cd "/tmp/jm-$2" && tar czf "$E/jmeter/$1-$2-report.tgz" report 2>/dev/null) || true
 }
 profile() { # label (CPU-профіль під навантаженням на availability)

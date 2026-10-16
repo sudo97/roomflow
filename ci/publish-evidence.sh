@@ -12,6 +12,14 @@ for attempt in 1 2 3 4 5; do
     git init -q "$WORK/repo"; git -C "$WORK/repo" checkout -q --orphan evidence; git -C "$WORK/repo" remote add origin "$URL"
   fi
   mkdir -p "$WORK/repo/evidence/$LABEL"; cp -r "$SRC"/* "$WORK/repo/evidence/$LABEL/"
+  # GitHub відхиляє файли > 100 МБ (сирі результати JMeter бувають > 1 ГБ): великі файли стискаються,
+  # а якщо й після стиснення > 45 МБ — замінюються приміткою (зведення зберігаються окремими файлами)
+  find "$WORK/repo/evidence/$LABEL" -type f -size +45M | while read -r f; do
+    case "$f" in *.gz) z=$f ;; *) gzip -9 "$f"; z=$f.gz ;; esac
+    if [ "$(stat -c %s "$z")" -gt 47185920 ]; then
+      rm -f "$z"; echo "файл $(basename "$z") пропущено: завеликий для git навіть стиснутим" > "${z%.gz}.skipped.txt"
+    fi
+  done
   git -C "$WORK/repo" add evidence
   git -C "$WORK/repo" commit -qm "evidence: $LABEL" || { echo "nothing to publish"; exit 0; }
   if git -C "$WORK/repo" -c http.extraheader="$AUTH" push -q origin evidence; then echo "published evidence/$LABEL"; exit 0; fi
