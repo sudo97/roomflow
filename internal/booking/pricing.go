@@ -42,14 +42,24 @@ var promotions = map[string]promotion{
 	"FRIENDS":   {pct: 95, eligible: func(s stay, _ int) bool { return s.Guests >= 3 }},
 }
 
+// nightlyPrices returns the price of every night of the stay before promotions.
+func nightlyPrices(room Room, s stay) []int64 {
+	nights := nightsBetween(s.in, s.out)
+	prices := make([]int64, nights)
+	for i := range prices {
+		prices[i] = nightlyRate(room.BasePrice, s.in.AddDate(0, 0, i))
+	}
+	return prices
+}
+
 // quote calculates the total price of a stay for a room.
 func quote(room Room, s stay) int64 {
-	nights := nightsBetween(s.in, s.out)
+	prices := nightlyPrices(room, s)
 	var total int64
-	for i := 0; i < nights; i++ {
-		total += nightlyRate(room.BasePrice, s.in.AddDate(0, 0, i))
+	for _, p := range prices {
+		total += p
 	}
-	if p, ok := promotions[s.Promo]; ok && p.eligible(s, nights) {
+	if p, ok := promotions[s.Promo]; ok && p.eligible(s, len(prices)) {
 		total = percent(total, p.pct)
 	}
 	return total

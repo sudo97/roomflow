@@ -7,6 +7,8 @@ import (
 	"testing"
 
 	"github.com/sudo97/roomflow/internal/booking"
+	"github.com/sudo97/roomflow/internal/flags"
+	"github.com/sudo97/roomflow/internal/obs"
 	"github.com/sudo97/roomflow/internal/store"
 )
 
@@ -51,5 +53,30 @@ func TestBookingFlow(t *testing.T) {
 func TestStatusForUnknownError(t *testing.T) {
 	if statusFor(http.ErrAbortHandler) != http.StatusInternalServerError {
 		t.Fatal("unknown errors must map to 500")
+	}
+}
+
+func TestPriceBreakdownFlagAndMetrics(t *testing.T) {
+	reg := obs.NewRegistry()
+	f := flags.New(map[string]flags.Rule{FlagPriceBreakdown: {Tenants: []string{"beta"}}})
+	h := New(booking.NewService(store.NewMemory())).WithFlags(f).WithMetrics(reg).Routes()
+	body := `{"room_id":"r1","guest_name":"Ivan","guest_email":"i@x.io","guests":1,"check_in":"2026-03-06","check_out":"2026-03-08"}`
+	for _, tenant := range []string{"beta", "other"} {
+		do(t, h, "POST", "/api/rooms", tenant, `{"id":"r1","name":"Double","capacity":2,"price":1000}`)
+		w := do(t, h, "POST", "/api/bookings", tenant, body)
+		has := strings.Contains(w.Body.String(), `"Nightly":[1000,1200]`)
+		if has != (tenant == "beta") {
+			t.Fatalf("tenant %s: breakdown presence %v, body %s", tenant, has, w.Body)
+		}
+	}
+	do(t, h, "POST", "/api/bookings", "beta", body)
+	if reg.Value("roomflow_bookings_created_total", "") != 2 || reg.Value("roomflow_booking_conflicts_total", "") != 1 {
+		t.Fatal("business metrics not counted")
+	}
+	if w := do(t, h, "GET", "/api/flags", "beta", ""); !strings.Contains(w.Body.String(), `"price_breakdown":true`) {
+		t.Fatalf("flags endpoint: %s", w.Body)
+	}
+	if w := do(t, New(booking.NewService(store.NewMemory())).Routes(), "GET", "/api/flags", "beta", ""); w.Body.String() != "{}\n" {
+		t.Fatalf("flags without store: %q", w.Body)
 	}
 }

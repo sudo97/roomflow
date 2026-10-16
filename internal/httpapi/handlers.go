@@ -7,13 +7,17 @@ import (
 	"net/http"
 
 	"github.com/sudo97/roomflow/internal/booking"
+	"github.com/sudo97/roomflow/internal/flags"
+	"github.com/sudo97/roomflow/internal/obs"
 )
 
 const tenantHeader = "X-Tenant-ID"
 
 // API wires HTTP handlers to the booking service.
 type API struct {
-	svc *booking.Service
+	svc     *booking.Service
+	flags   *flags.Store
+	metrics *obs.Registry
 }
 
 // New creates the HTTP API.
@@ -32,6 +36,7 @@ func (a *API) Routes() http.Handler {
 	mux.Handle("POST /api/rooms", withTenant(a.addRoom))
 	mux.Handle("POST /api/bookings", withTenant(a.createBooking))
 	mux.Handle("POST /api/bookings/{id}/cancel", withTenant(a.cancelBooking))
+	mux.Handle("GET /api/flags", withTenant(a.listFlags))
 	return mux
 }
 
@@ -96,8 +101,15 @@ func (a *API) createBooking(w http.ResponseWriter, r *http.Request, tenant booki
 		Guests: req.Guests, CheckIn: req.CheckIn, CheckOut: req.CheckOut, Promo: req.Promo,
 	})
 	if err != nil {
+		if errors.Is(err, booking.ErrUnavailable) {
+			a.count("roomflow_booking_conflicts_total", "Booking attempts rejected because the room is taken.")
+		}
 		writeError(w, statusFor(err), err)
 		return
+	}
+	a.count("roomflow_bookings_created_total", "Confirmed bookings.")
+	if !a.flagOn(FlagPriceBreakdown, tenant) {
+		b.Nightly = nil
 	}
 	writeJSON(w, http.StatusCreated, b)
 }

@@ -37,6 +37,7 @@ type Booking struct {
 	CheckOut   time.Time
 	Total      int64
 	Status     string
+	Nightly    []int64 `json:"Nightly,omitempty"` // price of each night before promotions
 }
 
 // Active reports whether the booking still occupies the room.

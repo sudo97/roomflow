@@ -53,6 +53,7 @@ func (s *Service) CreateBooking(req Request) (Booking, error) {
 		CheckOut:   st.out,
 		Total:      quote(room, st),
 		Status:     StatusConfirmed,
+		Nightly:    nightlyPrices(room, st),
 	}
 	if err := s.repo.SaveBooking(b); err != nil {
 		return Booking{}, err
