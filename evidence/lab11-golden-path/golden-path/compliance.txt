@@ -9,9 +9,8 @@
 
 [32m33 tests, 33 passed, 0 warnings, 0 failures, 0 exceptions[0m
 == roomflow (репозиторій)
-[31mFAIL[0m - Dockerfile - dockerfile - FROM base: версію базового образу треба зафіксувати
 
-[31m11 tests, 10 passed, 0 warnings, 1 failure, 0 exceptions[0m
+[32m11 tests, 11 passed, 0 warnings, 0 failures, 0 exceptions[0m
 
 [32m121 tests, 121 passed, 0 warnings, 0 failures, 0 exceptions[0m
 == ci/lab8/Dockerfile.naive (очікувано не відповідає)
