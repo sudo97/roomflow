@@ -479,16 +479,16 @@ Vulnerability #5: GO-2026-6610
       #4: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #5: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post
       #6: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post
-      #7: cmd/frontend/main.go:52:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP, which calls http.Transport.RoundTrip
-      #8: cmd/frontend/main.go:52:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP, which calls http.Transport.RoundTrip
+      #7: cmd/frontend/main.go:59:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP, which calls http.Transport.RoundTrip
+      #8: cmd/frontend/main.go:59:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP, which calls http.Transport.RoundTrip
 
 Vulnerability #6: GO-2026-6608
     Memory limit bypass when parsing MIME headers in net/textproto,
     mime/multipart
   More info: https://pkg.go.dev/vuln/GO-2026-6608
   Standard library
-    Found in: mime/multipart@go1.24
-    Fixed in: mime/multipart@go1.26.9
+    Found in: net/textproto@go1.24
+    Fixed in: net/textproto@go1.26.9
     Example traces found:
       #1: tools/platform-exporter/main.go:103:30: platform.main calls http.Server.ListenAndServe, which eventually calls multipart.Reader.ReadForm
       #2: tools/platform-exporter/main.go:103:30: platform.main calls http.Server.ListenAndServe, which eventually calls textproto.Reader.ReadMIMEHeader
@@ -516,8 +516,8 @@ Vulnerability #8: GO-2026-6605
       #1: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
       #2: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #3: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post
-      #4: cmd/frontend/main.go:52:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP, which calls http.Transport.RoundTrip
-      #5: cmd/frontend/main.go:52:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP
+      #4: cmd/frontend/main.go:59:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP, which calls http.Transport.RoundTrip
+      #5: cmd/frontend/main.go:59:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP
 
 Vulnerability #9: GO-2026-6603
     HTTP/2 server memory exhaustion due to Trailer headers in net/http
@@ -664,7 +664,7 @@ Vulnerability #10: GO-2026-6600
     Found in: html/template@go1.24
     Fixed in: html/template@go1.26.9
     Example traces found:
-      #1: cmd/frontend/main.go:41:92: frontend.newHandler calls template.Template.Execute
+      #1: cmd/frontend/main.go:48:92: frontend.newHandler calls template.Template.Execute
 
 Vulnerability #11: GO-2026-6599
     Reset context tracking on consecutive template expressions in html/template
@@ -673,7 +673,7 @@ Vulnerability #11: GO-2026-6599
     Found in: html/template@go1.24
     Fixed in: html/template@go1.26.9
     Example traces found:
-      #1: cmd/frontend/main.go:41:92: frontend.newHandler calls template.Template.Execute
+      #1: cmd/frontend/main.go:48:92: frontend.newHandler calls template.Template.Execute
 
 Vulnerability #12: GO-2026-6218
     Avoid quadratic complexity in resolvePath in net/url
@@ -691,7 +691,7 @@ Vulnerability #13: GO-2026-6091
     Found in: html/template@go1.24
     Fixed in: html/template@go1.25.13
     Example traces found:
-      #1: cmd/frontend/main.go:41:92: frontend.newHandler calls template.Template.Execute
+      #1: cmd/frontend/main.go:48:92: frontend.newHandler calls template.Template.Execute
 
 Vulnerability #14: GO-2026-6090
     Limit handshake messages we are willing to accept post-handshake in
@@ -768,7 +768,7 @@ Vulnerability #20: GO-2026-5026
       #1: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
       #2: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #3: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post
-      #4: cmd/frontend/main.go:52:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP, which calls http.Transport.RoundTrip
+      #4: cmd/frontend/main.go:59:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP, which calls http.Transport.RoundTrip
 
 Vulnerability #21: GO-2026-4986
     Quadratic string concatentation in consumeComment in net/mail
@@ -786,7 +786,7 @@ Vulnerability #22: GO-2026-4982
     Found in: html/template@go1.24
     Fixed in: html/template@go1.25.10
     Example traces found:
-      #1: cmd/frontend/main.go:41:92: frontend.newHandler calls template.Template.Execute
+      #1: cmd/frontend/main.go:48:92: frontend.newHandler calls template.Template.Execute
 
 Vulnerability #23: GO-2026-4980
     Escaper bypass leads to XSS in html/template
@@ -795,7 +795,7 @@ Vulnerability #23: GO-2026-4980
     Found in: html/template@go1.24
     Fixed in: html/template@go1.25.10
     Example traces found:
-      #1: cmd/frontend/main.go:41:92: frontend.newHandler calls template.Template.Execute
+      #1: cmd/frontend/main.go:48:92: frontend.newHandler calls template.Template.Execute
 
 Vulnerability #24: GO-2026-4977
     Quadratic string concatenation in consumePhrase in net/mail
@@ -814,7 +814,7 @@ Vulnerability #25: GO-2026-4976
     Found in: net/http/httputil@go1.24
     Fixed in: net/http/httputil@go1.25.10
     Example traces found:
-      #1: cmd/frontend/main.go:52:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP
+      #1: cmd/frontend/main.go:59:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP
 
 Vulnerability #26: GO-2026-4971
     Panic in Dial and LookupPort when handling NUL byte on Windows in net
@@ -856,7 +856,7 @@ Vulnerability #29: GO-2026-4918
       #1: test/load/seed/main.go:23:24: seed.post calls http.Client.Do
       #2: cmd/roomflow/main.go:146:25: roomflow.probe calls http.Client.Get
       #3: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post
-      #4: cmd/frontend/main.go:52:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP, which calls http.Transport.RoundTrip
+      #4: cmd/frontend/main.go:59:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP, which calls http.Transport.RoundTrip
 
 Vulnerability #30: GO-2026-4870
     Unauthenticated TLS 1.3 KeyUpdate record can cause persistent connection
@@ -879,7 +879,7 @@ Vulnerability #31: GO-2026-4865
     Fixed in: html/template@go1.25.9
     Example traces found:
       #1: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which eventually calls template.Error.Error
-      #2: cmd/frontend/main.go:41:92: frontend.newHandler calls template.Template.Execute
+      #2: cmd/frontend/main.go:48:92: frontend.newHandler calls template.Template.Execute
       #3: cmd/frontend/main.go:20:52: frontend.init calls template.Template.Parse
       #4: tools/sqlcheck/main.go:41:15: sqlcheck.main calls fmt.Fprintln, which eventually calls template.context.String
 
@@ -890,7 +890,7 @@ Vulnerability #32: GO-2026-4603
     Found in: html/template@go1.24
     Fixed in: html/template@go1.25.8
     Example traces found:
-      #1: cmd/frontend/main.go:41:92: frontend.newHandler calls template.Template.Execute
+      #1: cmd/frontend/main.go:48:92: frontend.newHandler calls template.Template.Execute
 
 Vulnerability #33: GO-2026-4602
     FileInfo can escape from a Root in os
@@ -908,7 +908,7 @@ Vulnerability #34: GO-2026-4601
     Found in: net/url@go1.24
     Fixed in: net/url@go1.25.8
     Example traces found:
-      #1: cmd/frontend/main.go:63:27: frontend.main calls url.Parse
+      #1: cmd/frontend/main.go:70:27: frontend.main calls url.Parse
       #2: tools/platform-exporter/main.go:103:30: platform.main calls http.Server.ListenAndServe, which eventually calls url.ParseRequestURI
       #3: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post, which eventually calls url.URL.Parse
 
@@ -919,7 +919,7 @@ Vulnerability #35: GO-2026-4341
     Found in: net/url@go1.24
     Fixed in: net/url@go1.24.12
     Example traces found:
-      #1: cmd/frontend/main.go:52:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP, which eventually calls url.ParseQuery
+      #1: cmd/frontend/main.go:59:18: frontend.newHandler calls httputil.ReverseProxy.ServeHTTP, which eventually calls url.ParseQuery
       #2: internal/httpapi/availability.go:24:50: httpapi.API.availability calls url.URL.Query
 
 Vulnerability #36: GO-2026-4340
@@ -1004,7 +1004,7 @@ Vulnerability #43: GO-2025-4010
     Found in: net/url@go1.24
     Fixed in: net/url@go1.24.8
     Example traces found:
-      #1: cmd/frontend/main.go:63:27: frontend.main calls url.Parse
+      #1: cmd/frontend/main.go:70:27: frontend.main calls url.Parse
       #2: tools/platform-exporter/main.go:103:30: platform.main calls http.Server.ListenAndServe, which eventually calls url.ParseRequestURI
       #3: internal/trace/export.go:65:28: trace.Tracer.Flush calls http.Client.Post, which eventually calls url.URL.Parse
 
@@ -1075,8 +1075,8 @@ Vulnerability #50: GO-2025-3750
     syscall
   More info: https://pkg.go.dev/vuln/GO-2025-3750
   Standard library
-    Found in: os@go1.24
-    Fixed in: os@go1.24.4
+    Found in: syscall@go1.24
+    Fixed in: syscall@go1.24.4
     Platforms: windows
     Example traces found:
       #1: tools/platform-exporter/main.go:103:30: platform.main calls http.Server.ListenAndServe, which eventually calls os.CreateTemp
