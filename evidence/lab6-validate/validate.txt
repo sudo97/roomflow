@@ -1,0 +1,11 @@
+fmt: OK
+app: Success! The configuration is valid.
+app: 
+database: Success! The configuration is valid.
+database: 
+lb: Success! The configuration is valid.
+lb: 
+monitoring: Success! The configuration is valid.
+monitoring: 
+network: Success! The configuration is valid.
+network: 
