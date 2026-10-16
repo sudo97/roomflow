@@ -1,0 +1,1836 @@
+{
+  "hotspots": [
+    {
+      "file": "internal/httpapi/handlers.go",
+      "complexity": 183,
+      "revisions": 6
+    },
+    {
+      "file": "cmd/roomflow/main.go",
+      "complexity": 154,
+      "revisions": 6
+    },
+    {
+      "file": "internal/booking/service_test.go",
+      "complexity": 171,
+      "revisions": 5
+    },
+    {
+      "file": "cmd/roomflow/main_test.go",
+      "complexity": 157,
+      "revisions": 5
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "complexity": 233,
+      "revisions": 2
+    },
+    {
+      "file": "ci/workflows/ci.yml",
+      "complexity": 233,
+      "revisions": 2
+    },
+    {
+      "file": "internal/booking/service.go",
+      "complexity": 113,
+      "revisions": 4
+    },
+    {
+      "file": "tools/sqlcheck/main.go",
+      "complexity": 199,
+      "revisions": 2
+    },
+    {
+      "file": "internal/obs/metrics.go",
+      "complexity": 185,
+      "revisions": 2
+    },
+    {
+      "file": "tools/rfctl/commands.go",
+      "complexity": 351,
+      "revisions": 1
+    },
+    {
+      "file": ".github/workflows/sonar.yml",
+      "complexity": 132,
+      "revisions": 2
+    },
+    {
+      "file": ".github/workflows/lab8-devsecops.yml",
+      "complexity": 255,
+      "revisions": 1
+    },
+    {
+      "file": "ci/workflows/lab8-devsecops.yml",
+      "complexity": 255,
+      "revisions": 1
+    },
+    {
+      "file": "internal/booking/properties_test.go",
+      "complexity": 85,
+      "revisions": 3
+    },
+    {
+      "file": "ci/sonar/setup.sh",
+      "complexity": 61,
+      "revisions": 4
+    },
+    {
+      "file": "platform/crossplane/03-composition.yaml",
+      "complexity": 243,
+      "revisions": 1
+    },
+    {
+      "file": "internal/arch/arch_test.go",
+      "complexity": 75,
+      "revisions": 3
+    },
+    {
+      "file": "internal/cache/redis_test.go",
+      "complexity": 202,
+      "revisions": 1
+    },
+    {
+      "file": "tools/dora-exporter/dora.go",
+      "complexity": 197,
+      "revisions": 1
+    },
+    {
+      "file": "internal/store/memory.go",
+      "complexity": 97,
+      "revisions": 2
+    },
+    {
+      "file": "internal/httpapi/handlers_test.go",
+      "complexity": 92,
+      "revisions": 2
+    },
+    {
+      "file": "internal/booking/model.go",
+      "complexity": 57,
+      "revisions": 3
+    },
+    {
+      "file": "internal/cache/redis.go",
+      "complexity": 168,
+      "revisions": 1
+    },
+    {
+      "file": "ci/lab12/mesh.sh",
+      "complexity": 163,
+      "revisions": 1
+    },
+    {
+      "file": "internal/store/sql.go",
+      "complexity": 53,
+      "revisions": 3
+    },
+    {
+      "file": "ci/lab10/strategies.sh",
+      "complexity": 150,
+      "revisions": 1
+    },
+    {
+      "file": "tools/rfctl/render.go",
+      "complexity": 144,
+      "revisions": 1
+    },
+    {
+      "file": "tools/rfctl/rfctl_test.go",
+      "complexity": 144,
+      "revisions": 1
+    },
+    {
+      "file": "docs/api/openapi.yaml",
+      "complexity": 142,
+      "revisions": 1
+    },
+    {
+      "file": "internal/booking/pricing.go",
+      "complexity": 71,
+      "revisions": 2
+    }
+  ],
+  "coupling": [
+    {
+      "file": "cmd/roomflow/main.go",
+      "soc": 258,
+      "coupledFiles": [
+        {
+          "file": "internal/httpapi/handlers.go",
+          "percentage": 0.7142857142857143,
+          "revisions": 7
+        },
+        {
+          "file": "cmd/roomflow/main_test.go",
+          "percentage": 0.5714285714285714,
+          "revisions": 7
+        },
+        {
+          "file": "internal/booking/model.go",
+          "percentage": 0.5,
+          "revisions": 6
+        },
+        {
+          "file": "internal/store/sql.go",
+          "percentage": 0.5,
+          "revisions": 6
+        },
+        {
+          "file": "internal/booking/service.go",
+          "percentage": 0.42857142857142855,
+          "revisions": 7
+        },
+        {
+          "file": ".gitignore",
+          "percentage": 0.3333333333333333,
+          "revisions": 6
+        },
+        {
+          "file": "Dockerfile",
+          "percentage": 0.3333333333333333,
+          "revisions": 6
+        },
+        {
+          "file": "internal/obs/metrics.go",
+          "percentage": 0.3333333333333333,
+          "revisions": 6
+        },
+        {
+          "file": "internal/obs/middleware.go",
+          "percentage": 0.3333333333333333,
+          "revisions": 6
+        },
+        {
+          "file": "internal/booking/pricing.go",
+          "percentage": 0.3333333333333333,
+          "revisions": 6
+        }
+      ]
+    },
+    {
+      "file": "internal/httpapi/handlers.go",
+      "soc": 250,
+      "coupledFiles": [
+        {
+          "file": "cmd/roomflow/main.go",
+          "percentage": 0.7142857142857143,
+          "revisions": 7
+        },
+        {
+          "file": "internal/booking/model.go",
+          "percentage": 0.5,
+          "revisions": 6
+        },
+        {
+          "file": "internal/store/sql.go",
+          "percentage": 0.5,
+          "revisions": 6
+        },
+        {
+          "file": "internal/booking/service.go",
+          "percentage": 0.42857142857142855,
+          "revisions": 7
+        },
+        {
+          "file": "cmd/roomflow/main_test.go",
+          "percentage": 0.375,
+          "revisions": 8
+        },
+        {
+          "file": ".gitignore",
+          "percentage": 0.3333333333333333,
+          "revisions": 6
+        },
+        {
+          "file": "internal/obs/metrics.go",
+          "percentage": 0.3333333333333333,
+          "revisions": 6
+        },
+        {
+          "file": "internal/obs/middleware.go",
+          "percentage": 0.3333333333333333,
+          "revisions": 6
+        },
+        {
+          "file": "internal/booking/pricing.go",
+          "percentage": 0.3333333333333333,
+          "revisions": 6
+        },
+        {
+          "file": "internal/httpapi/handlers_test.go",
+          "percentage": 0.3333333333333333,
+          "revisions": 6
+        }
+      ]
+    },
+    {
+      "file": "cmd/roomflow/main_test.go",
+      "soc": 230,
+      "coupledFiles": [
+        {
+          "file": "internal/arch/arch_test.go",
+          "percentage": 0.6,
+          "revisions": 5
+        },
+        {
+          "file": "cmd/roomflow/main.go",
+          "percentage": 0.5714285714285714,
+          "revisions": 7
+        },
+        {
+          "file": "Dockerfile",
+          "percentage": 0.4,
+          "revisions": 5
+        },
+        {
+          "file": "internal/booking/bench_test.go",
+          "percentage": 0.4,
+          "revisions": 5
+        },
+        {
+          "file": "internal/httpapi/handlers.go",
+          "percentage": 0.375,
+          "revisions": 8
+        },
+        {
+          "file": "internal/booking/properties_test.go",
+          "percentage": 0.3333333333333333,
+          "revisions": 6
+        },
+        {
+          "file": "internal/store/sql.go",
+          "percentage": 0.3333333333333333,
+          "revisions": 6
+        },
+        {
+          "file": ".charlie.config.json",
+          "percentage": 0.2,
+          "revisions": 5
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 0.2,
+          "revisions": 5
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 0.2,
+          "revisions": 5
+        }
+      ]
+    },
+    {
+      "file": ".gitignore",
+      "soc": 219,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "internal/obs/metrics.go",
+      "soc": 214,
+      "coupledFiles": [
+        {
+          "file": "internal/obs/middleware.go",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": ".charlie.config.json",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "internal/obs/middleware.go",
+      "soc": 214,
+      "coupledFiles": [
+        {
+          "file": "internal/obs/metrics.go",
+          "percentage": 1,
+          "revisions": 2
+        },
+        {
+          "file": ".charlie.config.json",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "internal/arch/arch_test.go",
+      "soc": 211,
+      "coupledFiles": [
+        {
+          "file": "Dockerfile",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": "cmd/roomflow/main_test.go",
+          "percentage": 0.6,
+          "revisions": 5
+        },
+        {
+          "file": ".charlie.config.json",
+          "percentage": 0.3333333333333333,
+          "revisions": 3
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 0.3333333333333333,
+          "revisions": 3
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 0.3333333333333333,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 0.3333333333333333,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 0.3333333333333333,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 0.3333333333333333,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 0.3333333333333333,
+          "revisions": 3
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 0.3333333333333333,
+          "revisions": 3
+        }
+      ]
+    },
+    {
+      "file": "Dockerfile",
+      "soc": 210,
+      "coupledFiles": [
+        {
+          "file": "internal/arch/arch_test.go",
+          "percentage": 0.6666666666666666,
+          "revisions": 3
+        },
+        {
+          "file": ".charlie.config.json",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": "ci/workflows/ci.yml",
+      "soc": 206,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 0.5,
+          "revisions": 2
+        }
+      ]
+    },
+    {
+      "file": ".charlie.config.json",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": ".pre-commit-config.yaml",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "catalog-info.yaml",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "ci/lab10/bluegreen.sh",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "ci/lab10/canary.sh",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "ci/lab10/flagger.sh",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "ci/lab10/helm.sh",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "ci/lab10/lib.sh",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "ci/lab10/loop.sh",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "ci/lab10/strategies.sh",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab11/argocd.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "ci/lab11/argocd.sh",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "ci/lab11/backstage-shots.mjs",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "ci/lab11/backstage.sh",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "ci/lab11/crossplane.sh",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "ci/lab11/golden-path.sh",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "ci/lab12/charlie.sh",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "ci/lab12/lib.sh",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "ci/lab12/mesh.sh",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "ci/lab12/monitoring.sh",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "ci/lab12/prometheusrule.py",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    },
+    {
+      "file": "ci/lab12/rollouts.sh",
+      "soc": 202,
+      "coupledFiles": [
+        {
+          "file": ".charlie.config.json",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": ".pre-commit-config.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "catalog-info.yaml",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/bluegreen.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/canary.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/flagger.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/helm.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/lib.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/loop.sh",
+          "percentage": 1,
+          "revisions": 1
+        },
+        {
+          "file": "ci/lab10/strategies.sh",
+          "percentage": 1,
+          "revisions": 1
+        }
+      ]
+    }
+  ]
+}
