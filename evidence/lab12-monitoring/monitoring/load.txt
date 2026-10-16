@@ -1,3 +1,3 @@
-Fortio 1.69.5 running at 30 queries per second, 4->4 procs, for 2m30s: http://frontend:8081/api/rooms/r1/availability?from=2027-01-01&to=2027-02-01
+Fortio 1.69.5 running at 30 queries per second, 4->4 procs, for 6m0s: http://frontend:8081/api/rooms/r1/availability?from=2027-01-01&to=2027-02-01
 Aborting because of error 404 for http://frontend:8081/api/rooms/r1/availability?from=2027-01-01&to=2027-02-01 (201 bytes)
 command terminated with exit code 1
