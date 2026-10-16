@@ -1,0 +1,14 @@
+
+Prerequisites check...
+
+  Node version is: 20.20.2
+  Yarn version is: 1.22.22
+  Python version is: 3.12.3
+
+Node version 20 is not a supported LTS version. Please use a supported version (22.x or 24.x).
+
+It seems that something went wrong when validating the prerequisites 🤔
+For help with setting up prerequisites, see https://backstage.io/docs/getting-started/#prerequisites
+
+🔥  Failed to validate needed prerequisites!
+
