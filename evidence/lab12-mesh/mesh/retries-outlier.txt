@@ -1,9 +1,9 @@
-== з повторами (retries 3, retryOn 5xx) і outlier detection, 1-ша хвилина
+== 1) без повторів і без outlier detection (1 з 3 реплік backend повертає 500)
 Code 200 : 400 (100.0 %)
-All done 400 calls (plus 2 warmup) 3.574 ms avg, 20.0 qps
-== наступні 20 с (несправна репліка вилучена з балансування)
+All done 400 calls (plus 2 warmup) 3.171 ms avg, 20.0 qps
+== 2) з повторами (attempts 3, retryOn 5xx), без outlier detection
 Code 200 : 400 (100.0 %)
-All done 400 calls (plus 2 warmup) 3.774 ms avg, 20.0 qps
-== без повторів (VirtualService без retries)
+All done 400 calls (plus 2 warmup) 3.524 ms avg, 20.0 qps
+== 3) повтори + outlier detection (3 поспіль 5xx -> репліку вилучено на 30 с)
 Code 200 : 400 (100.0 %)
-All done 400 calls (plus 2 warmup) 3.734 ms avg, 20.0 qps
+All done 400 calls (plus 2 warmup) 3.307 ms avg, 20.0 qps

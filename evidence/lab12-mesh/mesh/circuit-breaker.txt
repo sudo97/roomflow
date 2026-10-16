@@ -1,9 +1,9 @@
 == 1 з'єднання (у межах ліміту)
 Sockets used: 1 (for perfect keepalive, would be 1)
 Code 200 : 30 (100.0 %)
-All done 30 calls (plus 0 warmup) 3.035 ms avg, 329.4 qps
+All done 30 calls (plus 0 warmup) 2.983 ms avg, 335.1 qps
 == 4 паралельні з'єднання (ліміт maxConnections=1, pending=1)
-Code 200 : 23 (28.8 %)
-Code 503 : 57 (71.2 %)
-All done 80 calls (plus 0 warmup) 2.490 ms avg, 1452.2 qps
+Code 200 : 21 (26.2 %)
+Code 503 : 59 (73.8 %)
+All done 80 calls (plus 0 warmup) 2.664 ms avg, 1430.5 qps
 == статистика Envoy (overflow — запити, відхилені circuit breaker)

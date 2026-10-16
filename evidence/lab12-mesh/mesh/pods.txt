@@ -1,7 +1,7 @@
 NAME                        READY   STATUS    RESTARTS   AGE   IP            NODE                    NOMINATED NODE   READINESS GATES
-backend-6c4b7cdc67-8r69v    2/2     Running   0          14s   10.244.0.9    rf-mesh-control-plane   <none>           <none>
-backend-6c4b7cdc67-w4qsj    2/2     Running   0          14s   10.244.0.8    rf-mesh-control-plane   <none>           <none>
+backend-6c4b7cdc67-bb6lc    2/2     Running   0          17s   10.244.0.8    rf-mesh-control-plane   <none>           <none>
+backend-6c4b7cdc67-qvm4w    2/2     Running   0          17s   10.244.0.10   rf-mesh-control-plane   <none>           <none>
 fortio                      2/2     Running   0          4s    10.244.0.14   rf-mesh-control-plane   <none>           <none>
-frontend-5969fdf74f-8pmt7   2/2     Running   0          14s   10.244.0.12   rf-mesh-control-plane   <none>           <none>
-frontend-5969fdf74f-hsdlf   2/2     Running   0          14s   10.244.0.11   rf-mesh-control-plane   <none>           <none>
-redis-55bc7bbfcc-q8kbj      2/2     Running   0          15s   10.244.0.13   rf-mesh-control-plane   <none>           <none>
+frontend-5969fdf74f-r594d   2/2     Running   0          17s   10.244.0.12   rf-mesh-control-plane   <none>           <none>
+frontend-5969fdf74f-sqjjd   2/2     Running   0          17s   10.244.0.11   rf-mesh-control-plane   <none>           <none>
+redis-55bc7bbfcc-z2w6p      2/2     Running   0          17s   10.244.0.13   rf-mesh-control-plane   <none>           <none>

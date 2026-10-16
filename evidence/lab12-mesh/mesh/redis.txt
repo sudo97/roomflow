@@ -1,6 +1,6 @@
-pod/backend-6c4b7cdc67-8r69v: roomflow mesh (unknown) 
-pod/backend-6c4b7cdc67-w4qsj: roomflow mesh (unknown) roomflow_cache_misses_total 1 roomflow_cache_hits_total 19 
+pod/backend-6c4b7cdc67-bb6lc: roomflow mesh (unknown) roomflow_cache_misses_total 1 roomflow_cache_hits_total 9 
+pod/backend-6c4b7cdc67-qvm4w: roomflow mesh (unknown) roomflow_cache_misses_total 1 roomflow_cache_hits_total 9 
 redis keys before restart: 1
 redis keys after pod restart (AOF on PVC): 1
 NAME         STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
-redis-data   Bound    pvc-3620bc60-829d-4f63-aa7b-ec6d59695533   1Gi        RWO            standard       <unset>                 29s
+redis-data   Bound    pvc-7b82fb8a-8464-4549-8601-167a01de96f7   1Gi        RWO            standard       <unset>                 33s
