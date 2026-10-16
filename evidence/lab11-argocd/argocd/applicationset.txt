@@ -1,7 +1,7 @@
 NAME                  SYNC     HEALTH    REVISION
-roomflow              Synced   Healthy   93719d46e3ed0a56b2d12ddb3805e9494389ce2b
-roomflow-production   Synced   Healthy   93719d46e3ed0a56b2d12ddb3805e9494389ce2b
-roomflow-staging      Synced   Healthy   93719d46e3ed0a56b2d12ddb3805e9494389ce2b
+roomflow              Synced   Healthy   473e37fdd267730d11c7c72c299bfe8125da43f3
+roomflow-production   Synced   Healthy   473e37fdd267730d11c7c72c299bfe8125da43f3
+roomflow-staging      Synced   Healthy   473e37fdd267730d11c7c72c299bfe8125da43f3
 == rf-staging
 NAME                                    READY   UP-TO-DATE   AVAILABLE   AGE
 deployment.apps/roomflow-staging-blue   1/1     1            1           7s
@@ -16,4 +16,4 @@ NAME                                             MIN AVAILABLE   MAX UNAVAILABLE
 poddisruptionbudget.policy/roomflow-production   1               N/A               1                     7s
 
 NAME                                                  POD-SELECTOR                                                                     AGE
-networkpolicy.networking.k8s.io/roomflow-production   app.kubernetes.io/instance=roomflow-production,app.kubernetes.io/name=roomflow   8s
+networkpolicy.networking.k8s.io/roomflow-production   app.kubernetes.io/instance=roomflow-production,app.kubernetes.io/name=roomflow   7s
