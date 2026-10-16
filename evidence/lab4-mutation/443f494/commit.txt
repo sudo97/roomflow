@@ -1,0 +1,1 @@
+443f494200577ce30ca7ed1ca4ffd2703efb4489 test: wiring tests for main and fitness rules for cross-cutting packages
