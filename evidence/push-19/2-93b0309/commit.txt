@@ -1,0 +1,1 @@
+93b03099376fbcd4567bf18be235a9edbfe29f33 ci: add fix-02 patch (secrets baseline audit, gitleaks allowlist, SLO rules, lab6 conftest mount)
