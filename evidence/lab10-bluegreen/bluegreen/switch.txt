@@ -1,0 +1,2 @@
+switch command took 86 ms
+rollback command took 83 ms

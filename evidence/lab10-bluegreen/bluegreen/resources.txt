@@ -1,0 +1,13 @@
+NAME                             READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES        SELECTOR
+deployment.apps/roomflow-blue    3/3     3            3           28s   roomflow     roomflow:v1   app=roomflow,color=blue
+deployment.apps/roomflow-green   3/3     3            3           28s   roomflow     roomflow:v2   app=roomflow,color=green
+
+NAME                             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+service/roomflow                 ClusterIP   10.96.223.18    <none>        80/TCP    28s   app=roomflow,color=blue
+service/roomflow-blue-preview    ClusterIP   10.96.152.120   <none>        80/TCP    28s   app=roomflow,color=blue
+service/roomflow-green-preview   ClusterIP   10.96.41.4      <none>        80/TCP    28s   app=roomflow,color=green
+
+NAME                               ENDPOINTS                                          AGE
+endpoints/roomflow                 10.244.0.5:8080,10.244.0.6:8080,10.244.0.7:8080    28s
+endpoints/roomflow-blue-preview    10.244.0.5:8080,10.244.0.6:8080,10.244.0.7:8080    28s
+endpoints/roomflow-green-preview   10.244.0.10:8080,10.244.0.8:8080,10.244.0.9:8080   28s

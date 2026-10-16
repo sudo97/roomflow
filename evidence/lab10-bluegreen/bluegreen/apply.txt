@@ -1,0 +1,6 @@
+namespace/rf-bg created
+deployment.apps/roomflow-blue created
+deployment.apps/roomflow-green created
+service/roomflow created
+service/roomflow-blue-preview created
+service/roomflow-green-preview created

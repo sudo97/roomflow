@@ -1,0 +1,5 @@
+preview blue:  blue=20 
+preview green: green=20 
+main (before): blue=100 
+main (after):  green=100 
+main (rollback): blue=50 
