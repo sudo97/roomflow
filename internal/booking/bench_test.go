@@ -20,13 +20,13 @@ func BenchmarkCreateBooking(b *testing.B) {
 			_, _ = svc.AddRoom(booking.Room{ID: "r1", TenantID: "t", Name: "x", Capacity: 2, BasePrice: 1000})
 			for i := 0; i < existing; i++ {
 				in := start.AddDate(0, 0, i)
-				r := booking.BookingRequest{Tenant: "t", RoomID: "r1", GuestName: "g", GuestEmail: "g@x.io", Guests: 1,
+				r := booking.Request{Tenant: "t", RoomID: "r1", GuestName: "g", GuestEmail: "g@x.io", Guests: 1,
 					CheckIn: in.Format(layout), CheckOut: in.AddDate(0, 0, 1).Format(layout)}
 				if _, err := svc.CreateBooking(r); err != nil {
 					b.Fatal(err)
 				}
 			}
-			req := booking.BookingRequest{Tenant: "t", RoomID: "r1", GuestName: "g", GuestEmail: "g@x.io", Guests: 1, CheckIn: "2035-01-01", CheckOut: "2035-01-02"}
+			req := booking.Request{Tenant: "t", RoomID: "r1", GuestName: "g", GuestEmail: "g@x.io", Guests: 1, CheckIn: "2035-01-01", CheckOut: "2035-01-02"}
 			b.ResetTimer()
 			for i := 0; i < b.N; i++ {
 				_, _ = svc.CreateBooking(req)

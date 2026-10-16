@@ -35,7 +35,7 @@ func (s *SQLReports) totalsByRoom(query string, args ...any) (map[string]int64, 
 	if err != nil {
 		return nil, fmt.Errorf("report query: %w", err)
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	res := map[string]int64{}
 	for rows.Next() {
 		var room string

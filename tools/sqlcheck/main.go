@@ -1,6 +1,6 @@
 // Command sqlcheck — власне правило статичного аналізу для RoomFlow:
 // забороняє передавати в database/sql (Query, QueryRow, Exec, ...) SQL, зібраний через fmt.Sprintf
-// або конкатенацію рядків. Саме такий дефект SonarQube знайшов у ЛР2 (ризик SQL-ін'єкції).
+// або конкатенацію рядків. Саме такий дефект SonarQube пропустив у ЛР2 (ризик SQL-ін'єкції).
 //
 // Використання: go run ./tools/sqlcheck ./...
 package main
@@ -20,6 +20,10 @@ var sqlMethods = map[string]bool{
 	"Query": true, "QueryRow": true, "Exec": true,
 	"QueryContext": true, "QueryRowContext": true, "ExecContext": true,
 }
+
+var skippedDirs = map[string]bool{"testdata": true, "vendor": true}
+
+const message = "SQL query is built dynamically; use placeholders (?) and pass values as arguments"
 
 // Finding is a single rule violation.
 type Finding struct {
@@ -45,28 +49,44 @@ func main() {
 	}
 }
 
-// CheckDir analyses all non-test Go files under root (testdata directories are skipped).
+// CheckDir analyses all non-test Go files under root (testdata, vendor and hidden directories are skipped).
 func CheckDir(root string) ([]Finding, error) {
 	var all []Finding
 	err := filepath.WalkDir(root, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
-		if d.IsDir() && (d.Name() == "testdata" || d.Name() == "vendor" || strings.HasPrefix(d.Name(), ".")) && path != root {
-			return filepath.SkipDir
+		if d.IsDir() {
+			return skipDir(path, root, d.Name())
 		}
-		if d.IsDir() || !strings.HasSuffix(path, ".go") || strings.HasSuffix(path, "_test.go") {
+		if !isSource(path) {
 			return nil
 		}
-		fset := token.NewFileSet()
-		file, err := parser.ParseFile(fset, path, nil, 0)
-		if err != nil {
-			return err
-		}
-		all = append(all, CheckFile(fset, file)...)
-		return nil
+		found, err := checkPath(path)
+		all = append(all, found...)
+		return err
 	})
 	return all, err
+}
+
+func skipDir(path, root, name string) error {
+	if path != root && (skippedDirs[name] || strings.HasPrefix(name, ".")) {
+		return filepath.SkipDir
+	}
+	return nil
+}
+
+func isSource(path string) bool {
+	return strings.HasSuffix(path, ".go") && !strings.HasSuffix(path, "_test.go")
+}
+
+func checkPath(path string) ([]Finding, error) {
+	fset := token.NewFileSet()
+	file, err := parser.ParseFile(fset, path, nil, 0)
+	if err != nil {
+		return nil, err
+	}
+	return CheckFile(fset, file), nil
 }
 
 // CheckFile reports dynamic SQL passed to database/sql query methods.
@@ -74,59 +94,75 @@ func CheckFile(fset *token.FileSet, file *ast.File) []Finding {
 	built := dynamicStrings(file)
 	var out []Finding
 	ast.Inspect(file, func(n ast.Node) bool {
-		call, ok := n.(*ast.CallExpr)
-		if !ok || len(call.Args) == 0 {
-			return true
-		}
-		sel, ok := call.Fun.(*ast.SelectorExpr)
-		if !ok || !sqlMethods[sel.Sel.Name] {
-			return true
-		}
-		q := call.Args[0]
-		if strings.HasSuffix(sel.Sel.Name, "Context") && len(call.Args) > 1 {
-			q = call.Args[1]
-		}
-		if isDynamic(q) || (isIdent(q) && built[q.(*ast.Ident).Name]) {
-			out = append(out, Finding{fset.Position(q.Pos()), "SQL query is built dynamically; use placeholders (?) and pass values as arguments"})
+		if q := queryArg(n); q != nil && (isDynamic(q) || isBuiltVar(q, built)) {
+			out = append(out, Finding{fset.Position(q.Pos()), message})
 		}
 		return true
 	})
 	return out
 }
 
+// queryArg returns the SQL text argument of a database/sql query call, or nil.
+func queryArg(n ast.Node) ast.Expr {
+	call, ok := n.(*ast.CallExpr)
+	if !ok || len(call.Args) == 0 {
+		return nil
+	}
+	sel, ok := call.Fun.(*ast.SelectorExpr)
+	if !ok || !sqlMethods[sel.Sel.Name] {
+		return nil
+	}
+	if strings.HasSuffix(sel.Sel.Name, "Context") && len(call.Args) > 1 {
+		return call.Args[1]
+	}
+	return call.Args[0]
+}
+
+func isBuiltVar(e ast.Expr, built map[string]bool) bool {
+	id, ok := e.(*ast.Ident)
+	return ok && built[id.Name]
+}
+
 // dynamicStrings collects variables assigned from fmt.Sprintf or string concatenation.
 func dynamicStrings(file *ast.File) map[string]bool {
 	res := map[string]bool{}
 	ast.Inspect(file, func(n ast.Node) bool {
-		as, ok := n.(*ast.AssignStmt)
-		if !ok {
-			return true
-		}
-		for i, rhs := range as.Rhs {
-			if i >= len(as.Lhs) || !isDynamic(rhs) {
-				continue
-			}
-			if id, ok := as.Lhs[i].(*ast.Ident); ok {
-				res[id.Name] = true
-			}
+		if as, ok := n.(*ast.AssignStmt); ok {
+			markDynamic(as, res)
 		}
 		return true
 	})
 	return res
 }
 
+func markDynamic(as *ast.AssignStmt, res map[string]bool) {
+	for i, rhs := range as.Rhs {
+		if i >= len(as.Lhs) || !isDynamic(rhs) {
+			continue
+		}
+		if id, ok := as.Lhs[i].(*ast.Ident); ok {
+			res[id.Name] = true
+		}
+	}
+}
+
 func isDynamic(e ast.Expr) bool {
 	switch v := e.(type) {
 	case *ast.CallExpr:
-		if sel, ok := v.Fun.(*ast.SelectorExpr); ok {
-			if pkg, ok := sel.X.(*ast.Ident); ok && pkg.Name == "fmt" && strings.HasPrefix(sel.Sel.Name, "Sprint") {
-				return true
-			}
-		}
+		return isSprint(v)
 	case *ast.BinaryExpr:
-		return v.Op == token.ADD && !(isLiteral(v.X) && isLiteral(v.Y))
+		return v.Op == token.ADD && (!isLiteral(v.X) || !isLiteral(v.Y))
 	}
 	return false
+}
+
+func isSprint(call *ast.CallExpr) bool {
+	sel, ok := call.Fun.(*ast.SelectorExpr)
+	if !ok {
+		return false
+	}
+	pkg, ok := sel.X.(*ast.Ident)
+	return ok && pkg.Name == "fmt" && strings.HasPrefix(sel.Sel.Name, "Sprint")
 }
 
 func isLiteral(e ast.Expr) bool {
@@ -138,5 +174,3 @@ func isLiteral(e ast.Expr) bool {
 	}
 	return false
 }
-
-func isIdent(e ast.Expr) bool { _, ok := e.(*ast.Ident); return ok }

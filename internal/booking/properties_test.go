@@ -43,7 +43,7 @@ func TestPropertyQuoteInvariants(t *testing.T) {
 		in := day(start)
 		n := 1 + int(nights%21)
 		promos := []string{"", "WELCOME10", "LONGSTAY", "FRIENDS"}
-		s := stay{BookingRequest: BookingRequest{Guests: 1 + int(guests%6), Promo: promos[int(promoIdx)%len(promos)]}, in: in, out: in.AddDate(0, 0, n)}
+		s := stay{Request: Request{Guests: 1 + int(guests%6), Promo: promos[int(promoIdx)%len(promos)]}, in: in, out: in.AddDate(0, 0, n)}
 		noPromo := s
 		noPromo.Promo = ""
 		longer := noPromo
@@ -62,7 +62,7 @@ func FuzzValidate(f *testing.F) {
 	f.Add("", "", "", 0)
 	f.Add("2026-02-30", "2026-13-01", "@", -1)
 	f.Fuzz(func(t *testing.T, in, out, email string, guests int) {
-		s, err := BookingRequest{Tenant: "t", RoomID: "r", GuestName: "g", GuestEmail: email, Guests: guests, CheckIn: in, CheckOut: out}.validate()
+		s, err := Request{Tenant: "t", RoomID: "r", GuestName: "g", GuestEmail: email, Guests: guests, CheckIn: in, CheckOut: out}.validate()
 		if err == nil && (!s.out.After(s.in) || s.Guests <= 0) {
 			t.Fatalf("accepted invalid request: %+v", s)
 		}
@@ -71,7 +71,7 @@ func FuzzValidate(f *testing.F) {
 
 func BenchmarkQuoteTwoWeeks(b *testing.B) {
 	room := Room{BasePrice: 120000}
-	s := stay{BookingRequest: BookingRequest{Guests: 2, Promo: "LONGSTAY"}, in: epoch, out: epoch.AddDate(0, 0, 14)}
+	s := stay{Request: Request{Guests: 2, Promo: "LONGSTAY"}, in: epoch, out: epoch.AddDate(0, 0, 14)}
 	for i := 0; i < b.N; i++ {
 		quote(room, s)
 	}
