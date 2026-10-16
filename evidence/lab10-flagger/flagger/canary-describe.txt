@@ -5,10 +5,10 @@ Annotations:  <none>
 API Version:  flagger.app/v1beta1
 Kind:         Canary
 Metadata:
-  Creation Timestamp:  2026-10-16T17:17:38Z
+  Creation Timestamp:  2026-10-16T17:34:51Z
   Generation:          1
   Resource Version:    1595
-  UID:                 9c473f80-bd9f-4fd0-8b66-4bf23e594b21
+  UID:                 4f6e3255-c612-475e-8279-dda3e1f817a0
 Spec:
   Analysis:
     Interval:    15s
@@ -48,8 +48,8 @@ Spec:
 Status:
   Canary Weight:  0
   Conditions:
-    Last Transition Time:  2026-10-16T17:21:54Z
-    Last Update Time:      2026-10-16T17:21:54Z
+    Last Transition Time:  2026-10-16T17:39:10Z
+    Last Update Time:      2026-10-16T17:39:10Z
     Message:               Canary analysis failed, Deployment scaled to zero.
     Reason:                Failed
     Status:                False
@@ -58,25 +58,25 @@ Status:
   Iterations:              0
   Last Applied Spec:       659784b6b
   Last Promoted Spec:      c5c99c997
-  Last Transition Time:    2026-10-16T17:21:54Z
+  Last Transition Time:    2026-10-16T17:39:10Z
   Phase:                   Failed
   Tracked Configs:
 Events:
   Type     Reason  Age                   From     Message
   ----     ------  ----                  ----     -------
-  Warning  Synced  4m19s                 flagger  roomflow-primary.rf-flagger not ready: waiting for rollout to finish: observed deployment generation less than desired generation
-  Normal   Synced  4m4s                  flagger  Initialization done! roomflow.rf-flagger
-  Normal   Synced  4m4s (x2 over 4m19s)  flagger  all the metrics providers are available!
-  Normal   Synced  3m4s                  flagger  Advance roomflow.rf-flagger canary weight 20
-  Normal   Synced  2m49s                 flagger  Advance roomflow.rf-flagger canary weight 30
-  Normal   Synced  2m34s                 flagger  Advance roomflow.rf-flagger canary weight 40
-  Normal   Synced  2m19s                 flagger  Advance roomflow.rf-flagger canary weight 50
-  Normal   Synced  94s (x3 over 2m4s)    flagger  (combined from similar events): Promotion completed! Scaling down roomflow.rf-flagger
-  Normal   Synced  79s (x2 over 3m49s)   flagger  New revision detected! Scaling up roomflow.rf-flagger
-  Normal   Synced  64s (x2 over 3m34s)   flagger  Starting canary analysis for roomflow.rf-flagger
-  Normal   Synced  64s (x2 over 3m34s)   flagger  Advance roomflow.rf-flagger canary weight 10
-  Warning  Synced  49s (x2 over 3m19s)   flagger  Halt advancement no values found for nginx metric request-success-rate probably roomflow.rf-flagger is not receiving traffic: running query failed: no values found
-  Warning  Synced  34s                   flagger  Halt roomflow.rf-flagger advancement success rate 44.47% < 95%
-  Warning  Synced  19s                   flagger  Halt roomflow.rf-flagger advancement success rate 61.28% < 95%
-  Warning  Synced  4s                    flagger  Rolling back roomflow.rf-flagger failed checks threshold reached 3
-  Warning  Synced  4s                    flagger  Canary failed! Scaling down roomflow.rf-flagger
+  Warning  Synced  4m18s                 flagger  roomflow-primary.rf-flagger not ready: waiting for rollout to finish: observed deployment generation less than desired generation
+  Normal   Synced  4m3s                  flagger  Initialization done! roomflow.rf-flagger
+  Normal   Synced  4m3s (x2 over 4m18s)  flagger  all the metrics providers are available!
+  Normal   Synced  3m3s                  flagger  Advance roomflow.rf-flagger canary weight 20
+  Normal   Synced  2m48s                 flagger  Advance roomflow.rf-flagger canary weight 30
+  Normal   Synced  2m33s                 flagger  Advance roomflow.rf-flagger canary weight 40
+  Normal   Synced  2m18s                 flagger  Advance roomflow.rf-flagger canary weight 50
+  Normal   Synced  93s (x3 over 2m3s)    flagger  (combined from similar events): Promotion completed! Scaling down roomflow.rf-flagger
+  Normal   Synced  78s (x2 over 3m48s)   flagger  New revision detected! Scaling up roomflow.rf-flagger
+  Normal   Synced  63s (x2 over 3m33s)   flagger  Starting canary analysis for roomflow.rf-flagger
+  Normal   Synced  63s (x2 over 3m33s)   flagger  Advance roomflow.rf-flagger canary weight 10
+  Warning  Synced  48s (x2 over 3m18s)   flagger  Halt advancement no values found for nginx metric request-success-rate probably roomflow.rf-flagger is not receiving traffic: running query failed: no values found
+  Warning  Synced  33s                   flagger  Halt roomflow.rf-flagger advancement success rate 50.74% < 95%
+  Warning  Synced  18s                   flagger  Halt roomflow.rf-flagger advancement success rate 61.14% < 95%
+  Warning  Synced  3s                    flagger  Rolling back roomflow.rf-flagger failed checks threshold reached 3
+  Warning  Synced  3s                    flagger  Canary failed! Scaling down roomflow.rf-flagger

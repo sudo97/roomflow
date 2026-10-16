@@ -1,40 +1,40 @@
-2m3s        Normal    SuccessfulDelete    replicaset/roomflow-primary-6b84bdcd4     Deleted pod: roomflow-primary-6b84bdcd4-b5jbb
-2m3s        Normal    Scheduled           pod/roomflow-primary-78c85bd7fb-4phgk     Successfully assigned rf-flagger/roomflow-primary-78c85bd7fb-4phgk to rf-flagger-control-plane
-2m3s        Normal    Pulled              pod/roomflow-primary-78c85bd7fb-4phgk     Container image "roomflow:v2" already present on machine and can be accessed by the pod
-2m3s        Normal    Created             pod/roomflow-primary-78c85bd7fb-4phgk     Container created
-2m3s        Normal    Started             pod/roomflow-primary-78c85bd7fb-4phgk     Container started
-2m3s        Normal    Killing             pod/roomflow-primary-6b84bdcd4-b5jbb      Stopping container roomflow
-2m3s        Normal    ScalingReplicaSet   deployment/roomflow-primary               Scaled up replica set roomflow-primary-78c85bd7fb from 1 to 2
-2m3s        Normal    SuccessfulCreate    replicaset/roomflow-primary-78c85bd7fb    Created pod: roomflow-primary-78c85bd7fb-4phgk
-94s         Normal    SuccessfulDelete    replicaset/roomflow-7bf69cd6bb            Deleted pod: roomflow-7bf69cd6bb-wddhw
-94s         Normal    Killing             pod/roomflow-7bf69cd6bb-856lc             Stopping container roomflow
-94s         Normal    Synced              canary/roomflow                           (combined from similar events): Promotion completed! Scaling down roomflow.rf-flagger
-94s         Normal    ScalingReplicaSet   deployment/roomflow                       Scaled down replica set roomflow-7bf69cd6bb from 2 to 0
-94s         Normal    Killing             pod/roomflow-7bf69cd6bb-wddhw             Stopping container roomflow
-94s         Normal    SuccessfulDelete    replicaset/roomflow-7bf69cd6bb            Deleted pod: roomflow-7bf69cd6bb-856lc
-79s         Normal    SuccessfulCreate    replicaset/roomflow-77fbb76c65            Created pod: roomflow-77fbb76c65-9nxnc
-79s         Normal    Pulled              pod/roomflow-77fbb76c65-9nxnc             Container image "roomflow:v2" already present on machine and can be accessed by the pod
-79s         Normal    Pulled              pod/roomflow-77fbb76c65-m897s             Container image "roomflow:v2" already present on machine and can be accessed by the pod
-79s         Normal    ScalingReplicaSet   deployment/roomflow                       Scaled up replica set roomflow-77fbb76c65 from 0 to 2
-79s         Normal    Created             pod/roomflow-77fbb76c65-m897s             Container created
-79s         Normal    Started             pod/roomflow-77fbb76c65-9nxnc             Container started
-79s         Normal    Created             pod/roomflow-77fbb76c65-9nxnc             Container created
-79s         Normal    SuccessfulCreate    replicaset/roomflow-77fbb76c65            Created pod: roomflow-77fbb76c65-m897s
-79s         Normal    Scheduled           pod/roomflow-77fbb76c65-9nxnc             Successfully assigned rf-flagger/roomflow-77fbb76c65-9nxnc to rf-flagger-control-plane
-79s         Normal    Synced              canary/roomflow                           New revision detected! Scaling up roomflow.rf-flagger
-79s         Normal    Started             pod/roomflow-77fbb76c65-m897s             Container started
-79s         Warning   Unhealthy           pod/roomflow-77fbb76c65-m897s             Readiness probe failed: Get "http://10.244.0.17:8080/healthz": dial tcp 10.244.0.17:8080: connect: connection refused
-79s         Normal    Scheduled           pod/roomflow-77fbb76c65-m897s             Successfully assigned rf-flagger/roomflow-77fbb76c65-m897s to rf-flagger-control-plane
-64s         Normal    Synced              canary/roomflow                           Advance roomflow.rf-flagger canary weight 10
-64s         Normal    Synced              canary/roomflow                           Starting canary analysis for roomflow.rf-flagger
-49s         Warning   Synced              canary/roomflow                           Halt advancement no values found for nginx metric request-success-rate probably roomflow.rf-flagger is not receiving traffic: running query failed: no values found
-34s         Warning   Synced              canary/roomflow                           Halt roomflow.rf-flagger advancement success rate 44.47% < 95%
-19s         Warning   Synced              canary/roomflow                           Halt roomflow.rf-flagger advancement success rate 61.28% < 95%
-4s          Normal    Killing             pod/roomflow-77fbb76c65-m897s             Stopping container roomflow
-4s          Normal    SuccessfulDelete    replicaset/roomflow-77fbb76c65            Deleted pod: roomflow-77fbb76c65-9nxnc
-4s          Normal    SuccessfulDelete    replicaset/roomflow-77fbb76c65            Deleted pod: roomflow-77fbb76c65-m897s
-4s          Normal    Sync                ingress/roomflow-canary                   Scheduled for sync
-4s          Normal    Killing             pod/roomflow-77fbb76c65-9nxnc             Stopping container roomflow
-4s          Warning   Synced              canary/roomflow                           Rolling back roomflow.rf-flagger failed checks threshold reached 3
-4s          Warning   Synced              canary/roomflow                           Canary failed! Scaling down roomflow.rf-flagger
-4s          Normal    ScalingReplicaSet   deployment/roomflow                       Scaled down replica set roomflow-77fbb76c65 from 2 to 0
+2m3s        Normal    Scheduled           pod/roomflow-primary-7bd69d95f6-btwld     Successfully assigned rf-flagger/roomflow-primary-7bd69d95f6-btwld to rf-flagger-control-plane
+2m2s        Normal    SuccessfulDelete    replicaset/roomflow-primary-775bd68cdd    Deleted pod: roomflow-primary-775bd68cdd-cj6bq
+2m2s        Normal    Pulled              pod/roomflow-primary-7bd69d95f6-btwld     Container image "roomflow:v2" already present on machine and can be accessed by the pod
+2m2s        Normal    Created             pod/roomflow-primary-7bd69d95f6-btwld     Container created
+2m2s        Normal    Started             pod/roomflow-primary-7bd69d95f6-btwld     Container started
+2m2s        Warning   Unhealthy           pod/roomflow-primary-7bd69d95f6-btwld     Readiness probe failed: Get "http://10.244.0.16:8080/healthz": dial tcp 10.244.0.16:8080: connect: connection refused
+2m2s        Normal    Killing             pod/roomflow-primary-775bd68cdd-cj6bq     Stopping container roomflow
+2m2s        Normal    ScalingReplicaSet   deployment/roomflow-primary               Scaled down replica set roomflow-primary-775bd68cdd from 1 to 0
+2m1s        Warning   Unhealthy           pod/roomflow-primary-775bd68cdd-cj6bq     Readiness probe failed: Get "http://10.244.0.12:8080/healthz": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+93s         Normal    Killing             pod/roomflow-7bf69cd6bb-scvn4             Stopping container roomflow
+93s         Normal    SuccessfulDelete    replicaset/roomflow-7bf69cd6bb            Deleted pod: roomflow-7bf69cd6bb-scvn4
+93s         Normal    SuccessfulDelete    replicaset/roomflow-7bf69cd6bb            Deleted pod: roomflow-7bf69cd6bb-7hgdz
+93s         Normal    Synced              canary/roomflow                           (combined from similar events): Promotion completed! Scaling down roomflow.rf-flagger
+93s         Normal    ScalingReplicaSet   deployment/roomflow                       Scaled down replica set roomflow-7bf69cd6bb from 2 to 0
+93s         Normal    Killing             pod/roomflow-7bf69cd6bb-7hgdz             Stopping container roomflow
+78s         Normal    SuccessfulCreate    replicaset/roomflow-77fbb76c65            Created pod: roomflow-77fbb76c65-6jnpz
+78s         Normal    SuccessfulCreate    replicaset/roomflow-77fbb76c65            Created pod: roomflow-77fbb76c65-dmjq9
+78s         Normal    ScalingReplicaSet   deployment/roomflow                       Scaled up replica set roomflow-77fbb76c65 from 0 to 2
+78s         Normal    Scheduled           pod/roomflow-77fbb76c65-dmjq9             Successfully assigned rf-flagger/roomflow-77fbb76c65-dmjq9 to rf-flagger-control-plane
+78s         Normal    Started             pod/roomflow-77fbb76c65-6jnpz             Container started
+78s         Normal    Created             pod/roomflow-77fbb76c65-6jnpz             Container created
+78s         Normal    Pulled              pod/roomflow-77fbb76c65-6jnpz             Container image "roomflow:v2" already present on machine and can be accessed by the pod
+78s         Normal    Scheduled           pod/roomflow-77fbb76c65-6jnpz             Successfully assigned rf-flagger/roomflow-77fbb76c65-6jnpz to rf-flagger-control-plane
+78s         Normal    Created             pod/roomflow-77fbb76c65-dmjq9             Container created
+78s         Normal    Synced              canary/roomflow                           New revision detected! Scaling up roomflow.rf-flagger
+78s         Normal    Started             pod/roomflow-77fbb76c65-dmjq9             Container started
+78s         Normal    Pulled              pod/roomflow-77fbb76c65-dmjq9             Container image "roomflow:v2" already present on machine and can be accessed by the pod
+63s         Normal    Synced              canary/roomflow                           Starting canary analysis for roomflow.rf-flagger
+63s         Normal    Synced              canary/roomflow                           Advance roomflow.rf-flagger canary weight 10
+48s         Warning   Synced              canary/roomflow                           Halt advancement no values found for nginx metric request-success-rate probably roomflow.rf-flagger is not receiving traffic: running query failed: no values found
+33s         Warning   Synced              canary/roomflow                           Halt roomflow.rf-flagger advancement success rate 50.74% < 95%
+18s         Warning   Synced              canary/roomflow                           Halt roomflow.rf-flagger advancement success rate 61.14% < 95%
+3s          Normal    Sync                ingress/roomflow-canary                   Scheduled for sync
+3s          Normal    SuccessfulDelete    replicaset/roomflow-77fbb76c65            Deleted pod: roomflow-77fbb76c65-6jnpz
+3s          Normal    SuccessfulDelete    replicaset/roomflow-77fbb76c65            Deleted pod: roomflow-77fbb76c65-dmjq9
+3s          Normal    Killing             pod/roomflow-77fbb76c65-6jnpz             Stopping container roomflow
+3s          Normal    Killing             pod/roomflow-77fbb76c65-dmjq9             Stopping container roomflow
+3s          Warning   Synced              canary/roomflow                           Rolling back roomflow.rf-flagger failed checks threshold reached 3
+3s          Warning   Synced              canary/roomflow                           Canary failed! Scaling down roomflow.rf-flagger
+3s          Normal    ScalingReplicaSet   deployment/roomflow                       Scaled down replica set roomflow-77fbb76c65 from 2 to 0
