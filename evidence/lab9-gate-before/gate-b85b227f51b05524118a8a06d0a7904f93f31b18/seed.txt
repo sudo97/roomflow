@@ -1,1 +1,1 @@
-seeded 20 tenants x 10 rooms, 30000 bookings (0 failed) in 29.215s
+seeded 20 tenants x 10 rooms, 30000 bookings (0 failed) in 30.997s
