@@ -1,0 +1,10 @@
+active_color = "blue"
+db_backups_volume = "rf-ci-db-backups"
+networks = {
+  "app" = "rf-ci-app"
+  "egress" = "rf-ci-egress"
+  "private" = "rf-ci-private"
+  "public" = "rf-ci-public"
+}
+prometheus_url = "http://localhost:9090"
+url = "http://localhost:8088"

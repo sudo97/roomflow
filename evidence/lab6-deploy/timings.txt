@@ -1,0 +1,2 @@
+platform apply: 7 s
+app blue apply: 1 s

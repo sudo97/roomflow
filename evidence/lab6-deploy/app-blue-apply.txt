@@ -1,0 +1,16 @@
+module.app.docker_image.app: Creating...
+module.app.docker_image.app: Creation complete after 0s [id=sha256:b8b791b4738742086b30ab6ceda0ed21851c29a33e17b2a001dd70ed1d8a79a8localhost:5000/roomflow:v1]
+module.app.docker_container.replica[1]: Creating...
+module.app.docker_container.replica[0]: Creating...
+module.app.docker_container.replica[1]: Creation complete after 0s [id=786bb70c50eb8efbe67cccd5ba76625d8c0a25d83d790bc0ce59110265cc3dfa]
+module.app.docker_container.replica[0]: Creation complete after 0s [id=4e7d52d59d973eb05f1736cec1bbc7fc0f23e02beaa2808b641e81d2af11a6e1]
+
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+color = "blue"
+replicas = [
+  "rf-ci-blue-0",
+  "rf-ci-blue-1",
+]
