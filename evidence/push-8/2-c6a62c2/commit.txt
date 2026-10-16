@@ -1,0 +1,1 @@
+c6a62c2e909bb2230549ce92672fe66a5c2d92fa fix: address golangci-lint findings (stutter, errcheck, complexity)

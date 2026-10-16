@@ -1,0 +1,15 @@
+# github.com/sudo97/roomflow/internal/httpapi
+internal/httpapi/handlers.go:94:40: undefined: booking.BookingRequest
+FAIL	github.com/sudo97/roomflow/cmd/roomflow [build failed]
+# github.com/sudo97/roomflow/internal/booking [github.com/sudo97/roomflow/internal/booking.test]
+internal/booking/properties_test.go:46:13: unknown field BookingRequest in struct literal of type stay
+internal/booking/properties_test.go:46:29: undefined: BookingRequest
+internal/booking/properties_test.go:65:13: undefined: BookingRequest
+internal/booking/properties_test.go:74:12: unknown field BookingRequest in struct literal of type stay
+internal/booking/properties_test.go:74:28: undefined: BookingRequest
+ok  	github.com/sudo97/roomflow/internal/arch	0.003s	coverage: [no statements]
+FAIL	github.com/sudo97/roomflow/internal/booking [build failed]
+FAIL	github.com/sudo97/roomflow/internal/httpapi [build failed]
+ok  	github.com/sudo97/roomflow/internal/store	0.003s	coverage: 96.0% of statements
+ok  	github.com/sudo97/roomflow/tools/sqlcheck	0.006s	coverage: 78.8% of statements
+FAIL
