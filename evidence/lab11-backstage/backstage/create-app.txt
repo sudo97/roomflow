@@ -14,15 +14,15 @@ Creating the app...
  Preparing files:
   copying       .dockerignore ✔ 
   copying       .eslintignore ✔ 
-  templating    .eslintrc.js.hbs ✔ 
   templating    .gitignore.hbs ✔ 
+  templating    .eslintrc.js.hbs ✔ 
   copying       .prettierignore ✔ 
   templating    .yarnrc.yml.hbs ✔ 
   copying       README.md ✔ 
   copying       app-config.production.yaml ✔ 
-  templating    backstage.json.hbs ✔ 
   templating    app-config.yaml.hbs ✔ 
   templating    catalog-info.yaml.hbs ✔ 
+  templating    backstage.json.hbs ✔ 
   templating    package.json.hbs ✔ 
   copying       playwright.config.ts ✔ 
   copying       tsconfig.json ✔ 
@@ -41,22 +41,22 @@ Creating the app...
   copying       README.md ✔ 
   templating    package.json.hbs ✔ 
   copying       index.ts ✔ 
-  templating    .eslintrc.js.hbs ✔ 
   copying       .eslintignore ✔ 
   templating    package.json.hbs ✔ 
+  templating    .eslintrc.js.hbs ✔ 
   copying       app.test.ts ✔ 
-  copying       apple-touch-icon.png ✔ 
   copying       android-chrome-192x192.png ✔ 
+  copying       apple-touch-icon.png ✔ 
   copying       favicon-16x16.png ✔ 
-  copying       favicon-32x32.png ✔ 
   copying       favicon.ico ✔ 
   copying       index.html ✔ 
   copying       manifest.json ✔ 
+  copying       favicon-32x32.png ✔ 
   copying       robots.txt ✔ 
   copying       safari-pinned-tab.svg ✔ 
-  copying       App.tsx ✔ 
   copying       App.test.tsx ✔ 
   copying       index.tsx ✔ 
+  copying       App.tsx ✔ 
   copying       setupTests.ts ✔ 
   copying       homeModule.tsx ✔ 
   copying       index.ts ✔ 
