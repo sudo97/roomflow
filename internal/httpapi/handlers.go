@@ -25,7 +25,9 @@ type tenantHandler func(w http.ResponseWriter, r *http.Request, tenant booking.T
 // Routes returns the HTTP router.
 func (a *API) Routes() http.Handler {
 	mux := http.NewServeMux()
-	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, _ *http.Request) { writeJSON(w, http.StatusOK, map[string]string{"status": "ok"}) })
+	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, _ *http.Request) {
+		writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
+	})
 	mux.Handle("GET /api/rooms", withTenant(a.listRooms))
 	mux.Handle("POST /api/rooms", withTenant(a.addRoom))
 	mux.Handle("POST /api/bookings", withTenant(a.createBooking))
