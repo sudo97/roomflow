@@ -1,0 +1,81 @@
+diff --git a/ci/lab11/backstage-shots.mjs b/ci/lab11/backstage-shots.mjs
+index 004c550..bea6bd0 100644
+--- a/ci/lab11/backstage-shots.mjs
++++ b/ci/lab11/backstage-shots.mjs
+@@ -6,12 +6,17 @@ const out = process.argv[2];
+ const base = 'http://localhost:3000';
+ const browser = await chromium.launch();
+ const page = await browser.newPage({ viewport: { width: 1600, height: 1000 } });
+-await page.goto(base, { waitUntil: 'networkidle', timeout: 120000 });
+-for (const label of ['Enter', 'Sign In', 'Continue']) {
+-  const b = page.getByRole('button', { name: label });
+-  if (await b.count()) { await b.first().click(); break; }
++// Вхід як guest: кнопка Enter з'являється після завантаження SPA, тому її чекаємо явно;
++// перевіряємо і після кожного переходу (повне перезавантаження сторінки може знову показати вхід).
++async function signIn() {
++  for (const label of ['Enter', 'Sign In', 'Continue']) {
++    const b = page.getByRole('button', { name: label });
++    try { await b.first().waitFor({ state: 'visible', timeout: 8000 }); await b.first().click(); await page.waitForTimeout(3000); return true; } catch { /* немає такої кнопки */ }
++  }
++  return false;
+ }
+-await page.waitForTimeout(4000);
++await page.goto(base, { waitUntil: 'networkidle', timeout: 120000 });
++console.log('signed in:', await signIn());
+ const shots = {
+   'catalog': '/catalog?filters[kind]=component',
+   'component-api': '/catalog/default/component/roomflow-api',
+@@ -24,6 +29,7 @@ const shots = {
+ for (const [name, path] of Object.entries(shots)) {
+   try {
+     await page.goto(base + path, { waitUntil: 'networkidle', timeout: 60000 });
++    if (await page.getByRole('button', { name: 'Enter' }).count()) await signIn();
+     await page.waitForTimeout(3000);
+     await page.screenshot({ path: `${out}/${name}.png` });
+     console.log('saved', name);
+diff --git a/ci/lab11/backstage.sh b/ci/lab11/backstage.sh
+index baa0948..3e40bc7 100644
+--- a/ci/lab11/backstage.sh
++++ b/ci/lab11/backstage.sh
+@@ -34,8 +34,15 @@ grep -m1 '"version"' node_modules/@backstage/cli/package.json | tee "$E/versions
+ yarn add --cwd packages/backend pg >/dev/null 2>&1 || (cd packages/backend && yarn add pg >/dev/null)
+ endlog
+ 
++# Для location типу file відносне посилання $text: ./docs/api/openapi.yaml не перетворюється на URL
++# (PlaceholderProcessor: Invalid URL), і сутність API не завантажувалась. Каталог реєструється з копії,
++# де специфікація читається за абсолютною URL-адресою з репозиторію.
++mkdir -p /tmp/catalog
++sed 's#\$text: ./docs/api/openapi.yaml#$text: https://raw.githubusercontent.com/sudo97/roomflow/main/docs/api/openapi.yaml#' "$REPO/catalog-info.yaml" > /tmp/catalog/catalog-info.yaml
+ cat > app-config.local.yaml <<YAML
+ backend:
++  reading:
++    allow: [{ host: raw.githubusercontent.com }]
+   database:
+     client: pg
+     connection: { host: localhost, port: 5432, user: backstage, password: backstage }
+@@ -47,7 +54,7 @@ catalog:
+   rules:
+     - allow: [Component, System, API, Resource, Location, Group, User, Domain, Template]
+   locations:
+-    - { type: file, target: $REPO/catalog-info.yaml }
++    - { type: file, target: /tmp/catalog/catalog-info.yaml }
+     - { type: file, target: $REPO/platform/templates/service/template.yaml, rules: [{ allow: [Template] }] }
+ YAML
+ 
+diff --git a/ci/lib/shoot.mjs b/ci/lib/shoot.mjs
+index 3e718d2..99b2efd 100644
+--- a/ci/lib/shoot.mjs
++++ b/ci/lib/shoot.mjs
+@@ -15,8 +15,10 @@ if (process.env.SHOT_LOGIN_URL) { // вхід через форму: перше
+     await page.goto(process.env.SHOT_LOGIN_URL, { waitUntil: 'networkidle', timeout: 60000 });
+     await page.fill('input[type=text], input[name=username]', process.env.SHOT_USER || '');
+     await page.fill('input[type=password]', process.env.SHOT_PASS || '');
+-    await page.keyboard.press('Enter');
+-    await page.waitForTimeout(4000);
++    const btn = page.getByRole('button', { name: /sign in/i });
++    if (await btn.count()) await btn.first().click(); else await page.keyboard.press('Enter');
++    await page.waitForURL(u => !String(u).includes('/login'), { timeout: 20000 }).catch(() => console.log('login: still on login page'));
++    await page.waitForTimeout(2000);
+   } catch (e) { console.log('login:', e.message); }
+ }
+ try {
