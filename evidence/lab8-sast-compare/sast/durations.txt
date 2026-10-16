@@ -1,2 +1,2 @@
-current gosec 3703
-current semgrep 10377
+demo gosec 1591
+demo semgrep 12552
